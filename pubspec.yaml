@@ -1,0 +1,36 @@
+name: flutter_raih_peduli
+description: A new Flutter project.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.1.3 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  provider: ^6.0.5
+  flutter_native_splash: ^2.3.5
+
+flutter_native_splash:
+  color: "#FFFFFF"
+  image: "assets/DCyd2t_r_400x400.jpg"
+  android: true
+  ios: true
+  android_12:
+    color: "#FFFFFF"
+    image: "assets/DCyd2t_r_400x400.jpg"
+
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
+  
