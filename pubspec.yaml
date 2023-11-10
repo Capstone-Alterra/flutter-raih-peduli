@@ -12,15 +12,17 @@ dependencies:
   cupertino_icons: ^1.0.2
   provider: ^6.0.5
   flutter_native_splash: ^2.3.5
+  flutter_svg: ^2.0.9
+  rename: ^3.0.1
 
 flutter_native_splash:
   color: "#FFFFFF"
-  image: "assets/DCyd2t_r_400x400.jpg"
+  image: "assets/splash_screen.png"
   android: true
   ios: true
   android_12:
     color: "#FFFFFF"
-    image: "assets/DCyd2t_r_400x400.jpg"
+    image: "assets/splash_screen.png"
 
 
 
