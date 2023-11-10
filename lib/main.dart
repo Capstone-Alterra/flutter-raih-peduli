@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/screen/view/onBoarding/on_boarding.dart';
+import 'package:flutter_raih_peduli/screen/view/onBoarding/onboarding.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_onboarding.dart';
-
 import 'package:provider/provider.dart';
-
-// import 'screen/view/login.dart';
 import 'screen/view_model/view_model_login.dart';
 
 void main() {
@@ -25,7 +22,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             brightness: Brightness.light,
             appBarTheme: const AppBarTheme(
-              backgroundColor: Color(0xFF6D6D6D),
+              backgroundColor: Color(0xFF293066),
             ),
           ),
           debugShowCheckedModeBanner: false,

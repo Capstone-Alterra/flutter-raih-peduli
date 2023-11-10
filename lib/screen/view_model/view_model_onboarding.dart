@@ -3,6 +3,7 @@ import '../../model/model_onboarding.dart';
 
 class OnBoardingViewModel with ChangeNotifier {
   int currentIndex = 0;
+  late PageController controller = PageController(initialPage: 0);
 
   void updateIndex(int newIndex) {
     currentIndex = newIndex;
