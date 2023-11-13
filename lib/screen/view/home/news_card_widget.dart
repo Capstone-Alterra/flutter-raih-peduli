@@ -13,42 +13,85 @@ class NewsCard extends StatelessWidget {
     return Card(
       elevation: 3,
       margin: const EdgeInsets.all(8.0),
-      child: Column(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.network(
-            newsData.imageUrl,
+          // Rounded rectangle container for the image
+          Container(
+            width: 140,
             height: 150,
-            fit: BoxFit.cover,
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+              // You can set a background color for the rounded rectangle
+            ),
+            child: Padding(
+              padding: const EdgeInsets.only(
+                top: 10.0,
+                bottom: 10.0,
+                left: 10.0, // Padding di sebelah kiri
+              ),
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+                child: Image.network(
+                  newsData.imageUrl,
+                  height: 150,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  newsData.title,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
+          // Padding for spacing
+          const SizedBox(width: 3.0),
+          // Data
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.baseline,
+                    textBaseline: TextBaseline.alphabetic,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              newsData.title,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                            ),
+                            const SizedBox(height: 25.0),
+                            Text(newsData.description),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                Text(newsData.description),
-                ElevatedButton(
-                  onPressed: () {
-                    // Aksi ketika tombol "Baca Selengkapnya" ditekan
-                  },
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25.0),
+                  const SizedBox(height: 25.0),
+                  // Tombol "Baca Selengkapnya"
+                  ElevatedButton(
+                    onPressed: () {
+                      // Fungsi yang akan dijalankan saat tombol ditekan
+                      // Anda dapat menambahkan logika navigasi atau tindakan lainnya di sini
+                    },
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(horizontal: 46.0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
                     ),
+                    child: const Text('Baca Selengkapnya'),
                   ),
-                  child: const Text(
-                    'Baca Selengkapnya',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],
