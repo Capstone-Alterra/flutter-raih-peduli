@@ -7,39 +7,23 @@ class SearchBarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = Provider.of<HomeScreenViewModel>(context, listen: false);
 
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(8.0),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(25.0),
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: TextField(
-              controller: TextEditingController(text: provider.searchText),
-              onChanged: (text) {
-                provider.setSearchText(text);
-              },
-              decoration: InputDecoration(
-                labelText: 'Cari...',
-                prefixIcon: Image.asset('assets/icons/search.png'),
-                suffixIcon: provider.searchText.isNotEmpty
-                    ? Image.asset('assets/icons/search.png')
-                    : null,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(25.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(25.0),
-                  borderSide: const BorderSide(color: Colors.blue),
-                ),
-              ),
+    return Padding(
+        padding: const EdgeInsets.fromLTRB(10, 14, 0, 14),
+        child: TextFormField(
+          controller: TextEditingController(text: provider.searchText),
+          onChanged: (text) {
+            provider.setSearchText(text);
+          },
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: Colors.white,
+            prefixIcon: Image.asset('assets/icons/search.png'),
+            border: const OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.horizontal(
+                  left: Radius.circular(25.0), right: Radius.circular(25.0)),
             ),
           ),
-        ],
-      ),
-    );
+        ));
   }
 }

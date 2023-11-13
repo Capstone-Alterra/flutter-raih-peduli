@@ -21,15 +21,17 @@ class HomeScreen extends StatelessWidget {
           children: [
             HeaderWidget(),
             const Padding(
-              padding: EdgeInsets.all(16.0),
+              padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
               child: Text(
-                'Feature Menu',
+                'Fitur Menu',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),
-            FeatureMenuList(),
+            const FeatureMenuList(),
             SizedBox(
-              height: MediaQuery.of(context).size.height - kToolbarHeight - 56, // Sesuaikan dengan tinggi yang diinginkan
+              height: MediaQuery.of(context).size.height -
+                  kToolbarHeight -
+                  56, // Sesuaikan dengan tinggi yang diinginkan
               child: ChangeNotifierProvider(
                 create: (context) => HomeScreenViewModel(),
                 child: HomeListViewBuilder(),

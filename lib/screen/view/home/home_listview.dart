@@ -9,7 +9,6 @@ import 'package:flutter_raih_peduli/screen/view/home/news_card_widget.dart';
 class HomeListViewBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -21,7 +20,7 @@ class HomeListViewBuilder extends StatelessWidget {
           ),
         ),
         Container(
-          height: 200,
+          height: 400,
           child: ListView.builder(
             itemCount: dummyFundraisingData.length,
             itemBuilder: (context, index) {
