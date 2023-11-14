@@ -20,7 +20,7 @@ class HomeListViewBuilder extends StatelessWidget {
           ),
         ),
         Expanded(
-          child: Container(
+          child: SizedBox(
             height: 600,
             child: ListView.builder(
               itemCount: dummyFundraisingData.length,
@@ -43,7 +43,7 @@ class HomeListViewBuilder extends StatelessWidget {
           ),
         ),
         Expanded(
-          child: Container(
+          child: SizedBox(
             height: 600,
             child: ListView.builder(
               itemCount: dummyVolunteerData.length,
@@ -66,7 +66,7 @@ class HomeListViewBuilder extends StatelessWidget {
           ),
         ),
         Expanded(
-          child: Container(
+          child: SizedBox(
             height: 600,
             child: ListView.builder(
               itemCount: dummyNewsData.length,
