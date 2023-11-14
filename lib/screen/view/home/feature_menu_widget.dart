@@ -40,51 +40,46 @@ class FeatureMenuItem extends StatelessWidget {
 }
 
 class FeatureMenuList extends StatelessWidget {
+  const FeatureMenuList({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 100,
+    return Padding(
+      padding: const EdgeInsets.all(18.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Expanded(
-            child: FeatureMenuItem(
-              title: 'Donasi',
-              assetImage: 'assets/icons/donation.png',
-              onPressed: () {
-                // Handle Donasi button pressed
-              },
-            ),
+          FeatureMenuItem(
+            title: 'Donasi',
+            assetImage: 'assets/icons/donation.png',
+            onPressed: () {
+              // Handle Donasi button pressed
+            },
           ),
-          Expanded(
-            child: FeatureMenuItem(
-              title: 'Voluntir',
-              assetImage: 'assets/icons/volunteer.png',
-              onPressed: () {
-                // Handle Voluntir button pressed
-              },
-            ),
+          FeatureMenuItem(
+            title: 'Voluntir',
+            assetImage: 'assets/icons/volunteer.png',
+            onPressed: () {
+              // Handle Voluntir button pressed
+            },
           ),
-          Expanded(
-            child: FeatureMenuItem(
-              title: 'Berita',
-              assetImage: 'assets/icons/news.png',
-              onPressed: () {
-                // Handle Berita button pressed
-              },
-            ),
+          FeatureMenuItem(
+            title: 'Berita',
+            assetImage: 'assets/icons/news.png',
+            onPressed: () {
+              // Handle Berita button pressed
+            },
           ),
-          Expanded(
-            child: FeatureMenuItem(
-              title: 'Tentang Kami',
-              assetImage: 'assets/icons/about.png',
-              onPressed: () {
-                // Handle Tentang Kami button pressed
-              },
-            ),
+          FeatureMenuItem(
+            title: 'Tentang Kami',
+            assetImage: 'assets/icons/about.png',
+            onPressed: () {
+              // Handle Tentang Kami button pressed
+            },
           ),
         ],
       ),
     );
   }
 }
+

@@ -9,81 +9,79 @@ import 'package:flutter_raih_peduli/screen/view/home/news_card_widget.dart';
 class HomeListViewBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Text(
-              'Donasi',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Text(
+            'Donasi',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+        ),
+        Expanded(
+          child: Container(
+            height: 600,
+            child: ListView.builder(
+              itemCount: dummyFundraisingData.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: FundraisingCard(
+                    fundraisingData: dummyFundraisingData[index],
+                  ),
+                );
+              },
             ),
           ),
-          Expanded(
-            child: SizedBox(
-              height: 600,
-              child: ListView.builder(
-                itemCount: dummyFundraisingData.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: FundraisingCard(
-                      fundraisingData: dummyFundraisingData[index],
-                    ),
-                  );
-                },
-              ),
+        ),
+        const Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Text(
+            'Voluntir',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+        ),
+        Expanded(
+          child: Container(
+            height: 600,
+            child: ListView.builder(
+              itemCount: dummyVolunteerData.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: VolunteerCard(
+                    volunteerData: dummyVolunteerData[index],
+                  ),
+                );
+              },
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Text(
-              'Voluntir',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+        const Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Text(
+            'Berita',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+        ),
+        Expanded(
+          child: Container(
+            height: 600,
+            child: ListView.builder(
+              itemCount: dummyNewsData.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: NewsCard(
+                    newsData: dummyNewsData[index],
+                  ),
+                );
+              },
             ),
           ),
-          Expanded(
-            child: SizedBox(
-              height: 600,
-              child: ListView.builder(
-                itemCount: dummyVolunteerData.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: VolunteerCard(
-                      volunteerData: dummyVolunteerData[index],
-                    ),
-                  );
-                },
-              ),
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Text(
-              'Berita',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-          ),
-          Expanded(
-            child: SizedBox(
-              height: 600,
-              child: ListView.builder(
-                itemCount: dummyNewsData.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: NewsCard(
-                      newsData: dummyNewsData[index],
-                    ),
-                  );
-                },
-              ),
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

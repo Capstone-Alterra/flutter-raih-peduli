@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/fundraising_data.dart';
 import 'package:flutter_raih_peduli/screen/view/home/bookmark_widget.dart';
+import 'package:flutter_raih_peduli/theme.dart';
 
 class FundraisingCard extends StatelessWidget {
   final FundraisingData fundraisingData;
@@ -55,33 +56,39 @@ class FundraisingCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
-                    crossAxisAlignment: CrossAxisAlignment.baseline,
-                    textBaseline: TextBaseline.alphabetic,
                     children: [
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              fundraisingData.title,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              textBaseline: TextBaseline.alphabetic,
+                              children: [
+                                Text(
+                                  fundraisingData.title,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                                // Bookmark widget
+                                BookmarkWidget(),
+                              ],
                             ),
-                            const SizedBox(height: 30.0),
+                            const SizedBox(
+                                height: 10.0), // Jarak antara judul dan periode
                             Text(fundraisingData.period),
                           ],
                         ),
                       ),
-                      // Bookmark widget
-                      BookmarkWidget(),
                     ],
                   ),
 
                   const SizedBox(height: 8.0),
                   LinearProgressIndicator(
                     value: fundraisingData.progress / fundraisingData.target,
+                    color: AppTheme.primaryColor,
                     backgroundColor: Colors.grey,
                   ),
                   const SizedBox(height: 8.0),
@@ -117,11 +124,23 @@ class FundraisingCard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('${fundraisingData.target}'),
+                      Text(
+                        'Rp. ${fundraisingData.target}',
+                        style: const TextStyle(
+                          color: AppTheme.primaryColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       const SizedBox(
                           width:
                               8.0), // Berikan ruang di antara nilai target dan sisa hari
-                      Text('${fundraisingData.daysLeft} Hari'),
+                      Text(
+                        '${fundraisingData.daysLeft} Hari',
+                        style: const TextStyle(
+                          color: AppTheme.primaryColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ],
                   ),
                 ],

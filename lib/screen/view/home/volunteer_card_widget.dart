@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/volunteer_data.dart';
 import 'package:flutter_raih_peduli/screen/view/home/bookmark_widget.dart';
+import 'package:flutter_raih_peduli/theme.dart';
 
 class VolunteerCard extends StatelessWidget {
   final VolunteerData volunteerData;
@@ -55,32 +56,38 @@ class VolunteerCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
-                    crossAxisAlignment: CrossAxisAlignment.baseline,
-                    textBaseline: TextBaseline.alphabetic,
                     children: [
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              volunteerData.title,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              textBaseline: TextBaseline.alphabetic,
+                              children: [
+                                Text(
+                                  volunteerData.title,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                                // Bookmark widget
+                                BookmarkWidget(),
+                              ],
                             ),
-                            const SizedBox(height: 30.0),
+                            const SizedBox(
+                                height: 10.0), // Jarak antara judul dan periode
                             Text(volunteerData.period),
                           ],
                         ),
                       ),
-                      // Bookmark widget
-                      BookmarkWidget(),
                     ],
                   ),
                   const SizedBox(height: 8.0),
                   LinearProgressIndicator(
                     value: volunteerData.progress / volunteerData.slot,
+                    color: AppTheme.primaryColor,
                     backgroundColor: Colors.grey,
                   ),
                   const SizedBox(height: 8.0),
@@ -116,11 +123,23 @@ class VolunteerCard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(volunteerData.location),
+                      Text(
+                        volunteerData.location,
+                        style: const TextStyle(
+                          color: AppTheme.primaryColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        ),
                       const SizedBox(
                         width: 8.0,
                       ),
-                      Text('${volunteerData.slot} Orang'),
+                      Text(
+                        '${volunteerData.slot} Orang',  
+                        style: const TextStyle(
+                          color: AppTheme.primaryColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ],
                   ),
                 ],

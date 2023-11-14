@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/theme.dart';
 
 class HeaderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.lightBlue[100],
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height / 4,
+      color: AppTheme.secondaryColor,
       child: Stack(
         children: [
           Positioned(
@@ -12,20 +15,23 @@ class HeaderWidget extends StatelessWidget {
             right: 0,
             bottom: 0,
             child: Image.asset(
-              'assets/home_bg.png', // Sesuaikan dengan path gambar vector yang diinginkan
+              'assets/home_bg.png',
+              width: 120,
+              height: 120,
               fit: BoxFit.cover,
             ),
           ),
           Container(
-            color: Colors.lightBlue[100]?.withOpacity(0.7),
+            color: AppTheme.secondaryColor,
             padding: const EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const SizedBox(height: 40),
                 const Text(
                   'Bersama-sama Kita Membantu\nMari Berikan Bantuan Anda.',
                   style: TextStyle(
-                    fontSize: 16.0,
+                    fontSize: 20.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -35,16 +41,14 @@ class HeaderWidget extends StatelessWidget {
                     // Aksi ketika tombol "Donasi Sekarang" ditekan
                   },
                   style: ElevatedButton.styleFrom(
+                    backgroundColor: AppTheme.primaryColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25.0),
                     ),
                   ),
-                  child: const Padding(
-                    padding: EdgeInsets.all(12.0),
-                    child: Text(
-                      'Donasi Sekarang',
-                      style: TextStyle(fontSize: 16),
-                    ),
+                  child: const Text(
+                    'Donasi Sekarang',
+                    style: TextStyle(fontSize: 16),
                   ),
                 ),
               ],

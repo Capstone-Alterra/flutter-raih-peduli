@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/news_data.dart';
+import 'package:flutter_raih_peduli/theme.dart';
 
 class NewsCard extends StatelessWidget {
   final NewsData newsData;
@@ -83,6 +84,7 @@ class NewsCard extends StatelessWidget {
                       // Anda dapat menambahkan logika navigasi atau tindakan lainnya di sini
                     },
                     style: ElevatedButton.styleFrom(
+                      backgroundColor: AppTheme.primaryColor,
                       padding: const EdgeInsets.symmetric(horizontal: 46.0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0),
