@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/screen/view/settings/settings_view.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_onboarding.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_settings.dart';
 import 'package:provider/provider.dart';
-import 'screen/view/onboarding/onboarding_view.dart';
 import 'screen/view_model/view_model_login.dart';
 
 void main() {
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(create: (_) => LoginViewModel()),
           ChangeNotifierProvider(create: (_) => OnBoardingViewModel()),
+          ChangeNotifierProvider(create: (_) => SettingsViewProvider()),
         ],
         child: MaterialApp(
           theme: ThemeData(
@@ -26,7 +28,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
           debugShowCheckedModeBanner: false,
-          home: const Onbording(),
+          home: const SettingScreen(),
         ));
   }
 }
