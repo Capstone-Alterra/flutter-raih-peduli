@@ -314,30 +314,148 @@ class SettingScreenState extends State<SettingScreen> {
                   ),
                 ),
                 const SizedBox(height: 10),
-                Container(
-                  width: double.infinity,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(
-                      color: const Color(0xff293066),
-                      width: 1,
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                    child: Row(
-                      children: [
-                        SvgPicture.asset('assets/logout.svg'),
-                        const SizedBox(width: 10),
-                        const Text(
-                          'Keluar',
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontFamily: 'Helvetica',
+                GestureDetector(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: const Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Oh tidak! Anda pergi...',
+                              style: TextStyle(
+                                fontFamily: 'Helvetica',
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              'Apa kamu yakin?',
+                              style: TextStyle(
+                                fontFamily: 'Helvetica',
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        // content: const Text('This is a warning message.'),
+                        icon: Padding(
+                          padding: const EdgeInsets.only(
+                            bottom: 20,
+                            top: 10,
                           ),
-                        )
-                      ],
+                          child: Transform.scale(
+                            scale: 1.3,
+                            child: SvgPicture.asset(
+                                'assets/mingcute_warning_fill.svg'),
+                          ),
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        actions: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                right: 20, left: 20, bottom: 15),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {},
+                                  child: Container(
+                                    width: size.width * .25,
+                                    height: size.width * .12,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      border: Border.all(
+                                        color: const Color(0xff293066),
+                                        width: 3,
+                                      ),
+                                    ),
+                                    child: ElevatedButton(
+                                      onPressed: () {},
+                                      style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all(
+                                                Colors.transparent),
+                                        shadowColor: MaterialStateProperty.all(
+                                            Colors.transparent),
+                                      ),
+                                      child: const Text(
+                                        'Batal',
+                                        style: TextStyle(
+                                          fontFamily: 'Helvetica',
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18,
+                                          color: Color(0xff293066),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () {},
+                                  child: Container(
+                                    width: size.width * .25,
+                                    height: size.width * .12,
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xff293066),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: ElevatedButton(
+                                      onPressed: () {},
+                                      style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all(
+                                                Colors.transparent),
+                                        shadowColor: MaterialStateProperty.all(
+                                            Colors.transparent),
+                                      ),
+                                      child: const Text(
+                                        'Ya, Tentu',
+                                        style: TextStyle(
+                                          fontFamily: 'Helvetica',
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    );
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(
+                        color: const Color(0xff293066),
+                        width: 1,
+                      ),
+                    ),
+                    child: Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                      child: Row(
+                        children: [
+                          SvgPicture.asset('assets/logout.svg'),
+                          const SizedBox(width: 10),
+                          const Text(
+                            'Keluar',
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontFamily: 'Helvetica',
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
