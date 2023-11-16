@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/screen/view/settings/edit_profile.dart';
 import 'package:flutter_raih_peduli/screen/view/settings/settings_view.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_onboarding.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_settings.dart';
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
           debugShowCheckedModeBanner: false,
-          home: const SettingScreen(),
+          home: const ProfileEdit(),
         ));
   }
 }
