@@ -1,6 +1,7 @@
 class VolunteerData {
   final String imageUrl;
   final String title;
+  final String description;
   final String period;
   final double progress;
   final String region;
@@ -10,6 +11,7 @@ class VolunteerData {
   VolunteerData({
     required this.imageUrl,
     required this.title,
+    required this.description,
     required this.period,
     required this.progress,
     required this.region,
@@ -22,6 +24,7 @@ List<VolunteerData> dummyVolunteerData = [
   VolunteerData(
     imageUrl: 'https://donorbox.org/nonprofit-blog/wp-content/uploads/2019/01/iStock-622065910-1084x723-1024x683.jpg',
     title: 'Volunteer 1',
+    description: 'Deskripsi 1',
     period: 'Jan 1, 2023 - Feb 1, 2023',
     progress: 0.3,
     region: 'Jakarta',
@@ -31,6 +34,7 @@ List<VolunteerData> dummyVolunteerData = [
   VolunteerData(
     imageUrl: 'https://donorbox.org/nonprofit-blog/wp-content/uploads/2019/01/iStock-622065910-1084x723-1024x683.jpg',
     title: 'Volunteer 2',
+    description: 'Deskripsi 2',
     period: 'Feb 15, 2023 - Mar 15, 2023',
     progress: 0.7,
     region: 'Surabaya',
@@ -40,6 +44,7 @@ List<VolunteerData> dummyVolunteerData = [
   VolunteerData(
     imageUrl: 'https://donorbox.org/nonprofit-blog/wp-content/uploads/2019/01/iStock-622065910-1084x723-1024x683.jpg',
     title: 'Volunteer 3',
+    description: 'Deskripsi 3',
     period: 'Mar 5, 2023 - Apr 5, 2023',
     progress: 0.5,
     region: 'Bandung',
@@ -48,7 +53,8 @@ List<VolunteerData> dummyVolunteerData = [
   ),
   VolunteerData(
     imageUrl: 'https://donorbox.org/nonprofit-blog/wp-content/uploads/2019/01/iStock-622065910-1084x723-1024x683.jpg',
-    title: 'Volunteer 1',
+    title: 'Volunteer 4',
+    description: 'Deskripsi 4',
     period: 'Jan 1, 2023 - Feb 1, 2023',
     progress: 0.3,
     region: 'Jakarta',
@@ -57,7 +63,8 @@ List<VolunteerData> dummyVolunteerData = [
   ),
   VolunteerData(
     imageUrl: 'https://donorbox.org/nonprofit-blog/wp-content/uploads/2019/01/iStock-622065910-1084x723-1024x683.jpg',
-    title: 'Volunteer 2',
+    title: 'Volunteer 5',
+    description: 'Deskripsi 5',
     period: 'Feb 15, 2023 - Mar 15, 2023',
     progress: 0.7,
     region: 'Surabaya',
@@ -66,7 +73,8 @@ List<VolunteerData> dummyVolunteerData = [
   ),
   VolunteerData(
     imageUrl: 'https://donorbox.org/nonprofit-blog/wp-content/uploads/2019/01/iStock-622065910-1084x723-1024x683.jpg',
-    title: 'Volunteer 3',
+    title: 'Volunteer 6',
+    description: 'Deskripsi 6',
     period: 'Mar 5, 2023 - Apr 5, 2023',
     progress: 0.5,
     region: 'Bandung',

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/screen/view/bookmark/bookmarkscreen.dart';
 import 'package:flutter_raih_peduli/screen/view/home/homescreen.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_homescreeen.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +21,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           brightness: Brightness.light,
           appBarTheme: const AppBarTheme(
-            backgroundColor: Color(0xFF6D6D6D),
           ),
         ),
         debugShowCheckedModeBanner: false,

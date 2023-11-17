@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 
-class HomeScreenViewModel with ChangeNotifier {
+class HomeScreenViewModel extends ChangeNotifier {
   String _searchText = '';
   String _errorText = '';
 
   String get searchText => _searchText;
   String get errorText => _errorText;
 
-  int _currentIndex = 0;
-  int get currentIndex => _currentIndex;
+  var currentIndex = 0;
 
   void setSearchText(String text) {
     _searchText = text;
@@ -24,9 +23,9 @@ class HomeScreenViewModel with ChangeNotifier {
     }
     return true;
   }*/
-
-  void setIndex(int index) {
-    _currentIndex = index;
+  
+  void updateIndex(int index) {
+    currentIndex = index;
     notifyListeners();
   }
 }

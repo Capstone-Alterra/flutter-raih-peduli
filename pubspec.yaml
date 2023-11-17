@@ -10,17 +10,20 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
-  provider: ^6.1.0
+  provider: ^6.0.5
   flutter_native_splash: ^2.3.5
+  flutter_svg: ^2.0.9
+  rename: ^3.0.1
+  intl: ^0.17.0
 
 flutter_native_splash:
   color: "#FFFFFF"
-  image: "assets/DCyd2t_r_400x400.jpg"
+  image: "assets/splash_screen.png"
   android: true
   ios: true
   android_12:
     color: "#FFFFFF"
-    image: "assets/DCyd2t_r_400x400.jpg"
+    image: "assets/splash_screen.png"
 
 
 
@@ -35,3 +38,11 @@ flutter:
     - assets/
     - assets/icons/
   
+  fonts:
+    - family: Helvetica
+      fonts:
+        - asset: assets/fonts/Helvetica-Bold.ttf
+        - asset: assets/fonts/Helvetica-BoldOblique.ttf
+        - asset: assets/fonts/helvetica-light-587ebe5a59211.ttf
+        - asset: assets/fonts/Helvetica-Oblique.ttf
+        - asset: assets/fonts/Helvetica.ttf
