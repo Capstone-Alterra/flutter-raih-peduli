@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_svg/svg.dart';
 
-class LoginPage extends StatelessWidget {
-  LoginPage({Key? key}) : super(key: key);
+class SingupPage extends StatelessWidget {
+  SingupPage({Key? key}) : super(key: key);
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -22,9 +21,9 @@ class LoginPage extends StatelessWidget {
             Container(
               width: screenWidth,
               height: 350,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                   color: Color(0xFF293066),
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(30),
                       bottomRight: Radius.circular(30))),
             ),
@@ -65,7 +64,7 @@ class LoginPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Masuk',
+                          'Daftar',
                           style: TextStyle(
                               fontSize: 32,
                               fontWeight: FontWeight.bold,
@@ -73,7 +72,7 @@ class LoginPage extends StatelessWidget {
                               color: Colors.white),
                         ),
                         Text(
-                          'Masuk, untuk dapat berkontribusi membantu sesama manusia',
+                          'Daftar, untuk dapat berkontribusi membantu sesama manusia',
                           style: TextStyle(
                             fontSize: 12,
                             fontFamily: 'Helvetica',
@@ -88,16 +87,43 @@ class LoginPage extends StatelessWidget {
                   ),
                   Container(
                     width: 330,
-                    height: 250,
+                    height: 257,
                     decoration: BoxDecoration(
-                        color: const Color(0xFFE5E9F4),
-                        borderRadius: BorderRadius.circular(15)),
+                      color: const Color(0xFFE5E9F4),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
                     child: Padding(
                       padding: const EdgeInsets.all(10),
                       child: Column(
                         children: [
                           const SizedBox(
                             height: 15,
+                          ),
+                          SizedBox(
+                            width: 310.0,
+                            height: 40.0,
+                            child: TextFormField(
+                              controller: passwordController,
+                              decoration: InputDecoration(
+                                hintText: 'Nama Lengkap',
+                                filled: true,
+                                fillColor: Colors.white,
+                                prefixIcon: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: SvgPicture.asset(
+                                    'assets/icons/profile-fill.svg',
+                                    width: 14,
+                                    height: 14,
+                                    color: Color(0xFF293066),
+                                  ),
+                                ),
+                                border: InputBorder.none,
+                              ),
+                              obscureText: true,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10.0,
                           ),
                           SizedBox(
                             width: 310.0,
@@ -121,7 +147,7 @@ class LoginPage extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           SizedBox(
                             width: 310.0,
                             height: 40.0,
@@ -145,20 +171,22 @@ class LoginPage extends StatelessWidget {
                               obscureText: true,
                             ),
                           ),
-                          Row(
-                            children: [
-                              Checkbox(
-                                value: false,
-                                onChanged: (bool? value) {},
-                              ),
-                              const Text(
-                                'Ingat saya',
-                                style: TextStyle(
-                                  fontFamily: 'Helvetica',
-                                  fontSize: 10,
+                          Expanded(
+                            child: Row(
+                              children: [
+                                Checkbox(
+                                  value: false,
+                                  onChanged: (bool? value) {},
                                 ),
-                              ),
-                            ],
+                                Text(
+                                  'Saya setuju dengan Kebijakan Privasi Raih Peduli',
+                                  style: TextStyle(
+                                    fontFamily: 'Helvetica',
+                                    fontSize: 10,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                           ElevatedButton(
                             onPressed: () {},
@@ -170,49 +198,31 @@ class LoginPage extends StatelessWidget {
                               ),
                             ),
                             child: const Text(
-                              'Masuk',
-                              style: TextStyle(
-                                fontFamily: 'Helvetica',
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Expanded(
-                            child: GestureDetector(
-                              onTap: () {},
-                              child: const Text(
-                                "Lupa Password?",
-                                style: TextStyle(
-                                  fontFamily: 'Helvetica',
-                                  color: Color(0xFF293066),
-                                ),
-                              ),
+                              'Daftar',
+                              style: TextStyle(fontFamily: 'Helvetica'),
                             ),
                           ),
                         ],
                       ),
                     ),
-                  ),
+                  )
                 ],
               ),
             ),
             Positioned(
-              bottom: 8,
-              child: Container(
-                width: screenWidth,
-                child: Center(
-                    child: GestureDetector(
-                        onTap: () {},
-                        child: Text(
-                          'Masuk sebagai tamu',
-                          style: TextStyle(
-                            fontFamily: 'Helvetica',
-                          ),
-                        ))),
-              ),
-            ),
+                bottom: 8,
+                child: SizedBox(
+                  width: screenWidth,
+                  child: Center(
+                      child: GestureDetector(
+                          onTap: () {},
+                          child: Text(
+                            'Masuk sebagai tamu',
+                            style: TextStyle(
+                              fontFamily: 'Helvetica',
+                            ),
+                          ))),
+                )),
           ],
         ),
       ),

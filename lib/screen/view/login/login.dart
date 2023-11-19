@@ -1,3 +1,4 @@
+import '/screen/view/login/signup_page.dart';
 import '/screen/view/login/login_page.dart';
 import 'package:flutter/material.dart';
 
@@ -7,23 +8,26 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Stack(
         children: [
+          SizedBox(
+            width: screenWidth,
+            height: screenHeight,
+          ),
           Container(
             width: screenWidth,
-            height: 500,
-            decoration: BoxDecoration(
-                color: Colors.grey[500],
-                borderRadius: const BorderRadius.only(
+            height: 429,
+            decoration: const BoxDecoration(
+                color: Color(0xFF293066),
+                borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(30),
                     bottomRight: Radius.circular(30))),
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16.0,
-              vertical: 15.0,
-            ),
+          Positioned(
+            top: 47,
+            left: 29,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -46,19 +50,28 @@ class LoginScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Spacer(),
-                const CircleAvatar(
-                  backgroundColor: Colors.amberAccent,
-                  radius: 155 / 2.0,
+                const SizedBox(height: 103.5),
+                Image.asset('assets/Logo.png', height: 108, width: 115),
+                const SizedBox(
+                  height: 15,
+                ),
+                const Text(
+                  'RAIH PEDULI',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 27,
+                    fontFamily: 'Helvetica',
+                    color: Colors.white,
+                  ),
                 ),
                 const SizedBox(
                   height: 82.97,
                 ),
                 Container(
                   width: 330,
-                  height: 311,
+                  height: 216,
                   decoration: BoxDecoration(
-                      color: Colors.grey[200],
+                      color: Color(0xFFE5E9F4),
                       borderRadius: BorderRadius.circular(15)),
                   child: Padding(
                     padding: const EdgeInsets.all(10),
@@ -71,13 +84,18 @@ class LoginScreen extends StatelessWidget {
                               Text(
                                 'Selamat Datang di Raih Peduli',
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 16),
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Helvetica',
+                                ),
                               ),
                               Text(
                                 'Raih keberkahan dengan kepedulian',
                                 style: TextStyle(
-                                    fontWeight: FontWeight.normal,
-                                    fontSize: 12),
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 12,
+                                  fontFamily: 'Helvetica',
+                                ),
                               ),
                             ],
                           ),
@@ -95,23 +113,30 @@ class LoginScreen extends StatelessWidget {
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.brown[800],
+                            backgroundColor: const Color(0xFF293066),
                             fixedSize: const Size(310, 38),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15),
                             ),
                           ),
-                          child: const Text('Log In'),
+                          child: const Text('Masuk'),
                         ),
                         const SizedBox(
                           height: 10,
                         ),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SingupPage(),
+                              ),
+                            );
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.grey[200],
-                            side:
-                                const BorderSide(color: Colors.black, width: 1),
+                            side: const BorderSide(
+                                color: Color(0xFF293066), width: 1),
                             elevation: 0,
                             fixedSize: const Size(310, 38),
                             shape: RoundedRectangleBorder(
@@ -119,47 +144,34 @@ class LoginScreen extends StatelessWidget {
                             ),
                           ),
                           child: const Text(
-                            'Sign Up',
-                            style: TextStyle(color: Colors.black),
+                            'Daftar',
+                            style: TextStyle(color: Color(0xFF293066)),
                           ),
                         ),
                         const SizedBox(
                           height: 10,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              height: 1.0,
-                              width: 70.0,
-                              color: Colors.black,
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.all(10.0),
-                              child: Text(
-                                'Masuk dengan',
-                                style: TextStyle(fontSize: 12.0),
-                              ),
-                            ),
-                            Container(
-                              height: 1.0,
-                              width: 70.0,
-                              color: Colors.black,
-                            ),
-                          ],
-                        )
                       ],
                     ),
                   ),
                 ),
-                Spacer(),
-                Text('Masuk sebagai tamu'),
-                SizedBox(
-                  height: 18,
-                )
               ],
             ),
           ),
+          Positioned(
+              bottom: 8,
+              child: SizedBox(
+                width: screenWidth,
+                child: Center(
+                    child: GestureDetector(
+                        onTap: () {},
+                        child: const Text(
+                          'Masuk sebagai tamu',
+                          style: TextStyle(
+                            fontFamily: 'Helvetica',
+                          ),
+                        ))),
+              )),
         ],
       ),
     );

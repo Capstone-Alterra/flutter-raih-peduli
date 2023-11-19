@@ -35,4 +35,9 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
-  
+    - assets/icons/
+  fonts:
+      - family: Helvetica
+        fonts:
+          - asset: fonts/Helvetica.ttf
+          - asset: fonts/Helvetica-Bold.ttf
