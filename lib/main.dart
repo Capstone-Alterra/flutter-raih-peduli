@@ -1,9 +1,8 @@
+import '../../../screens/homescreen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/screen/view_model/view_model_donate.dart';
-import 'package:flutter_raih_peduli/screen/view_model/view_model_onboarding.dart';
 import 'package:provider/provider.dart';
-import 'screen/view/onboarding/onboarding_view.dart';
-import 'screen/view_model/view_model_login.dart';
+
+import 'screens/view_model/view_model_donate.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,8 +15,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (_) => LoginViewModel()),
-          ChangeNotifierProvider(create: (_) => OnBoardingViewModel()),
           ChangeNotifierProvider(create: (_) => DonateViewModel()),
         ],
         child: MaterialApp(
@@ -28,7 +25,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
           debugShowCheckedModeBanner: false,
-          home: const Onbording(),
+          home: const Homescreen(),
         ));
   }
 }
