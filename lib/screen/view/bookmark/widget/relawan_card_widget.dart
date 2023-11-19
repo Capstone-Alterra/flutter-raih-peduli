@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/volunteer_data.dart';
-import 'package:flutter_raih_peduli/screen/view/home/bookmark_widget.dart';
+import 'package:flutter_raih_peduli/screen/view/bookmark/widget/save_widget.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 
-class VolunteerCard extends StatelessWidget {
+class RelawanCard extends StatelessWidget {
   final VolunteerData volunteerData;
 
-  const VolunteerCard({
+  const RelawanCard({
     required this.volunteerData,
   });
 
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: AppTheme.white,
       elevation: 3,
       margin: const EdgeInsets.all(8.0),
       shape: RoundedRectangleBorder(
@@ -51,7 +52,7 @@ class VolunteerCard extends StatelessWidget {
           // Data
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.only(left: 8.0,),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -68,79 +69,93 @@ class VolunteerCard extends StatelessWidget {
                                 Text(
                                   volunteerData.title,
                                   style: const TextStyle(
+                                    color: AppTheme.primaryColor,
+                                    fontFamily: 'Helvetica',
                                     fontWeight: FontWeight.bold,
                                     fontSize: 18,
                                   ),
                                 ),
                                 // Bookmark widget
-                                BookmarkWidget(),
+                                SaveWidget(),
                               ],
                             ),
                             const SizedBox(
                                 height: 10.0), // Jarak antara judul dan periode
-                            Text(volunteerData.period),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 8.0),
+                              child: Text(volunteerData.period),
+                            ),
                           ],
                         ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 8.0),
-                  LinearProgressIndicator(
-                    value: volunteerData.progress / volunteerData.slot,
-                    color: AppTheme.primaryColor,
-                    backgroundColor: Colors.grey,
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: LinearProgressIndicator(
+                      value: volunteerData.progress / volunteerData.slot,
+                      color: AppTheme.primaryColor,
+                      backgroundColor: Colors.grey,
+                    ),
                   ),
                   const SizedBox(height: 8.0),
                   // Baris untuk ikon, tulisan target, dan sisa hari
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      // Target
-                      Row(
-                        children: [
-                          Text(volunteerData.region),
-                          Image.asset(
-                            'assets/icons/location.png', // Ganti dengan path ke asset yang sesuai
-                            height: 20,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(width: 8.0),
-                      // Sisa Hari
-                      Row(
-                        children: [
-                          const Text('Slot'),
-                          Image.asset(
-                            'assets/icons/people.png', // Ganti dengan path ke asset yang sesuai
-                            height: 20,
-                          ),
-                        ],
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        // Target
+                        Row(
+                          children: [
+                            Text(volunteerData.region),
+                            Image.asset(
+                              'assets/icons/location.png', // Ganti dengan path ke asset yang sesuai
+                              height: 20,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(width: 8.0),
+                        // Sisa Hari
+                        Row(
+                          children: [
+                            const Text('Slot'),
+                            Image.asset(
+                              'assets/icons/people.png', // Ganti dengan path ke asset yang sesuai
+                              height: 20,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 4.0),
                   // Baris untuk nilai atau value
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        volunteerData.location,
-                        style: const TextStyle(
-                          color: AppTheme.primaryColor,
-                          fontWeight: FontWeight.bold,
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          volunteerData.location,
+                          style: const TextStyle(
+                            color: AppTheme.primaryColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          ),
+                        const SizedBox(
+                          width: 8.0,
                         ),
+                        Text(
+                          '${volunteerData.slot} Orang',  
+                          style: const TextStyle(
+                            color: AppTheme.primaryColor,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      const SizedBox(
-                        width: 8.0,
-                      ),
-                      Text(
-                        '${volunteerData.slot} Orang',  
-                        style: const TextStyle(
-                          color: AppTheme.primaryColor,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),
