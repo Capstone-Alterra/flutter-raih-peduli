@@ -50,6 +50,7 @@ class HeaderWidget extends StatelessWidget {
                   child: const Text(
                     'Donasi Sekarang',
                     style: TextStyle(
+                    color: Colors.white,
                     fontFamily: 'Helvetica', 
                     fontSize: 16, 
                     fontWeight: FontWeight.bold

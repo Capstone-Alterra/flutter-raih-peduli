@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/home/widget/searchbar_widget.dart';
 import 'package:flutter_raih_peduli/screen/view/home/widget/notification_widget.dart';
 import 'package:flutter_raih_peduli/screen/view/home/widget/bookmark_widget.dart';
+import 'package:flutter_raih_peduli/theme.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
@@ -10,7 +11,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: const Color(0xFFD1DAEC),
+      backgroundColor: AppTheme.secondaryColor,
       elevation: 0,
       actions: [
         Expanded(

@@ -107,7 +107,10 @@ class VolunteerCard extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                       ),
-                      child: const Text('Lihat Detail'),
+                      child: const Text(
+                        'Lihat Detail', 
+                        style: TextStyle(color: AppTheme.white),
+                      ),
                     ),
                   ],
                 ),

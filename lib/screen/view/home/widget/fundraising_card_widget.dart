@@ -108,7 +108,8 @@ class FundraisingCard extends StatelessWidget {
                         ),
                       ),
                       child: const Text(
-                      'Lihat Detail', 
+                      'Lihat Detail',
+                      style: TextStyle(color: AppTheme.white), 
                       ),
                     ),
                   ],

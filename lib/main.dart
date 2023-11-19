@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         debugShowCheckedModeBanner: false,
-        home: HomeScreen(), // Ganti dengan widget Homescreen
+        home: BookmarkScreen(), // Ganti dengan widget Homescreen
       ),
     );
   }

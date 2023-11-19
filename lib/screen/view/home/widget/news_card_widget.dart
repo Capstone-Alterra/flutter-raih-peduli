@@ -60,6 +60,7 @@ class NewsCard extends StatelessWidget {
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
+                    color: AppTheme.black,
                     fontFamily: 'Helvetica',
                     fontSize: 12,
                   ),
@@ -79,7 +80,8 @@ class NewsCard extends StatelessWidget {
                     ),
                   ),
                   child: const Text(
-                  'Baca Selengkapnya', 
+                  'Baca Selengkapnya',
+                  style: TextStyle(color: AppTheme.white), 
                   ),
                 ),
               ],

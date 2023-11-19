@@ -8,7 +8,6 @@ class BookmarkWidget extends StatelessWidget {
       child: IconButton(
         icon: Image.asset('assets/icons/bookmark.png'), // Asset ikon bookmark
         onPressed: () {
-          // Aksi ketika tombol bookmark ditekan
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) {
