@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/screen/view_model/view_model_onboarding.dart';
+import 'package:flutter_raih_peduli/screen/view/homepage.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_news_model.dart';
 import 'package:provider/provider.dart';
-import 'screen/view/onboarding/onboarding_view.dart';
-import 'screen/view_model/view_model_login.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,19 +13,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (_) => LoginViewModel()),
-          ChangeNotifierProvider(create: (_) => OnBoardingViewModel()),
-        ],
-        child: MaterialApp(
-          theme: ThemeData(
-            brightness: Brightness.light,
-            appBarTheme: const AppBarTheme(
-              backgroundColor: Color(0xFF293066),
-            ),
-          ),
-          debugShowCheckedModeBanner: false,
-          home: const Onbording(),
-        ));
+      providers: [
+        ChangeNotifierProvider(create: (_) => NewsProvider()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primaryColor: const Color(0xFF293066),
+          // brightness: Brightness.light,
+          // appBarTheme: const AppBarTheme(),
+        ),
+        home: const HomePage(),
+      ),
+    );
   }
 }
