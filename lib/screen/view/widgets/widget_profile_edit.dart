@@ -13,9 +13,8 @@ class EditTextFieldState extends State<EditTextField> {
     Size size = MediaQuery.of(context).size;
     final TextEditingController emailTextController = TextEditingController();
     final TextEditingController notelpTextController = TextEditingController();
-    final TextEditingController domisiliTextController =
-        TextEditingController();
-    final TextEditingController negaraTextController = TextEditingController();
+    final TextEditingController alamatTextController = TextEditingController();
+    final TextEditingController nikTextController = TextEditingController();
     final TextEditingController passwordTextController =
         TextEditingController();
     return Column(
@@ -109,7 +108,7 @@ class EditTextFieldState extends State<EditTextField> {
         const Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            'Domisili',
+            'Alamat',
             style: TextStyle(
               color: Color(0xff293066),
               fontFamily: 'Helvetica',
@@ -119,7 +118,7 @@ class EditTextFieldState extends State<EditTextField> {
           ),
         ),
         TextField(
-          controller: domisiliTextController,
+          controller: alamatTextController,
           cursorColor: Colors.black,
           autocorrect: true,
           style: const TextStyle(color: Colors.black),
@@ -130,7 +129,7 @@ class EditTextFieldState extends State<EditTextField> {
             focusedBorder: const UnderlineInputBorder(
               borderSide: BorderSide(color: Colors.black, width: 2),
             ),
-            hintText: 'E.g cilacap',
+            hintText: 'E.g Jalan Cilacap No. xx',
             hintStyle: TextStyle(color: Colors.black.withOpacity(0.4)),
           ),
         ),
@@ -138,7 +137,7 @@ class EditTextFieldState extends State<EditTextField> {
         const Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            'Negara',
+            'NIK',
             style: TextStyle(
               color: Color(0xff293066),
               fontFamily: 'Helvetica',
@@ -148,7 +147,7 @@ class EditTextFieldState extends State<EditTextField> {
           ),
         ),
         TextField(
-          controller: negaraTextController,
+          controller: nikTextController,
           cursorColor: Colors.black,
           autocorrect: true,
           style: const TextStyle(color: Colors.black),
@@ -159,7 +158,7 @@ class EditTextFieldState extends State<EditTextField> {
             focusedBorder: const UnderlineInputBorder(
               borderSide: BorderSide(color: Colors.black, width: 2),
             ),
-            hintText: 'E.g Indonesia',
+            hintText: 'E.g 44xxxxx',
             hintStyle: TextStyle(color: Colors.black.withOpacity(0.4)),
           ),
         ),
