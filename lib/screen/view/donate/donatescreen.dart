@@ -116,6 +116,23 @@ class _DonateScreenState extends State<DonateScreen> {
           ],
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: Container(
+        margin: const EdgeInsets.only(right: 10, bottom: 90),
+        decoration: ShapeDecoration(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+          color: AppTheme.alterColor,
+        ),
+        child: FloatingActionButton(
+          backgroundColor: AppTheme.alterColor,
+          onPressed: () {},
+          child: const Icon(
+            Icons.add,
+            color: Colors.white,
+          ),
+        ),
+      ),
     );
   }
 }
