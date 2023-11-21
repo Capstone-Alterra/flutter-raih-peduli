@@ -18,6 +18,21 @@ dependencies:
   flutter_svg: ^2.0.9
   intl: ^0.18.1
   provider: ^6.0.5
+  flutter_native_splash: ^2.3.5
+
+  rename: ^3.0.1
+
+
+flutter_native_splash:
+  color: "#FFFFFF"
+  image: "assets/splash_screen.png"
+  android: true
+  ios: true
+  android_12:
+    color: "#FFFFFF"
+    image: "assets/splash_screen.png"
+
+
 
 dev_dependencies:
   flutter_lints: ^2.0.0
@@ -32,5 +47,14 @@ flutter:
 
   
   assets:
+    - assets/
     - assets/icons/
- 
+  
+  fonts:
+    - family: Helvetica
+      fonts:
+        - asset: assets/fonts/Helvetica-Bold.ttf
+        - asset: assets/fonts/Helvetica-BoldOblique.ttf
+        - asset: assets/fonts/helvetica-light-587ebe5a59211.ttf
+        - asset: assets/fonts/Helvetica-Oblique.ttf
+        - asset: assets/fonts/Helvetica.ttf
