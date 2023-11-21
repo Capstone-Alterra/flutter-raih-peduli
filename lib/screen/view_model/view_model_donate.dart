@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../model/model_donate.dart';
+import '../../model/donate_data.dart';
 
 class DonateViewModel extends ChangeNotifier {
   final List<FundraisingData> _fundraisingDataList = dummyFundraisingData;

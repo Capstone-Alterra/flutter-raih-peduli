@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/theme.dart';
+import 'package:flutter_raih_peduli/theme/theme.dart';
 
 class FilterWidget extends StatelessWidget {
   final String selectedFilter;
   final Function(String) onFilterSelected;
 
-  const FilterWidget({
+  const FilterWidget({super.key, 
     required this.selectedFilter,
     required this.onFilterSelected,
   });
@@ -46,7 +46,7 @@ class FilterButton extends StatelessWidget {
   final bool isActive;
   final VoidCallback onPressed;
 
-  const FilterButton({
+  const FilterButton({super.key, 
     required this.text,
     required this.isActive,
     required this.onPressed,

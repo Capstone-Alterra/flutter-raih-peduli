@@ -8,6 +8,8 @@ import 'package:flutter_raih_peduli/screen/view/home/widget/volunteer_card_widge
 import 'package:flutter_raih_peduli/screen/view/home/widget/news_card_widget.dart';
 
 class HomeListViewBuilder extends StatelessWidget {
+  const HomeListViewBuilder({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Column(
