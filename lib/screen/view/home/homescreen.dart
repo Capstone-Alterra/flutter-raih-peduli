@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/model/bottomnavbar.dart';
+import 'package:flutter_raih_peduli/model/bottomnavbar_data.dart';
 import 'package:flutter_raih_peduli/screen/view/home/widget/custom_appbar_widget.dart';
 import 'package:flutter_raih_peduli/screen/view/home/widget/feature_menu_widget.dart';
 import 'package:flutter_raih_peduli/screen/view/home/widget/header_widget.dart';
@@ -18,14 +18,14 @@ class HomeScreen extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: CustomAppBar().preferredSize,
-        child: CustomAppBar(),
+        preferredSize: const CustomAppBar().preferredSize,
+        child: const CustomAppBar(),
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height:170, child: HeaderWidget()),
+            const SizedBox(height:170, child: HeaderWidget()),
             const Padding(
               padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
               child: Text(
@@ -42,7 +42,7 @@ class HomeScreen extends StatelessWidget {
               height: 980, // Sesuaikan dengan tinggi yang diinginkan
               child: ChangeNotifierProvider(
                 create: (context) => HomeScreenViewModel(),
-                child: HomeListViewBuilder(),
+                child: const HomeListViewBuilder(),
               ),
             ),
           ],

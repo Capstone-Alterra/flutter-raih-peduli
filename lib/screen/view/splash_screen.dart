@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/screen/view/landing_page.dart';
+import 'package:flutter_raih_peduli/screen/view/landing_screen.dart';
 
 
 class SplashScreen extends StatefulWidget {

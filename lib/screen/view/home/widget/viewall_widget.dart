@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ViewallWidget extends StatelessWidget {
   final VoidCallback onPressed;
 
-  const ViewallWidget({
+  const ViewallWidget({super.key, 
     required this.onPressed,
   });
 

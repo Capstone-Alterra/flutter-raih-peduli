@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/volunteer_data.dart';
-import 'package:flutter_raih_peduli/theme.dart';
+import 'package:flutter_raih_peduli/theme/theme.dart';
 
 class VolunteerCard extends StatelessWidget {
   final VolunteerData volunteerData;
 
-  const VolunteerCard({
+  const VolunteerCard({super.key, 
     required this.volunteerData,
   });
 

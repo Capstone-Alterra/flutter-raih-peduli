@@ -3,6 +3,8 @@ import 'package:flutter_raih_peduli/screen/view_model/view_model_homescreeen.dar
 import 'package:provider/provider.dart';
 
 class SearchBarWidget extends StatelessWidget {
+  const SearchBarWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<HomeScreenViewModel>(context, listen: false);

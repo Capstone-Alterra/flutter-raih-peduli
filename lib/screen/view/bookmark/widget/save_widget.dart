@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class SaveWidget extends StatelessWidget {
+  const SaveWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     return InkWell(

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/fundraising_data.dart';
-import 'package:flutter_raih_peduli/theme.dart';
+import 'package:flutter_raih_peduli/theme/theme.dart';
 
 class FundraisingCard extends StatelessWidget {
   final FundraisingData fundraisingData;
 
-  const FundraisingCard({
+  const FundraisingCard({super.key, 
     required this.fundraisingData,
   });
 

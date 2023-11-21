@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/screen/view/donate/donatescreen.dart';
 
 class FeatureMenuItem extends StatelessWidget {
   final String title;
@@ -6,35 +7,39 @@ class FeatureMenuItem extends StatelessWidget {
   final VoidCallback onPressed;
 
   const FeatureMenuItem({
+    Key? key,
     required this.title,
     required this.assetImage,
     required this.onPressed,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          margin: const EdgeInsets.all(8.0),
-          padding: const EdgeInsets.all(8.0),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12.0),
-            border: Border.all(color: Colors.grey),
+    return GestureDetector(
+      onTap: onPressed,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            margin: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12.0),
+              border: Border.all(color: Colors.grey),
+            ),
+            child: Image.asset(
+              assetImage,
+              height: 40.0, // Sesuaikan dengan ukuran yang diinginkan
+            ),
           ),
-          child: Image.asset(
-            assetImage,
-            height: 40.0, // Sesuaikan dengan ukuran yang diinginkan
+          const SizedBox(height: 8.0),
+          Text(
+            title,
+            textAlign: TextAlign.center,
           ),
-        ),
-        const SizedBox(height: 8.0),
-        Text(
-          title,
-          textAlign: TextAlign.center,
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
@@ -53,7 +58,12 @@ class FeatureMenuList extends StatelessWidget {
             title: 'Donasi',
             assetImage: 'assets/icons/donation.png',
             onPressed: () {
-              // Handle Donasi button pressed
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const DonateScreen(),
+                ),
+              );
             },
           ),
           FeatureMenuItem(
@@ -82,4 +92,3 @@ class FeatureMenuList extends StatelessWidget {
     );
   }
 }
-

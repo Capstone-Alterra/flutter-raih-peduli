@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/volunteer_data.dart';
 import 'package:flutter_raih_peduli/screen/view/bookmark/widget/save_widget.dart';
-import 'package:flutter_raih_peduli/theme.dart';
+import 'package:flutter_raih_peduli/theme/theme.dart';
 
 class RelawanCard extends StatelessWidget {
   final VolunteerData volunteerData;
 
-  const RelawanCard({
+  const RelawanCard({super.key, 
     required this.volunteerData,
   });
 
@@ -52,7 +52,9 @@ class RelawanCard extends StatelessWidget {
           // Data
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.only(left: 8.0,),
+              padding: const EdgeInsets.only(
+                left: 8.0,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -76,7 +78,7 @@ class RelawanCard extends StatelessWidget {
                                   ),
                                 ),
                                 // Bookmark widget
-                                SaveWidget(),
+                                const SaveWidget(),
                               ],
                             ),
                             const SizedBox(
@@ -143,12 +145,12 @@ class RelawanCard extends StatelessWidget {
                             color: AppTheme.primaryColor,
                             fontWeight: FontWeight.bold,
                           ),
-                          ),
+                        ),
                         const SizedBox(
                           width: 8.0,
                         ),
                         Text(
-                          '${volunteerData.slot} Orang',  
+                          '${volunteerData.slot} Orang',
                           style: const TextStyle(
                             color: AppTheme.primaryColor,
                             fontWeight: FontWeight.bold,

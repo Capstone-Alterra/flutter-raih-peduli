@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../view/login.dart';
+import '../view/login_screen.dart';
 
 class LandingPageViewModel with ChangeNotifier {
   int _currentPage = 1;

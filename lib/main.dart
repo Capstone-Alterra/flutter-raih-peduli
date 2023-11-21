@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/screen/view/bookmark/bookmarkscreen.dart';
 import 'package:flutter_raih_peduli/screen/view/home/homescreen.dart';
-import 'package:flutter_raih_peduli/screen/view_model/view_model_homescreeen.dart';
 import 'package:provider/provider.dart';
+import 'screen/view_model/view_model_homescreeen.dart';
+import 'screen/view_model/view_model_donate.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,16 +15,18 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => DonateViewModel()),
         ChangeNotifierProvider(create: (_) => HomeScreenViewModel()),
       ],
       child: MaterialApp(
         theme: ThemeData(
           brightness: Brightness.light,
           appBarTheme: const AppBarTheme(
+            backgroundColor: Color(0xFF293066),
           ),
         ),
         debugShowCheckedModeBanner: false,
-        home: BookmarkScreen(), // Ganti dengan widget Homescreen
+        home: HomeScreen(),
       ),
     );
   }
