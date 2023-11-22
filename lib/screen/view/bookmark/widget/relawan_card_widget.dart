@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/volunteer_data.dart';
 import 'package:flutter_raih_peduli/screen/view/bookmark/widget/save_widget.dart';
 import 'package:flutter_raih_peduli/theme.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class RelawanCard extends StatelessWidget {
   final VolunteerData volunteerData;
@@ -110,9 +111,10 @@ class RelawanCard extends StatelessWidget {
                         Row(
                           children: [
                             Text(volunteerData.region),
-                            Image.asset(
-                              'assets/icons/location.png', // Ganti dengan path ke asset yang sesuai
-                              height: 20,
+                            const SizedBox(width: 3),
+                            SvgPicture.asset(
+                              'assets/lokasi.svg', // Ganti dengan path ke asset yang sesuai
+                              height: 15,
                             ),
                           ],
                         ),
@@ -121,9 +123,10 @@ class RelawanCard extends StatelessWidget {
                         Row(
                           children: [
                             const Text('Slot'),
-                            Image.asset(
-                              'assets/icons/people.png', // Ganti dengan path ke asset yang sesuai
-                              height: 20,
+                            const SizedBox(width: 3),
+                            SvgPicture.asset(
+                              'assets/orang.svg', // Ganti dengan path ke asset yang sesuai
+                              height: 15
                             ),
                           ],
                         ),

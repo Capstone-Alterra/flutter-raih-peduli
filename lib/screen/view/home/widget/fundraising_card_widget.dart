@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/fundraising_data.dart';
 import 'package:flutter_raih_peduli/theme.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class FundraisingCard extends StatelessWidget {
   final FundraisingData fundraisingData;
@@ -73,10 +74,11 @@ class FundraisingCard extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            Image.asset(
-                            'assets/icons/target.png', 
+                            SvgPicture.asset(
+                            'assets/target.svg', 
                             height: 10,
                           ),
+                          const SizedBox(width: 2),
                             const Text(
                             'Target', 
                             style: TextStyle(

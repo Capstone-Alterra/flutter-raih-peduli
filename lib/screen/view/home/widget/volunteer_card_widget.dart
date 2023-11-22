@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/volunteer_data.dart';
 import 'package:flutter_raih_peduli/theme.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class VolunteerCard extends StatelessWidget {
   final VolunteerData volunteerData;
@@ -73,10 +74,11 @@ class VolunteerCard extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            Image.asset(
-                            'assets/icons/people.png', 
+                            SvgPicture.asset(
+                            'assets/orang.svg', 
                             height: 10,
                           ),
+                          const SizedBox(width: 5),
                             const Text(
                             'Slot', 
                             style: TextStyle(

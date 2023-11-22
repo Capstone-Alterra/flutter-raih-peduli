@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/fundraising_data.dart';
 import 'package:flutter_raih_peduli/screen/view/bookmark/widget/save_widget.dart';
 import 'package:flutter_raih_peduli/theme.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class DonasiCard extends StatelessWidget {
   final FundraisingData fundraisingData;
@@ -112,9 +113,10 @@ class DonasiCard extends StatelessWidget {
                         Row(
                           children: [
                             const Text('Target'),
-                            Image.asset(
-                              'assets/icons/target.png', // Ganti dengan path ke asset yang sesuai
-                              height: 20,
+                            const SizedBox(width: 3),
+                            SvgPicture.asset(
+                              'assets/target.svg', // Ganti dengan path ke asset yang sesuai
+                              height: 15,
                             ),
                           ],
                         ),
@@ -123,9 +125,10 @@ class DonasiCard extends StatelessWidget {
                         Row(
                           children: [
                             const Text('Sisa Hari'),
-                            Image.asset(
-                              'assets/icons/days.png', // Ganti dengan path ke asset yang sesuai
-                              height: 20,
+                            const SizedBox(width: 3),
+                            SvgPicture.asset(
+                              'assets/tanggal.svg', // Ganti dengan path ke asset yang sesuai
+                              height: 15,
                             ),
                           ],
                         ),
