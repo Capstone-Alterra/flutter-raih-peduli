@@ -195,7 +195,6 @@ class SignUp extends StatelessWidget {
                                     controller: viewModel.password,
                                     prefixIcon: Image.asset(
                                       "assets/lock_password.png",
-                                      // fit: BoxFit.fill,
                                       width: 10.0,
                                       height: 10.0,
                                     ),
