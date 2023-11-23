@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
-// import '../../model/model_sign_up.dart';
 import '../../services/service_sign_up.dart';
 
 class SignUpViewModel with ChangeNotifier {
@@ -12,6 +10,7 @@ class SignUpViewModel with ChangeNotifier {
   final List<String> genderList = ['Select Gender', 'Laki-Laki', 'Perempuan'];
   String selectedGender = 'Select Gender';
   bool agree = false;
+  bool isResponseSuccess = false;
   String kodeOtp = "";
   final service = SignUpService();
 
