@@ -34,13 +34,10 @@ class SignUpViewModel with ChangeNotifier {
   Future<void> verifikasi(String otp) async {
     service.verifikasiOtp(otp, email.text);
   }
+
   Future<void> reSendOtp() async {
     service.fecthNewOtp(email.text);
   }
-  // Future<void> saveSignUpData(ModelSignUp modelSignUp) async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   prefs.setString('email', modelSignUp.data.email.toString());
-  // }
 
   void onGenderChanged(String? value) {
     if (value != null) {

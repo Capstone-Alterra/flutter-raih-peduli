@@ -1,11 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/widget/alert.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_forget_password.dart';
-import 'package:flutter_raih_peduli/screen/view_model/view_model_signup.dart';
 import 'package:provider/provider.dart';
-
-import 'ubah_password.dart';
+import 'package:quickalert/models/quickalert_type.dart';
 
 class VerifikasiForgetPassword extends StatelessWidget {
   const VerifikasiForgetPassword({Key? key}) : super(key: key);
@@ -101,7 +102,7 @@ class VerifikasiForgetPassword extends StatelessWidget {
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: Consumer<SignUpViewModel>(
+                                  child: Consumer<ForgetPasswordViewModel>(
                                     builder: (context, contactModel, child) {
                                       return SizedBox(
                                         height: 40,
@@ -149,7 +150,7 @@ class VerifikasiForgetPassword extends StatelessWidget {
                                           ),
                                           recognizer: TapGestureRecognizer()
                                             ..onTap = () {
-                                              // viewModel.reSendOtp();
+                                              viewModel.reSendOtp();
                                             },
                                         ),
                                       ],
@@ -170,15 +171,22 @@ class VerifikasiForgetPassword extends StatelessWidget {
                               borderRadius: BorderRadius.circular(12),
                             ),
                           ),
-                          onPressed: () {
+                          onPressed: () async {
                             debugPrint("=>${viewModel.kodeOtp}");
-                            viewModel.verifikasiOtp();
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => const UbahPassword(),
-                              ),
-                            );
+                            await viewModel.verifikasiOtp();
+                            viewModel.isResponseSuccess
+                                ? customAlert(
+                                    context: context,
+                                    alertType: QuickAlertType.custom,
+                                    customAsset: 'assets/Group 427318233.png',
+                                    text:
+                                        'Yey! Akun anda telah berhasil dipulihkan...!',
+                                    shouldPop: false)
+                                : customAlert(
+                                    context: context,
+                                    alertType: QuickAlertType.error,
+                                    text: 'OTP yang anda masukkan salah',
+                                    shouldPop: true);
                           },
                           child: SizedBox(
                               width: widthMediaQuery,

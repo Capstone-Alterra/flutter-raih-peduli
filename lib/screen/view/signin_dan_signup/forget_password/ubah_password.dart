@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/widget/textformfield.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_forget_password.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 class UbahPassword extends StatelessWidget {
@@ -110,42 +109,17 @@ class UbahPassword extends StatelessWidget {
                               children: [
                                 customTextFormField(
                                     controller: viewModel.password,
-                                    prefixIcon: SvgPicture.asset(
-                                      "assets/Vector (1).svg",
-                                      fit: BoxFit.fill,
-                                      alignment: Alignment.center,
-                                      width: 24.0,
-                                      height: 24.0,
+                                    prefixIcon: Image.asset(
+                                      "assets/lock.png",
                                     ),
-                                    // prefixIcon: Image.asset(
-                                    //   "assets/lock_password.png",
-                                    //   width: 10.0,
-                                    //   height: 10.0,
-                                    // ),
                                     labelText: "Password",
                                     obscureText: true),
                                 const SizedBox(height: 5),
                                 customTextFormField(
                                     controller: viewModel.password,
-                                    prefixIcon: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        const SizedBox(height: 15),
-                                        SvgPicture.asset(
-                                          "assets/Vector (1).svg",
-                                          // fit: BoxFit.fill,
-                                          // alignment: Alignment.center,
-                                          width: 50.0,
-                                          height: 50.0,
-                                        ),
-                                      ],
+                                    prefixIcon: Image.asset(
+                                      "assets/lock.png",
                                     ),
-                                    // prefixIcon: Image.asset(
-                                    //   "assets/lock_password.png",
-                                    //   width: 10.0,
-                                    //   height: 10.0,
-                                    // ),
                                     labelText: "Password",
                                     obscureText: true),
                               ],

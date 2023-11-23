@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_raih_peduli/model/model_token_forget_password.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_forget_password.dart';
 import '../model/model_token_forget_password.dart';
 import '../utils/utils.dart';
 
@@ -33,9 +33,11 @@ class ForgetPasswordService {
         },
       );
       debugPrint("=>${response.data}");
+
       final Map<String, dynamic> jsonData = response.data;
       final ModelTokenForgetPassword modelSignIn =
           modelTokenForgetPasswordFromJson(jsonData);
+      ForgetPasswordViewModel().isResponseSuccess = true;
       return modelSignIn;
     } catch (error) {
       debugPrint('Terjadi kesalahan saat melakukan permintaan: $error');
@@ -43,26 +45,6 @@ class ForgetPasswordService {
     }
   }
 
-  // Future<void> ubahPasswordUser(String emailUser, String newPassword, String token) async {
-  //   try {
-  //     final response = await _dio.post(
-  //       Urls.baseUrl + Urls.ubahPassword,
-  //       data: {
-  //         'email': emailUser,
-  //         'password': newPassword,
-  //       },
-  //         options: Options(
-  //         headers: {
-  //           'Authorization': 'Bearer $token',
-  //         },
-  //     ),
-  //     debugPrint("=>${response.data}");
-  //     return;
-  //   } catch (error) {
-  //     debugPrint('Terjadi kesalahan saat melakukan permintaan: $error');
-  //     return;
-  //   }
-  // }
   Future<void> ubahPasswordUser(
       String emailUser, String newPassword, String token) async {
     try {
@@ -83,6 +65,22 @@ class ForgetPasswordService {
     } catch (error) {
       debugPrint('Terjadi kesalahan saat melakukan permintaan: $error');
       return;
+    }
+  }
+
+  Future<Object> fecthNewOtp(String email) async {
+    try {
+      final response = await _dio.post(
+        Urls.baseUrl + Urls.reSendOtp,
+        data: {
+          'email': email,
+        },
+      );
+      debugPrint("=>${response.data}");
+      return false;
+    } catch (error) {
+      debugPrint('Terjadi kesalahan saat melakukan permintaan: $error');
+      return false;
     }
   }
 }

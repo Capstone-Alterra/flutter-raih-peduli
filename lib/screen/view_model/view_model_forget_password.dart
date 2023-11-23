@@ -8,6 +8,7 @@ class ForgetPasswordViewModel with ChangeNotifier {
   String kodeOtp = "";
   final service = ForgetPasswordService();
   ModelTokenForgetPassword? dataOtp;
+  bool isResponseSuccess = false;
 
   Future<void> getOtpViaEmail() async {
     final emailUser = email.text;
@@ -20,11 +21,15 @@ class ForgetPasswordViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> reSendOtp() async {
+    service.fecthNewOtp(email.text);
+    notifyListeners();
+  }
+
   Future<void> ubahPassword(String token) async {
     final emailUser = email.text;
     final newPassword = password.text;
     await service.ubahPasswordUser(emailUser, newPassword, token);
-
     notifyListeners();
   }
 }
