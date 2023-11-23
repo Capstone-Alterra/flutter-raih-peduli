@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/screen/view/homepage.dart';
+import 'package:flutter_raih_peduli/screen/view/home/homescreen.dart';
+
+import 'package:flutter_raih_peduli/screen/view_model/view_home_screen_view_model.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_news_model.dart';
 import 'package:provider/provider.dart';
 
@@ -8,13 +10,14 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => NewsProvider()),
+        ChangeNotifierProvider(create: (_) => HomeScreenViewModel()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -24,7 +27,7 @@ class MyApp extends StatelessWidget {
           // brightness: Brightness.light,
           // appBarTheme: const AppBarTheme(),
         ),
-        home: const HomePage(),
+        home: HomeScreen(),
       ),
     );
   }
