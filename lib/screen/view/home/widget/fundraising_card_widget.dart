@@ -7,8 +7,9 @@ class FundraisingCard extends StatelessWidget {
   final FundraisingData fundraisingData;
 
   const FundraisingCard({
+    Key? key,
     required this.fundraisingData,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +19,8 @@ class FundraisingCard extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.0),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: ListView(
+        shrinkWrap: true,
         children: [
           // Rounded rectangle container for the image
           Container(
@@ -32,11 +33,11 @@ class FundraisingCard extends StatelessWidget {
               padding: const EdgeInsets.only(left: 8, top: 8, right: 8),
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-                 child: Image.network(
-                    fundraisingData.imageUrl,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
+                child: Image.network(
+                  fundraisingData.imageUrl,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
@@ -75,15 +76,15 @@ class FundraisingCard extends StatelessWidget {
                         Row(
                           children: [
                             SvgPicture.asset(
-                            'assets/target.svg', 
-                            height: 10,
-                          ),
-                          const SizedBox(width: 2),
-                            const Text(
-                            'Target', 
-                            style: TextStyle(
-                              fontFamily: 'Helvetica',
+                              'assets/target.svg',
+                              height: 10,
                             ),
+                            const SizedBox(width: 2),
+                            const Text(
+                              'Target',
+                              style: TextStyle(
+                                fontFamily: 'Helvetica',
+                              ),
                             ),
                           ],
                         ),
@@ -104,14 +105,17 @@ class FundraisingCard extends StatelessWidget {
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppTheme.primaryColor,
-                        textStyle: const TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Helvetica',),
+                        textStyle: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Helvetica',
+                        ),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                       ),
                       child: const Text(
-                      'Lihat Detail',
-                      style: TextStyle(color: AppTheme.white), 
+                        'Lihat Detail',
+                        style: TextStyle(color: AppTheme.white),
                       ),
                     ),
                   ],

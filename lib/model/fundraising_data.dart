@@ -30,54 +30,60 @@ class FundraisingData {
 List<FundraisingData> dummyFundraisingData = [
   FundraisingData(
     id: 1,
-    imageUrl: 'https://donorbox.org/nonprofit-blog/wp-content/uploads/2019/01/iStock-622065910-1084x723-1024x683.jpg',
+    imageUrl:
+        'https://donorbox.org/nonprofit-blog/wp-content/uploads/2019/01/iStock-622065910-1084x723-1024x683.jpg',
     title: 'Fundraising 1',
-    description : 'Deskripsi 1',
+    description: 'Deskripsi 1',
     time: '2024-03-26 - 2024-04-28',
     progress: 5000,
     target: 10000,
   ),
   FundraisingData(
     id: 2,
-    imageUrl: 'https://donorbox.org/nonprofit-blog/wp-content/uploads/2019/01/iStock-622065910-1084x723-1024x683.jpg',
+    imageUrl:
+        'https://donorbox.org/nonprofit-blog/wp-content/uploads/2019/01/iStock-622065910-1084x723-1024x683.jpg',
     title: 'Fundraising 2',
-    description : 'Deskripsi 2',
+    description: 'Deskripsi 2',
     time: '2024-03-26 - 2024-04-28',
     progress: 8000,
     target: 12000,
   ),
   FundraisingData(
     id: 3,
-    imageUrl: 'https://donorbox.org/nonprofit-blog/wp-content/uploads/2019/01/iStock-622065910-1084x723-1024x683.jpg',
+    imageUrl:
+        'https://donorbox.org/nonprofit-blog/wp-content/uploads/2019/01/iStock-622065910-1084x723-1024x683.jpg',
     title: 'Fundraising 3',
-    description : 'Deskripsi 3',
+    description: 'Deskripsi 3',
     time: '2024-03-26 - 2024-04-28',
     progress: 3000,
     target: 5000,
   ),
   FundraisingData(
     id: 4,
-    imageUrl: 'https://donorbox.org/nonprofit-blog/wp-content/uploads/2019/01/iStock-622065910-1084x723-1024x683.jpg',
+    imageUrl:
+        'https://donorbox.org/nonprofit-blog/wp-content/uploads/2019/01/iStock-622065910-1084x723-1024x683.jpg',
     title: 'Fundraising 4',
-    description : 'Deskripsi 4',
+    description: 'Deskripsi 4',
     time: '2024-03-26 - 2024-04-28',
     progress: 5000,
     target: 10000,
   ),
   FundraisingData(
     id: 5,
-    imageUrl: 'https://donorbox.org/nonprofit-blog/wp-content/uploads/2019/01/iStock-622065910-1084x723-1024x683.jpg',
+    imageUrl:
+        'https://donorbox.org/nonprofit-blog/wp-content/uploads/2019/01/iStock-622065910-1084x723-1024x683.jpg',
     title: 'Fundraising 5',
-    description : 'Deskripsi 5',
+    description: 'Deskripsi 5',
     time: '2024-03-26 - 2024-04-28',
     progress: 8000,
     target: 12000,
   ),
   FundraisingData(
     id: 6,
-    imageUrl: 'https://donorbox.org/nonprofit-blog/wp-content/uploads/2019/01/iStock-622065910-1084x723-1024x683.jpg',
+    imageUrl:
+        'https://donorbox.org/nonprofit-blog/wp-content/uploads/2019/01/iStock-622065910-1084x723-1024x683.jpg',
     title: 'Fundraising 6',
-    description : 'Deskripsi 6',
+    description: 'Deskripsi 6',
     time: '2024-03-26 - 2024-04-28',
     progress: 3000,
     target: 5000,

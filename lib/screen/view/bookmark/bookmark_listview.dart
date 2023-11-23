@@ -6,17 +6,14 @@ import 'package:flutter_raih_peduli/screen/view/bookmark/widget/semua_listview.d
 class BookmarkListView extends StatelessWidget {
   final String selectedFilter;
 
-  const BookmarkListView({required this.selectedFilter});
+  const BookmarkListView({super.key, required this.selectedFilter});
 
   @override
   Widget build(BuildContext context) {
-
     if (selectedFilter == 'Donasi') {
       return SizedBox(child: DonasiListView());
-
     } else if (selectedFilter == 'Relawan') {
       return SizedBox(child: RelawanListView());
-      
     } else if (selectedFilter == 'Semua') {
       return SizedBox(child: SemuaListViewBuilder());
     }

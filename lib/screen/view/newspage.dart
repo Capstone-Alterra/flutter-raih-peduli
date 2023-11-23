@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/component/news.dart';
+import 'package:flutter_raih_peduli/News/widget/news.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_news_model.dart';
 import 'package:provider/provider.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class NewsPage extends StatefulWidget {
+  const NewsPage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<NewsPage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<NewsPage> {
   TextEditingController searchController = TextEditingController(text: '');
 
   void _showFilterBottomSheet(BuildContext context, NewsProvider news) {
@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     // Updated this line
                     children: [
-                      Padding(
+                      const Padding(
                         padding: EdgeInsets.only(left: 170),
                         child: Text(
                           'Filter',

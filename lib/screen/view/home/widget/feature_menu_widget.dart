@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/News/widget/news_page.dart';
 
 class FeatureMenuItem extends StatelessWidget {
   final String title;
@@ -6,6 +7,7 @@ class FeatureMenuItem extends StatelessWidget {
   final VoidCallback onPressed;
 
   const FeatureMenuItem({
+    super.key,
     required this.title,
     required this.assetImage,
     required this.onPressed,
@@ -16,17 +18,20 @@ class FeatureMenuItem extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Container(
-          margin: const EdgeInsets.all(8.0),
-          padding: const EdgeInsets.all(8.0),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12.0),
-            border: Border.all(color: Colors.grey),
-          ),
-          child: Image.asset(
-            assetImage,
-            height: 40.0, // Sesuaikan dengan ukuran yang diinginkan
+        GestureDetector(
+          onTap: onPressed,
+          child: Container(
+            margin: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12.0),
+              border: Border.all(color: Colors.grey),
+            ),
+            child: Image.asset(
+              assetImage,
+              height: 40.0, // Sesuaikan dengan ukuran yang diinginkan
+            ),
           ),
         ),
         const SizedBox(height: 8.0),
@@ -68,6 +73,10 @@ class FeatureMenuList extends StatelessWidget {
             assetImage: 'assets/icons/news.png',
             onPressed: () {
               // Handle Berita button pressed
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const NewsPage()),
+              );
             },
           ),
           FeatureMenuItem(
@@ -82,4 +91,3 @@ class FeatureMenuList extends StatelessWidget {
     );
   }
 }
-

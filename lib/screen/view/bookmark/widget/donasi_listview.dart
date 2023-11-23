@@ -4,6 +4,8 @@ import 'package:flutter_raih_peduli/screen/view/bookmark/widget/donasi_card_widg
 import 'package:flutter_raih_peduli/theme.dart';
 
 class DonasiListView extends StatelessWidget {
+  const DonasiListView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Column(

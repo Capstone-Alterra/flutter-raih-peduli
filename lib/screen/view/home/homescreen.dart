@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/bottomnavbar.dart';
+import 'package:flutter_raih_peduli/screen/view/home/home_listview.dart';
 import 'package:flutter_raih_peduli/screen/view/home/widget/custom_appbar_widget.dart';
 import 'package:flutter_raih_peduli/screen/view/home/widget/feature_menu_widget.dart';
 import 'package:flutter_raih_peduli/screen/view/home/widget/header_widget.dart';
-import 'package:flutter_raih_peduli/screen/view/home/home_listview.dart';
-import 'package:flutter_raih_peduli/screen/view_model/view_model_homescreeen.dart';
+
+import 'package:flutter_raih_peduli/screen/view_model/view_home_screen_view_model.dart';
+
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
@@ -12,7 +14,7 @@ class HomeScreen extends StatelessWidget {
   final homeScreenViewModel = HomeScreenViewModel();
 
   HomeScreen({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -25,15 +27,15 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height:170, child: HeaderWidget()),
+            SizedBox(height: 170, child: HeaderWidget()),
             const Padding(
               padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
               child: Text(
                 'Fitur Menu',
                 style: TextStyle(
-                fontSize: 20, 
-                fontWeight: FontWeight.bold, 
-                fontFamily: 'Helvetica',
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Helvetica',
                 ),
               ),
             ),

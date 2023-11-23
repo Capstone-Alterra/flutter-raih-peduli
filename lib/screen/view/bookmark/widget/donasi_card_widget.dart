@@ -8,6 +8,7 @@ class DonasiCard extends StatelessWidget {
   final FundraisingData fundraisingData;
 
   const DonasiCard({
+    super.key,
     required this.fundraisingData,
   });
 
@@ -36,7 +37,7 @@ class DonasiCard extends StatelessWidget {
               padding: const EdgeInsets.only(
                 top: 10.0,
                 bottom: 10.0,
-                left: 10.0, // Padding di sebelah kiri
+                left: 10.0,
               ),
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(8.0)),
@@ -50,39 +51,31 @@ class DonasiCard extends StatelessWidget {
             ),
           ),
           // Padding for spacing
-          const SizedBox(width: 3.0),
+          const SizedBox(width: 8.0),
           // Data
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.only(left: 8.0,),
+              padding: const EdgeInsets.only(left: 8.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              textBaseline: TextBaseline.alphabetic,
-                              children: [
-                                Text(
-                                  fundraisingData.title,
-                                  style: const TextStyle(
-                                    color: AppTheme.primaryColor,
-                                    fontFamily: 'Helvetica',
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18,
-                                  ),
-                                ),
-                                // Bookmark widget
-                                SaveWidget(),
-                              ],
+                            Text(
+                              fundraisingData.title,
+                              style: const TextStyle(
+                                color: AppTheme.primaryColor,
+                                fontFamily: 'Helvetica',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
                             ),
-
-                            const SizedBox(height: 10.0), // Jarak antara judul dan periode
+                            const SizedBox(height: 10.0),
                             Padding(
                               padding: const EdgeInsets.only(right: 8.0),
                               child: Text(fundraisingData.time),
@@ -90,9 +83,10 @@ class DonasiCard extends StatelessWidget {
                           ],
                         ),
                       ),
+                      // Bookmark widget
+                      SaveWidget(),
                     ],
                   ),
-
                   const SizedBox(height: 8.0),
                   Padding(
                     padding: const EdgeInsets.only(right: 8.0),
@@ -103,31 +97,28 @@ class DonasiCard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 8.0),
-                  // Baris untuk ikon, tulisan target, dan sisa hari
                   Padding(
                     padding: const EdgeInsets.only(right: 8.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        // Target
                         Row(
                           children: [
                             const Text('Target'),
                             const SizedBox(width: 3),
                             SvgPicture.asset(
-                              'assets/target.svg', // Ganti dengan path ke asset yang sesuai
+                              'assets/target.svg',
                               height: 15,
                             ),
                           ],
                         ),
                         const SizedBox(width: 8.0),
-                        // Sisa Hari
                         Row(
                           children: [
                             const Text('Sisa Hari'),
                             const SizedBox(width: 3),
                             SvgPicture.asset(
-                              'assets/tanggal.svg', // Ganti dengan path ke asset yang sesuai
+                              'assets/tanggal.svg',
                               height: 15,
                             ),
                           ],
@@ -136,7 +127,6 @@ class DonasiCard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 4.0),
-                  // Baris untuk nilai atau value
                   Padding(
                     padding: const EdgeInsets.only(right: 8.0),
                     child: Row(
@@ -149,9 +139,7 @@ class DonasiCard extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        const SizedBox(
-                            width:
-                                8.0), // Berikan ruang di antara nilai target dan sisa hari
+                        const SizedBox(width: 8.0),
                         Text(
                           '${fundraisingData.remainingDays} Hari',
                           style: const TextStyle(

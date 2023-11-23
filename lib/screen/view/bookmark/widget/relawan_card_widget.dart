@@ -8,6 +8,7 @@ class RelawanCard extends StatelessWidget {
   final VolunteerData volunteerData;
 
   const RelawanCard({
+    super.key,
     required this.volunteerData,
   });
 
@@ -53,7 +54,9 @@ class RelawanCard extends StatelessWidget {
           // Data
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.only(left: 8.0,),
+              padding: const EdgeInsets.only(
+                left: 8.0,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -125,9 +128,8 @@ class RelawanCard extends StatelessWidget {
                             const Text('Slot'),
                             const SizedBox(width: 3),
                             SvgPicture.asset(
-                              'assets/orang.svg', // Ganti dengan path ke asset yang sesuai
-                              height: 15
-                            ),
+                                'assets/orang.svg', // Ganti dengan path ke asset yang sesuai
+                                height: 15),
                           ],
                         ),
                       ],
@@ -146,12 +148,12 @@ class RelawanCard extends StatelessWidget {
                             color: AppTheme.primaryColor,
                             fontWeight: FontWeight.bold,
                           ),
-                          ),
+                        ),
                         const SizedBox(
                           width: 8.0,
                         ),
                         Text(
-                          '${volunteerData.slot} Orang',  
+                          '${volunteerData.slot} Orang',
                           style: const TextStyle(
                             color: AppTheme.primaryColor,
                             fontWeight: FontWeight.bold,

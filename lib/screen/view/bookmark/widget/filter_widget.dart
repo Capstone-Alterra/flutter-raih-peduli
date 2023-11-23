@@ -6,6 +6,7 @@ class FilterWidget extends StatelessWidget {
   final Function(String) onFilterSelected;
 
   const FilterWidget({
+    super.key,
     required this.selectedFilter,
     required this.onFilterSelected,
   });

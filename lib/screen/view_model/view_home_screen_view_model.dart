@@ -11,7 +11,7 @@ class HomeScreenViewModel extends ChangeNotifier {
 
   void setSearchText(String text) {
     _searchText = text;
-    _errorText = ''; 
+    _errorText = '';
     notifyListeners();
   }
 
@@ -23,7 +23,7 @@ class HomeScreenViewModel extends ChangeNotifier {
     }
     return true;
   }*/
-  
+
   void updateIndex(int index) {
     currentIndex = index;
     notifyListeners();
