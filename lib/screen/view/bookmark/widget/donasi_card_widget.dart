@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/fundraising_data.dart';
-import 'package:flutter_raih_peduli/screen/view/bookmark/widget/save_widget.dart';
+import 'package:flutter_raih_peduli/screen/view/access_volunteer/widget/save_widget.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 
 class DonasiCard extends StatelessWidget {

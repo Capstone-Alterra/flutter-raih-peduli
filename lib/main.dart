@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/screen/view/bookmark/bookmarkscreen.dart';
 import 'package:flutter_raih_peduli/screen/view/home/homescreen.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_access_volunteer.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_bookmarkscreen.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_homescreeen.dart';
 import 'package:provider/provider.dart';
 
@@ -16,6 +17,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => HomeScreenViewModel()),
+        ChangeNotifierProvider(create: (_) => BookmarkScreenViewModel()),
+        ChangeNotifierProvider(create: (_) => AccessVolunteerViewModel()),
       ],
       child: MaterialApp(
         theme: ThemeData(
@@ -24,7 +27,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         debugShowCheckedModeBanner: false,
-        home: BookmarkScreen(), // Ganti dengan widget Homescreen
+        home: HomeScreen(), // Ganti dengan widget Homescreen
       ),
     );
   }

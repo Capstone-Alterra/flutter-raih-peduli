@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/volunteer_data.dart';
+import 'package:flutter_raih_peduli/screen/view/access_volunteer/detail_volunteer.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 
 class VolunteerCard extends StatelessWidget {
@@ -97,8 +98,10 @@ class VolunteerCard extends StatelessWidget {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        // Aksi yang akan dijalankan saat tombol lihat detail ditekan
-                        // Misalnya, menavigasi ke halaman detail
+                        Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => DetailVolunteerPage(volunteerData: volunteerData),),
+                      );// Aksi yang akan dijalankan saat tombol lihat detail ditekan
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppTheme.primaryColor,

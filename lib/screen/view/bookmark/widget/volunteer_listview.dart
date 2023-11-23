@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/volunteer_data.dart';
-import 'package:flutter_raih_peduli/screen/view/bookmark/widget/relawan_card_widget.dart';
+import 'package:flutter_raih_peduli/screen/view/access_volunteer/widget/relawan_card_widget.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 
-class RelawanListView extends StatelessWidget {
+class VolunteerListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(

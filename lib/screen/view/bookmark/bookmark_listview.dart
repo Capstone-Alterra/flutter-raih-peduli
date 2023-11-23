@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/bookmark/widget/donasi_listview.dart';
-import 'package:flutter_raih_peduli/screen/view/bookmark/widget/relawan_listview.dart';
+import 'package:flutter_raih_peduli/screen/view/bookmark/widget/volunteer_listview.dart';
 import 'package:flutter_raih_peduli/screen/view/bookmark/widget/semua_listview.dart';
 
 class BookmarkListView extends StatelessWidget {
@@ -15,7 +15,7 @@ class BookmarkListView extends StatelessWidget {
       return SizedBox(child: DonasiListView());
 
     } else if (selectedFilter == 'Relawan') {
-      return SizedBox(child: RelawanListView());
+      return SizedBox(child: VolunteerListView());
       
     } else if (selectedFilter == 'Semua') {
       return SizedBox(child: SemuaListViewBuilder());

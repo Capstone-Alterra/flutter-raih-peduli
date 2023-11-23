@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/fundraising_data.dart';
 import 'package:flutter_raih_peduli/model/volunteer_data.dart';
+import 'package:flutter_raih_peduli/screen/view/access_volunteer/widget/relawan_card_widget.dart';
 import 'package:flutter_raih_peduli/screen/view/bookmark/widget/donasi_card_widget.dart';
-import 'package:flutter_raih_peduli/screen/view/bookmark/widget/relawan_card_widget.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 
 class SemuaListViewBuilder extends StatelessWidget {
@@ -14,7 +14,7 @@ class SemuaListViewBuilder extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Padding(
-              padding: EdgeInsets.only(left: 8, top: 9, bottom: 12),
+              padding: EdgeInsets.only(left: 8, top: 8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
