@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/screen/view/widgets/widget_profile_edit.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/settings/widget_profile_edit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ProfileEdit extends StatefulWidget {

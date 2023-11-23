@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/screen/view/settings/edit_profile.dart';
+import 'package:flutter_raih_peduli/screen/view/volunteer/form_apply.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_onboarding.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_settings.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
           debugShowCheckedModeBanner: false,
-          home: const ProfileEdit(),
+          home: const ApplyFormVolunteer(),
         ));
   }
 }
