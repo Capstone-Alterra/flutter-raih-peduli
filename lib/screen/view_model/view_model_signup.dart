@@ -58,7 +58,7 @@ class SignUpViewModel with ChangeNotifier {
     if (value.isEmpty) {
       return 'Email tidak boleh kosong';
     } else if (!EmailValidator.validate(value)) {
-      return 'Format Email salah';
+      return 'Format email salah';
     }
     return null;
   }

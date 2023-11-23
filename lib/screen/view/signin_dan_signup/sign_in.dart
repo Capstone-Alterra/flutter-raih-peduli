@@ -91,114 +91,121 @@ class SignIn extends StatelessWidget {
                   top: heightMediaQuery / 3,
                   left: widthMediaQuery / 15,
                   right: widthMediaQuery / 15,
-                  child: Container(
-                    height: heightMediaQuery / 2.8,
-                    decoration: const BoxDecoration(
-                      color: Color(0xFFE5E9F4),
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(
-                          8.0,
-                        ),
-                      ),
-                    ),
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(12),
-                        child: Form(
-                          key: viewModel.formKey,
-                          child: Column(
-                            children: [
-                              customTextFormField(
-                                  controller: viewModel.email,
-                                  prefixIcon: const Icon(
-                                    Icons.email,
-                                    color: Color(0xFF484F88),
-                                    size: 18,
-                                  ),
-                                  labelText: "Email",
-                                  validator: (value) =>
-                                      viewModel.validateEmail(value!)),
-                              const SizedBox(height: 5),
-                              customTextFormField(
-                                  controller: viewModel.password,
-                                  prefixIcon: Image.asset(
-                                    "assets/lock.png",
-                                  ),
-                                  labelText: "Password",
-                                  obscureText: true,
-                                  validator: (value) =>
-                                      viewModel.validatePassword(value!)),
-                              Row(
-                                children: [
-                                  Consumer<SignInViewModel>(
-                                    builder: (context, viewModel, child) {
-                                      return Checkbox(
-                                        value: viewModel.rememberMe,
-                                        onChanged: (bool? value) {
-                                          viewModel.setRememberMe(value!);
-                                        },
-                                        activeColor: viewModel.rememberMe
-                                            ? const Color(0xFF484F88)
-                                            : null,
-                                      );
-                                    },
-                                  ),
-                                  const Text("Ingat saya"),
-                                ],
-                              ),
-                              customButton(
-                                text: "Masuk",
-                                bgColor: const Color(0xFF484F88),
-                                onPressed: () async {
-                                  if (viewModel.formKey.currentState!
-                                      .validate()) {
-                                    await viewModel.signIn();
-                                    // if (viewModel.rememberMe != false) {
-                                    final accessToken =
-                                        viewModel.dataLogin!.data.accessToken;
-                                    final refreshToken =
-                                        viewModel.dataLogin!.data.refreshToken;
-                                    await viewModel.saveDataSharedPreferences(
-                                        accessToken, refreshToken);
-                                    // }
-                                    // Navigator.of(context).push(
-                                    //   MaterialPageRoute(
-                                    //     builder: (context) =>
-                                    //         const Verifikasi(),
-                                    //   ),
-                                    // );
-                                  }
-                                },
-                              ),
-                              const SizedBox(height: 15),
-                              Center(
-                                child: RichText(
-                                  text: TextSpan(
-                                    children: [
-                                      TextSpan(
-                                        text: 'Lupa Password?',
-                                        style: const TextStyle(
-                                            color: Color(0xFF293066),
-                                            fontSize: 14),
-                                        recognizer: TapGestureRecognizer()
-                                          ..onTap = () {
-                                            Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const ForgetPassword(),
-                                              ),
-                                            );
-                                          },
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              )
-                            ],
+                  child: Consumer<SignInViewModel>(
+                    builder: (context, model, child) {
+                      return Container(
+                        height: viewModel.heightContainer
+                            ? heightMediaQuery / 2.4
+                            : heightMediaQuery / 2.8,
+                        decoration: const BoxDecoration(
+                          color: Color(0xFFE5E9F4),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(
+                              8.0,
+                            ),
                           ),
                         ),
-                      ),
-                    ),
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(12),
+                            child: Form(
+                              key: viewModel.formKey,
+                              child: Column(
+                                children: [
+                                  customTextFormField(
+                                      controller: viewModel.email,
+                                      prefixIcon: const Icon(
+                                        Icons.email,
+                                        color: Color(0xFF484F88),
+                                        size: 18,
+                                      ),
+                                      labelText: "Email",
+                                      validator: (value) =>
+                                          viewModel.validateEmail(value!)),
+                                  const SizedBox(height: 5),
+                                  customTextFormField(
+                                      controller: viewModel.password,
+                                      prefixIcon: Image.asset(
+                                        "assets/lock.png",
+                                      ),
+                                      labelText: "Password",
+                                      obscureText: true,
+                                      validator: (value) =>
+                                          viewModel.validatePassword(value!)),
+                                  Row(
+                                    children: [
+                                      Consumer<SignInViewModel>(
+                                        builder: (context, model, child) {
+                                          return Checkbox(
+                                            value: viewModel.rememberMe,
+                                            onChanged: (bool? value) {
+                                              viewModel.setRememberMe(value!);
+                                            },
+                                            activeColor: viewModel.rememberMe
+                                                ? const Color(0xFF484F88)
+                                                : null,
+                                          );
+                                        },
+                                      ),
+                                      const Text("Ingat saya"),
+                                    ],
+                                  ),
+                                  customButton(
+                                    text: "Masuk",
+                                    bgColor: const Color(0xFF484F88),
+                                    onPressed: () async {
+                                      if (viewModel.formKey.currentState!
+                                          .validate()) {
+                                        await viewModel.signIn();
+                                        // if (viewModel.rememberMe != false) {
+                                        final accessToken = viewModel
+                                            .dataLogin!.data.accessToken;
+                                        final refreshToken = viewModel
+                                            .dataLogin!.data.refreshToken;
+                                        await viewModel
+                                            .saveDataSharedPreferences(
+                                                accessToken, refreshToken);
+                                        // }
+                                        // Navigator.of(context).push(
+                                        //   MaterialPageRoute(
+                                        //     builder: (context) =>
+                                        //         const Verifikasi(),
+                                        //   ),
+                                        // );
+                                      }
+                                    },
+                                  ),
+                                  const SizedBox(height: 15),
+                                  Center(
+                                    child: RichText(
+                                      text: TextSpan(
+                                        children: [
+                                          TextSpan(
+                                            text: 'Lupa Password?',
+                                            style: const TextStyle(
+                                                color: Color(0xFF293066),
+                                                fontSize: 14),
+                                            recognizer: TapGestureRecognizer()
+                                              ..onTap = () {
+                                                Navigator.of(context).push(
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const ForgetPassword(),
+                                                  ),
+                                                );
+                                              },
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
                 Positioned(

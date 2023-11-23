@@ -10,6 +10,7 @@ class SignInViewModel with ChangeNotifier {
   final TextEditingController password = TextEditingController();
   final service = SignInService();
   bool rememberMe = false;
+  bool heightContainer = false;
   ModelSignIn? dataLogin;
 
   Future<void> signIn() async {
@@ -38,16 +39,24 @@ class SignInViewModel with ChangeNotifier {
   }
 
   String? validateEmail(String value) {
+    heightContainer = true;
+    notifyListeners();
     if (!EmailValidator.validate(value)) {
-      return 'Format Email salah';
+      return 'Format email salah';
     }
+    heightContainer = false;
+    notifyListeners();
     return null;
   }
 
   String? validatePassword(String value) {
+    heightContainer = true;
+    notifyListeners();
     if (value.isEmpty) {
       return 'Password tidak boleh kosong';
     }
+    heightContainer = false;
+    notifyListeners();
     return null;
   }
 }
