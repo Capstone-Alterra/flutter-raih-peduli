@@ -1,7 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/forget_password/forget_password.dart';
 import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/widget/textformfield.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 class SignIn extends StatelessWidget {
@@ -116,11 +118,19 @@ class SignIn extends StatelessWidget {
                             const SizedBox(height: 5),
                             customTextFormField(
                                 controller: viewModel.password,
-                                prefixIcon: Image.asset(
-                                  "assets/lock_password.png",
-                                  width: 10.0,
-                                  height: 10.0,
+                                prefixIcon: SvgPicture.asset(
+                                  "assets/Vector (1).svg",
+                                  fit: BoxFit.fill,
+                                  alignment: Alignment.center,
+                                  width: 24.0,
+                                  height: 24.0,
                                 ),
+
+                                // prefixIcon: Image.asset(
+                                //   "assets/lock_password.png",
+                                //   width: 10.0,
+                                //   height: 10.0,
+                                // ),
                                 labelText: "Password",
                                 obscureText: true),
                             Row(
@@ -180,7 +190,14 @@ class SignIn extends StatelessWidget {
                                           color: Color(0xFF293066),
                                           fontSize: 14),
                                       recognizer: TapGestureRecognizer()
-                                        ..onTap = () {},
+                                        ..onTap = () {
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const ForgetPassword(),
+                                            ),
+                                          );
+                                        },
                                     ),
                                   ],
                                 ),

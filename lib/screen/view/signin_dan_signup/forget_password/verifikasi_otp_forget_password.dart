@@ -1,16 +1,19 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
-import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/sign_in.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_forget_password.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_signup.dart';
 import 'package:provider/provider.dart';
 
-class Verifikasi extends StatelessWidget {
-  const Verifikasi({Key? key}) : super(key: key);
+import 'ubah_password.dart';
+
+class VerifikasiForgetPassword extends StatelessWidget {
+  const VerifikasiForgetPassword({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = Provider.of<SignUpViewModel>(context, listen: false);
+    final viewModel =
+        Provider.of<ForgetPasswordViewModel>(context, listen: false);
     final widthMediaQuery = MediaQuery.of(context).size.width;
     final heightMediaQuery = MediaQuery.of(context).size.height;
     final heightContainer = heightMediaQuery / 3;
@@ -51,7 +54,7 @@ class Verifikasi extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'OTP Registrasi',
+                              'OTP Kata Sandi',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 26,
@@ -146,7 +149,7 @@ class Verifikasi extends StatelessWidget {
                                           ),
                                           recognizer: TapGestureRecognizer()
                                             ..onTap = () {
-                                              viewModel.reSendOtp();
+                                              // viewModel.reSendOtp();
                                             },
                                         ),
                                       ],
@@ -169,12 +172,11 @@ class Verifikasi extends StatelessWidget {
                           ),
                           onPressed: () {
                             debugPrint("=>${viewModel.kodeOtp}");
-                            final otp = viewModel.kodeOtp;
-                            viewModel.verifikasi(otp);
+                            viewModel.verifikasiOtp();
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (_) => const SignIn(),
+                                builder: (_) => const UbahPassword(),
                               ),
                             );
                           },

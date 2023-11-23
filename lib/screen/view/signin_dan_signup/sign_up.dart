@@ -1,8 +1,9 @@
-// ignore_for_file: use_build_context_synchronously
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/verifikasi.dart';
+import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/widget/button.dart';
 import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/widget/textformfield.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_signup.dart';
 import 'package:provider/provider.dart';
@@ -22,7 +23,7 @@ class SignUp extends StatelessWidget {
             children: [
               SizedBox(
                 width: widthMediaQuery,
-                height: heightMediaQuery - (heightMediaQuery * 0.05),
+                height: heightMediaQuery - (heightMediaQuery * 0.07),
                 child: Stack(
                   children: [
                     Positioned(
@@ -181,7 +182,10 @@ class SignUp extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 5),
                                 customTextFormField(
-                                  keyboardType: TextInputType.number,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.digitsOnly
+                                  ],
+                                  keyboardType: TextInputType.phone,
                                   controller: viewModel.phone,
                                   prefixIcon: const Icon(
                                     Icons.phone,
@@ -202,9 +206,19 @@ class SignUp extends StatelessWidget {
                                     obscureText: true),
                                 Row(
                                   children: [
-                                    Checkbox(
-                                      value: false,
-                                      onChanged: (bool? value) {},
+                                    Consumer<SignUpViewModel>(
+                                      builder: (context, viewModel, child) {
+                                        return Checkbox(
+                                          value: viewModel.agree,
+                                          onChanged: (bool? value) {
+                                            viewModel.setAgreePrivasi(value!);
+                                            debugPrint("=>$value");
+                                          },
+                                          activeColor: viewModel.agree
+                                              ? const Color(0xFF484F88)
+                                              : null,
+                                        );
+                                      },
                                     ),
                                     const Text(
                                       'Saya setuju dengan Kebijakan Privasi Raih Peduli',
@@ -214,26 +228,26 @@ class SignUp extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                                ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(0xFF484F88),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                  ),
-                                  onPressed: () async {
-                                    await viewModel.signUp();
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const Verifikasi(),
-                                      ),
-                                    );
+                                Consumer<SignUpViewModel>(
+                                  builder: (context, viewModel, child) {
+                                    return viewModel.agree
+                                        ? customButton(
+                                            bgColor: const Color(0xFF484F88),
+                                            onPressed: () async {
+                                              await viewModel.signUp();
+                                              Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const Verifikasi(),
+                                                ),
+                                              );
+                                            },
+                                          )
+                                        : customButton(
+                                            bgColor:
+                                                CupertinoColors.inactiveGray,
+                                          );
                                   },
-                                  child: SizedBox(
-                                      width: widthMediaQuery,
-                                      child:
-                                          const Center(child: Text("Daftar"))),
                                 ),
                               ],
                             ),

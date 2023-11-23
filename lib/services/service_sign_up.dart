@@ -53,4 +53,22 @@ class SignUpService {
       return false;
     }
   }
+
+  Future<Object> fecthNewOtp(String email) async {
+    try {
+      final response = await _dio.post(
+        Urls.baseUrl + Urls.reSendOtp,
+        data: {
+          'email': email,
+        },
+      );
+      debugPrint("====>${response.data}");
+      // final Map<String, dynamic> jsonData = response.data;
+      // final ModelSignUp modelSignUp = modelSignUpFromJson(jsonData);
+      return false;
+    } catch (error) {
+      debugPrint('Terjadi kesalahan saat melakukan permintaan: $error');
+      return false;
+    }
+  }
 }
