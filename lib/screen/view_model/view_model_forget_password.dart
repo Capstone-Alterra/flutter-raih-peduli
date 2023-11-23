@@ -1,8 +1,10 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/model_token_forget_password.dart';
 import 'package:flutter_raih_peduli/services/service_forget_password.dart';
 
 class ForgetPasswordViewModel with ChangeNotifier {
+  final formKey = GlobalKey<FormState>();
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
   String kodeOtp = "";
@@ -31,5 +33,14 @@ class ForgetPasswordViewModel with ChangeNotifier {
     final newPassword = password.text;
     await service.ubahPasswordUser(emailUser, newPassword, token);
     notifyListeners();
+  }
+
+  String? validateEmail(String value) {
+    if (value.isEmpty) {
+      return 'Email tidak boleh kosong';
+    } else if (!EmailValidator.validate(value)) {
+      return 'Format Email salah';
+    }
+    return null;
   }
 }

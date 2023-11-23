@@ -4,6 +4,7 @@ Widget customButton({
   String? labelText,
   Color? bgColor,
   VoidCallback? onPressed,
+  String? text
 }) {
   return ElevatedButton(
     style: ElevatedButton.styleFrom(
@@ -14,7 +15,7 @@ Widget customButton({
       ),
     ),
     onPressed: onPressed,
-    child: const SizedBox(
-        width: double.infinity, child: Center(child: Text("Daftar"))),
+    child:  SizedBox(
+        width: double.infinity, child: Center(child: Text(text ?? ""))),
   );
 }

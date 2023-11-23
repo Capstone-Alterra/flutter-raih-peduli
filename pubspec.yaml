@@ -19,6 +19,7 @@ dependencies:
   pin_code_fields: ^8.0.1
   shared_preferences: ^2.2.2
   quickalert: ^1.0.2
+  email_validator: ^2.1.17
 
 flutter_native_splash:
   color: "#FFFFFF"

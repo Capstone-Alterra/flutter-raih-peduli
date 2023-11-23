@@ -8,6 +8,7 @@ Widget customTextFormField({
   bool? obscureText,
   TextInputType? keyboardType,
   List<TextInputFormatter>? inputFormatters,
+  String? Function(String?)? validator, 
 }) {
   return TextFormField(
     keyboardType: keyboardType,
@@ -40,5 +41,6 @@ Widget customTextFormField({
         ),
       ),
     ),
+    validator: validator,
   );
 }

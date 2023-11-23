@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/forget_password/verifikasi_otp_forget_password.dart';
+import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/widget/button.dart';
 import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/widget/textformfield.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_forget_password.dart';
 import 'package:provider/provider.dart';
@@ -105,39 +106,39 @@ class ForgetPassword extends StatelessWidget {
                     child: Center(
                       child: Padding(
                         padding: const EdgeInsets.all(12),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            customTextFormField(
-                              controller: viewModel.email,
-                              prefixIcon: const Icon(
-                                Icons.email,
-                                color: Color(0xFF484F88),
-                                size: 18,
-                              ),
-                              labelText: "Email",
-                            ),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFF484F88),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(13),
-                                ),
-                              ),
-                              onPressed: () async {
-                                await viewModel.getOtpViaEmail();
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const VerifikasiForgetPassword(),
+                        child: Form(
+                          key: viewModel.formKey,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              customTextFormField(
+                                  controller: viewModel.email,
+                                  prefixIcon: const Icon(
+                                    Icons.email,
+                                    color: Color(0xFF484F88),
+                                    size: 18,
                                   ),
-                                );
-                              },
-                              child: SizedBox(
-                                  width: widthMediaQuery,
-                                  child: const Center(child: Text("Kirim"))),
-                            ),
-                          ],
+                                  labelText: "Email",
+                                  validator: (value) =>
+                                      viewModel.validateEmail(value!)),
+                              customButton(
+                                text: "Kirim",
+                                bgColor: const Color(0xFF484F88),
+                                onPressed: () async {
+                                  if (viewModel.formKey.currentState!
+                                      .validate()) {
+                                    await viewModel.getOtpViaEmail();
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const VerifikasiForgetPassword(),
+                                      ),
+                                    );
+                                  }
+                                },
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),

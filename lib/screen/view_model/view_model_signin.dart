@@ -1,18 +1,24 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/model_sign_in.dart';
 import 'package:flutter_raih_peduli/services/service_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInViewModel with ChangeNotifier {
+  final formKey = GlobalKey<FormState>();
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
   final service = SignInService();
   bool rememberMe = false;
   ModelSignIn? dataLogin;
 
-  Future<void> signIn(String email, String password) async {
-    final data = await service.signInAccount(email, password);
+  Future<void> signIn() async {
+    final emailUser = email.text;
+    final passwordUser = password.text;
+    final data = await service.signInAccount(emailUser, passwordUser);
     dataLogin = data;
+    email.clear;
+    password.clear;
     notifyListeners();
   }
 
@@ -22,12 +28,26 @@ class SignInViewModel with ChangeNotifier {
   }
 
   Future<void> saveDataSharedPreferences(
-      String email, String accessToken, String refreshToken) async {
+      String accessToken, String refreshToken) async {
+    final emailUser = email.text;
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('email', email);
+    await prefs.setString('email', emailUser);
     await prefs.setString('access_token', accessToken);
     await prefs.setString('refresh_token', refreshToken);
     notifyListeners();
   }
-  
+
+  String? validateEmail(String value) {
+    if (!EmailValidator.validate(value)) {
+      return 'Format Email salah';
+    }
+    return null;
+  }
+
+  String? validatePassword(String value) {
+    if (value.isEmpty) {
+      return 'Password tidak boleh kosong';
+    }
+    return null;
+  }
 }

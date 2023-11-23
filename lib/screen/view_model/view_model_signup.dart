@@ -1,7 +1,9 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import '../../services/service_sign_up.dart';
 
 class SignUpViewModel with ChangeNotifier {
+  final formKey = GlobalKey<FormState>();
   final TextEditingController fullname = TextEditingController();
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
@@ -39,9 +41,50 @@ class SignUpViewModel with ChangeNotifier {
   }
 
   void onGenderChanged(String? value) {
-    if (value != null) {
+    if (value != null && value != "Select Gender") {
       selectedGender = value;
       notifyListeners();
     }
+  }
+
+  String? validateName(String value) {
+    if (value.isEmpty) {
+      return 'Nama tidak boleh kosong';
+    }
+    return null;
+  }
+
+  String? validateEmail(String value) {
+    if (value.isEmpty) {
+      return 'Email tidak boleh kosong';
+    } else if (!EmailValidator.validate(value)) {
+      return 'Format Email salah';
+    }
+    return null;
+  }
+
+  String? validateAddress(String value) {
+    if (value.isEmpty) {
+      return 'Alamat tidak boleh kosong';
+    }
+    return null;
+  }
+
+  String? validatePhone(String value) {
+    if (value.isEmpty) {
+      return 'Nomor tidak boleh kosong';
+    }
+    return null;
+  }
+
+  String? validatePassword(String value) {
+    if (value.isEmpty) {
+      return 'Password tidak boleh kosong';
+    } else if (value.length < 8) {
+      return 'Password harus memiliki setidaknya 8 karakter';
+    } else if (!RegExp(r'^(?=.*[a-zA-Z])(?=.*\d).+$').hasMatch(value)) {
+      return 'Password harus berupa kombinasi huruf dan angka';
+    }
+    return null;
   }
 }
