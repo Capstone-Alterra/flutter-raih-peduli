@@ -4,16 +4,17 @@ import 'package:flutter_raih_peduli/theme.dart';
 class HeaderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final heightcontainer = MediaQuery.of(context).size.height / 5;
     return Container(
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height / 5,
+      height: heightcontainer,
       color: AppTheme.secondaryColor,
       child: Stack(
         children: [
           Positioned(
-            top: 0,
-            right: 0,
-            bottom: 20,
+            top: MediaQuery.of(context).size.height * 0,
+            right: MediaQuery.of(context).size.width * 0,
+            bottom: heightcontainer / 8,
             child: Image.asset(
               'assets/home_bg.png',
               width: 120,

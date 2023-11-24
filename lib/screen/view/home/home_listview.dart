@@ -17,19 +17,16 @@ class HomeListViewBuilder extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 8, left: 16, right: 10),
+              padding: const EdgeInsets.all(12),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.6,
-                    child: const Text(
-                      'Donasi Untuk Kebaikan',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Helvetica',
-                      ),
+                  const Text(
+                    'Donasi Untuk Kebaikan',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Helvetica',
                     ),
                   ),
                   ViewallWidget(
@@ -64,13 +61,10 @@ class HomeListViewBuilder extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 8, left: 16, right: 10),
+              padding: const EdgeInsets.all(12),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.6, // Sesuaikan persentase lebar yang diinginkan
-                    child: const Text(
+                children: [const Text(
                       'Jadilah Relawan Sosial',
                       style: TextStyle(
                         fontSize: 18,
@@ -78,7 +72,6 @@ class HomeListViewBuilder extends StatelessWidget {
                         fontFamily: 'Helvetica',
                       ),
                     ),
-                  ),
                   ViewallWidget(
                     onPressed: () {
                       Navigator.push(
@@ -116,13 +109,10 @@ class HomeListViewBuilder extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 8, left: 16, right: 10),
+              padding: const EdgeInsets.all(12),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.6,
-                    child: const Text(
+                children: [const Text(
                       'Temukan Informasi Terkini',
                       style: TextStyle(
                         fontSize: 18,
@@ -130,7 +120,6 @@ class HomeListViewBuilder extends StatelessWidget {
                         fontFamily: 'Helvetica',
                       ),
                     ),
-                  ),
                   ViewallWidget(
                     onPressed: () {
                       // Aksi yang akan dijalankan saat tombol ditekan

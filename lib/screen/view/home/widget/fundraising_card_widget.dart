@@ -31,11 +31,11 @@ class FundraisingCard extends StatelessWidget {
               padding: const EdgeInsets.only(left: 8, top: 8, right: 8),
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-                 child: Image.network(
-                    fundraisingData.imageUrl,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
+                child: Image.network(
+                  fundraisingData.imageUrl,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
@@ -74,23 +74,25 @@ class FundraisingCard extends StatelessWidget {
                         Row(
                           children: [
                             Image.asset(
-                            'assets/icons/target.png', 
-                            height: 10,
-                          ),
-                            const Text(
-                            'Target', 
-                            style: TextStyle(
-                              fontFamily: 'Helvetica',
+                              'assets/icons/target.png',
+                              height: 10,
                             ),
+                            const Text(
+                              'Target',
+                              style: TextStyle(
+                                fontFamily: 'Helvetica',
+                                color: AppTheme.primaryColor,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12
+                              ),
                             ),
                           ],
                         ),
                         Text(
-                          'Rp. ${fundraisingData.target}',
+                          'Rp.${fundraisingData.target}',
                           style: const TextStyle(
-                            color: AppTheme.primaryColor,
                             fontFamily: 'Helvetica',
-                            fontWeight: FontWeight.bold,
+                            fontSize: 12
                           ),
                         ),
                       ],
@@ -102,14 +104,20 @@ class FundraisingCard extends StatelessWidget {
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppTheme.primaryColor,
-                        textStyle: const TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Helvetica',),
+                        textStyle: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Helvetica',
+                          color: AppTheme.white,
+                          fontSize: 12,
+                        ),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8.0),
                         ),
+                        fixedSize:
+                            const Size(100, 0), // Sesuaikan ukuran sesuai kebutuhan
                       ),
                       child: const Text(
-                      'Lihat Detail',
-                      style: TextStyle(color: AppTheme.white), 
+                        'Lihat Detail',
                       ),
                     ),
                   ],

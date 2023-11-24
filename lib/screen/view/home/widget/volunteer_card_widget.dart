@@ -82,6 +82,9 @@ class VolunteerCard extends StatelessWidget {
                             'Slot', 
                             style: TextStyle(
                               fontFamily: 'Helvetica',
+                              color: AppTheme.primaryColor,
+                               fontWeight: FontWeight.bold,
+                               fontSize: 12
                             ),
                             ),
                           ],
@@ -90,8 +93,7 @@ class VolunteerCard extends StatelessWidget {
                           '${volunteerData.slot} Orang',
                           style: const TextStyle(
                             fontFamily: 'Helvetica',
-                            color: AppTheme.primaryColor,
-                            fontWeight: FontWeight.bold,
+                            fontSize: 12
                           ),
                         ),
                       ],
@@ -105,14 +107,20 @@ class VolunteerCard extends StatelessWidget {
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppTheme.primaryColor,
-                        textStyle: const TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Helvetica',),
+                        textStyle: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Helvetica',
+                          color: AppTheme.white,
+                          fontSize: 12,
+                        ),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8.0),
                         ),
+                        fixedSize:
+                            const Size(100, 0), // Sesuaikan ukuran sesuai kebutuhan
                       ),
                       child: const Text(
-                        'Lihat Detail', 
-                        style: TextStyle(color: AppTheme.white),
+                        'Lihat Detail',
                       ),
                     ),
                   ],
