@@ -31,7 +31,7 @@ class _ButtonVolunteerState extends State<ButtonVolunteer> {
             onPressed: () {
               final snackBar = snackBarVolunteer(size, context);
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              Future.delayed(const Duration(seconds: 3), () {
+              Future.delayed(const Duration(seconds: 4), () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const ProfileEdit()),
