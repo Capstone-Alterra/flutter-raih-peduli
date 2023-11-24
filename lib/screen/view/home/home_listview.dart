@@ -17,16 +17,19 @@ class HomeListViewBuilder extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 16, right: 10),
+              padding: const EdgeInsets.only(top: 8, left: 16, right: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'Donasi Untuk Kebaikan',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Helvetica',
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.6,
+                    child: const Text(
+                      'Donasi Untuk Kebaikan',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Helvetica',
+                      ),
                     ),
                   ),
                   ViewallWidget(
@@ -40,13 +43,13 @@ class HomeListViewBuilder extends StatelessWidget {
           ],
         ),
         SizedBox(
-          height: 275, // Set a reasonable height
+          height: 260, // Set a reasonable height
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: dummyFundraisingData.length,
             itemBuilder: (context, index) {
               return Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(left: 8.0),
                 child: SizedBox(
                   width: 250, // Set a reasonable width for each card
                   child: FundraisingCard(
@@ -61,16 +64,19 @@ class HomeListViewBuilder extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 16, right: 10),
+              padding: const EdgeInsets.only(top: 8, left: 16, right: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'Jadilah Relawan Sosial',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Helvetica',
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.6, // Sesuaikan persentase lebar yang diinginkan
+                    child: const Text(
+                      'Jadilah Relawan Sosial',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Helvetica',
+                      ),
                     ),
                   ),
                   ViewallWidget(
@@ -89,13 +95,13 @@ class HomeListViewBuilder extends StatelessWidget {
           ],
         ),
         SizedBox(
-          height: 275, // Set a reasonable height
+          height: 260, // Set a reasonable height
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: dummyVolunteerData.length,
             itemBuilder: (context, index) {
               return Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(left: 8.0),
                 child: SizedBox(
                   width: 250, // Set a reasonable width for each card
                   child: VolunteerCard(
@@ -110,16 +116,19 @@ class HomeListViewBuilder extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 16, right: 10),
+              padding: const EdgeInsets.only(top: 8, left: 16, right: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'Temukan Informasi Terkini',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Helvetica',
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.6,
+                    child: const Text(
+                      'Temukan Informasi Terkini',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Helvetica',
+                      ),
                     ),
                   ),
                   ViewallWidget(
@@ -134,13 +143,13 @@ class HomeListViewBuilder extends StatelessWidget {
           ],
         ),
         SizedBox(
-          height: 275, // Set a reasonable height
+          height: 260, // Set a reasonable height
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: dummyNewsData.length,
             itemBuilder: (context, index) {
               return Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(left: 8.0),
                 child: SizedBox(
                   width: 250, // Set a reasonable width for each card
                   child: NewsCard(
