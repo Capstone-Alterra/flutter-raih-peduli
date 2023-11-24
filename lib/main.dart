@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/settings/settings_view.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_forget_password.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_onboarding.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_signup.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(create: (_) => SignUpViewModel()),
           ChangeNotifierProvider(create: (_) => SignInViewModel()),
+          ChangeNotifierProvider(create: (_) => ForgetPasswordViewModel()),
           ChangeNotifierProvider(create: (_) => OnBoardingViewModel()),
           ChangeNotifierProvider(create: (_) => SettingsViewProvider()),
         ],

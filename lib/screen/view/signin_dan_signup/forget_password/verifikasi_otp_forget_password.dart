@@ -4,16 +4,17 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/widget/alert.dart';
-import 'package:flutter_raih_peduli/screen/view_model/view_model_signup.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_forget_password.dart';
 import 'package:provider/provider.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 
-class Verifikasi extends StatelessWidget {
-  const Verifikasi({Key? key}) : super(key: key);
+class VerifikasiForgetPassword extends StatelessWidget {
+  const VerifikasiForgetPassword({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = Provider.of<SignUpViewModel>(context, listen: false);
+    final viewModel =
+        Provider.of<ForgetPasswordViewModel>(context, listen: false);
     final widthMediaQuery = MediaQuery.of(context).size.width;
     final heightMediaQuery = MediaQuery.of(context).size.height;
     final heightContainer = heightMediaQuery / 3;
@@ -54,7 +55,7 @@ class Verifikasi extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'OTP Registrasi',
+                              'OTP Kata Sandi',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 26,
@@ -101,7 +102,7 @@ class Verifikasi extends StatelessWidget {
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: Consumer<SignUpViewModel>(
+                                  child: Consumer<ForgetPasswordViewModel>(
                                     builder: (context, contactModel, child) {
                                       return SizedBox(
                                         height: 40,
@@ -171,15 +172,15 @@ class Verifikasi extends StatelessWidget {
                             ),
                           ),
                           onPressed: () async {
-                            final otp = viewModel.kodeOtp;
-                            await viewModel.verifikasi(otp);
+                            debugPrint("=>${viewModel.kodeOtp}");
+                            await viewModel.verifikasiOtp();
                             viewModel.isResponseSuccess
                                 ? customAlert(
                                     context: context,
                                     alertType: QuickAlertType.custom,
                                     customAsset: 'assets/Group 427318233.png',
                                     text:
-                                        'Selamat! Akun anda telah berhasil dibuat...!',
+                                        'Yey! Akun anda telah berhasil dipulihkan...!',
                                     shouldPop: false)
                                 : customAlert(
                                     context: context,

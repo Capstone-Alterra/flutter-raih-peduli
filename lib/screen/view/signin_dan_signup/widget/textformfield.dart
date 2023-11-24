@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 Widget customTextFormField({
   required TextEditingController controller,
@@ -6,8 +7,12 @@ Widget customTextFormField({
   String? labelText,
   bool? obscureText,
   TextInputType? keyboardType,
+  List<TextInputFormatter>? inputFormatters,
+  String? Function(String?)? validator, 
 }) {
   return TextFormField(
+    keyboardType: keyboardType,
+    inputFormatters: inputFormatters,
     controller: controller,
     obscureText: obscureText ?? false,
     decoration: InputDecoration(
@@ -36,5 +41,6 @@ Widget customTextFormField({
         ),
       ),
     ),
+    validator: validator,
   );
 }
