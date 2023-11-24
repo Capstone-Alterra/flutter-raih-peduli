@@ -6,8 +6,21 @@ import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/widget/textfor
 import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
 import 'package:provider/provider.dart';
 
-class SignIn extends StatelessWidget {
+class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
+
+  @override
+  State<SignIn> createState() => _SignInState();
+}
+
+class _SignInState extends State<SignIn> {
+  late SignInViewModel viewModel;
+  @override
+  void initState() {
+    viewModel = Provider.of<SignInViewModel>(context, listen: false);
+    viewModel.setUlang();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

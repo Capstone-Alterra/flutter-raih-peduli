@@ -39,9 +39,13 @@ class SignInViewModel with ChangeNotifier {
   }
 
   String? validateEmail(String value) {
-    heightContainer = true;
-    notifyListeners();
-    if (!EmailValidator.validate(value)) {
+    if (value.isEmpty) {
+      heightContainer = true;
+      notifyListeners();
+      return 'Email tidak boleh kosong';
+    } else if (!EmailValidator.validate(value)) {
+      heightContainer = true;
+      notifyListeners();
       return 'Format email salah';
     }
     heightContainer = false;
@@ -58,5 +62,10 @@ class SignInViewModel with ChangeNotifier {
     heightContainer = false;
     notifyListeners();
     return null;
+  }
+
+  void setUlang() {
+    heightContainer = false;
+    notifyListeners();
   }
 }
