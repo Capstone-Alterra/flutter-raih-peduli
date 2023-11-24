@@ -40,3 +40,11 @@ flutter:
   assets:
     - assets/
   
+  fonts:
+    - family: Helvetica
+      fonts:
+        - asset: fonts/Helvetica-Bold.ttf
+        - asset: fonts/Helvetica-BoldOblique.ttf
+        - asset: fonts/helvetica-light-587ebe5a59211.ttf
+        - asset: fonts/Helvetica-Oblique.ttf
+        - asset: fonts/Helvetica.ttf
