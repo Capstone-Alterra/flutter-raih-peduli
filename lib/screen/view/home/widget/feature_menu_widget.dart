@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/News/widget/news_page.dart';
+import 'package:flutter_raih_peduli/screen/view/about/about_us.dart';
 
 class FeatureMenuItem extends StatelessWidget {
   final String title;
@@ -84,6 +85,10 @@ class FeatureMenuList extends StatelessWidget {
             assetImage: 'assets/icons/about.png',
             onPressed: () {
               // Handle Tentang Kami button pressed
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const AboutUsPage()),
+              );
             },
           ),
         ],

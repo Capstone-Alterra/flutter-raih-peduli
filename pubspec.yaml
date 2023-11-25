@@ -17,6 +17,7 @@ dependencies:
   intl: ^0.17.0
   dio: ^5.3.4
   fancy_shimmer_image: ^2.0.3
+  flutter_screenutil: ^5.9.0
   
 
 flutter_native_splash:
