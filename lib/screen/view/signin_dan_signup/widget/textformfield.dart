@@ -8,7 +8,7 @@ Widget customTextFormField({
   bool? obscureText,
   TextInputType? keyboardType,
   List<TextInputFormatter>? inputFormatters,
-  String? Function(String?)? validator, 
+  String? Function(String?)? validator,
 }) {
   return TextFormField(
     keyboardType: keyboardType,
@@ -38,6 +38,12 @@ Widget customTextFormField({
         borderRadius: BorderRadius.circular(5),
         borderSide: const BorderSide(
           color: Colors.white,
+        ),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(5),
+        borderSide: const BorderSide(
+          color: Colors.red,
         ),
       ),
     ),

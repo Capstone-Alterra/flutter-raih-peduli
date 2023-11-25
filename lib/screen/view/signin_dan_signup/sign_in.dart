@@ -1,13 +1,27 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/screen/view/settings/settings_view.dart';
 import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/forget_password/forget_password.dart';
 import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/widget/button.dart';
 import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/widget/textformfield.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
 import 'package:provider/provider.dart';
 
-class SignIn extends StatelessWidget {
+class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
+
+  @override
+  State<SignIn> createState() => _SignInState();
+}
+
+class _SignInState extends State<SignIn> {
+  late SignInViewModel viewModel;
+  @override
+  void initState() {
+    viewModel = Provider.of<SignInViewModel>(context, listen: false);
+    viewModel.setUlang();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -166,12 +180,12 @@ class SignIn extends StatelessWidget {
                                             .saveDataSharedPreferences(
                                                 accessToken, refreshToken);
                                         // }
-                                        // Navigator.of(context).push(
-                                        //   MaterialPageRoute(
-                                        //     builder: (context) =>
-                                        //         const Verifikasi(),
-                                        //   ),
-                                        // );
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const SettingScreen(),
+                                          ),
+                                        );
                                       }
                                     },
                                   ),

@@ -1,5 +1,7 @@
+import 'package:dio/dio.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/model/model_otp.dart';
 import '../../services/service_sign_up.dart';
 
 class SignUpViewModel with ChangeNotifier {
@@ -15,6 +17,7 @@ class SignUpViewModel with ChangeNotifier {
   bool isResponseSuccess = false;
   String kodeOtp = "";
   final service = SignUpService();
+  ModelOtp? otp;
 
   Future<void> signUp() async {
     final nameUser = fullname.text;
@@ -32,8 +35,29 @@ class SignUpViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> verifikasi(String otp) async {
-    service.verifikasiOtp(otp, email.text);
+  Future verifikasi({
+    required String kodeOtp,
+  }) async {
+    try {
+      otp = await service.verifikasiOtp(
+        otp: kodeOtp,
+      );
+
+      isResponseSuccess = true;
+      fullname.clear();
+      email.clear();
+      selectedGender = 'Select Gender';
+      address.clear();
+      phone.clear();
+      password.clear();
+      notifyListeners();
+    } catch (e) {
+      // ignore: deprecated_member_use
+      if (e is DioError) {
+        isResponseSuccess = false;
+        e.response!.statusCode;
+      }
+    }
   }
 
   Future<void> reSendOtp() async {
@@ -66,6 +90,13 @@ class SignUpViewModel with ChangeNotifier {
   String? validateAddress(String value) {
     if (value.isEmpty) {
       return 'Alamat tidak boleh kosong';
+    }
+    return null;
+  }
+
+  String? validateGender(String value) {
+    if (value.isEmpty || value == 'Select Gender') {
+      return 'Pilih jenis kelamin';
     }
     return null;
   }
