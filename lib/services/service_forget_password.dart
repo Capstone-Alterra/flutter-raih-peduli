@@ -1,7 +1,8 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/screen/view_model/view_model_forget_password.dart';
-import '../model/model_token_forget_password.dart';
+import 'package:flutter_raih_peduli/model/model_otp.dart';
 import '../utils/utils.dart';
 
 class ForgetPasswordService {
@@ -20,28 +21,6 @@ class ForgetPasswordService {
     } catch (error) {
       debugPrint('Terjadi kesalahan saat melakukan permintaan: $error');
       return;
-    }
-  }
-
-  Future<ModelTokenForgetPassword?> verifikasiOtpForgetPassword(
-      String otp) async {
-    try {
-      final response = await _dio.post(
-        Urls.baseUrl + Urls.otpForgetPassword,
-        data: {
-          'otp': otp,
-        },
-      );
-      debugPrint("=>${response.data}");
-
-      final Map<String, dynamic> jsonData = response.data;
-      final ModelTokenForgetPassword modelSignIn =
-          modelTokenForgetPasswordFromJson(jsonData);
-      ForgetPasswordViewModel().isResponseSuccess = true;
-      return modelSignIn;
-    } catch (error) {
-      debugPrint('Terjadi kesalahan saat melakukan permintaan: $error');
-      return null;
     }
   }
 
@@ -81,6 +60,23 @@ class ForgetPasswordService {
     } catch (error) {
       debugPrint('Terjadi kesalahan saat melakukan permintaan: $error');
       return false;
+    }
+  }
+
+  Future<ModelOtp> verifikasiOtpForgetPassword({
+    required String otp,
+  }) async {
+    try {
+      final response = await _dio.post(
+        Urls.baseUrl + Urls.otpForgetPassword,
+        data: {
+          'otp': otp,
+        },
+      );
+      debugPrint("=>${response.data}");
+      return ModelOtp.fromJson(response.data);
+    } on DioError catch (_) {
+      rethrow;
     }
   }
 }

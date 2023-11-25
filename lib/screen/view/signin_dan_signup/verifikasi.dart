@@ -3,10 +3,13 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/sign_in.dart';
 import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/widget/alert.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_signup.dart';
 import 'package:provider/provider.dart';
 import 'package:quickalert/models/quickalert_type.dart';
+
+import 'widget/button.dart';
 
 class Verifikasi extends StatelessWidget {
   const Verifikasi({Key? key}) : super(key: key);
@@ -162,36 +165,40 @@ class Verifikasi extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF484F88),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
-                          onPressed: () async {
-                            final otp = viewModel.kodeOtp;
-                            await viewModel.verifikasi(otp);
-                            viewModel.isResponseSuccess
-                                ? customAlert(
-                                    context: context,
-                                    alertType: QuickAlertType.custom,
-                                    customAsset: 'assets/Group 427318233.png',
-                                    text:
-                                        'Selamat! Akun anda telah berhasil dibuat...!',
-                                    shouldPop: false)
-                                : customAlert(
-                                    context: context,
-                                    alertType: QuickAlertType.error,
-                                    text: 'OTP yang anda masukkan salah',
-                                    shouldPop: true);
-                          },
-                          child: SizedBox(
-                              width: widthMediaQuery,
-                              child: const Center(child: Text("Verifikasi"))),
-                        ),
-                      ),
+                          padding: const EdgeInsets.all(8.0),
+                          child: customButton(
+                            text: "Verifikasi",
+                            bgColor: const Color(0xFF484F88),
+                            onPressed: () async {
+                              final otp = viewModel.kodeOtp;
+                              await viewModel.verifikasi(kodeOtp: otp);
+                              viewModel.isResponseSuccess
+                                  ? customAlert(
+                                      context: context,
+                                      alertType: QuickAlertType.custom,
+                                      customAsset: 'assets/Group 427318233.png',
+                                      text:
+                                          'Selamat! Akun anda telah berhasil dibuat...!',
+                                      afterDelay: () {
+                                        Navigator.pop(context);
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (_) => const SignIn(),
+                                          ),
+                                        );
+                                      },
+                                    )
+                                  : customAlert(
+                                      context: context,
+                                      alertType: QuickAlertType.error,
+                                      text: 'OTP yang anda masukkan salah',
+                                      afterDelay: () {
+                                        Navigator.pop(context);
+                                      },
+                                    );
+                            },
+                          )),
                     ],
                   ),
                 ),

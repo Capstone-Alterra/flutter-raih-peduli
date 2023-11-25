@@ -35,6 +35,8 @@ class SignInViewModel with ChangeNotifier {
     await prefs.setString('email', emailUser);
     await prefs.setString('access_token', accessToken);
     await prefs.setString('refresh_token', refreshToken);
+    email.clear();
+    password.clear();
     notifyListeners();
   }
 
@@ -66,6 +68,5 @@ class SignInViewModel with ChangeNotifier {
 
   void setUlang() {
     heightContainer = false;
-    notifyListeners();
   }
 }

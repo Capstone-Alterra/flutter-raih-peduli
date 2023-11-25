@@ -193,6 +193,8 @@ class SignUp extends StatelessWidget {
                                             );
                                           }).toList(),
                                           onChanged: viewModel.onGenderChanged,
+                                          validator: (value) =>
+                                              viewModel.validateGender(value!),
                                         );
                                       },
                                     ),
