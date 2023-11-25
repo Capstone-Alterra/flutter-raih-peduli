@@ -14,6 +14,11 @@ dependencies:
   flutter_native_splash: ^2.3.5
   flutter_svg: ^2.0.9
   rename: ^3.0.1
+  intl: ^0.17.0
+  dio: ^5.3.4
+  fancy_shimmer_image: ^2.0.3
+  flutter_screenutil: ^5.9.0
+  
 
 flutter_native_splash:
   color: "#FFFFFF"
@@ -35,4 +40,13 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+    - assets/icons/
   
+  fonts:
+    - family: Helvetica
+      fonts:
+        - asset: assets/fonts/Helvetica-Bold.ttf
+        - asset: assets/fonts/Helvetica-BoldOblique.ttf
+        - asset: assets/fonts/helvetica-light-587ebe5a59211.ttf
+        - asset: assets/fonts/Helvetica-Oblique.ttf
+        - asset: assets/fonts/Helvetica.ttf
