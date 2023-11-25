@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/screen/view/settings/settings_view.dart';
 import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/forget_password/forget_password.dart';
 import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/widget/button.dart';
 import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/widget/textformfield.dart';
@@ -179,12 +180,12 @@ class _SignInState extends State<SignIn> {
                                             .saveDataSharedPreferences(
                                                 accessToken, refreshToken);
                                         // }
-                                        // Navigator.of(context).push(
-                                        //   MaterialPageRoute(
-                                        //     builder: (context) =>
-                                        //         const Verifikasi(),
-                                        //   ),
-                                        // );
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const SettingScreen(),
+                                          ),
+                                        );
                                       }
                                     },
                                   ),

@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/model/model_otp.dart';
 import 'package:flutter_raih_peduli/model/model_token_forget_password.dart';
 import 'package:flutter_raih_peduli/services/service_forget_password.dart';
 
@@ -16,7 +15,7 @@ class ForgetPasswordViewModel with ChangeNotifier {
   ModelTokenForgetPassword? dataOtp;
   bool isResponseSuccess = false;
   bool heightContainer = false;
-  ModelOtp? otp;
+  // ModelOtp? otp;
 
   Future<void> getOtpViaEmail() async {
     final emailUser = email.text;
@@ -42,6 +41,7 @@ class ForgetPasswordViewModel with ChangeNotifier {
     final emailUser = email.text;
     final newPassword = password.text;
     await service.ubahPasswordUser(emailUser, newPassword, token);
+    email.clear();
     password.clear();
     konfirmasiPassword.clear();
     notifyListeners();
@@ -98,12 +98,11 @@ class ForgetPasswordViewModel with ChangeNotifier {
     required String kodeOtp,
   }) async {
     try {
-      otp = await service.verifikasiOtpForgetPassword(
+      dataOtp = await service.verifikasiOtpForgetPassword(
         otp: kodeOtp,
       );
 
       isResponseSuccess = true;
-      email.clear();
       notifyListeners();
     } catch (e) {
       // ignore: deprecated_member_use

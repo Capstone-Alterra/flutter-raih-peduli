@@ -2,7 +2,7 @@
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/model/model_otp.dart';
+import 'package:flutter_raih_peduli/model/model_token_forget_password.dart';
 import '../utils/utils.dart';
 
 class ForgetPasswordService {
@@ -63,7 +63,7 @@ class ForgetPasswordService {
     }
   }
 
-  Future<ModelOtp> verifikasiOtpForgetPassword({
+  Future<ModelTokenForgetPassword> verifikasiOtpForgetPassword({
     required String otp,
   }) async {
     try {
@@ -74,7 +74,7 @@ class ForgetPasswordService {
         },
       );
       debugPrint("=>${response.data}");
-      return ModelOtp.fromJson(response.data);
+      return ModelTokenForgetPassword.fromJson(response.data);
     } on DioError catch (_) {
       rethrow;
     }

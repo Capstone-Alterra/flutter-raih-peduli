@@ -161,7 +161,7 @@ class _UbahPasswordState extends State<UbahPassword> {
                                         alertType: QuickAlertType.custom,
                                         customAsset:
                                             'assets/Group 427318233.png',
-                                        text: 'Password Berhasih Diperbarui',
+                                        text: 'Password Berhasil Diperbarui',
                                         afterDelay: () {
                                           Navigator.pushReplacement(
                                             context,
