@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/screen/view/bookmark/bookmarkscreen.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_homescreeen.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_raih_peduli/screen/view/onboarding/onboarding_view.dart';
@@ -7,14 +6,14 @@ import 'package:flutter_raih_peduli/screen/view_model/view_model_forget_password
 import 'package:flutter_raih_peduli/screen/view_model/view_model_onboarding.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_signup.dart';
 import 'screen/view_model/view_model_signin.dart';
-import 'package:flutter_raih_peduli/screen/view_model/view_model_settings.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_navigation.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +23,7 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => SignInViewModel()),
           ChangeNotifierProvider(create: (_) => ForgetPasswordViewModel()),
           ChangeNotifierProvider(create: (_) => OnBoardingViewModel()),
-          ChangeNotifierProvider(create: (_) => SettingsViewProvider()),
+          ChangeNotifierProvider(create: (_) => NavigationProvider()),
           ChangeNotifierProvider(create: (_) => HomeScreenViewModel()),
         ],
         child: MaterialApp(

@@ -5,7 +5,7 @@ import 'package:flutter_raih_peduli/theme.dart';
 class NewsCard extends StatelessWidget {
   final NewsData newsData;
 
-  const NewsCard({
+  const NewsCard({super.key, 
     required this.newsData,
   });
 

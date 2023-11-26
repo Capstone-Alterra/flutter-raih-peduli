@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/fundraising_data.dart';
 import 'package:flutter_raih_peduli/model/news_data.dart';
 import 'package:flutter_raih_peduli/model/volunteer_data.dart';
-import 'package:flutter_raih_peduli/screen/view/home/widget/fundraising_card_widget.dart';
-import 'package:flutter_raih_peduli/screen/view/home/widget/viewall_widget.dart';
-import 'package:flutter_raih_peduli/screen/view/home/widget/volunteer_card_widget.dart';
-import 'package:flutter_raih_peduli/screen/view/home/widget/news_card_widget.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/homescreen/fundraising_card_widget.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/homescreen/news_card_widget.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/homescreen/viewall_widget.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/homescreen/volunteer_card_widget.dart';
 
 class HomeListViewBuilder extends StatelessWidget {
+  const HomeListViewBuilder({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Column(

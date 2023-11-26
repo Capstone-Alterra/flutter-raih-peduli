@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/model/fundraising_data.dart';
+import 'package:flutter_raih_peduli/model/volunteer_data.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class FundraisingCard extends StatelessWidget {
-  final FundraisingData fundraisingData;
+class VolunteerCard extends StatelessWidget {
+  final VolunteerData volunteerData;
 
-  const FundraisingCard({
-    required this.fundraisingData,
+  const VolunteerCard({super.key, 
+    required this.volunteerData,
   });
 
   @override
@@ -29,11 +29,11 @@ class FundraisingCard extends StatelessWidget {
               borderRadius: BorderRadius.all(Radius.circular(8.0)),
             ),
             child: Padding(
-              padding: const EdgeInsets.only(left: 8, top: 8, right: 8),
+              padding: const EdgeInsets.all(8.0),
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(8.0)),
                  child: Image.network(
-                    fundraisingData.imageUrl,
+                    volunteerData.imageUrl,
                     width: double.infinity,
                     fit: BoxFit.cover,
                   ),
@@ -47,7 +47,7 @@ class FundraisingCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  fundraisingData.title,
+                  volunteerData.title,
                   style: const TextStyle(
                     color: AppTheme.primaryColor,
                     fontFamily: 'Helvetica',
@@ -57,7 +57,7 @@ class FundraisingCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 4.0),
                 Text(
-                  fundraisingData.description,
+                  volunteerData.description,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
@@ -75,12 +75,12 @@ class FundraisingCard extends StatelessWidget {
                         Row(
                           children: [
                             SvgPicture.asset(
-                            'assets/target.svg', 
+                            'assets/orang.svg', 
                             height: 10,
                           ),
-                          const SizedBox(width: 2),
+                          const SizedBox(width: 5),
                             const Text(
-                            'Target', 
+                            'Slot', 
                             style: TextStyle(
                               fontFamily: 'Helvetica',
                             ),
@@ -88,10 +88,10 @@ class FundraisingCard extends StatelessWidget {
                           ],
                         ),
                         Text(
-                          'Rp. ${fundraisingData.target}',
+                          '${volunteerData.slot} Orang',
                           style: const TextStyle(
-                            color: AppTheme.primaryColor,
                             fontFamily: 'Helvetica',
+                            color: AppTheme.primaryColor,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -110,8 +110,8 @@ class FundraisingCard extends StatelessWidget {
                         ),
                       ),
                       child: const Text(
-                      'Lihat Detail',
-                      style: TextStyle(color: AppTheme.white), 
+                        'Lihat Detail', 
+                        style: TextStyle(color: AppTheme.white),
                       ),
                     ),
                   ],

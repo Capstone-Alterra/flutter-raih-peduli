@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/fundraising_data.dart';
-import 'package:flutter_raih_peduli/screen/view/bookmark/widget/save_widget.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/save_widget.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class DonasiCard extends StatelessWidget {
   final FundraisingData fundraisingData;
 
-  const DonasiCard({
+  const DonasiCard({super.key, 
     required this.fundraisingData,
   });
 
@@ -78,7 +78,7 @@ class DonasiCard extends StatelessWidget {
                                   ),
                                 ),
                                 // Bookmark widget
-                                SaveWidget(),
+                                const SaveWidget(),
                               ],
                             ),
 

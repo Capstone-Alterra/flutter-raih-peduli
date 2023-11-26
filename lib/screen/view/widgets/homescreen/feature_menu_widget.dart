@@ -5,7 +5,7 @@ class FeatureMenuItem extends StatelessWidget {
   final String assetImage;
   final VoidCallback onPressed;
 
-  const FeatureMenuItem({
+  const FeatureMenuItem({super.key, 
     required this.title,
     required this.assetImage,
     required this.onPressed,
@@ -51,28 +51,28 @@ class FeatureMenuList extends StatelessWidget {
         children: [
           FeatureMenuItem(
             title: 'Donasi',
-            assetImage: 'assets/icons/donation.png',
+            assetImage: 'assets/donation.png',
             onPressed: () {
               // Handle Donasi button pressed
             },
           ),
           FeatureMenuItem(
             title: 'Voluntir',
-            assetImage: 'assets/icons/volunteer.png',
+            assetImage: 'assets/volunteer.png',
             onPressed: () {
               // Handle Voluntir button pressed
             },
           ),
           FeatureMenuItem(
             title: 'Berita',
-            assetImage: 'assets/icons/news.png',
+            assetImage: 'assets/news.png',
             onPressed: () {
               // Handle Berita button pressed
             },
           ),
           FeatureMenuItem(
             title: 'Tentang Kami',
-            assetImage: 'assets/icons/about.png',
+            assetImage: 'assets/about.png',
             onPressed: () {
               // Handle Tentang Kami button pressed
             },

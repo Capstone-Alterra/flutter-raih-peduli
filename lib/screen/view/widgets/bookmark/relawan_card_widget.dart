@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/volunteer_data.dart';
-import 'package:flutter_raih_peduli/screen/view/bookmark/widget/save_widget.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/save_widget.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class RelawanCard extends StatelessWidget {
   final VolunteerData volunteerData;
 
-  const RelawanCard({
+  const RelawanCard({super.key, 
     required this.volunteerData,
   });
 
@@ -77,7 +77,7 @@ class RelawanCard extends StatelessWidget {
                                   ),
                                 ),
                                 // Bookmark widget
-                                SaveWidget(),
+                                const SaveWidget(),
                               ],
                             ),
                             const SizedBox(

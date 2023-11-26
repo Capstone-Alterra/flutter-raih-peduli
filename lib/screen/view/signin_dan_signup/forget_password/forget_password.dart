@@ -1,14 +1,12 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/forget_password/verifikasi_otp_forget_password.dart';
-import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/widget/button.dart';
-import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/widget/textformfield.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/login_signup/button.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/login_signup/textformfield.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_forget_password.dart';
 import 'package:provider/provider.dart';
 
 class ForgetPassword extends StatelessWidget {
-  const ForgetPassword({Key? key}) : super(key: key);
+  const ForgetPassword({super.key});
 
   @override
   Widget build(BuildContext context) {

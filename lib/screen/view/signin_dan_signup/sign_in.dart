@@ -2,13 +2,13 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/settings/settings_view.dart';
 import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/forget_password/forget_password.dart';
-import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/widget/button.dart';
-import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/widget/textformfield.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/login_signup/button.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/login_signup/textformfield.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
 import 'package:provider/provider.dart';
 
 class SignIn extends StatefulWidget {
-  const SignIn({Key? key}) : super(key: key);
+  const SignIn({super.key});
 
   @override
   State<SignIn> createState() => _SignInState();
@@ -161,7 +161,11 @@ class _SignInState extends State<SignIn> {
                                           );
                                         },
                                       ),
-                                      const Text("Ingat saya"),
+                                      const Text(
+                                        "Ingat saya",
+                                        style:
+                                            TextStyle(fontFamily: 'Helvetica'),
+                                      ),
                                     ],
                                   ),
                                   customButton(
@@ -197,8 +201,9 @@ class _SignInState extends State<SignIn> {
                                           TextSpan(
                                             text: 'Lupa Password?',
                                             style: const TextStyle(
-                                                color: Color(0xFF293066),
-                                                fontSize: 14),
+                                              fontFamily: 'Helvetica',
+                                              color: Color(0xFF293066),
+                                            ),
                                             recognizer: TapGestureRecognizer()
                                               ..onTap = () {
                                                 Navigator.of(context).push(
@@ -223,20 +228,24 @@ class _SignInState extends State<SignIn> {
                   ),
                 ),
                 Positioned(
-                    top: heightMediaQuery / 1.125,
-                    left: widthMediaQuery / 4,
-                    right: widthMediaQuery / 4,
-                    child: Column(
-                      children: [
-                        GestureDetector(
-                          onTap: () {},
-                          child: const Text(
-                            "Masuk sebagai tamu",
-                            style: TextStyle(color: Color(0xFF293066)),
+                  top: heightMediaQuery / 1.125,
+                  left: widthMediaQuery / 4,
+                  right: widthMediaQuery / 4,
+                  child: Column(
+                    children: [
+                      GestureDetector(
+                        onTap: () {},
+                        child: const Text(
+                          "Masuk sebagai tamu",
+                          style: TextStyle(
+                            color: Color(0xFF293066),
+                            fontFamily: 'Helvetica',
                           ),
-                        )
-                      ],
-                    )),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
               ],
             ),
           ),

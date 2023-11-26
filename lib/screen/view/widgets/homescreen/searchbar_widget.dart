@@ -3,6 +3,8 @@ import 'package:flutter_raih_peduli/screen/view_model/view_model_homescreeen.dar
 import 'package:provider/provider.dart';
 
 class SearchBarWidget extends StatelessWidget {
+  const SearchBarWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<HomeScreenViewModel>(context, listen: false);
@@ -17,7 +19,7 @@ class SearchBarWidget extends StatelessWidget {
         decoration: InputDecoration(
           filled: true,
           fillColor: Colors.white,
-          prefixIcon: Image.asset('assets/icons/search.png'),
+          prefixIcon: Image.asset('assets/search.png'),
           hintText: 'Cari...', // Teks placeholder
           contentPadding: const EdgeInsets.symmetric( horizontal: 16.0), // Sesuaikan contentPadding
           border: const OutlineInputBorder(

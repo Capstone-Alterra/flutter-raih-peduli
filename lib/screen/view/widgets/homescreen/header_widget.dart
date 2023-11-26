@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 
 class HeaderWidget extends StatelessWidget {
+  const HeaderWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(

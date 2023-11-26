@@ -1,10 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/screen/view/navigation/navigation.dart';
 import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/sign_in.dart';
 import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/sign_up.dart';
 
 class LoginAtauDaftar extends StatelessWidget {
-  const LoginAtauDaftar({Key? key}) : super(key: key);
+  const LoginAtauDaftar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -68,14 +69,16 @@ class LoginAtauDaftar extends StatelessWidget {
                                   Text(
                                     'Selamat Datang di Raih Peduli',
                                     style: TextStyle(
+                                      fontFamily: 'Helvetica',
                                       fontSize: 18,
-                                      fontWeight: FontWeight.bold,
+                                      fontWeight: FontWeight.w700,
                                     ),
                                   ),
                                   Text(
                                     'Raih keberkahan dengan kepedulian',
                                     style: TextStyle(
-                                      fontSize: 12,
+                                      fontFamily: 'Helvetica',
+                                      fontSize: 13,
                                       fontWeight: FontWeight.w400,
                                     ),
                                   ),
@@ -86,9 +89,9 @@ class LoginAtauDaftar extends StatelessWidget {
                               children: [
                                 ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(0xFF484F88),
+                                    backgroundColor: const Color(0xff293066),
                                     shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(13),
+                                      borderRadius: BorderRadius.circular(15),
                                     ),
                                   ),
                                   onPressed: () {
@@ -99,18 +102,28 @@ class LoginAtauDaftar extends StatelessWidget {
                                     );
                                   },
                                   child: SizedBox(
-                                      width: widthMediaQuery,
-                                      child:
-                                          const Center(child: Text("Masuk"))),
+                                    width: widthMediaQuery,
+                                    child: const Center(
+                                      child: Text(
+                                        "Masuk",
+                                        style: TextStyle(
+                                          fontFamily: 'Helvetica',
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ),
+                                SizedBox(height: heightMediaQuery / 70),
                                 ElevatedButton(
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: const Color(0xFFE5E9F4),
                                     elevation: 0,
                                     shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(13),
+                                      borderRadius: BorderRadius.circular(15),
                                       side: const BorderSide(
-                                          color: Color(0xFF484F88), width: 1),
+                                          color: Color(0xff293066), width: 1),
                                     ),
                                   ),
                                   onPressed: () {
@@ -121,13 +134,18 @@ class LoginAtauDaftar extends StatelessWidget {
                                     );
                                   },
                                   child: SizedBox(
-                                      width: widthMediaQuery,
-                                      child: const Center(
-                                          child: Text(
+                                    width: widthMediaQuery,
+                                    child: const Center(
+                                      child: Text(
                                         "Daftar",
-                                        style:
-                                            TextStyle(color: Color(0xFF293066)),
-                                      ))),
+                                        style: TextStyle(
+                                          fontFamily: 'Helvetica',
+                                          color: Color(0xff293066),
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 )
                               ],
                             ),
@@ -147,8 +165,17 @@ class LoginAtauDaftar extends StatelessWidget {
                   TextSpan(
                     text: 'Masuk sebagai tamu',
                     style: const TextStyle(
-                        color: Color(0xFF293066), fontWeight: FontWeight.w500),
-                    recognizer: TapGestureRecognizer()..onTap = () {},
+                        color: Color(0xFF293066),
+                        fontWeight: FontWeight.w500,
+                        fontFamily: 'Helvetica'),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const BottomNavgationBar(),
+                          ),
+                        );
+                      },
                   ),
                 ],
               ),

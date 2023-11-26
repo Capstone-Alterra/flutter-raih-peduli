@@ -84,8 +84,18 @@ class _OnbordingLandscapeState extends State<OnbordingLandscape> {
                                   viewModel.skipPage(context);
                                 },
                                 child: SizedBox(
-                                    width: screenWidth,
-                                    child: const Center(child: Text("Mulai"))),
+                                  width: screenWidth,
+                                  child: const Center(
+                                    child: Text(
+                                      "Mulai",
+                                      style: TextStyle(
+                                        fontFamily: 'Helvetica',
+                                        fontSize: 16,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               )
                             : Row(
                                 mainAxisAlignment:
@@ -97,40 +107,44 @@ class _OnbordingLandscapeState extends State<OnbordingLandscape> {
                                               viewModel.currentIndex != 3
                                           ? ElevatedButton(
                                               style: ElevatedButton.styleFrom(
+                                                backgroundColor: Colors.white,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(13),
+                                                  side: const BorderSide(
+                                                      color: Color(0xff293066),
+                                                      width: 1),
+                                                ),
+                                              ),
+                                              child: const Text(
+                                                "Lewati",
+                                                style: TextStyle(
+                                                  fontFamily: 'Helvetica',
+                                                  fontSize: 16,
+                                                  color: Color(0xff293066),
+                                                ),
+                                              ),
+                                              onPressed: () {
+                                                viewModel.skipPage(context);
+                                              },
+                                            )
+                                          : ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
                                                 backgroundColor:
-                                                    const Color(0xFF8CA2CE),
+                                                    const Color(0xFF484F88),
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(13),
                                                 ),
                                               ),
-                                              child: const Text("Lewati"),
+                                              child: const Text("Selanjutnya"),
                                               onPressed: () {
-                                                viewModel.skipPage(context);
+                                                viewModel.nextPage(
+                                                    viewModel.controller);
                                               },
-                                            )
-                                          : const SizedBox();
+                                            );
                                     },
                                   ),
-                                  Consumer<OnBoardingViewModel>(
-                                    builder: (context, viewModel, child) {
-                                      return ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor:
-                                              const Color(0xFF484F88),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(13),
-                                          ),
-                                        ),
-                                        child: const Text("Selanjutnya"),
-                                        onPressed: () {
-                                          viewModel
-                                              .nextPage(viewModel.controller);
-                                        },
-                                      );
-                                    },
-                                  )
                                 ],
                               ));
                   },

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/model/volunteer_data.dart';
-import 'package:flutter_raih_peduli/screen/view/bookmark/widget/relawan_card_widget.dart';
+import 'package:flutter_raih_peduli/model/fundraising_data.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/donasi_card_widget.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 
-class RelawanListView extends StatelessWidget {
+class DonasiListView extends StatelessWidget {
+  const DonasiListView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -15,7 +17,7 @@ class RelawanListView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Relawan',
+                'Donasi',
                 style: TextStyle(
                   color: AppTheme.primaryColor,
                   fontSize: 20,
@@ -30,13 +32,13 @@ class RelawanListView extends StatelessWidget {
           height: 600,
           child: ListView.builder(
             scrollDirection: Axis.vertical,
-            itemCount: dummyVolunteerData.length,
+            itemCount: dummyFundraisingData.length,
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.all(0),
                 child: SizedBox(
-                  child: RelawanCard(
-                    volunteerData: dummyVolunteerData[index],
+                  child: DonasiCard(
+                    fundraisingData: dummyFundraisingData[index],
                   ),
                 ),
               );

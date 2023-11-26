@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/fundraising_data.dart';
 import 'package:flutter_raih_peduli/model/volunteer_data.dart';
-import 'package:flutter_raih_peduli/screen/view/bookmark/widget/donasi_card_widget.dart';
-import 'package:flutter_raih_peduli/screen/view/bookmark/widget/relawan_card_widget.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/donasi_card_widget.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/relawan_card_widget.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 
 class SemuaListViewBuilder extends StatelessWidget {
+  const SemuaListViewBuilder({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Column(
