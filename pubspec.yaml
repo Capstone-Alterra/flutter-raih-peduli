@@ -15,7 +15,12 @@ dependencies:
   flutter_svg: ^2.0.9
   rename: ^3.0.1
   intl: ^0.17.0
-  dio: ^4.0.0
+  dio: ^5.3.3
+  flutter_otp_text_field: ^1.1.1
+  pin_code_fields: ^8.0.1
+  shared_preferences: ^2.2.2
+  quickalert: ^1.0.2
+  email_validator: ^2.1.17
 
 flutter_native_splash:
   color: "#FFFFFF"
@@ -24,7 +29,7 @@ flutter_native_splash:
   ios: true
   android_12:
     color: "#FFFFFF"
-    image: "assets/splash_screen.png"
+    image: "assets/splash_screen_12.png"
 
 
 
@@ -37,13 +42,12 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
-    - assets/icons/
   
   fonts:
     - family: Helvetica
       fonts:
-        - asset: assets/fonts/Helvetica-Bold.ttf
-        - asset: assets/fonts/Helvetica-BoldOblique.ttf
-        - asset: assets/fonts/helvetica-light-587ebe5a59211.ttf
-        - asset: assets/fonts/Helvetica-Oblique.ttf
-        - asset: assets/fonts/Helvetica.ttf
+        - asset: fonts/Helvetica-Bold.ttf
+        - asset: fonts/Helvetica-BoldOblique.ttf
+        - asset: fonts/helvetica-light-587ebe5a59211.ttf
+        - asset: fonts/Helvetica-Oblique.ttf
+        - asset: fonts/Helvetica.ttf
