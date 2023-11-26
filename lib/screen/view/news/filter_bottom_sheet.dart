@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/screen/view_model/view_model_news_model.dart';
+
+import '../../view_model/view_model_news.dart';
+// import '../../../view_model/view_model_news.dart';
 
 Widget _buildFilterOption(String title, List<String> options) {
   return Column(
@@ -36,11 +38,11 @@ Widget _buildFilterOption(String title, List<String> options) {
   );
 }
 
-void showFilterBottomSheet(BuildContext context, NewsProvider news) {
+void showFilterBottomSheet(BuildContext context, NewsViewModel news) {
   showModalBottomSheet(
     context: context,
     builder: (BuildContext context) {
-      return Container(
+      return SizedBox(
         width:
             MediaQuery.of(context).size.width, // Set lebar ke lebar layar penuh
         child: SingleChildScrollView(

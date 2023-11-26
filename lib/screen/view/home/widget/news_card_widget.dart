@@ -78,7 +78,7 @@ class NewsCard extends StatelessWidget {
                       textStyle: const TextStyle(
                           fontWeight: FontWeight.bold, fontFamily: 'Helvetica'),
                       backgroundColor: AppTheme.primaryColor,
-                      padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),
                       ),

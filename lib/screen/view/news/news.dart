@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/News/widget/newsdetailpage.dart';
+
+import 'newsdetailpage.dart';
+// import 'package:flutter_raih_peduli/News/widget/newsdetailpage.dart';
 
 class News extends StatefulWidget {
   final String? title;

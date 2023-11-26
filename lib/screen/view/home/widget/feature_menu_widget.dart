@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/News/widget/news_page.dart';
+
+import '../../news/news_page.dart';
 
 class FeatureMenuItem extends StatelessWidget {
   final String title;
