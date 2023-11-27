@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/model/fundraising_data.dart';
+import 'package:flutter_raih_peduli/model/donate_data.dart';
 import 'package:flutter_raih_peduli/model/news_data.dart';
 import 'package:flutter_raih_peduli/model/volunteer_data.dart';
+import 'package:flutter_raih_peduli/screen/view/donate/donatescreen.dart';
 import 'package:flutter_raih_peduli/screen/view/home/widget/fundraising_card_widget.dart';
 import 'package:flutter_raih_peduli/screen/view/home/widget/viewall_widget.dart';
 import 'package:flutter_raih_peduli/screen/view/home/widget/volunteer_card_widget.dart';
@@ -25,13 +26,19 @@ class HomeListViewBuilder extends StatelessWidget {
                   const Text(
                     'Donasi Untuk Kebaikan',
                     style: TextStyle(
-                    fontSize: 20, 
-                    fontWeight: FontWeight.bold, 
-                    fontFamily: 'Helvetica',),
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Helvetica',
+                    ),
                   ),
                   ViewallWidget(
                     onPressed: () {
-                      // Aksi yang akan dijalankan saat tombol ditekan
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const DonateScreen(),
+                        ),
+                      );
                     },
                   ),
                 ],
@@ -61,16 +68,16 @@ class HomeListViewBuilder extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 16,right: 10),
+              padding: const EdgeInsets.only(left: 16, right: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text(
                     'Jadilah Relawan Sosial',
                     style: TextStyle(
-                    fontSize: 20, 
-                    fontWeight: FontWeight.bold, 
-                    fontFamily: 'Helvetica',
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Helvetica',
                     ),
                   ),
                   ViewallWidget(
@@ -84,7 +91,7 @@ class HomeListViewBuilder extends StatelessWidget {
             ),
           ],
         ),
-         SizedBox(
+        SizedBox(
           height: 260, // Set a reasonable height
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
@@ -113,9 +120,9 @@ class HomeListViewBuilder extends StatelessWidget {
                   const Text(
                     'Temukan Informasi Terkini',
                     style: TextStyle(
-                    fontSize: 20, 
-                    fontWeight: FontWeight.bold, 
-                    fontFamily: 'Helvetica',
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Helvetica',
                     ),
                   ),
                   ViewallWidget(

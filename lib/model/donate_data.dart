@@ -30,7 +30,8 @@ class FundraisingData {
 List<FundraisingData> dummyFundraisingData = [
   FundraisingData(
     id: 1,
-    imageUrl: 'assets/icons/donate.svg',
+    imageUrl:
+        'https://donorbox.org/nonprofit-blog/wp-content/uploads/2019/01/iStock-622065910-1084x723-1024x683.jpg',
     title: 'Fundraising 1',
     description:
         'Membantu anak-anak kurang mampu mendapatkan pendidikan dan perawatan yang mereka butuhkan. Membantu anak-anak kurang mampu mendapatkan pendidikan dan perawatan yang mereka butuhkan. 1',
@@ -40,7 +41,8 @@ List<FundraisingData> dummyFundraisingData = [
   ),
   FundraisingData(
     id: 2,
-    imageUrl: 'assets/icons/donate.svg',
+    imageUrl:
+        'https://donorbox.org/nonprofit-blog/wp-content/uploads/2019/01/iStock-622065910-1084x723-1024x683.jpg',
     title: 'Fundraising 2',
     description:
         'Membantu anak-anak kurang mampu mendapatkan pendidikan dan perawatan yang mereka butuhkan. Membantu anak-anak kurang mampu mendapatkan pendidikan dan perawatan yang mereka butuhkan. 2',
@@ -50,7 +52,8 @@ List<FundraisingData> dummyFundraisingData = [
   ),
   FundraisingData(
     id: 3,
-    imageUrl: 'assets/icons/donate.svg',
+    imageUrl:
+        'https://donorbox.org/nonprofit-blog/wp-content/uploads/2019/01/iStock-622065910-1084x723-1024x683.jpg',
     title: 'Fundraising 3',
     description:
         'Membantu anak-anak kurang mampu mendapatkan pendidikan dan perawatan yang mereka butuhkan. Membantu anak-anak kurang mampu mendapatkan pendidikan dan perawatan yang mereka butuhkan. 3',
@@ -60,7 +63,8 @@ List<FundraisingData> dummyFundraisingData = [
   ),
   FundraisingData(
     id: 4,
-    imageUrl: 'assets/icons/donate.svg',
+    imageUrl:
+        'https://donorbox.org/nonprofit-blog/wp-content/uploads/2019/01/iStock-622065910-1084x723-1024x683.jpg',
     title: 'Fundraising 4',
     description:
         'Membantu anak-anak kurang mampu mendapatkan pendidikan dan perawatan yang mereka butuhkan. Membantu anak-anak kurang mampu mendapatkan pendidikan dan perawatan yang mereka butuhkan. 4',
@@ -70,7 +74,8 @@ List<FundraisingData> dummyFundraisingData = [
   ),
   FundraisingData(
     id: 5,
-    imageUrl: 'assets/icons/donate.svg',
+    imageUrl:
+        'https://donorbox.org/nonprofit-blog/wp-content/uploads/2019/01/iStock-622065910-1084x723-1024x683.jpg',
     title: 'Fundraising 5',
     description:
         'Membantu anak-anak kurang mampu mendapatkan pendidikan dan perawatan yang mereka butuhkan. Membantu anak-anak kurang mampu mendapatkan pendidikan dan perawatan yang mereka butuhkan. 5',
@@ -80,7 +85,8 @@ List<FundraisingData> dummyFundraisingData = [
   ),
   FundraisingData(
     id: 6,
-    imageUrl: 'assets/icons/donate.svg',
+    imageUrl:
+        'https://donorbox.org/nonprofit-blog/wp-content/uploads/2019/01/iStock-622065910-1084x723-1024x683.jpg',
     title: 'Fundraising 6',
     description:
         'Membantu anak-anak kurang mampu mendapatkan pendidikan dan perawatan yang mereka butuhkan. Membantu anak-anak kurang mampu mendapatkan pendidikan dan perawatan yang mereka butuhkan. 6',

@@ -6,20 +6,20 @@ class ModelNavBar {
 }
 
 List<ModelNavBar> contents = [
-  ModelNavBar (
+  ModelNavBar(
     title: 'Beranda',
-    image: 'assets/home.svg',
+    image: 'assets/icons/home/home.svg',
   ),
-  ModelNavBar (
+  ModelNavBar(
     title: 'Chatbot',
-    image: 'assets/chatbubble.svg',
+    image: 'assets/icons/home/chatbubble.svg',
   ),
-  ModelNavBar (
+  ModelNavBar(
     title: 'Riwayat',
-    image: 'assets/notepad.svg',
+    image: 'assets/icons/home/notepad.svg',
   ),
-  ModelNavBar (
+  ModelNavBar(
     title: 'Pengaturan',
-    image: 'assets/settings.svg',
+    image: 'assets/icons/home/settings.svg',
   ),
 ];

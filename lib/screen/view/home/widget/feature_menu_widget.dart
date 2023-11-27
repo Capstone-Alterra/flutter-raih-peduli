@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/donate/donatescreen.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class FeatureMenuItem extends StatelessWidget {
   final String title;
@@ -28,9 +29,9 @@ class FeatureMenuItem extends StatelessWidget {
               borderRadius: BorderRadius.circular(12.0),
               border: Border.all(color: Colors.grey),
             ),
-            child: Image.asset(
+            child: SvgPicture.asset(
               assetImage,
-              height: 40.0, // Sesuaikan dengan ukuran yang diinginkan
+              height: 40.0,
             ),
           ),
           const SizedBox(height: 8.0),
@@ -56,7 +57,7 @@ class FeatureMenuList extends StatelessWidget {
         children: [
           FeatureMenuItem(
             title: 'Donasi',
-            assetImage: 'assets/icons/donation.png',
+            assetImage: 'assets/icons/featuremenu/donation.svg',
             onPressed: () {
               Navigator.push(
                 context,
@@ -68,21 +69,21 @@ class FeatureMenuList extends StatelessWidget {
           ),
           FeatureMenuItem(
             title: 'Voluntir',
-            assetImage: 'assets/icons/volunteer.png',
+            assetImage: 'assets/icons/featuremenu/volunteer.svg',
             onPressed: () {
               // Handle Voluntir button pressed
             },
           ),
           FeatureMenuItem(
             title: 'Berita',
-            assetImage: 'assets/icons/news.png',
+            assetImage: 'assets/icons/featuremenu/news.svg',
             onPressed: () {
               // Handle Berita button pressed
             },
           ),
           FeatureMenuItem(
             title: 'Tentang Kami',
-            assetImage: 'assets/icons/about.png',
+            assetImage: 'assets/icons/featuremenu/about.svg',
             onPressed: () {
               // Handle Tentang Kami button pressed
             },

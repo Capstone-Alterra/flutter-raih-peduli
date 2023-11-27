@@ -48,7 +48,10 @@ flutter:
   
   assets:
     - assets/
+    - assets/banner/
     - assets/icons/
+    - assets/icons/home/
+    - assets/icons/featuremenu/
   
   fonts:
     - family: Helvetica

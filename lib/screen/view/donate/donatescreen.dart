@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/screen/view/donate/widget/widget_backbutton.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../theme/theme.dart';
 import '../../../../screen/view_model/view_model_donate.dart';
@@ -29,27 +30,11 @@ class _DonateScreenState extends State<DonateScreen> {
         backgroundColor: Colors.white,
         title: const Text(
           'Donasi',
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          style: TextStyle(
+              color: AppTheme.primaryColor, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
-        leading: Container(
-          padding: const EdgeInsets.all(6.0),
-          decoration: ShapeDecoration(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(6),
-            ),
-            color: AppTheme.ornamentColor,
-          ),
-          child: IconButton(
-            icon: const Icon(
-              Icons.arrow_back_ios_new,
-              color: Colors.black,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-        ),
+        leading: const BackButtonWidget(),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -62,29 +47,37 @@ class _DonateScreenState extends State<DonateScreen> {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(right: 8.0),
-                    child: TextField(
-                      style: const TextStyle(
-                          backgroundColor: AppTheme.ornamentColor),
-                      onChanged: (value) {
-                        donateViewModel.setSearchText(value);
-                      },
-                      decoration: InputDecoration(
-                        hintText: 'Cari',
-                        prefixIcon: const Icon(Icons.search),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        contentPadding: const EdgeInsets.symmetric(
-                          vertical: 10.0,
-                          horizontal: 10.0,
+                    child: Container(
+                      width: 295,
+                      height: 34,
+                      padding: const EdgeInsets.all(5),
+                      decoration: ShapeDecoration(
+                        color: AppTheme.ornamentColor,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8)),
+                      ),
+                      child: TextField(
+                        style: const TextStyle(
+                            backgroundColor: AppTheme.ornamentColor),
+                        onChanged: (value) {
+                          donateViewModel.setSearchText(value);
+                        },
+                        decoration: const InputDecoration(
+                          hintText: 'Cari',
+                          prefixIcon: Icon(Icons.search),
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(
+                            vertical: 10.0,
+                            horizontal: 10.0,
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
                 Container(
-                  width: 50,
-                  height: 50,
+                  width: 44,
+                  height: 44,
                   padding: const EdgeInsets.all(5),
                   decoration: ShapeDecoration(
                     shape: RoundedRectangleBorder(

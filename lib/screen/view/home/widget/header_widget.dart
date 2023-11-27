@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/screen/view/donate/donatescreen.dart';
 import 'package:flutter_raih_peduli/theme/theme.dart';
 
 class HeaderWidget extends StatelessWidget {
@@ -17,7 +18,7 @@ class HeaderWidget extends StatelessWidget {
             right: 0,
             bottom: 20,
             child: Image.asset(
-              'assets/home_bg.png',
+              'assets/banner/home_bg.png',
               width: 120,
               height: 120,
               fit: BoxFit.cover,
@@ -41,7 +42,12 @@ class HeaderWidget extends StatelessWidget {
                 const SizedBox(height: 8.0),
                 ElevatedButton(
                   onPressed: () {
-                    // Aksi ketika tombol "Donasi Sekarang" ditekan
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const DonateScreen(),
+                      ),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppTheme.primaryColor,
@@ -52,11 +58,10 @@ class HeaderWidget extends StatelessWidget {
                   child: const Text(
                     'Donasi Sekarang',
                     style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'Helvetica', 
-                    fontSize: 16, 
-                    fontWeight: FontWeight.bold
-                    ),
+                        color: Colors.white,
+                        fontFamily: 'Helvetica',
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
               ],
