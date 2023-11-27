@@ -25,9 +25,9 @@ class HomeListViewBuilder extends StatelessWidget {
                   const Text(
                     'Donasi Untuk Kebaikan',
                     style: TextStyle(
-                    fontSize: 20, 
-                    fontWeight: FontWeight.bold, 
-                    fontFamily: 'Helvetica',),
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Helvetica'),
                   ),
                   ViewallWidget(
                     onPressed: () {
@@ -61,16 +61,16 @@ class HomeListViewBuilder extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 16,right: 10),
+              padding: const EdgeInsets.only(left: 16, right: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text(
                     'Jadilah Relawan Sosial',
                     style: TextStyle(
-                    fontSize: 20, 
-                    fontWeight: FontWeight.bold, 
-                    fontFamily: 'Helvetica',
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Helvetica',
                     ),
                   ),
                   ViewallWidget(
@@ -84,7 +84,7 @@ class HomeListViewBuilder extends StatelessWidget {
             ),
           ],
         ),
-         SizedBox(
+        SizedBox(
           height: 260, // Set a reasonable height
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
@@ -113,9 +113,9 @@ class HomeListViewBuilder extends StatelessWidget {
                   const Text(
                     'Temukan Informasi Terkini',
                     style: TextStyle(
-                    fontSize: 20, 
-                    fontWeight: FontWeight.bold, 
-                    fontFamily: 'Helvetica',
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Helvetica',
                     ),
                   ),
                   ViewallWidget(

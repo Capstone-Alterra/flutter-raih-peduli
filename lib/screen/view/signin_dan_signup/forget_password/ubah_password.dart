@@ -163,12 +163,18 @@ class _UbahPasswordState extends State<UbahPassword> {
                                             'assets/Group 427318233.png',
                                         text: 'Password Berhasil Diperbarui',
                                         afterDelay: () {
-                                          Navigator.pushReplacement(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (_) => const SignIn(),
-                                            ),
-                                          );
+                                          Navigator.pushAndRemoveUntil(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (_) => const SignIn(),
+                                              ),
+                                              (route) => false);
+                                          // Navigator.pushAndRemoveUntil(
+                                          //   context,
+                                          //   MaterialPageRoute(
+                                          //     builder: (_) => const SignIn(),
+                                          //   ),
+                                          // );
                                         },
                                       );
                                     }

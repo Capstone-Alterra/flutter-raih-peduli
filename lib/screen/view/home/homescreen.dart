@@ -10,7 +10,7 @@ class HomeScreen extends StatelessWidget {
   final homeScreenViewModel = HomeScreenViewModel();
 
   HomeScreen({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,15 +22,15 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height:170, child: HeaderWidget()),
+            const SizedBox(height: 170, child: HeaderWidget()),
             const Padding(
               padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
               child: Text(
                 'Fitur Menu',
                 style: TextStyle(
-                fontSize: 20, 
-                fontWeight: FontWeight.bold, 
-                fontFamily: 'Helvetica',
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Helvetica',
                 ),
               ),
             ),

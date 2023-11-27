@@ -34,39 +34,41 @@ class _ProfileEditState extends State<ProfileEdit> {
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(left: 40, right: 40, top: 50),
-        child: Align(
-          alignment: const AlignmentDirectional(0.00, 0.00),
-          child: Column(
-            children: [
-              GestureDetector(
-                onTap: () {
-                  showImagePickerOption(context);
-                },
-                child: Stack(
-                  children: [
-                    _image != null
-                        ? CircleAvatar(
-                            radius: size.width * 0.19,
-                            backgroundImage: MemoryImage(_image!),
-                          )
-                        : CircleAvatar(
-                            radius: size.width * 0.19,
-                            backgroundImage: const AssetImage(
-                                'assets/blank_profile_picture.png'),
-                          ),
-                    Positioned(
-                      bottom: -0,
-                      left: size.width * 0.33,
-                      child: SvgPicture.asset('assets/edit.svg'),
-                    ),
-                  ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 40, right: 40, top: 50),
+          child: Align(
+            alignment: const AlignmentDirectional(0.00, 0.00),
+            child: Column(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    showImagePickerOption(context);
+                  },
+                  child: Stack(
+                    children: [
+                      _image != null
+                          ? CircleAvatar(
+                              radius: size.width * 0.19,
+                              backgroundImage: MemoryImage(_image!),
+                            )
+                          : CircleAvatar(
+                              radius: size.width * 0.19,
+                              backgroundImage: const AssetImage(
+                                  'assets/blank_profile_picture.png'),
+                            ),
+                      Positioned(
+                        bottom: -0,
+                        left: size.width * 0.33,
+                        child: SvgPicture.asset('assets/edit.svg'),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(height: size.height * 0.1),
-              const EditTextField(),
-            ],
+                SizedBox(height: size.height * 0.1),
+                const EditTextField(),
+              ],
+            ),
           ),
         ),
       ),

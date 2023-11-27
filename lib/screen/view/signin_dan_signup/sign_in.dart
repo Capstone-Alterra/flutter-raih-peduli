@@ -1,11 +1,13 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/screen/view/settings/settings_view.dart';
 import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/forget_password/forget_password.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/login_signup/button.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/login_signup/textformfield.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
 import 'package:provider/provider.dart';
+import '../navigation/navigation.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -19,7 +21,8 @@ class _SignInState extends State<SignIn> {
   @override
   void initState() {
     viewModel = Provider.of<SignInViewModel>(context, listen: false);
-    viewModel.setUlang();
+    // viewModel.checkLogin(context);
+    viewModel.formKeySignin = GlobalKey<FormState>();
     super.initState();
   }
 
@@ -50,19 +53,8 @@ class _SignInState extends State<SignIn> {
                         Container(
                           height: heightMediaQuery * 0.075,
                           color: const Color(0xFF293066),
-                          child: Row(
-                            children: [
-                              IconButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                icon: const Icon(
-                                  color: Colors.white,
-                                  Icons.arrow_back,
-                                  size: 24.0,
-                                ),
-                              ),
-                            ],
+                          child: const Row(
+                            children: [],
                           ),
                         ),
                         Center(
@@ -123,7 +115,7 @@ class _SignInState extends State<SignIn> {
                           child: Padding(
                             padding: const EdgeInsets.all(12),
                             child: Form(
-                              key: viewModel.formKey,
+                              key: viewModel.formKeySignin,
                               child: Column(
                                 children: [
                                   customTextFormField(
@@ -172,23 +164,35 @@ class _SignInState extends State<SignIn> {
                                     text: "Masuk",
                                     bgColor: const Color(0xFF484F88),
                                     onPressed: () async {
-                                      if (viewModel.formKey.currentState!
+                                      if (viewModel.formKeySignin.currentState!
                                           .validate()) {
                                         await viewModel.signIn();
                                         // if (viewModel.rememberMe != false) {
-                                        final accessToken = viewModel
-                                            .dataLogin!.data.accessToken;
-                                        final refreshToken = viewModel
-                                            .dataLogin!.data.refreshToken;
+                                        // final accessToken = viewModel
+                                        //     .dataLogin!.data.accessToken;
+                                        // final foto = viewModel
+                                        //     .dataLogin!.data.profilePicture;
+                                        // final refreshToken = viewModel
+                                        //     .dataLogin!.data.refreshToken;
+                                        // final name =
+                                        //     viewModel.dataLogin!.data.fullname;
                                         await viewModel
                                             .saveDataSharedPreferences(
-                                                accessToken, refreshToken);
+                                                // name,
+                                                // foto,
+                                                // accessToken,
+                                                // refreshToken
+                                                );
+                                        viewModel.logindata
+                                            .setBool('login', false);
                                         // }
-                                        Navigator.of(context).push(
+                                        Navigator.of(context)
+                                            .pushAndRemoveUntil(
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                const SettingScreen(),
+                                                const BottomNavgationBar(),
                                           ),
+                                          (route) => false,
                                         );
                                       }
                                     },
@@ -217,7 +221,7 @@ class _SignInState extends State<SignIn> {
                                         ],
                                       ),
                                     ),
-                                  )
+                                  ),
                                 ],
                               ),
                             ),

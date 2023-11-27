@@ -70,7 +70,7 @@ class LoginAtauDaftar extends StatelessWidget {
                                     'Selamat Datang di Raih Peduli',
                                     style: TextStyle(
                                       fontFamily: 'Helvetica',
-                                      fontSize: 18,
+                                      fontSize: 17,
                                       fontWeight: FontWeight.w700,
                                     ),
                                   ),

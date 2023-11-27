@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/onboarding/onboarding_landscape.dart';
 import 'package:flutter_raih_peduli/screen/view/onboarding/widget_carousel_dot.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import '../../../model/model_onboarding.dart';
@@ -14,6 +15,14 @@ class Onbording extends StatefulWidget {
 }
 
 class _OnbordingState extends State<Onbording> {
+  late SignInViewModel autoLogin;
+  @override
+  void initState() {
+    autoLogin = Provider.of<SignInViewModel>(context, listen: false);
+    autoLogin.checkLogin(context);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final viewModel = Provider.of<OnBoardingViewModel>(context, listen: false);

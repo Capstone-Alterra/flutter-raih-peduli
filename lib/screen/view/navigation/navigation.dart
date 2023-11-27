@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/model/model_onboarding.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_navigation.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import '../../../model/bottomnavbar.dart';
 
 class BottomNavgationBar extends StatefulWidget {
   const BottomNavgationBar({super.key});

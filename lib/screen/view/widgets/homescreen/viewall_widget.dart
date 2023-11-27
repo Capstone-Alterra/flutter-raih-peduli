@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class ViewallWidget extends StatelessWidget {
   final VoidCallback onPressed;
 
-  const ViewallWidget({super.key, 
+  const ViewallWidget({
+    super.key,
     required this.onPressed,
   });
 
@@ -15,8 +16,8 @@ class ViewallWidget extends StatelessWidget {
         'Lihat Semua',
         style: TextStyle(
           fontFamily: 'Helvetica',
-          fontSize: 15,
-          fontWeight: FontWeight.bold,
+          fontSize: 13,
+          fontWeight: FontWeight.w500,
           color: Colors.black,
         ),
       ),

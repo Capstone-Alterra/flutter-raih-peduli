@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/forget_password/verifikasi_otp_forget_password.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/login_signup/button.dart';
@@ -5,11 +7,18 @@ import 'package:flutter_raih_peduli/screen/view/widgets/login_signup/textformfie
 import 'package:flutter_raih_peduli/screen/view_model/view_model_forget_password.dart';
 import 'package:provider/provider.dart';
 
-class ForgetPassword extends StatelessWidget {
+class ForgetPassword extends StatefulWidget {
   const ForgetPassword({super.key});
 
   @override
+  State<ForgetPassword> createState() => _ForgetPasswordState();
+}
+
+class _ForgetPasswordState extends State<ForgetPassword> {
+  @override
+  @override
   Widget build(BuildContext context) {
+
     final viewModel =
         Provider.of<ForgetPasswordViewModel>(context, listen: false);
     final widthMediaQuery = MediaQuery.of(context).size.width;
@@ -105,7 +114,7 @@ class ForgetPassword extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(12),
                         child: Form(
-                          key: viewModel.formKey,
+                          key: viewModel.formKeyEmailForgetPassword,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -123,7 +132,8 @@ class ForgetPassword extends StatelessWidget {
                                 text: "Kirim",
                                 bgColor: const Color(0xFF484F88),
                                 onPressed: () async {
-                                  if (viewModel.formKey.currentState!
+                                  if (viewModel
+                                      .formKeyEmailForgetPassword.currentState!
                                       .validate()) {
                                     await viewModel.getOtpViaEmail();
                                     Navigator.of(context).push(
