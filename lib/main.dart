@@ -23,10 +23,11 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
-            // primaryColor: const Color(0xFF293066),
-            // brightness: Brightness.light,
-            // appBarTheme: const AppBarTheme(),
-            ),
+          useMaterial3: false,
+          // primaryColor: const Color(0xFF293066),
+          // brightness: Brightness.light,
+          // appBarTheme: const AppBarTheme(),
+        ),
         home: HomeScreen(),
       ),
     );

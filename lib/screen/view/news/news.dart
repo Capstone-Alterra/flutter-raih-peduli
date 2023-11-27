@@ -28,12 +28,15 @@ class _NewsState extends State<News> {
 
     return Card(
       color: const Color(0xffFFFFFF),
-      elevation: 3,
+      elevation: 0,
       margin: const EdgeInsets.all(8.0),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12.0),
+        side: const BorderSide(color: Colors.black, width: 0.2),
+      ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Bagian Kiri (Image)
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: ClipRRect(
@@ -54,7 +57,6 @@ class _NewsState extends State<News> {
               ),
             ),
           ),
-          // Bagian Kanan (Title, Description, dan Button)
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -72,7 +74,7 @@ class _NewsState extends State<News> {
                     ),
                   ),
                   const SizedBox(
-                    height: 10.0,
+                    height: 5,
                   ),
                   Text(
                     description,
@@ -83,9 +85,8 @@ class _NewsState extends State<News> {
                     ),
                   ),
                   const SizedBox(
-                    height: 5.0,
+                    height: 10.0,
                   ),
-                  // Tombol Tengah
                   Center(
                     child: SizedBox(
                       width: 200,

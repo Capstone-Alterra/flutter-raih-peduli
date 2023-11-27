@@ -57,8 +57,9 @@ class _NewsPageState extends State<NewsPage> {
                         ),
                         prefixIcon: IconButton(
                           icon: const Icon(Icons.search),
-                          onPressed: () {
-                            viewModel.fetchSearchNews();
+                          onPressed: () async {
+                            final String query = viewModel.search.text;
+                            await viewModel.fetchSearchNews(query: query);
                           },
                         ),
                       ),
@@ -85,6 +86,16 @@ class _NewsPageState extends State<NewsPage> {
                       ? const Center(child: CircularProgressIndicator())
                       : Column(
                           children: [
+                            viewModel.dataHasilSearch
+                                ? const Text(
+                                    'Pencarian Tidak Ditemukan',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.red,
+                                      // fontWeight: FontWeight.bold,
+                                    ),
+                                  )
+                                : const SizedBox(),
                             for (var newsItem in viewModel.modelNews!.data)
                               News(
                                 title: newsItem.title,

@@ -21,11 +21,11 @@ class NewsService {
     }
   }
 
-  Future<ModelNews> hitSearchNews(String hasilSearch) async {
+  Future<ModelNews> hitSearchNews({
+    required String query,
+  }) async {
     try {
-      final response = await _dio.get(
-        Urls.baseUrl + Urls.searchNews + hasilSearch,
-      );
+      final response = await _dio.get(Urls.baseUrl + Urls.searchNews + query);
       debugPrint("=>${response.data}");
       return ModelNews.fromJson(response.data);
     } on DioError catch (_) {
