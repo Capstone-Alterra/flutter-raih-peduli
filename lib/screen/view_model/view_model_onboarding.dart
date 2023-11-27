@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../model/model_onboarding.dart';
-import '../view/login.dart';
+import '../view/login/login.dart';
 
 class OnBoardingViewModel with ChangeNotifier {
   int currentIndex = 0;
