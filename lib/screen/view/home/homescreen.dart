@@ -35,12 +35,9 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             const FeatureMenuList(),
-            SizedBox(
-              height: 980, // Sesuaikan dengan tinggi yang diinginkan
-              child: ChangeNotifierProvider(
-                create: (context) => HomeScreenViewModel(),
-                child: const HomeListViewBuilder(),
-              ),
+            ChangeNotifierProvider(
+              create: (context) => HomeScreenViewModel(),
+              child: const HomeListViewBuilder(),
             ),
           ],
         ),

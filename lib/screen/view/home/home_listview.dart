@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/fundraising_data.dart';
-import 'package:flutter_raih_peduli/model/news_data.dart';
+// import 'package:flutter_raih_peduli/model/news_data.dart';
 import 'package:flutter_raih_peduli/model/volunteer_data.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/homescreen/fundraising_card_widget.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/homescreen/news_card_widget.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/homescreen/viewall_widget.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/homescreen/volunteer_card_widget.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_news.dart';
+import 'package:provider/provider.dart';
 
 class HomeListViewBuilder extends StatelessWidget {
   const HomeListViewBuilder({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = Provider.of<NewsViewModel>(context, listen: false);
     Size size = MediaQuery.of(context).size;
     return Column(
       children: [
@@ -130,35 +133,31 @@ class HomeListViewBuilder extends StatelessWidget {
             ),
           ],
         ),
-        // SizedBox(
-        //   height: 260, // Set a reasonable height
-        //   child: ListView.builder(
-        //     scrollDirection: Axis.horizontal,
-        //     itemCount: dummyNewsData.length,
-        //     itemBuilder: (context, index) {
-        //       return SizedBox(
-        //         width: 250, // Set a reasonable width for each card
-        //         child: NewsCard(
-        //           newsData: dummyNewsData[index],
-        //         ),
-        //       );
-        //     },
-        //   ),
-        // ),
-        SizedBox(
-          height: size.width / 1.975,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: [
-              for (var index = 0; index < dummyNewsData.length; index++)
-                SizedBox(
-                  width: size.width / 1.975,
-                  child: NewsCard(
-                    newsData: dummyNewsData[index],
-                  ),
-                ),
-            ],
-          ),
+        Consumer<NewsViewModel>(
+          builder: (context, viewMode, child) {
+            return viewModel.isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : SizedBox(
+                    height: size.width / 1.975,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        for (var index = 0;
+                            index < viewModel.modelNews!.data.length;
+                            index++)
+                          SizedBox(
+                            width: size.width / 1.975,
+                            child: NewsCard(
+                              title: viewModel.modelNews!.data[index].title,
+                              description:
+                                  viewModel.modelNews!.data[index].description,
+                              imageUrl: viewModel.modelNews!.data[index].photo,
+                            ),
+                          ),
+                      ],
+                    ),
+                  );
+          },
         ),
       ],
     );

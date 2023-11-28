@@ -1,18 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/theme.dart';
+import 'package:provider/provider.dart';
 
-import '../../../../model/news_data.dart';
+import '../../../view_model/view_model_news.dart';
+// import '../../../../model/news_data.dart';
 
 class NewsCard extends StatelessWidget {
-  final NewsData newsData;
+  // final NewsData newsData;
+  final String title;
+  final String description;
+  final String imageUrl;
 
   const NewsCard({
     super.key,
-    required this.newsData,
+    required this.title,
+    required this.description,
+    required this.imageUrl,
   });
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = Provider.of<NewsViewModel>(context, listen: false);
     Size size = MediaQuery.of(context).size;
     double sizecontent = size.width / 2;
     return Card(
@@ -37,7 +45,7 @@ class NewsCard extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(8.0)),
                     child: Image.network(
-                      newsData.imageUrl,
+                      imageUrl,
                       width: double.infinity,
                       fit: BoxFit.cover,
                     ),
@@ -48,7 +56,7 @@ class NewsCard extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Text(
-                  newsData.title,
+                  title,
                   style: TextStyle(
                     color: AppTheme.primaryColor,
                     fontFamily: 'Helvetica',
@@ -60,7 +68,8 @@ class NewsCard extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Text(
-                  newsData.description,
+                  viewModel.truncateText(description, 30),
+                  // description,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
