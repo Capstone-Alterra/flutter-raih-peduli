@@ -10,8 +10,8 @@ class ViewallWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: onPressed,
+    return GestureDetector(
+      onTap: onPressed,
       child: const Text(
         'Lihat Semua',
         style: TextStyle(

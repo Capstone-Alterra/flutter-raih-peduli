@@ -10,6 +10,10 @@ class NewsViewModel with ChangeNotifier {
   bool isLoading = false;
   bool dataHasilSearch = false;
 
+  NewsViewModel(){
+    fetchAllNews();
+  }
+
   Future<void> fetchAllNews() async {
     isLoading = true;
     final data = await service.hitAllNews();

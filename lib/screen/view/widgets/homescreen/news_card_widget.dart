@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/screen/view/news/newsdetailpage.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:provider/provider.dart';
-
 import '../../../view_model/view_model_news.dart';
-// import '../../../../model/news_data.dart';
 
 class NewsCard extends StatelessWidget {
-  // final NewsData newsData;
   final String title;
   final String description;
   final String imageUrl;
@@ -69,7 +67,6 @@ class NewsCard extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Text(
                   viewModel.truncateText(description, 30),
-                  // description,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
@@ -84,7 +81,18 @@ class NewsCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => NewsDetailPage(
+                      title: title,
+                      image: imageUrl,
+                      description: description,
+                    ),
+                  ),
+                );
+              },
               child: Container(
                 height: sizecontent / 8,
                 decoration: const BoxDecoration(

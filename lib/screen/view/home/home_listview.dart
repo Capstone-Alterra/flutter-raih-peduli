@@ -9,6 +9,8 @@ import 'package:flutter_raih_peduli/screen/view/widgets/homescreen/volunteer_car
 import 'package:flutter_raih_peduli/screen/view_model/view_model_news.dart';
 import 'package:provider/provider.dart';
 
+import '../news/news_page.dart';
+
 class HomeListViewBuilder extends StatelessWidget {
   const HomeListViewBuilder({super.key});
 
@@ -117,15 +119,19 @@ class HomeListViewBuilder extends StatelessWidget {
                   const Text(
                     'Temukan Informasi Terkini',
                     style: TextStyle(
-                      fontSize: 15,
+                      fontSize: 16,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Helvetica',
                     ),
                   ),
                   ViewallWidget(
                     onPressed: () {
-                      // Aksi yang akan dijalankan saat tombol ditekan
-                      // Misalnya, menavigasi ke halaman "Lihat Semua"
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const NewsPage(),
+                        ),
+                      );
                     },
                   ),
                 ],
@@ -133,6 +139,7 @@ class HomeListViewBuilder extends StatelessWidget {
             ),
           ],
         ),
+        const SizedBox(height: 2.5),
         Consumer<NewsViewModel>(
           builder: (context, viewMode, child) {
             return viewModel.isLoading

@@ -14,7 +14,9 @@ import 'services/service_chat_bot.dart';
 void main() async {
   final signInViewModel = SignInViewModel();
   final chatBotViewModel = ChatbotService();
+  final newsViewModel = NewsViewModel();
   runApp(const MyApp());
+  await newsViewModel.fetchAllNews();
   await signInViewModel.checkSharedPreferences();
   await chatBotViewModel.fetchApiKey();
 }
