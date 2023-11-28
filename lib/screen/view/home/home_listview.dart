@@ -12,6 +12,7 @@ class HomeListViewBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Column(
       children: [
         Column(
@@ -113,7 +114,7 @@ class HomeListViewBuilder extends StatelessWidget {
                   const Text(
                     'Temukan Informasi Terkini',
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 15,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Helvetica',
                     ),
@@ -129,22 +130,34 @@ class HomeListViewBuilder extends StatelessWidget {
             ),
           ],
         ),
+        // SizedBox(
+        //   height: 260, // Set a reasonable height
+        //   child: ListView.builder(
+        //     scrollDirection: Axis.horizontal,
+        //     itemCount: dummyNewsData.length,
+        //     itemBuilder: (context, index) {
+        //       return SizedBox(
+        //         width: 250, // Set a reasonable width for each card
+        //         child: NewsCard(
+        //           newsData: dummyNewsData[index],
+        //         ),
+        //       );
+        //     },
+        //   ),
+        // ),
         SizedBox(
-          height: 260, // Set a reasonable height
-          child: ListView.builder(
+          height: size.width / 1.975,
+          child: ListView(
             scrollDirection: Axis.horizontal,
-            itemCount: dummyNewsData.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: 250, // Set a reasonable width for each card
+            children: [
+              for (var index = 0; index < dummyNewsData.length; index++)
+                SizedBox(
+                  width: size.width / 1.975,
                   child: NewsCard(
                     newsData: dummyNewsData[index],
                   ),
                 ),
-              );
-            },
+            ],
           ),
         ),
       ],

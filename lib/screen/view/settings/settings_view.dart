@@ -103,10 +103,13 @@ class SettingScreenState extends State<SettingScreen> {
                             ),
                             child: ElevatedButton(
                               onPressed: () {
+                                final foto = viewModel.fotoSharedPreference;
+                                final email = viewModel.emailSharedPreference;
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const ProfileEdit(),
+                                    builder: (context) =>
+                                        ProfileEdit(foto: foto, email: email),
                                   ),
                                 );
                               },
