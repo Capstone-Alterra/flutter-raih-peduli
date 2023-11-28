@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/screen/view/donate/widget/widget_backbutton.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/donate/widget_backbutton.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/donate/widget_fundraisingcard.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../theme/theme.dart';
 import '../../../../screen/view_model/view_model_donate.dart';
 import 'package:provider/provider.dart';
 import '../../../../model/donate_data.dart';
-import 'widget/widget_fundraisingcard.dart';
 
 class DonateScreen extends StatefulWidget {
   const DonateScreen({Key? key}) : super(key: key);

@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/screen/view/home/homescreen.dart';
+import 'package:flutter_raih_peduli/screen/view/onboarding/onboarding_view.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_chatbot.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_donate.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_homescreeen.dart';
 import 'package:provider/provider.dart';
-import 'screen/view_model/view_model_homescreeen.dart';
-import 'screen/view_model/view_model_donate.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_forget_password.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_onboarding.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_signup.dart';
+import 'screen/view_model/view_model_news.dart';
+import 'screen/view_model/view_model_signin.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_navigation.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +23,14 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => DonateViewModel()),
+        ChangeNotifierProvider(create: (_) => SignUpViewModel()),
+        ChangeNotifierProvider(create: (_) => SignInViewModel()),
+        ChangeNotifierProvider(create: (_) => ForgetPasswordViewModel()),
+        ChangeNotifierProvider(create: (_) => OnBoardingViewModel()),
+        ChangeNotifierProvider(create: (_) => NavigationProvider()),
         ChangeNotifierProvider(create: (_) => HomeScreenViewModel()),
+        ChangeNotifierProvider(create: (_) => NewsViewModel()),
+        ChangeNotifierProvider(create: (_) => ChatbotViewModel()),
       ],
       child: MaterialApp(
         theme: ThemeData(
@@ -26,7 +40,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         debugShowCheckedModeBanner: false,
-        home: HomeScreen(),
+        home: const Onbording(),
       ),
     );
   }

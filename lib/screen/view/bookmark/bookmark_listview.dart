@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/screen/view/bookmark/widget/donasi_listview.dart';
-import 'package:flutter_raih_peduli/screen/view/bookmark/widget/relawan_listview.dart';
-import 'package:flutter_raih_peduli/screen/view/bookmark/widget/semua_listview.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/donasi_listview.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/relawan_listview.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/semua_listview.dart';
 
 class BookmarkListView extends StatelessWidget {
   final String selectedFilter;

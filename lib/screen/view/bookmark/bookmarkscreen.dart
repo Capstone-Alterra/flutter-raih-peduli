@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/bookmark/bookmark_listview.dart';
-import 'package:flutter_raih_peduli/screen/view/bookmark/widget/filter_widget.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/filter_widget.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_bookmarkscreen.dart';
-import 'package:flutter_raih_peduli/theme/theme.dart';
+import 'package:flutter_raih_peduli/theme.dart';
 import 'package:provider/provider.dart';
 
 class BookmarkScreen extends StatelessWidget {
