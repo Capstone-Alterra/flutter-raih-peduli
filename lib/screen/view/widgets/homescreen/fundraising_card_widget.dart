@@ -56,11 +56,11 @@ class FundraisingCard extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 4),
+                padding: const EdgeInsets.symmetric(horizontal: 4),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(height: 2.5),
+                    const SizedBox(height: 5),
                     Text(
                       viewModel.truncateText(title, 25),
                       style: TextStyle(
