@@ -128,14 +128,26 @@ class _SignInState extends State<SignIn> {
                                         viewModel.validateEmail(value!)),
                                 const SizedBox(height: 5),
                                 customTextFormField(
-                                    controller: viewModel.password,
-                                    prefixIcon: Image.asset(
-                                      "assets/lock.png",
+                                  controller: viewModel.password,
+                                  prefixIcon: Image.asset(
+                                    "assets/lock.png",
+                                  ),
+                                  labelText: "Password",
+                                  obscureText: !viewModel.isPasswordVisible,
+                                  sufixIcon: IconButton(
+                                    icon: Icon(
+                                      viewModel.isPasswordVisible
+                                          ? Icons.visibility
+                                          : Icons.visibility_off,
+                                      color: const Color(0xFF484F88),
                                     ),
-                                    labelText: "Password",
-                                    obscureText: true,
-                                    validator: (value) =>
-                                        viewModel.validatePassword(value!)),
+                                    onPressed: () {
+                                      viewModel.togglePasswordVisibility();
+                                    },
+                                  ),
+                                  validator: (value) =>
+                                      viewModel.validatePassword(value!),
+                                ),
                                 Row(
                                   children: [
                                     Consumer<SignInViewModel>(
@@ -164,24 +176,10 @@ class _SignInState extends State<SignIn> {
                                     if (viewModel.formKeySignin.currentState!
                                         .validate()) {
                                       await viewModel.signIn();
-                                      // if (viewModel.rememberMe != false) {
-                                      // final accessToken = viewModel
-                                      //     .dataLogin!.data.accessToken;
-                                      // final foto = viewModel
-                                      //     .dataLogin!.data.profilePicture;
-                                      // final refreshToken = viewModel
-                                      //     .dataLogin!.data.refreshToken;
-                                      // final name =
-                                      //     viewModel.dataLogin!.data.fullname;
                                       await viewModel.saveDataSharedPreferences(
-                                          // name,
-                                          // foto,
-                                          // accessToken,
-                                          // refreshToken
                                           );
                                       viewModel.logindata
                                           .setBool('login', false);
-                                      // }
                                       Navigator.of(context).pushAndRemoveUntil(
                                         MaterialPageRoute(
                                           builder: (context) =>

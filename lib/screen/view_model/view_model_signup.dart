@@ -18,6 +18,7 @@ class SignUpViewModel with ChangeNotifier {
   String kodeOtp = "";
   final service = SignUpService();
   ModelOtp? otp;
+  bool isPasswordVisible = false;
 
   Future<void> signUp() async {
     final nameUser = fullname.text;
@@ -117,5 +118,10 @@ class SignUpViewModel with ChangeNotifier {
       return 'Password harus berupa kombinasi huruf dan angka';
     }
     return null;
+  }
+
+  void togglePasswordVisibility() {
+    isPasswordVisible = !isPasswordVisible;
+    notifyListeners();
   }
 }

@@ -23,6 +23,7 @@ class SignInViewModel with ChangeNotifier {
   String fotoSharedPreference = '';
   String accessTokenSharedPreference = '';
   String refreshTokenSharedPreference = '';
+  bool isPasswordVisible = false;
 
   SignInViewModel() {
     checkSharedPreferences();
@@ -105,9 +106,10 @@ class SignInViewModel with ChangeNotifier {
     return null;
   }
 
-  // void setUlang() {
-  //   heightContainer = false;
-  // }
+  void togglePasswordVisibility() {
+    isPasswordVisible = !isPasswordVisible;
+    notifyListeners();
+  }
 
   void checkLogin(BuildContext context) async {
     logindata = await SharedPreferences.getInstance();

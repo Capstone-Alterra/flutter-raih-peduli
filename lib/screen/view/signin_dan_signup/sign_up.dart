@@ -210,17 +210,32 @@ class _SignUpState extends State<SignUp> {
                                     viewModel.validatePhone(value!),
                               ),
                               const SizedBox(height: 5),
-                              customTextFormField(
-                                controller: viewModel.password,
-                                prefixIcon: Image.asset(
-                                  "assets/lock_password.png",
-                                  width: 10.0,
-                                  height: 10.0,
-                                ),
-                                labelText: "Password",
-                                obscureText: true,
-                                validator: (value) =>
-                                    viewModel.validatePassword(value!),
+                              Consumer<SignUpViewModel>(
+                                builder: (context, contactModel, child) {
+                                  return customTextFormField(
+                                    controller: viewModel.password,
+                                    prefixIcon: Image.asset(
+                                      "assets/lock_password.png",
+                                      width: 10.0,
+                                      height: 10.0,
+                                    ),
+                                    labelText: "Password",
+                                    obscureText: !viewModel.isPasswordVisible,
+                                    sufixIcon: IconButton(
+                                      icon: Icon(
+                                        viewModel.isPasswordVisible
+                                            ? Icons.visibility
+                                            : Icons.visibility_off,
+                                        color: const Color(0xFF484F88),
+                                      ),
+                                      onPressed: () {
+                                        viewModel.togglePasswordVisibility();
+                                      },
+                                    ),
+                                    validator: (value) =>
+                                        viewModel.validatePassword(value!),
+                                  );
+                                },
                               ),
                               Row(
                                 children: [

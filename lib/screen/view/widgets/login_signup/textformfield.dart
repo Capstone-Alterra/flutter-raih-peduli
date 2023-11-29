@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 Widget customTextFormField({
   required TextEditingController controller,
   Widget? prefixIcon,
+  Widget? sufixIcon,
   String? labelText,
   bool? obscureText,
   TextInputType? keyboardType,
@@ -27,6 +28,7 @@ Widget customTextFormField({
         color: Colors.blueGrey,
       ),
       prefixIcon: prefixIcon,
+      suffixIcon: sufixIcon,
       border: InputBorder.none,
       enabledBorder: const OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(5)),
