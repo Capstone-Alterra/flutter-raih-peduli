@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/screen/view/volunteer/request_volunteer.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_chatbot.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_homescreeen.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_volunteer_form.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_raih_peduli/screen/view/onboarding/onboarding_view.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_forget_password.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_onboarding.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_signup.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => HomeScreenViewModel()),
           ChangeNotifierProvider(create: (_) => NewsViewModel()),
           ChangeNotifierProvider(create: (_) => ChatbotViewModel()),
+          ChangeNotifierProvider(create: (_) => VolunteerFormViewModel()),
         ],
         child: MaterialApp(
           theme: ThemeData(
@@ -46,7 +48,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
           debugShowCheckedModeBanner: false,
-          home: const Onbording(),
+          home: const RequestVolunteerScreen(),
         ));
   }
 }
