@@ -18,4 +18,9 @@ class NavigationProvider extends ChangeNotifier {
     pageIndex = index;
     notifyListeners();
   }
+
+  void out() {
+    pageIndex = 0;
+    notifyListeners();
+  }
 }

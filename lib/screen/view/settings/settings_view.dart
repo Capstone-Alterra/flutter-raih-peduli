@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/settings/edit_profile.dart';
-import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/sign_in.dart';
+// import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/sign_in.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../view_model/view_model_navigation.dart';
 import '../../view_model/view_model_signin.dart';
+import '../signin_dan_signup/masuk_atau_daftar.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
@@ -14,11 +17,19 @@ class SettingScreen extends StatefulWidget {
 }
 
 class SettingScreenState extends State<SettingScreen> {
+  late SharedPreferences logindata;
   late SignInViewModel viewModel;
+  late NavigationProvider nav;
   @override
   void initState() {
     viewModel = Provider.of<SignInViewModel>(context, listen: false);
+    nav = Provider.of<NavigationProvider>(context, listen: false);
     super.initState();
+    initial();
+  }
+
+  void initial() async {
+    logindata = await SharedPreferences.getInstance();
   }
 
   @override
@@ -421,14 +432,17 @@ class SettingScreenState extends State<SettingScreen> {
                                       ),
                                       child: ElevatedButton(
                                         onPressed: () {
+                                          logindata.setBool('login', true);
                                           Navigator.of(context)
                                               .pushAndRemoveUntil(
                                             MaterialPageRoute(
                                               builder: (context) =>
-                                                  const SignIn(),
+                                                  const LoginAtauDaftar(),
                                             ),
                                             (route) => false,
                                           );
+                                          
+                                          nav.out();
                                         },
                                         style: ButtonStyle(
                                           backgroundColor:

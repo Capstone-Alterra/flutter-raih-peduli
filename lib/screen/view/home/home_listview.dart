@@ -11,8 +11,21 @@ import 'package:provider/provider.dart';
 
 import '../news/news_page.dart';
 
-class HomeListViewBuilder extends StatelessWidget {
+class HomeListViewBuilder extends StatefulWidget {
   const HomeListViewBuilder({super.key});
+
+  @override
+  State<HomeListViewBuilder> createState() => _HomeListViewBuilderState();
+}
+
+class _HomeListViewBuilderState extends State<HomeListViewBuilder> {
+  late NewsViewModel viewModel;
+  @override
+  void initState() {
+    viewModel = Provider.of<NewsViewModel>(context, listen: false);
+    viewModel.fetchAllNews();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

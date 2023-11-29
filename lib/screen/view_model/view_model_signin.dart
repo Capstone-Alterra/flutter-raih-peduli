@@ -6,6 +6,7 @@ import 'package:flutter_raih_peduli/model/model_sign_in.dart';
 import 'package:flutter_raih_peduli/services/service_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../view/navigation/navigation.dart';
+import '../view/onboarding/onboarding_view.dart';
 
 class SignInViewModel with ChangeNotifier {
   late GlobalKey<FormState> formKeySignin;
@@ -119,6 +120,15 @@ class SignInViewModel with ChangeNotifier {
             builder: (context) => const BottomNavgationBar(),
           ),
           (route) => false);
+    } else {
+      Future.delayed(const Duration(seconds: 3), () {
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (_) => const Onbording(),
+            ),
+            (route) => false);
+      });
     }
   }
 }

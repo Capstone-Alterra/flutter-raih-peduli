@@ -169,12 +169,6 @@ class _UbahPasswordState extends State<UbahPassword> {
                                                 builder: (_) => const SignIn(),
                                               ),
                                               (route) => false);
-                                          // Navigator.pushAndRemoveUntil(
-                                          //   context,
-                                          //   MaterialPageRoute(
-                                          //     builder: (_) => const SignIn(),
-                                          //   ),
-                                          // );
                                         },
                                       );
                                     }
