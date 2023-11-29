@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/settings/edit_profile.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_profile.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -16,13 +17,21 @@ class SettingScreen extends StatefulWidget {
 }
 
 class SettingScreenState extends State<SettingScreen> {
+  late final ProfileViewModel viewModel;
   late SharedPreferences logindata;
-  late SignInViewModel viewModel;
+  late SignInViewModel sp;
   late NavigationProvider nav;
   @override
   void initState() {
-    viewModel = Provider.of<SignInViewModel>(context, listen: false);
+    viewModel = Provider.of<ProfileViewModel>(context, listen: false);
+    sp = Provider.of<SignInViewModel>(context, listen: false);
+    final accessToken = sp.accessTokenSharedPreference;
+    final refreshToken = sp.refreshTokenSharedPreference;
     nav = Provider.of<NavigationProvider>(context, listen: false);
+    viewModel.fetchProfile(
+      accessToken: accessToken,
+      refreshToken: refreshToken,
+    );
     super.initState();
     initial();
   }
@@ -63,87 +72,109 @@ class SettingScreenState extends State<SettingScreen> {
                   color: const Color(0xff293066),
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                      width: 90,
-                      height: 90,
-                      clipBehavior: Clip.antiAlias,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                      ),
-                      child: Image.network(
-                        viewModel.fotoSharedPreference,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          viewModel.nameSharedPreference,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'Helvetica',
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        Text(
-                          viewModel.emailSharedPreference,
-                          style: const TextStyle(
-                            fontFamily: 'Helvetica',
-                            color: Color(0xffD1D1D1),
-                            fontSize: 12,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10),
-                          child: Container(
-                            width: 110,
-                            height: 34,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              border: Border.all(
-                                color: const Color(0xffA3A4A5),
-                                width: 1,
-                              ),
-                            ),
-                            child: ElevatedButton(
-                              onPressed: () {
-                                final foto = viewModel.fotoSharedPreference;
-                                final email = viewModel.emailSharedPreference;
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        ProfileEdit(foto: foto, email: email),
-                                  ),
-                                );
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.white,
-                                shadowColor: Colors.transparent,
-                                elevation: 0,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15),
+                child: Consumer<ProfileViewModel>(
+                  builder: (context, contactModel, child) {
+                    return viewModel.isLoading
+                        ? Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Container(
+                                width: 90,
+                                height: 90,
+                                clipBehavior: Clip.antiAlias,
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Image.network(
+                                  viewModel.modelProfile!.data.profilePicture,
+                                  fit: BoxFit.cover,
                                 ),
                               ),
-                              child: const Text(
-                                'Ubah Profil',
-                                style: TextStyle(
-                                    color: Color(0xffA3A4A5),
-                                    fontFamily: 'Helvetica',
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ),
-                        )
-                      ],
-                    )
-                  ],
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    viewModel.modelProfile!.data.fullname,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'Helvetica',
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                  Text(
+                                    viewModel.modelProfile!.data.email,
+                                    style: const TextStyle(
+                                      fontFamily: 'Helvetica',
+                                      color: Color(0xffD1D1D1),
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 10),
+                                    child: Container(
+                                      width: 110,
+                                      height: 34,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
+                                        border: Border.all(
+                                          color: const Color(0xffA3A4A5),
+                                          width: 1,
+                                        ),
+                                      ),
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          final fullname = viewModel
+                                              .modelProfile!.data.fullname;
+                                          final foto = viewModel.modelProfile!
+                                              .data.profilePicture;
+                                          final email = viewModel
+                                              .modelProfile!.data.email;
+                                          final telp = viewModel
+                                              .modelProfile!.data.phoneNumber;
+                                          final address = viewModel
+                                              .modelProfile!.data.address;
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => ProfileEdit(
+                                                fullname: fullname,
+                                                foto: foto,
+                                                email: email,
+                                                telp: telp,
+                                                address: address,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.white,
+                                          shadowColor: Colors.transparent,
+                                          elevation: 0,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                          ),
+                                        ),
+                                        child: const Text(
+                                          'Ubah Profil',
+                                          style: TextStyle(
+                                              color: Color(0xffA3A4A5),
+                                              fontFamily: 'Helvetica',
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              )
+                            ],
+                          );
+                  },
                 ),
               ),
               const SizedBox(height: 25),
@@ -440,7 +471,7 @@ class SettingScreenState extends State<SettingScreen> {
                                             ),
                                             (route) => false,
                                           );
-                                          
+
                                           nav.out();
                                         },
                                         style: ButtonStyle(

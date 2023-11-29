@@ -1,120 +1,159 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/model/fundraising_data.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_fundraises.dart';
+// import 'package:flutter_raih_peduli/model/fundraising_data.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 class FundraisingCard extends StatelessWidget {
-  final FundraisingData fundraisingData;
+  String title;
+  String description;
+  String imageUrl;
+  int target;
 
-  const FundraisingCard({super.key, 
-    required this.fundraisingData,
-  });
+  FundraisingCard(
+      {super.key,
+      required this.title,
+      required this.description,
+      required this.imageUrl,
+      required this.target});
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = Provider.of<FundraisesViewModel>(context, listen: false);
+    Size size = MediaQuery.of(context).size;
+    double sizecontent = size.width / 2;
     return Card(
-      elevation: 3,
-      margin: const EdgeInsets.all(8.0),
+      elevation: 2,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // Rounded rectangle container for the image
-          Container(
-            width: double.infinity,
-            height: 125,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(8.0)),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 8, top: 8, right: 8),
-              child: ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-                 child: Image.network(
-                    fundraisingData.imageUrl,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: sizecontent,
+                height: sizecontent / 2,
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 5, top: 5, right: 5),
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+                    child: Image.network(
+                      imageUrl,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
                   ),
+                ),
               ),
-            ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 4),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 2.5),
+                    Text(
+                      viewModel.truncateText(title, 25),
+                      style: TextStyle(
+                        color: AppTheme.primaryColor,
+                        fontFamily: 'Helvetica',
+                        fontWeight: FontWeight.bold,
+                        fontSize: sizecontent / 15,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      viewModel.truncateText(description, 25),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontFamily: 'Helvetica',
+                        fontSize: sizecontent / 18,
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
           ),
-          // Data
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  fundraisingData.title,
-                  style: const TextStyle(
-                    color: AppTheme.primaryColor,
-                    fontFamily: 'Helvetica',
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                  ),
-                ),
-                const SizedBox(height: 4.0),
-                Text(
-                  fundraisingData.description,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    fontFamily: 'Helvetica',
-                    fontSize: 12,
-                  ),
-                ),
-                const SizedBox(height: 4.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    Row(
                       children: [
-                        Row(
-                          children: [
-                            SvgPicture.asset(
-                            'assets/target.svg', 
-                            height: 10,
-                          ),
-                          const SizedBox(width: 2),
-                            const Text(
-                            'Target', 
-                            style: TextStyle(
-                              fontFamily: 'Helvetica',
-                            ),
-                            ),
-                          ],
+                        SvgPicture.asset(
+                          'assets/target.svg',
+                          height: sizecontent / 18,
                         ),
+                        const SizedBox(width: 2),
                         Text(
-                          'Rp. ${fundraisingData.target}',
-                          style: const TextStyle(
-                            color: AppTheme.primaryColor,
+                          'Target',
+                          style: TextStyle(
                             fontFamily: 'Helvetica',
-                            fontWeight: FontWeight.bold,
+                            fontSize: sizecontent / 18,
                           ),
                         ),
                       ],
                     ),
-                    ElevatedButton(
-                      onPressed: () {
-                        // Aksi yang akan dijalankan saat tombol lihat detail ditekan
-                        // Misalnya, menavigasi ke halaman detail
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppTheme.primaryColor,
-                        textStyle: const TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Helvetica',),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                      ),
-                      child: const Text(
-                      'Lihat Detail',
-                      style: TextStyle(color: AppTheme.white), 
+                    Text(
+                      'Rp. $target',
+                      style: TextStyle(
+                        color: AppTheme.primaryColor,
+                        fontFamily: 'Helvetica',
+                        fontWeight: FontWeight.bold,
+                        fontSize: sizecontent / 20,
                       ),
                     ),
                   ],
+                ),
+                GestureDetector(
+                  onTap: () {
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => NewsDetailPage(
+                    //       title: title,
+                    //       image: imageUrl,
+                    //       description: description,
+                    //     ),
+                    //   ),
+                    // );
+                  },
+                  child: Container(
+                    width: sizecontent / 3,
+                    height: sizecontent / 10,
+                    decoration: const BoxDecoration(
+                      color: AppTheme.primaryColor,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(
+                          4.0,
+                        ),
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Lihat Detail',
+                        style: TextStyle(
+                          color: AppTheme.white,
+                          fontSize: sizecontent / 23,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),

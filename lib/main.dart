@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/onboarding/splash_screen.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_chatbot.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_fundraises.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_homescreeen.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_profile.dart';
 import 'package:provider/provider.dart';
 // import 'package:flutter_raih_peduli/screen/view/onboarding/onboarding_view.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_forget_password.dart';
@@ -29,6 +31,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
+          ChangeNotifierProvider(create: (_) => FundraisesViewModel()),
+          ChangeNotifierProvider(create: (_) => ProfileViewModel()),
           ChangeNotifierProvider(create: (_) => SignUpViewModel()),
           ChangeNotifierProvider(create: (_) => SignInViewModel()),
           ChangeNotifierProvider(create: (_) => ForgetPasswordViewModel()),

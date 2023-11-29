@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/screen/view/settings/edit_profile.dart';
+// import 'package:flutter_raih_peduli/screen/view/settings/edit_profile.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/dialog_popup.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/snackbar.dart';
 
@@ -32,10 +32,10 @@ class _ButtonVolunteerState extends State<ButtonVolunteer> {
               final snackBar = snackBarVolunteer(size, context);
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
               Future.delayed(const Duration(seconds: 4), () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ProfileEdit()),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => ProfileEdit()),
+                // );
               });
             },
             style: ButtonStyle(

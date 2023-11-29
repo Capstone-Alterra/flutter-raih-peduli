@@ -9,4 +9,6 @@ class Urls {
   static const String ubahPassword = "/users/reset-password";
   static const String fetchAllNews = "/news?page=1&page_size=10";
   static const String searchNews = "/news?page=1&page_size=10&title=";
+  static const String profile = "/mobile/users/my-profile";
+  static const String fetchAllFundraises = "/fundraises?page=1&page_size=5";
 }

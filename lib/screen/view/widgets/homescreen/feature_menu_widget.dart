@@ -60,7 +60,10 @@ class FeatureMenuList extends StatelessWidget {
             title: 'Donasi',
             assetImage: 'assets/donation.png',
             onPressed: () {
-              // Handle Donasi button pressed
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const AboutUsPage()),
+              );
             },
           ),
           FeatureMenuItem(

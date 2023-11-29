@@ -1,24 +1,28 @@
 // ignore_for_file: must_be_immutable
 
-// import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/settings/widget_profile_edit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ProfileEdit extends StatefulWidget {
-  String? foto;
-  String? email;
-  ProfileEdit({this.foto, this.email, super.key});
+  String foto;
+  String fullname;
+  String email;
+  String telp;
+  String address;
+  ProfileEdit(
+      {required this.foto,
+      required this.fullname,
+      required this.email,
+      required this.telp,
+      required this.address,
+      super.key});
 
   @override
   State<ProfileEdit> createState() => _ProfileEditState();
 }
 
 class _ProfileEditState extends State<ProfileEdit> {
-  // Uint8List? _image;
-  // File? _selectedImage;
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -54,7 +58,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                       CircleAvatar(
                         radius: size.width * 0.19,
                         backgroundImage: NetworkImage(
-                          widget.foto ?? "",
+                          widget.foto,
                         ),
                       ),
                       Positioned(
@@ -66,7 +70,12 @@ class _ProfileEditState extends State<ProfileEdit> {
                   ),
                 ),
                 SizedBox(height: size.height * 0.1),
-                EditTextField(email: widget.email),
+                EditTextField(
+                  email: widget.email,
+                  fullname: widget.fullname,
+                  phone: widget.telp,
+                  address: widget.address,
+                ),
               ],
             ),
           ),
