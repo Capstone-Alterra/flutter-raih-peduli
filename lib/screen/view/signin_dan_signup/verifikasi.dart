@@ -4,15 +4,14 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/sign_in.dart';
-import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/widget/alert.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/login_signup/alert.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/login_signup/button.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_signup.dart';
 import 'package:provider/provider.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 
-import 'widget/button.dart';
-
 class Verifikasi extends StatelessWidget {
-  const Verifikasi({Key? key}) : super(key: key);
+  const Verifikasi({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,10 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 
 class EditTextField extends StatefulWidget {
-  const EditTextField({super.key});
+  String? email;
+  EditTextField({this.email, super.key});
 
   @override
   State<EditTextField> createState() => EditTextFieldState();
@@ -43,7 +46,7 @@ class EditTextFieldState extends State<EditTextField> {
             focusedBorder: const UnderlineInputBorder(
               borderSide: BorderSide(color: Colors.black, width: 2),
             ),
-            hintText: 'E.g achsanti@mail.com',
+            hintText: widget.email,
             hintStyle: TextStyle(color: Colors.black.withOpacity(0.4)),
           ),
         ),

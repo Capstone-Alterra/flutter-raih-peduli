@@ -4,13 +4,13 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/verifikasi.dart';
-import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/widget/button.dart';
-import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/widget/textformfield.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/login_signup/button.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/login_signup/textformfield.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_signup.dart';
 import 'package:provider/provider.dart';
 
 class SignUp extends StatelessWidget {
-  const SignUp({Key? key}) : super(key: key);
+  const SignUp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -72,17 +72,18 @@ class SignUp extends StatelessWidget {
                                   Text(
                                     'Daftar',
                                     style: TextStyle(
+                                      fontFamily: 'Helvetica',
                                       color: Colors.white,
-                                      fontSize: 26,
+                                      fontSize: 32,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                   Text(
                                     'Daftar, untuk dapat berkontribusi membantu sesama manusia.',
                                     style: TextStyle(
+                                      fontFamily: 'Helvetica',
                                       color: Colors.white,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400,
+                                      fontSize: 13,
                                     ),
                                   ),
                                 ],
@@ -247,6 +248,7 @@ class SignUp extends StatelessWidget {
                                         const Text(
                                           'Saya setuju dengan Kebijakan Privasi Raih Peduli',
                                           style: TextStyle(
+                                            fontFamily: 'Helvetica',
                                             fontSize: 10,
                                           ),
                                         ),
