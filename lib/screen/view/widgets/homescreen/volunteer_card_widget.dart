@@ -1,120 +1,147 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/model/volunteer_data.dart';
+import 'package:flutter_raih_peduli/model/model_volunteer.dart';
+import 'package:flutter_raih_peduli/screen/view/volunteer/detail_volunteer.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class VolunteerCard extends StatelessWidget {
-  final VolunteerData volunteerData;
+  final Data volunteerData;
 
-  const VolunteerCard({super.key, 
+  const VolunteerCard({
+    super.key,
     required this.volunteerData,
   });
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    double sizecontent = size.width / 2;
     return Card(
-      elevation: 3,
-      margin: const EdgeInsets.all(8.0),
+      elevation: 2,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // Rounded rectangle container for the image
-          Container(
-            width: double.infinity,
-            height: 125,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(8.0)),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-                 child: Image.network(
-                    volunteerData.imageUrl,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: sizecontent,
+                height: sizecontent / 2,
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 5, top: 5, right: 5),
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+                    child: Image.network(
+                      volunteerData.photo,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
                   ),
+                ),
               ),
-            ),
+              const SizedBox(height: 4),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      volunteerData.title,
+                      style: TextStyle(
+                        color: AppTheme.primaryColor,
+                        fontFamily: 'Helvetica',
+                        fontWeight: FontWeight.bold,
+                        fontSize: sizecontent / 15,
+                      ),
+                    ),
+                    const SizedBox(height: 1),
+                    Text(
+                      volunteerData.description,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontFamily: 'Helvetica',
+                        fontSize: sizecontent / 18,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
-          // Data
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  volunteerData.title,
-                  style: const TextStyle(
-                    color: AppTheme.primaryColor,
-                    fontFamily: 'Helvetica',
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                  ),
-                ),
-                const SizedBox(height: 4.0),
-                Text(
-                  volunteerData.description,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    fontFamily: 'Helvetica',
-                    fontSize: 12,
-                  ),
-                ),
-                const SizedBox(height: 4.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    Row(
                       children: [
-                        Row(
-                          children: [
-                            SvgPicture.asset(
-                            'assets/orang.svg', 
-                            height: 10,
-                          ),
-                          const SizedBox(width: 5),
-                            const Text(
-                            'Slot', 
-                            style: TextStyle(
-                              fontFamily: 'Helvetica',
-                            ),
-                            ),
-                          ],
+                        SvgPicture.asset(
+                          'assets/orang.svg',
+                          height: 10,
                         ),
+                        const SizedBox(width: 3),
                         Text(
-                          '${volunteerData.slot} Orang',
-                          style: const TextStyle(
+                          'Slot',
+                          style: TextStyle(
                             fontFamily: 'Helvetica',
-                            color: AppTheme.primaryColor,
-                            fontWeight: FontWeight.bold,
+                            fontSize: sizecontent / 18,
                           ),
                         ),
                       ],
                     ),
-                    ElevatedButton(
-                      onPressed: () {
-                        // Aksi yang akan dijalankan saat tombol lihat detail ditekan
-                        // Misalnya, menavigasi ke halaman detail
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppTheme.primaryColor,
-                        textStyle: const TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Helvetica',),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                      ),
-                      child: const Text(
-                        'Lihat Detail', 
-                        style: TextStyle(color: AppTheme.white),
+                    Text(
+                      '${volunteerData.numberOfVacancies} Orang',
+                      style: TextStyle(
+                        fontFamily: 'Helvetica',
+                        color: AppTheme.primaryColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: sizecontent / 20,
                       ),
                     ),
                   ],
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            DetailVolunteerPage(volunteerData: volunteerData),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    width: sizecontent / 3,
+                    height: sizecontent / 10,
+                    decoration: const BoxDecoration(
+                      color: AppTheme.primaryColor,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(
+                          4.0,
+                        ),
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Lihat Detail',
+                        style: TextStyle(
+                          color: AppTheme.white,
+                          fontSize: sizecontent / 23,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),

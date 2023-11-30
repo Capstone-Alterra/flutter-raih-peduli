@@ -1,17 +1,18 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: library_private_types_in_public_api
 
+import 'package:flutter/material.dart';
+import '../../../model/model_news.dart';
 import 'newsdetailpage.dart';
-// import 'package:flutter_raih_peduli/News/widget/newsdetailpage.dart';
 
 class News extends StatefulWidget {
-  final String? title;
-  final String? image;
-  final String? description;
+  final Datum newsData;
 
-  const News({super.key, this.title, this.image, this.description});
+  const News({
+    super.key,
+    required this.newsData,
+  });
 
   @override
-  // ignore: library_private_types_in_public_api
   _NewsState createState() => _NewsState();
 }
 
@@ -20,11 +21,6 @@ class _NewsState extends State<News> {
 
   @override
   Widget build(BuildContext context) {
-    // Simpan nilai dalam variabel lokal untuk kejelasan yang lebih baik
-    String title = widget.title ?? '';
-    String image = widget.image ?? '';
-    String description = widget.description ?? '';
-
     return Card(
       color: const Color(0xffFFFFFF),
       elevation: 0,
@@ -41,7 +37,7 @@ class _NewsState extends State<News> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12.0),
               child: Image.network(
-                image,
+                widget.newsData.photo,
                 height: 115,
                 width: 150,
                 fit: BoxFit.cover,
@@ -63,7 +59,7 @@ class _NewsState extends State<News> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title,
+                    widget.newsData.title,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
@@ -76,7 +72,7 @@ class _NewsState extends State<News> {
                     height: 5,
                   ),
                   Text(
-                    description,
+                    widget.newsData.description,
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
@@ -96,9 +92,7 @@ class _NewsState extends State<News> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => NewsDetailPage(
-                                title: title,
-                                image: image,
-                                description: description,
+                                newsData: widget.newsData,
                               ),
                             ),
                           );

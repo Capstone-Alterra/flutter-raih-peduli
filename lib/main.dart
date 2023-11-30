@@ -4,6 +4,7 @@ import 'package:flutter_raih_peduli/screen/view_model/view_model_chatbot.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_fundraises.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_homescreeen.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_profile.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_volunteer.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_forget_password.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_onboarding.dart';
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => HomeScreenViewModel()),
           ChangeNotifierProvider(create: (_) => NewsViewModel()),
           ChangeNotifierProvider(create: (_) => ChatbotViewModel()),
+          ChangeNotifierProvider(create: (_) => VolunteerViewModel()),
         ],
         child: MaterialApp(
           theme: ThemeData(

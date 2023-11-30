@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/theme.dart';
 
 class AboutUsPage extends StatelessWidget {
   const AboutUsPage({super.key});
@@ -7,24 +8,26 @@ class AboutUsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back, // Use the default back arrow icon
-            color: Colors.black, // Set the color of the back arrow icon
-          ),
-          onPressed: () {
-            Navigator.pop(
-                context); // Navigate back when the back arrow is pressed
-          },
-        ),
+        centerTitle: true,
         title: const Text(
           'Tentang Kami',
           style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF293066),
-          ),
+              color: AppTheme.primaryColor,
+              fontFamily: 'Helvetica',
+              fontSize: 18,
+              fontWeight: FontWeight.bold),
         ),
-        centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: AppTheme.primaryColor,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/theme.dart';
 import 'package:provider/provider.dart';
 import '../../view_model/view_model_news.dart';
 import 'filter_bottom_sheet.dart';
@@ -24,15 +25,26 @@ class _NewsPageState extends State<NewsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0.0,
-        title: const Text(
-          "News",
-          style: TextStyle(
-            color: Color.fromARGB(255, 4, 62, 108),
-          ),
-        ),
         centerTitle: true,
+        title: const Text(
+          'News',
+          style: TextStyle(
+              color: AppTheme.primaryColor,
+              fontFamily: 'Helvetica',
+              fontSize: 18,
+              fontWeight: FontWeight.bold),
+        ),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: AppTheme.primaryColor,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -98,9 +110,7 @@ class _NewsPageState extends State<NewsPage> {
                                 : const SizedBox(),
                             for (var newsItem in viewModel.modelNews!.data)
                               News(
-                                title: newsItem.title,
-                                image: newsItem.photo,
-                                description: newsItem.description,
+                                newsData: newsItem,
                               )
                           ],
                         );

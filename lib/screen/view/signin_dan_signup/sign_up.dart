@@ -40,9 +40,10 @@ class _SignUpState extends State<SignUp> {
       body: SingleChildScrollView(
         child: SizedBox(
           width: widthMediaQuery,
-          height: viewModel.heightContainer
-              ? heightMediaQuery - appBarHeight
-              : heightMediaQuery * 2,
+          height: heightMediaQuery - appBarHeight,
+          // viewModel.heightContainer
+          //     ?
+          //     : heightMediaQuery * 2,
           child: Stack(
             children: [
               Positioned(
@@ -97,9 +98,10 @@ class _SignUpState extends State<SignUp> {
                 left: widthMediaQuery / 15,
                 right: widthMediaQuery / 15,
                 child: Container(
-                  height: viewModel.heightContainer
-                      ? heightMediaQuery / 1.675
-                      : heightMediaQuery,
+                  height: heightMediaQuery / 1.675,
+                  //  viewModel.heightContainer
+                  //     ?
+                  //     : heightMediaQuery,
                   decoration: const BoxDecoration(
                     color: Color(0xFFE5E9F4),
                     borderRadius: BorderRadius.all(
@@ -108,209 +110,213 @@ class _SignUpState extends State<SignUp> {
                       ),
                     ),
                   ),
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(12),
-                      child: Form(
-                        key: viewModel.formKey,
-                        child: Column(
-                          children: [
-                            customTextFormField(
-                              textCapitalization: TextCapitalization.sentences,
-                              inputFormatters: [
-                                FilteringTextInputFormatter.allow(
-                                  RegExp(r"[a-zA-Z ']+"),
-                                ),
-                              ],
-                              controller: viewModel.fullname,
-                              prefixIcon: const Icon(
-                                Icons.person,
-                                color: Color(0xFF484F88),
-                                size: 18,
-                              ),
-                              labelText: "Nama Lengkap",
-                              validator: (value) =>
-                                  viewModel.validateName(value!),
-                            ),
-                            const SizedBox(height: 5),
-                            customTextFormField(
-                                controller: viewModel.email,
+                  child: SingleChildScrollView(
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: Form(
+                          key: viewModel.formKey,
+                          child: Column(
+                            children: [
+                              customTextFormField(
+                                textCapitalization:
+                                    TextCapitalization.sentences,
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.allow(
+                                    RegExp(r"[a-zA-Z ']+"),
+                                  ),
+                                ],
+                                controller: viewModel.fullname,
                                 prefixIcon: const Icon(
-                                  Icons.email,
+                                  Icons.person,
                                   color: Color(0xFF484F88),
                                   size: 18,
                                 ),
-                                labelText: "Email",
+                                labelText: "Nama Lengkap",
                                 validator: (value) =>
-                                    viewModel.validateEmail(value!)),
-                            const SizedBox(height: 5),
-                            customTextFormField(
-                              controller: viewModel.address,
-                              prefixIcon: const Icon(
-                                Icons.home,
-                                color: Color(0xFF484F88),
-                                size: 18,
+                                    viewModel.validateName(value!),
                               ),
-                              labelText: "Alamat",
-                              validator: (value) =>
-                                  viewModel.validateAddress(value!),
-                            ),
-                            const SizedBox(height: 5),
-                            Consumer<SignUpViewModel>(
-                              builder: (context, contactModel, child) {
-                                return DropdownButtonFormField<String>(
-                                  style: TextStyle(
-                                    color: viewModel.selectedGender ==
-                                            'Jenis Kelamin'
-                                        ? Colors.grey
-                                        : Colors.black,
+                              const SizedBox(height: 5),
+                              customTextFormField(
+                                  controller: viewModel.email,
+                                  prefixIcon: const Icon(
+                                    Icons.email,
+                                    color: Color(0xFF484F88),
+                                    size: 18,
                                   ),
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    fillColor: Colors.white,
-                                    hintText: '',
-                                    contentPadding:
-                                        const EdgeInsets.symmetric(vertical: 8),
-                                    prefixIcon:
-                                        Image.asset("assets/2 User.png"),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(5),
-                                      borderSide: const BorderSide(
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(5),
-                                      borderSide: const BorderSide(
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    errorBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(5),
-                                      borderSide: const BorderSide(
-                                        color: Colors.red,
-                                      ),
-                                    ),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(
-                                          5), // Border circle di sini
-                                      borderSide: BorderSide
-                                          .none, // Hilangkan garis border
-                                    ),
-                                  ),
-                                  value: viewModel.selectedGender,
-                                  icon: const Icon(Icons.arrow_drop_down),
-                                  iconSize: 15,
-                                  elevation: 160,
-                                  items: viewModel.genderList
-                                      .map<DropdownMenuItem<String>>(
-                                    (String value) {
-                                      return DropdownMenuItem<String>(
-                                        value: value,
-                                        child: Text(value),
-                                      );
-                                    },
-                                  ).toList(),
-                                  onChanged: viewModel.onGenderChanged,
+                                  labelText: "Email",
                                   validator: (value) =>
-                                      viewModel.validateGender(value!),
-                                );
-                              },
-                            ),
-                            const SizedBox(height: 5),
-                            customTextFormField(
-                              inputFormatters: [
-                                FilteringTextInputFormatter.digitsOnly
-                              ],
-                              keyboardType: TextInputType.phone,
-                              controller: viewModel.phone,
-                              prefixIcon: const Icon(
-                                Icons.phone,
-                                color: Color(0xFF484F88),
-                                size: 18,
+                                      viewModel.validateEmail(value!)),
+                              const SizedBox(height: 5),
+                              customTextFormField(
+                                controller: viewModel.address,
+                                prefixIcon: const Icon(
+                                  Icons.home,
+                                  color: Color(0xFF484F88),
+                                  size: 18,
+                                ),
+                                labelText: "Alamat",
+                                validator: (value) =>
+                                    viewModel.validateAddress(value!),
                               ),
-                              labelText: "No. Handphone",
-                              validator: (value) =>
-                                  viewModel.validatePhone(value!),
-                            ),
-                            const SizedBox(height: 5),
-                            Consumer<SignUpViewModel>(
-                              builder: (context, contactModel, child) {
-                                return customTextFormField(
-                                  controller: viewModel.password,
-                                  prefixIcon: Image.asset(
-                                    "assets/lock_password.png",
-                                    width: 10.0,
-                                    height: 10.0,
-                                  ),
-                                  labelText: "Password",
-                                  obscureText: !viewModel.isPasswordVisible,
-                                  sufixIcon: IconButton(
-                                    icon: Icon(
-                                      viewModel.isPasswordVisible
-                                          ? Icons.visibility
-                                          : Icons.visibility_off,
-                                      color: const Color(0xFF484F88),
+                              const SizedBox(height: 5),
+                              Consumer<SignUpViewModel>(
+                                builder: (context, contactModel, child) {
+                                  return DropdownButtonFormField<String>(
+                                    style: TextStyle(
+                                      color: viewModel.selectedGender ==
+                                              'Jenis Kelamin'
+                                          ? Colors.grey
+                                          : Colors.black,
                                     ),
-                                    onPressed: () {
-                                      viewModel.togglePasswordVisibility();
-                                    },
-                                  ),
-                                  validator: (value) =>
-                                      viewModel.validatePassword(value!),
-                                );
-                              },
-                            ),
-                            Row(
-                              children: [
-                                Consumer<SignUpViewModel>(
-                                  builder: (context, viewModel, child) {
-                                    return Checkbox(
-                                      value: viewModel.agree,
-                                      onChanged: (bool? value) {
-                                        viewModel.setAgreePrivasi(value!);
+                                    decoration: InputDecoration(
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      hintText: '',
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
+                                              vertical: 8),
+                                      prefixIcon:
+                                          Image.asset("assets/2 User.png"),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(5),
+                                        borderSide: const BorderSide(
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(5),
+                                        borderSide: const BorderSide(
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(5),
+                                        borderSide: const BorderSide(
+                                          color: Colors.red,
+                                        ),
+                                      ),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(
+                                            5), // Border circle di sini
+                                        borderSide: BorderSide
+                                            .none, // Hilangkan garis border
+                                      ),
+                                    ),
+                                    value: viewModel.selectedGender,
+                                    icon: const Icon(Icons.arrow_drop_down),
+                                    iconSize: 15,
+                                    elevation: 160,
+                                    items: viewModel.genderList
+                                        .map<DropdownMenuItem<String>>(
+                                      (String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text(value),
+                                        );
                                       },
-                                      activeColor: viewModel.agree
-                                          ? const Color(0xFF484F88)
-                                          : null,
-                                    );
-                                  },
+                                    ).toList(),
+                                    onChanged: viewModel.onGenderChanged,
+                                    validator: (value) =>
+                                        viewModel.validateGender(value!),
+                                  );
+                                },
+                              ),
+                              const SizedBox(height: 5),
+                              customTextFormField(
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.digitsOnly
+                                ],
+                                keyboardType: TextInputType.phone,
+                                controller: viewModel.phone,
+                                prefixIcon: const Icon(
+                                  Icons.phone,
+                                  color: Color(0xFF484F88),
+                                  size: 18,
                                 ),
-                                const Text(
-                                  'Saya setuju dengan Kebijakan Privasi Raih Peduli',
-                                  style: TextStyle(
-                                    fontFamily: 'Helvetica',
-                                    fontSize: 10,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Consumer<SignUpViewModel>(
-                              builder: (context, viewModel, child) {
-                                return viewModel.agree
-                                    ? customButton(
-                                        text: "Daftar",
-                                        bgColor: const Color(0xFF484F88),
-                                        onPressed: () async {
-                                          if (viewModel.formKey.currentState!
-                                              .validate()) {
-                                            await viewModel.signUp();
-                                            Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const Verifikasi(),
-                                              ),
-                                            );
-                                          }
+                                labelText: "No. Handphone",
+                                validator: (value) =>
+                                    viewModel.validatePhone(value!),
+                              ),
+                              const SizedBox(height: 5),
+                              Consumer<SignUpViewModel>(
+                                builder: (context, contactModel, child) {
+                                  return customTextFormField(
+                                    controller: viewModel.password,
+                                    prefixIcon: Image.asset(
+                                      "assets/lock_password.png",
+                                      width: 10.0,
+                                      height: 10.0,
+                                    ),
+                                    labelText: "Password",
+                                    obscureText: !viewModel.isPasswordVisible,
+                                    sufixIcon: IconButton(
+                                      icon: Icon(
+                                        viewModel.isPasswordVisible
+                                            ? Icons.visibility
+                                            : Icons.visibility_off,
+                                        color: const Color(0xFF484F88),
+                                      ),
+                                      onPressed: () {
+                                        viewModel.togglePasswordVisibility();
+                                      },
+                                    ),
+                                    validator: (value) =>
+                                        viewModel.validatePassword(value!),
+                                  );
+                                },
+                              ),
+                              Row(
+                                children: [
+                                  Consumer<SignUpViewModel>(
+                                    builder: (context, viewModel, child) {
+                                      return Checkbox(
+                                        value: viewModel.agree,
+                                        onChanged: (bool? value) {
+                                          viewModel.setAgreePrivasi(value!);
                                         },
-                                      )
-                                    : customButton(
-                                        text: "Daftar",
-                                        bgColor: CupertinoColors.inactiveGray,
+                                        activeColor: viewModel.agree
+                                            ? const Color(0xFF484F88)
+                                            : null,
                                       );
-                              },
-                            ),
-                          ],
+                                    },
+                                  ),
+                                  const Text(
+                                    'Saya setuju dengan Kebijakan Privasi Raih Peduli',
+                                    style: TextStyle(
+                                      fontFamily: 'Helvetica',
+                                      fontSize: 10,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Consumer<SignUpViewModel>(
+                                builder: (context, viewModel, child) {
+                                  return viewModel.agree
+                                      ? customButton(
+                                          text: "Daftar",
+                                          bgColor: const Color(0xFF484F88),
+                                          onPressed: () async {
+                                            if (viewModel.formKey.currentState!
+                                                .validate()) {
+                                              await viewModel.signUp();
+                                              Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const Verifikasi(),
+                                                ),
+                                              );
+                                            }
+                                          },
+                                        )
+                                      : customButton(
+                                          text: "Daftar",
+                                          bgColor: CupertinoColors.inactiveGray,
+                                        );
+                                },
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -318,9 +324,10 @@ class _SignUpState extends State<SignUp> {
                 ),
               ),
               Positioned(
-                top: viewModel.heightContainer
-                    ? heightMediaQuery / 1.2
-                    : heightMediaQuery,
+                top: heightMediaQuery / 1.2,
+                // viewModel.heightContainer
+                //     ?
+                //     : heightMediaQuery,
                 left: widthMediaQuery / 4,
                 right: widthMediaQuery / 4,
                 child: Column(

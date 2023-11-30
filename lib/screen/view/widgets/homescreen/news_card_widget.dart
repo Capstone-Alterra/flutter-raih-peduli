@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/model/model_news.dart';
 import 'package:flutter_raih_peduli/screen/view/news/newsdetailpage.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:provider/provider.dart';
 import '../../../view_model/view_model_news.dart';
 
 class NewsCard extends StatelessWidget {
-  final String title;
-  final String description;
-  final String imageUrl;
+  final Datum newsData;
 
   const NewsCard({
+    required this.newsData,
     super.key,
-    required this.title,
-    required this.description,
-    required this.imageUrl,
   });
 
   @override
@@ -39,11 +36,11 @@ class NewsCard extends StatelessWidget {
                   borderRadius: BorderRadius.all(Radius.circular(8.0)),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 8, top: 8, right: 8),
+                  padding: const EdgeInsets.only(left: 5, top: 5, right: 5),
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(8.0)),
                     child: Image.network(
-                      imageUrl,
+                      newsData.photo,
                       width: double.infinity,
                       fit: BoxFit.cover,
                     ),
@@ -52,9 +49,9 @@ class NewsCard extends StatelessWidget {
               ),
               const SizedBox(height: 4.0),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 5),
                 child: Text(
-                  title,
+                  newsData.title,
                   style: TextStyle(
                     color: AppTheme.primaryColor,
                     fontFamily: 'Helvetica',
@@ -64,9 +61,9 @@ class NewsCard extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 5),
                 child: Text(
-                  viewModel.truncateText(description, 30),
+                  viewModel.truncateText(newsData.description, 30),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
@@ -86,9 +83,7 @@ class NewsCard extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => NewsDetailPage(
-                      title: title,
-                      image: imageUrl,
-                      description: description,
+                      newsData: newsData,
                     ),
                   ),
                 );

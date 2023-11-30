@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
+import '../../../model/model_news.dart';
 
 class NewsDetailPage extends StatelessWidget {
-  final String title;
-  final String image;
-  final String description;
+  final Datum newsData;
 
   const NewsDetailPage({
+    required this.newsData,
     super.key,
-    required this.title,
-    required this.image,
-    required this.description,
   });
 
   @override
@@ -28,11 +25,11 @@ class NewsDetailPage extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(12.0),
-                child: Image.network(image, fit: BoxFit.cover),
+                child: Image.network(newsData.photo, fit: BoxFit.cover),
               ),
               const SizedBox(height: 10.0),
               Text(
-                title,
+                newsData.title,
                 style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -41,7 +38,7 @@ class NewsDetailPage extends StatelessWidget {
               ),
               const SizedBox(height: 12.0),
               Text(
-                description,
+                newsData.description,
                 maxLines: null,
                 style: const TextStyle(
                   color: Color(0xFF293066),

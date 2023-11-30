@@ -7,18 +7,15 @@ import 'package:flutter_raih_peduli/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
-class FundraisingCard extends StatelessWidget {
-  String title;
-  String description;
-  String imageUrl;
-  int target;
+import '../../../../model/model_fundraises.dart';
 
-  FundraisingCard(
-      {super.key,
-      required this.title,
-      required this.description,
-      required this.imageUrl,
-      required this.target});
+class FundraisingCard extends StatelessWidget {
+  final Datum fundraiseData;
+
+  const FundraisingCard({
+    super.key,
+    required this.fundraiseData,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +45,7 @@ class FundraisingCard extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(8.0)),
                     child: Image.network(
-                      imageUrl,
+                      fundraiseData.photo,
                       width: double.infinity,
                       fit: BoxFit.cover,
                     ),
@@ -62,7 +59,7 @@ class FundraisingCard extends StatelessWidget {
                   children: [
                     const SizedBox(height: 5),
                     Text(
-                      viewModel.truncateText(title, 25),
+                      viewModel.truncateText(fundraiseData.title, 25),
                       style: TextStyle(
                         color: AppTheme.primaryColor,
                         fontFamily: 'Helvetica',
@@ -70,9 +67,9 @@ class FundraisingCard extends StatelessWidget {
                         fontSize: sizecontent / 15,
                       ),
                     ),
-                    const SizedBox(height: 2),
+                    const SizedBox(height: 1),
                     Text(
-                      viewModel.truncateText(description, 25),
+                      viewModel.truncateText(fundraiseData.description, 25),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -82,7 +79,7 @@ class FundraisingCard extends StatelessWidget {
                     ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
           Padding(
@@ -110,7 +107,7 @@ class FundraisingCard extends StatelessWidget {
                       ],
                     ),
                     Text(
-                      'Rp. $target',
+                      'Rp. ${fundraiseData.target}',
                       style: TextStyle(
                         color: AppTheme.primaryColor,
                         fontFamily: 'Helvetica',
