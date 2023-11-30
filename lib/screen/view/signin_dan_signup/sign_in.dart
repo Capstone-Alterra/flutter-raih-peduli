@@ -176,10 +176,12 @@ class _SignInState extends State<SignIn> {
                                     if (viewModel.formKeySignin.currentState!
                                         .validate()) {
                                       await viewModel.signIn();
-                                      await viewModel.saveDataSharedPreferences(
-                                          );
-                                      viewModel.logindata
-                                          .setBool('login', false);
+                                      await viewModel
+                                          .saveDataSharedPreferences();
+                                      if (viewModel.rememberMe != false) {
+                                        viewModel.logindata
+                                            .setBool('login', false);
+                                      }
                                       Navigator.of(context).pushAndRemoveUntil(
                                         MaterialPageRoute(
                                           builder: (context) =>

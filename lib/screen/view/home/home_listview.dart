@@ -105,7 +105,7 @@ class _HomeListViewBuilderState extends State<HomeListViewBuilder> {
                   const Text(
                     'Jadilah Relawan Sosial',
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 16,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Helvetica',
                     ),
@@ -121,6 +121,7 @@ class _HomeListViewBuilderState extends State<HomeListViewBuilder> {
             ),
           ],
         ),
+        const SizedBox(height: 2.5),
         SizedBox(
           height: 260, // Set a reasonable height
           child: ListView.builder(

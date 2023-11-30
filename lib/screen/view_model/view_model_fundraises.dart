@@ -8,6 +8,10 @@ class FundraisesViewModel with ChangeNotifier {
   final service = FundraisesService();
   bool isLoading = false;
 
+  FundraisesViewModel(){
+    fetchAllFundraises();
+  }
+
   Future fetchAllFundraises() async {
     try {
       isLoading = true;

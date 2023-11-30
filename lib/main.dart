@@ -5,7 +5,6 @@ import 'package:flutter_raih_peduli/screen/view_model/view_model_fundraises.dart
 import 'package:flutter_raih_peduli/screen/view_model/view_model_homescreeen.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_profile.dart';
 import 'package:provider/provider.dart';
-// import 'package:flutter_raih_peduli/screen/view/onboarding/onboarding_view.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_forget_password.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_onboarding.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_signup.dart';
@@ -18,7 +17,9 @@ void main() async {
   final signInViewModel = SignInViewModel();
   final chatBotViewModel = ChatbotService();
   final newsViewModel = NewsViewModel();
+  final fundraiseViewModel = FundraisesViewModel();
   runApp(const MyApp());
+  await fundraiseViewModel.fetchAllFundraises();
   await newsViewModel.fetchAllNews();
   await signInViewModel.checkSharedPreferences();
   await chatBotViewModel.fetchApiKey();
@@ -52,7 +53,6 @@ class MyApp extends StatelessWidget {
           ),
           debugShowCheckedModeBanner: false,
           home: const SplashScreen(),
-          //  const Onbording(),
         ));
   }
 }

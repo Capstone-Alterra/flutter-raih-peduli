@@ -1,64 +1,71 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/theme.dart';
+import 'package:flutter_svg/svg.dart';
 
 class HeaderWidget extends StatelessWidget {
   const HeaderWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context).size;
     return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height / 5,
+      width: mediaQuery.width,
+      height: mediaQuery.height / 5,
       color: AppTheme.secondaryColor,
       child: Stack(
         children: [
           Positioned(
-            top: 0,
+            top: mediaQuery.height / 20,
             right: 0,
-            bottom: 20,
-            child: Image.asset(
-              'assets/home_bg.png',
-              width: 120,
-              height: 120,
-              fit: BoxFit.cover,
+            child: SvgPicture.asset(
+              'assets/home_bg.svg',
+              height: mediaQuery.width / 4,
+              width: mediaQuery.width / 4,
             ),
           ),
           Container(
+            width: MediaQuery.of(context).size.width / 1.33,
             color: AppTheme.secondaryColor,
             padding: const EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 20),
-                const Text(
+                SizedBox(height: mediaQuery.height / 42),
+                Text(
                   'Bersama-sama Kita Membantu\nMari Berikan Bantuan Anda.',
                   style: TextStyle(
                     fontFamily: 'Helvetica',
-                    fontSize: 20.0,
+                    fontSize: mediaQuery.width / 22,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 const SizedBox(height: 8.0),
-                ElevatedButton(
-                  onPressed: () {
-                    // Aksi ketika tombol "Donasi Sekarang" ditekan
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppTheme.primaryColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25.0),
+                GestureDetector(
+                  onTap: () {},
+                  child: Container(
+                    height: mediaQuery.height / 27,
+                    width: mediaQuery.width / 3,
+                    decoration: const BoxDecoration(
+                      color: AppTheme.primaryColor,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(
+                          15.0,
+                        ),
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Donasi Sekarang',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Helvetica',
+                          fontSize: mediaQuery.width / 30,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ),
-                  child: const Text(
-                    'Donasi Sekarang',
-                    style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'Helvetica', 
-                    fontSize: 16, 
-                    fontWeight: FontWeight.bold
-                    ),
-                  ),
-                ),
+                )
               ],
             ),
           ),
