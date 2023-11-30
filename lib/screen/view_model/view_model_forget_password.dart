@@ -5,7 +5,7 @@ import 'package:flutter_raih_peduli/model/model_token_forget_password.dart';
 import 'package:flutter_raih_peduli/services/service_forget_password.dart';
 
 class ForgetPasswordViewModel with ChangeNotifier {
-  final formKey = GlobalKey<FormState>();
+  final formKeyEmailForgetPassword = GlobalKey<FormState>();
   final formKeyUbahPassword = GlobalKey<FormState>();
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();

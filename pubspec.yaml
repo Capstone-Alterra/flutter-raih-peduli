@@ -14,6 +14,7 @@ dependencies:
   flutter_native_splash: ^2.3.5
   flutter_svg: ^2.0.9
   rename: ^3.0.1
+  intl: ^0.18.1
   dio: ^5.3.3
   flutter_otp_text_field: ^1.1.1
   pin_code_fields: ^8.0.1
@@ -35,7 +36,7 @@ flutter_native_splash:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+  flutter_lints: ^3.0.1
 
 flutter:
   uses-material-design: true

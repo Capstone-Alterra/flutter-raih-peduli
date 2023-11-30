@@ -1,16 +1,16 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/widget/button.dart';
-import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/widget/textformfield.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/login_signup/alert.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/login_signup/button.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/login_signup/textformfield.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_forget_password.dart';
 import 'package:provider/provider.dart';
 import 'package:quickalert/quickalert.dart';
 import '../sign_in.dart';
-import '../widget/alert.dart';
 
 class UbahPassword extends StatefulWidget {
-  const UbahPassword({Key? key}) : super(key: key);
+  const UbahPassword({super.key});
 
   @override
   State<UbahPassword> createState() => _UbahPasswordState();
@@ -163,12 +163,18 @@ class _UbahPasswordState extends State<UbahPassword> {
                                             'assets/Group 427318233.png',
                                         text: 'Password Berhasil Diperbarui',
                                         afterDelay: () {
-                                          Navigator.pushReplacement(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (_) => const SignIn(),
-                                            ),
-                                          );
+                                          Navigator.pushAndRemoveUntil(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (_) => const SignIn(),
+                                              ),
+                                              (route) => false);
+                                          // Navigator.pushAndRemoveUntil(
+                                          //   context,
+                                          //   MaterialPageRoute(
+                                          //     builder: (_) => const SignIn(),
+                                          //   ),
+                                          // );
                                         },
                                       );
                                     }

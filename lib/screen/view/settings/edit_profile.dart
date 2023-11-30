@@ -1,18 +1,22 @@
-import 'dart:typed_data';
+// ignore_for_file: must_be_immutable
+
+// import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/settings/widget_profile_edit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ProfileEdit extends StatefulWidget {
-  const ProfileEdit({super.key});
+  String? foto;
+  String? email;
+  ProfileEdit({this.foto, this.email, super.key});
 
   @override
   State<ProfileEdit> createState() => _ProfileEditState();
 }
 
 class _ProfileEditState extends State<ProfileEdit> {
-  Uint8List? _image;
+  // Uint8List? _image;
   // File? _selectedImage;
 
   @override
@@ -34,39 +38,37 @@ class _ProfileEditState extends State<ProfileEdit> {
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(left: 40, right: 40, top: 50),
-        child: Align(
-          alignment: const AlignmentDirectional(0.00, 0.00),
-          child: Column(
-            children: [
-              GestureDetector(
-                onTap: () {
-                  showImagePickerOption(context);
-                },
-                child: Stack(
-                  children: [
-                    _image != null
-                        ? CircleAvatar(
-                            radius: size.width * 0.19,
-                            backgroundImage: MemoryImage(_image!),
-                          )
-                        : CircleAvatar(
-                            radius: size.width * 0.19,
-                            backgroundImage: const AssetImage(
-                                'assets/blank_profile_picture.png'),
-                          ),
-                    Positioned(
-                      bottom: -0,
-                      left: size.width * 0.33,
-                      child: SvgPicture.asset('assets/edit.svg'),
-                    ),
-                  ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 40, right: 40, top: 50),
+          child: Align(
+            alignment: const AlignmentDirectional(0.00, 0.00),
+            child: Column(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    showImagePickerOption(context);
+                  },
+                  child: Stack(
+                    children: [
+                      CircleAvatar(
+                        radius: size.width * 0.19,
+                        backgroundImage: NetworkImage(
+                          widget.foto ?? "",
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        left: size.width * 0.30,
+                        child: SvgPicture.asset('assets/edit.svg'),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(height: size.height * 0.1),
-              const EditTextField(),
-            ],
+                SizedBox(height: size.height * 0.1),
+                EditTextField(email: widget.email),
+              ],
+            ),
           ),
         ),
       ),

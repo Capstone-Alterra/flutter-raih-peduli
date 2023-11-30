@@ -28,6 +28,7 @@ class Data {
     String fullname;
     String email;
     int roleId;
+    String profilePicture;
     String accessToken;
     String refreshToken;
 
@@ -35,6 +36,7 @@ class Data {
         required this.fullname,
         required this.email,
         required this.roleId,
+        required this.profilePicture,
         required this.accessToken,
         required this.refreshToken,
     });
@@ -43,6 +45,7 @@ class Data {
         fullname: json["fullname"],
         email: json["email"],
         roleId: json["role_id"],
+        profilePicture: json["profile_picture"],
         accessToken: json["access_token"],
         refreshToken: json["refresh_token"],
     );
@@ -51,6 +54,7 @@ class Data {
         "fullname": fullname,
         "email": email,
         "role_id": roleId,
+        "profile_picture": profilePicture,
         "access_token": accessToken,
         "refresh_token": refreshToken,
     };

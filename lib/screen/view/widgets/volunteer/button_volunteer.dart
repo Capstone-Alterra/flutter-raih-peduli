@@ -34,7 +34,7 @@ class _ButtonVolunteerState extends State<ButtonVolunteer> {
               Future.delayed(const Duration(seconds: 4), () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const ProfileEdit()),
+                  MaterialPageRoute(builder: (context) => ProfileEdit()),
                 );
               });
             },
