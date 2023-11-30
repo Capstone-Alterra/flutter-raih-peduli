@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/about/about_ua.dart';
+import 'package:flutter_raih_peduli/screen/view/volunteer/access_volunteer_screen.dart';
 
 import '../../news/news_page.dart';
 
@@ -67,7 +68,10 @@ class FeatureMenuList extends StatelessWidget {
             title: 'Voluntir',
             assetImage: 'assets/volunteer.png',
             onPressed: () {
-              // Handle Voluntir button pressed
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AccessVolunteerScreen()),
+              );
             },
           ),
           FeatureMenuItem(

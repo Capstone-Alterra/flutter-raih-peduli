@@ -17,7 +17,7 @@ class ViewallWidget extends StatelessWidget {
         style: TextStyle(
           fontFamily: 'Helvetica',
           fontSize: 12,
-          fontWeight: FontWeight.w500,
+          fontWeight: FontWeight.bold,
           color: Colors.black,
         ),
       ),

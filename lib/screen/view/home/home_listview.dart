@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/fundraising_data.dart';
-// import 'package:flutter_raih_peduli/model/news_data.dart';
-import 'package:flutter_raih_peduli/model/volunteer_data.dart';
+import 'package:flutter_raih_peduli/screen/view/volunteer/access_volunteer_screen.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/homescreen/fundraising_card_widget.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/homescreen/news_card_widget.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/homescreen/viewall_widget.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/homescreen/volunteer_card_widget.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_news.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_volunteer.dart';
 import 'package:provider/provider.dart';
 
 import '../news/news_page.dart';
@@ -16,7 +16,9 @@ class HomeListViewBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = Provider.of<NewsViewModel>(context, listen: false);
+    final viewModelVolunteer =
+        Provider.of<VolunteerViewModel>(context, listen: false);
+    final viewModelNews = Provider.of<NewsViewModel>(context, listen: false);
     Size size = MediaQuery.of(context).size;
     return Column(
       children: [
@@ -82,7 +84,12 @@ class HomeListViewBuilder extends StatelessWidget {
                   ViewallWidget(
                     onPressed: () {
                       // Aksi yang akan dijalankan saat tombol ditekan
-                      // Misalnya, menavigasi ke halaman "Lihat Semua"
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AccessVolunteerScreen(),
+                        ),
+                      );
                     },
                   ),
                 ],
@@ -90,23 +97,29 @@ class HomeListViewBuilder extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(
-          height: 260, // Set a reasonable height
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: dummyVolunteerData.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: 250, // Set a reasonable width for each card
-                  child: VolunteerCard(
-                    volunteerData: dummyVolunteerData[index],
-                  ),
-                ),
-              );
-            },
-          ),
+        Consumer<VolunteerViewModel>(
+          builder: (context, isLoading, child) {
+            return viewModelVolunteer.isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : SizedBox(
+                    height: size.width / 1.975, // Set a reasonable height
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: viewModelVolunteer.modelVolunteer!.data.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            width: size.width / 1.975, // Set a reasonable width for each card
+                            child: VolunteerCard(
+                                volunteerData: viewModelVolunteer
+                                    .modelVolunteer!.data[index]),
+                          ),
+                        );
+                      },
+                    ),
+                  );
+          },
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -142,7 +155,7 @@ class HomeListViewBuilder extends StatelessWidget {
         const SizedBox(height: 2.5),
         Consumer<NewsViewModel>(
           builder: (context, viewMode, child) {
-            return viewModel.isLoading
+            return viewModelNews.isLoading
                 ? const Center(child: CircularProgressIndicator())
                 : SizedBox(
                     height: size.width / 1.975,
@@ -150,15 +163,16 @@ class HomeListViewBuilder extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       children: [
                         for (var index = 0;
-                            index < viewModel.modelNews!.data.length;
+                            index < viewModelNews.modelNews!.data.length;
                             index++)
                           SizedBox(
                             width: size.width / 1.975,
                             child: NewsCard(
-                              title: viewModel.modelNews!.data[index].title,
-                              description:
-                                  viewModel.modelNews!.data[index].description,
-                              imageUrl: viewModel.modelNews!.data[index].photo,
+                              title: viewModelNews.modelNews!.data[index].title,
+                              description: viewModelNews
+                                  .modelNews!.data[index].description,
+                              imageUrl:
+                                  viewModelNews.modelNews!.data[index].photo,
                             ),
                           ),
                       ],

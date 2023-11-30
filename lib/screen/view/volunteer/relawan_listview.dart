@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/model/volunteer_data.dart';
-import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/relawan_card_widget.dart';
-import 'package:flutter_raih_peduli/theme.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/relawan_card_widget.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_volunteer.dart';
+import 'package:provider/provider.dart';
 
 class RelawanListView extends StatelessWidget {
-  const RelawanListView({super.key});
-
   @override
   Widget build(BuildContext context) {
+    
+  final viewModel = Provider.of<VolunteerViewModel>(context, listen: false);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -15,30 +16,19 @@ class RelawanListView extends StatelessWidget {
           padding: EdgeInsets.only(left: 8, top: 8),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Relawan',
-                style: TextStyle(
-                  color: AppTheme.primaryColor,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Helvetica',
-                ),
-              ),
-            ],
           ),
         ),
         SizedBox(
           height: 600,
           child: ListView.builder(
             scrollDirection: Axis.vertical,
-            itemCount: dummyVolunteerData.length,
+            itemCount: viewModel.modelVolunteer!.data.length,
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.all(0),
                 child: SizedBox(
                   child: RelawanCard(
-                    volunteerData: dummyVolunteerData[index],
+                    volunteerData: viewModel.modelVolunteer!.data[index],
                   ),
                 ),
               );

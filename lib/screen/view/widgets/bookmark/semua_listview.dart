@@ -2,14 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/fundraising_data.dart';
 import 'package:flutter_raih_peduli/model/volunteer_data.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/donasi_card_widget.dart';
-import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/relawan_card_widget.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/relawan_card_widget.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_volunteer.dart';
 import 'package:flutter_raih_peduli/theme.dart';
+import 'package:provider/provider.dart';
 
 class SemuaListViewBuilder extends StatelessWidget {
   const SemuaListViewBuilder({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = Provider.of<VolunteerViewModel>(context, listen: false);
+    
     return Column(
       children: [
         Column(
@@ -81,7 +85,7 @@ class SemuaListViewBuilder extends StatelessWidget {
                     padding: const EdgeInsets.all(0),
                     child: SizedBox(
                       child: RelawanCard(
-                        volunteerData: dummyVolunteerData[index],
+                        volunteerData: viewModel.modelVolunteer!.data[index],
                       ),
                     ),
                   );

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/model/volunteer_data.dart';
+import 'package:flutter_raih_peduli/model/model_volunteer.dart';
+import 'package:flutter_raih_peduli/screen/view/volunteer/detail_volunteer.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class VolunteerCard extends StatelessWidget {
-  final VolunteerData volunteerData;
+  final Data volunteerData;
 
   const VolunteerCard({super.key, 
     required this.volunteerData,
@@ -12,9 +13,10 @@ class VolunteerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    double sizecontent = size.width / 2;
     return Card(
-      elevation: 3,
-      margin: const EdgeInsets.all(8.0),
+      elevation: 2,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.0),
       ),
@@ -23,23 +25,24 @@ class VolunteerCard extends StatelessWidget {
         children: [
           // Rounded rectangle container for the image
           Container(
-            width: double.infinity,
-            height: 125,
+            width: sizecontent,
+            height: sizecontent / 2.5,
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(8.0)),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.only(left: 8, top: 8, right: 8),
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(8.0)),
                  child: Image.network(
-                    volunteerData.imageUrl,
+                    volunteerData.photo,
                     width: double.infinity,
                     fit: BoxFit.cover,
                   ),
               ),
             ),
           ),
+          const SizedBox(height: 4.0),
           // Data
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -88,7 +91,7 @@ class VolunteerCard extends StatelessWidget {
                           ],
                         ),
                         Text(
-                          '${volunteerData.slot} Orang',
+                          '${volunteerData.numberOfVacancies} Orang',
                           style: const TextStyle(
                             fontFamily: 'Helvetica',
                             color: AppTheme.primaryColor,
@@ -97,22 +100,37 @@ class VolunteerCard extends StatelessWidget {
                         ),
                       ],
                     ),
-                    ElevatedButton(
-                      onPressed: () {
+                    SizedBox(height: sizecontent / 4.6),
+                    GestureDetector(
+                      onTap: () {
                         // Aksi yang akan dijalankan saat tombol lihat detail ditekan
-                        // Misalnya, menavigasi ke halaman detail
+                        Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => DetailVolunteerPage(volunteerData: volunteerData),),
+                      );
                       },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppTheme.primaryColor,
-                        textStyle: const TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Helvetica',),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                      ),
-                      child: const Text(
-                        'Lihat Detail', 
-                        style: TextStyle(color: AppTheme.white),
-                      ),
+                      child: Container(
+                height: sizecontent / 8,
+                width: 80,
+                decoration: const BoxDecoration(
+                  color: AppTheme.primaryColor,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(
+                      4.0,
+                    ),
+                  ),
+                ),
+                child: Center(
+                  child: Text(
+                    'Lihat Detail',
+                    style: TextStyle(
+                      color: AppTheme.white,
+                      fontSize: sizecontent / 20,
+                      fontWeight: FontWeight.bold
+                    ),
+                  ),
+                ),
+              ),
                     ),
                   ],
                 ),
