@@ -1,8 +1,8 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/screen/view/chatbot/widget/chatbubble_widget.dart';
-import 'package:flutter_raih_peduli/screen/view/chatbot/widget/textfield_widget.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/chatbot/chatbubble_widget.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/chatbot/textfield_widget.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_chatbot.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_homescreeen.dart';
 import 'package:flutter_raih_peduli/theme.dart';

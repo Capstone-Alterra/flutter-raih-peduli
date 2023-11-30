@@ -1,40 +1,20 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_raih_peduli/services/service_api_key.dart';
 
 class ChatbotService {
   final Dio _dio = Dio();
-  String _apiKey = ''; // Menyimpan nilai 'key' yang diambil dari endpoint
-
- Future<void> fetchApiKey() async {
-  try {
-    final response = await _dio.get('https://strapi-postgresql-sistem-informasi.onrender.com/api/ais');
-
-    print('API Key Response Status Code: ${response.statusCode}');
-    print('API Key Response Body: ${response.data}');
-
-    if (response.statusCode == 200) {
-      // Mengambil nilai 'key' dari atribut 'attributes'
-      _apiKey = response.data['data'][0]['attributes']['key'].toString();
-      print('API Key: $_apiKey');
-    } else {
-      print('Failed to fetch API key: ${response.statusCode}');
-    }
-  } catch (error) {
-    // An error occurred
-    print('Error fetching API key: $error');
-  }
-}
-
 
   Future<Map<String, dynamic>?> chatbot({required String prompt}) async {
+    
     // Fetch API key before making the chatbot request
-    //await fetchApiKey();
+    String apiKey = ApiKeyManager.instance.apiKey;
 
     try {
       _dio.options = BaseOptions(
         baseUrl: 'https://api.openai.com/v1/',
         headers: {
           'Authorization':
-              'Bearer $_apiKey', // Menggunakan nilai 'key' yang telah diambil
+              'Bearer $apiKey', // Menggunakan nilai 'key' yang telah diambil
         },
       );
 
