@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/model/fundraising_data.dart';
+import 'package:flutter_raih_peduli/model/donate_data.dart';
 import 'package:flutter_raih_peduli/model/news_data.dart';
 import 'package:flutter_raih_peduli/model/volunteer_data.dart';
+import 'package:flutter_raih_peduli/screen/view/donate/donatescreen.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/homescreen/fundraising_card_widget.dart';
-import 'package:flutter_raih_peduli/screen/view/widgets/homescreen/news_card_widget.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/homescreen/viewall_widget.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/homescreen/volunteer_card_widget.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/homescreen/news_card_widget.dart';
 
 class HomeListViewBuilder extends StatelessWidget {
   const HomeListViewBuilder({super.key});
@@ -25,13 +26,19 @@ class HomeListViewBuilder extends StatelessWidget {
                   const Text(
                     'Donasi Untuk Kebaikan',
                     style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Helvetica'),
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Helvetica',
+                    ),
                   ),
                   ViewallWidget(
                     onPressed: () {
-                      // Aksi yang akan dijalankan saat tombol ditekan
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const DonateScreen(),
+                        ),
+                      );
                     },
                   ),
                 ],
@@ -68,7 +75,7 @@ class HomeListViewBuilder extends StatelessWidget {
                   const Text(
                     'Jadilah Relawan Sosial',
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Helvetica',
                     ),
@@ -113,7 +120,7 @@ class HomeListViewBuilder extends StatelessWidget {
                   const Text(
                     'Temukan Informasi Terkini',
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Helvetica',
                     ),

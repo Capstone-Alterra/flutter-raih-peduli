@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/about/about_ua.dart';
+import 'package:flutter_raih_peduli/screen/view/donate/donatescreen.dart';
 
 import '../../news/news_page.dart';
 
@@ -60,7 +61,12 @@ class FeatureMenuList extends StatelessWidget {
             title: 'Donasi',
             assetImage: 'assets/donation.png',
             onPressed: () {
-              // Handle Donasi button pressed
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const DonateScreen(),
+                ),
+              );
             },
           ),
           FeatureMenuItem(

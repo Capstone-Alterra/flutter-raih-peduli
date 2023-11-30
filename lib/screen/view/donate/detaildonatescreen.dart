@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/model/model_fundraising.dart';
 import 'package:flutter_raih_peduli/model/volunteer_data.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/donate/widget_backbutton.dart';
 import 'package:flutter_raih_peduli/theme/theme.dart';
-import 'package:flutter_raih_peduli/model/donate_data.dart';
 
 class DetailDonateScreen extends StatefulWidget {
-  final FundraisingData? fundraisingData;
+  final ModelFundraising? modelFundraising;
+  final VolunteerData? volunteerData;
 
-  const DetailDonateScreen({Key? key, this.fundraisingData}) : super(key: key);
+  const DetailDonateScreen(
+      {Key? key, this.modelFundraising, this.volunteerData})
+      : super(key: key);
 
   @override
   State<DetailDonateScreen> createState() => _DetailDonateScreenState();
@@ -16,7 +19,8 @@ class DetailDonateScreen extends StatefulWidget {
 class _DetailDonateScreenState extends State<DetailDonateScreen> {
   @override
   Widget build(BuildContext context) {
-    final FundraisingData? fundraisingData = widget.fundraisingData;
+    final ModelFundraising? modelFundraising = widget.modelFundraising;
+    final VolunteerData? volunteerData = widget.volunteerData;
 
     return Scaffold(
       appBar: AppBar(
@@ -45,12 +49,12 @@ class _DetailDonateScreenState extends State<DetailDonateScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Image.network(
-              fundraisingData!.imageUrl,
+              modelFundraising!.photo.toString(),
               height: 200,
             ),
             const SizedBox(height: 16.0),
             Text(
-              fundraisingData.title,
+              modelFundraising.title.toString(),
               style: const TextStyle(
                 color: AppTheme.primaryColor,
                 fontSize: 21,
@@ -59,7 +63,7 @@ class _DetailDonateScreenState extends State<DetailDonateScreen> {
             ),
             const SizedBox(height: 8.0),
             Text(
-              fundraisingData.time,
+              '${modelFundraising.startDate} - ${modelFundraising.endDate}',
               style: const TextStyle(
                   fontSize: 16,
                   color: Colors.black,
@@ -71,7 +75,7 @@ class _DetailDonateScreenState extends State<DetailDonateScreen> {
               borderRadius: const BorderRadius.all(Radius.circular(18)),
               child: LinearProgressIndicator(
                 minHeight: 9,
-                value: fundraisingData.progress / fundraisingData.target,
+                value: modelFundraising.status / modelFundraising.target,
                 color: AppTheme.primaryColor,
                 backgroundColor: Colors.grey,
               ),
@@ -106,7 +110,7 @@ class _DetailDonateScreenState extends State<DetailDonateScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Rp. ${fundraisingData.target}',
+                  'Rp. ${modelFundraising.target}',
                   style: const TextStyle(
                     color: AppTheme.primaryColor,
                     fontWeight: FontWeight.bold,
@@ -115,7 +119,7 @@ class _DetailDonateScreenState extends State<DetailDonateScreen> {
                 ),
                 const SizedBox(width: 8.0),
                 Text(
-                  '${fundraisingData.remainingDays} Hari',
+                  '${modelFundraising.endDate - modelFundraising.startDate} Hari',
                   style: const TextStyle(
                     color: AppTheme.primaryColor,
                     fontWeight: FontWeight.bold,
@@ -140,12 +144,12 @@ class _DetailDonateScreenState extends State<DetailDonateScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image.network(
-                  dummyVolunteerData[0].imageUrl,
+                  volunteerData?.imageUrl ?? '',
                   height: 50,
                 ),
                 const SizedBox(width: 10.0),
                 Text(
-                  dummyVolunteerData[0].title,
+                  volunteerData?.title ?? '',
                   style: const TextStyle(
                     color: AppTheme.black,
                     fontSize: 20,
@@ -165,7 +169,7 @@ class _DetailDonateScreenState extends State<DetailDonateScreen> {
               ),
             ),
             Text(
-              fundraisingData.description,
+              modelFundraising.description.toString(),
               style: const TextStyle(
                 color: AppTheme.black,
                 fontSize: 14,

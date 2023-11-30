@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/theme.dart';
+import 'package:flutter_raih_peduli/theme/theme.dart';
 
 class ChatBubble extends StatelessWidget {
   final String message;
-  final bool isUser; // Untuk menentukan apakah pesan berasal dari user atau bukan
+  final bool
+      isUser; // Untuk menentukan apakah pesan berasal dari user atau bukan
   final String timestamp;
 
   // Tambahkan properti untuk menentukan apakah sedang loading
   final bool isLoading;
 
-  const ChatBubble({super.key, 
+  const ChatBubble({
+    super.key,
     required this.message,
     required this.isUser,
     required this.timestamp,
@@ -27,7 +29,8 @@ class ChatBubble extends StatelessWidget {
           // Tampilkan loading indicator hanya jika chat bubble bukan dari user dan sedang loading
           if (!isUser && isLoading) ...[
             const CircularProgressIndicator(),
-            const SizedBox(height: 8.0), // Beri sedikit jarak dari loading indicator
+            const SizedBox(
+                height: 8.0), // Beri sedikit jarak dari loading indicator
           ],
           Container(
             decoration: BoxDecoration(

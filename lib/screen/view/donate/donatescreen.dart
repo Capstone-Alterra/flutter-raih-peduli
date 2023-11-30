@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/donate/widget_backbutton.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/donate/widget_fundraisingcard.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_donate.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../theme/theme.dart';
-import '../../../../screen/view_model/view_model_donate.dart';
 import 'package:provider/provider.dart';
-import '../../../../model/donate_data.dart';
 
 class DonateScreen extends StatefulWidget {
   const DonateScreen({Key? key}) : super(key: key);
@@ -16,14 +15,16 @@ class DonateScreen extends StatefulWidget {
 
 class _DonateScreenState extends State<DonateScreen> {
   String searchText = '';
+  late final FundraisingViewModel viewModel;
+  @override
+  void initState() {
+    viewModel = Provider.of<FundraisingViewModel>(context, listen: false);
+    viewModel.getAllFundraising();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final donateViewModel = context.watch<DonateViewModel>();
-
-    final List<FundraisingData> filteredFundraisingDataList =
-        donateViewModel.getFundraisingDataList();
-
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -60,7 +61,7 @@ class _DonateScreenState extends State<DonateScreen> {
                         style: const TextStyle(
                             backgroundColor: AppTheme.ornamentColor),
                         onChanged: (value) {
-                          donateViewModel.setSearchText(value);
+                          viewModel.fetchSearchFundraising(query: value);
                         },
                         decoration: const InputDecoration(
                           hintText: 'Cari',
@@ -98,11 +99,13 @@ class _DonateScreenState extends State<DonateScreen> {
             const SizedBox(height: 10.0),
             Expanded(
               child: ListView.builder(
-                itemCount: filteredFundraisingDataList.length,
+                itemCount: viewModel.modelFundraising?.data?.length ?? 0,
                 itemBuilder: (context, index) {
-                  return FundraisingCard(
-                    fundraisingData: filteredFundraisingDataList[index],
-                  );
+                  final fundraisingData =
+                      viewModel.modelFundraising?.data?[index];
+                  return fundraisingData != null
+                      ? FundraisingCard(fundraisingData: fundraisingData)
+                      : const SizedBox.shrink();
                 },
               ),
             ),

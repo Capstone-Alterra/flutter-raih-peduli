@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_chatbot.dart';
-import 'package:flutter_raih_peduli/theme.dart';
+import 'package:flutter_raih_peduli/theme/theme.dart';
 import 'package:provider/provider.dart';
 
 class RoundedTextField extends StatelessWidget {
@@ -13,7 +13,8 @@ class RoundedTextField extends StatelessWidget {
     final viewModel = Provider.of<ChatbotViewModel>(context, listen: false);
 
     return Padding(
-      padding: const EdgeInsets.only(left: 16, top: 16.0, right: 16, bottom: 4.0),
+      padding:
+          const EdgeInsets.only(left: 16, top: 16.0, right: 16, bottom: 4.0),
       child: Row(
         children: [
           Expanded(
@@ -28,7 +29,8 @@ class RoundedTextField extends StatelessWidget {
                     controller: controller,
                     decoration: InputDecoration(
                       hintText: 'Tanyakan Apapun...',
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                      contentPadding:
+                          const EdgeInsets.symmetric(horizontal: 16),
                       border: InputBorder.none,
                       filled: true,
                       fillColor: AppTheme.secondaryColor.withOpacity(0.2),
@@ -42,7 +44,8 @@ class RoundedTextField extends StatelessWidget {
                   child: IconButton(
                     icon: const Icon(Icons.send, color: AppTheme.primaryColor),
                     onPressed: () {
-                      viewModel.sendMessage(); // Panggil sendMessage langsung dari viewModel
+                      viewModel
+                          .sendMessage(); // Panggil sendMessage langsung dari viewModel
                     },
                   ),
                 ),

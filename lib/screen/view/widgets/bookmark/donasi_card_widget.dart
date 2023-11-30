@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/fundraising_data.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/save_widget.dart';
-import 'package:flutter_raih_peduli/theme.dart';
+import 'package:flutter_raih_peduli/theme/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class DonasiCard extends StatelessWidget {
   final FundraisingData fundraisingData;
 
-  const DonasiCard({super.key, 
+  const DonasiCard({
+    super.key,
     required this.fundraisingData,
   });
 
@@ -54,7 +55,9 @@ class DonasiCard extends StatelessWidget {
           // Data
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.only(left: 8.0,),
+              padding: const EdgeInsets.only(
+                left: 8.0,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -82,7 +85,8 @@ class DonasiCard extends StatelessWidget {
                               ],
                             ),
 
-                            const SizedBox(height: 10.0), // Jarak antara judul dan periode
+                            const SizedBox(
+                                height: 10.0), // Jarak antara judul dan periode
                             Padding(
                               padding: const EdgeInsets.only(right: 8.0),
                               child: Text(fundraisingData.time),

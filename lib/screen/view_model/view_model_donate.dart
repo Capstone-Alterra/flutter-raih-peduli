@@ -1,29 +1,37 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import '../../model/donate_data.dart';
+import 'package:flutter_raih_peduli/services/service_fundraising.dart';
+import '../../model/model_fundraising.dart';
 
-class DonateViewModel extends ChangeNotifier {
-  final List<FundraisingData> _fundraisingDataList = dummyFundraisingData;
+class FundraisingViewModel with ChangeNotifier {
+  ModelFundraising? modelFundraising;
+  final service = FundraisingService();
+  final TextEditingController search = TextEditingController();
+  bool isLoading = false;
+  bool dataHasilSearch = false;
 
-  List<FundraisingData> get fundraisingDataList => _fundraisingDataList;
-
-  String searchText = '';
-
-  void setSearchText(String value) {
-    searchText = value;
+  Future<void> getAllFundraising() async {
+    isLoading = true;
+    final data = await service.getAllFundraising();
+    modelFundraising = data;
+    isLoading = false;
     notifyListeners();
   }
 
-  List<FundraisingData> getFundraisingDataList() {
-    if (searchText.isNotEmpty) {
-      return _fundraisingDataList
-          .where((data) => data.title.contains(searchText))
-          .toList();
-    } else {
-      return _fundraisingDataList;
+  Future fetchSearchFundraising({
+    required String query,
+  }) async {
+    try {
+      modelFundraising = await service.hitSearchFundraising(query: query);
+      dataHasilSearch = false;
+      notifyListeners();
+    } catch (e) {
+      // ignore: deprecated_member_use
+      if (e is DioError) {
+        dataHasilSearch = true;
+        notifyListeners();
+        e.response!.statusCode;
+      }
     }
-  }
-
-  FundraisingData getFundraisingDataById(int id) {
-    return _fundraisingDataList.firstWhere((data) => data.id == id);
   }
 }

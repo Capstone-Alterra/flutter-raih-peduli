@@ -5,7 +5,7 @@ import 'package:flutter_raih_peduli/screen/view/widgets/chatbot/chatbubble_widge
 import 'package:flutter_raih_peduli/screen/view/widgets/chatbot/textfield_widget.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_chatbot.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_homescreeen.dart';
-import 'package:flutter_raih_peduli/theme.dart';
+import 'package:flutter_raih_peduli/theme/theme.dart';
 import 'package:provider/provider.dart';
 
 class ChatbotScreen extends StatefulWidget {

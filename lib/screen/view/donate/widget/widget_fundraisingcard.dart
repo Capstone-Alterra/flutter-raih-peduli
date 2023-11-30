@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/model_fundraising.dart';
+import 'package:flutter_raih_peduli/model/volunteer_data.dart';
 import 'package:flutter_raih_peduli/screen/view/donate/detaildonatescreen.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/donate/widget_savebookmark.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -7,10 +8,11 @@ import '../../../../../theme/theme.dart';
 
 class FundraisingCard extends StatelessWidget {
   final ModelFundraising? modelFundraising;
+  final VolunteerData? volunteerData;
 
   const FundraisingCard({
     Key? key,
-    required this.modelFundraising,
+    required this.modelFundraising, required this.volunteerData,
   }) : super(key: key);
 
   @override
@@ -21,7 +23,7 @@ class FundraisingCard extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) =>
-                DetailDonateScreen(modelFundraising: modelFundraising),
+                DetailDonateScreen(modelFundraising: modelFundraising, volunteerData: volunteerData),
           ),
         );
       },
@@ -69,7 +71,7 @@ class FundraisingCard extends StatelessWidget {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(10.0)),
                         child: Image.network(
-                          modelFundraising!.photo.toString(),
+                           modelFundraising!.photo.toString(),
                           height: 98,
                           width: 102,
                           fit: BoxFit.cover,
@@ -85,7 +87,7 @@ class FundraisingCard extends StatelessWidget {
                               textBaseline: TextBaseline.alphabetic,
                               children: [
                                 Text(
-                                  fundraisingData!.title,
+                                 modelFundraising!.title.toString(),
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 18,
@@ -135,7 +137,7 @@ class FundraisingCard extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  '${modelFundraising.endDate - modelFundraising.startDate}} Hari',
+                                  '${modelFundraising.endDate - modelFundraising.startDate} Hari',
                                   style: const TextStyle(
                                     color: AppTheme.primaryColor,
                                   ),
@@ -171,7 +173,7 @@ class FundraisingCard extends StatelessWidget {
                                     ),
                                   ),
                                   child: Text(
-                                    '${(fundraisingData!.progress / fundraisingData!.target * 100).toStringAsFixed(0)}%',
+                                    '${(modelFundraising!.status / modelFundraising!.target * 100).toStringAsFixed(0)}%',
                                     textAlign: TextAlign.center,
                                     style: const TextStyle(
                                       color: Color(0xFF282F65),

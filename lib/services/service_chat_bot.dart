@@ -1,29 +1,30 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 
 class ChatbotService {
   final Dio _dio = Dio();
   String _apiKey = ''; // Menyimpan nilai 'key' yang diambil dari endpoint
 
- Future<void> fetchApiKey() async {
-  try {
-    final response = await _dio.get('https://strapi-postgresql-sistem-informasi.onrender.com/api/ais');
+  Future<void> fetchApiKey() async {
+    try {
+      final response = await _dio.get(
+          'https://strapi-postgresql-sistem-informasi.onrender.com/api/ais');
 
-    print('API Key Response Status Code: ${response.statusCode}');
-    print('API Key Response Body: ${response.data}');
+      debugPrint('API Key Response Status Code: ${response.statusCode}');
+      debugPrint('API Key Response Body: ${response.data}');
 
-    if (response.statusCode == 200) {
-      // Mengambil nilai 'key' dari atribut 'attributes'
-      _apiKey = response.data['data'][0]['attributes']['key'].toString();
-      print('API Key: $_apiKey');
-    } else {
-      print('Failed to fetch API key: ${response.statusCode}');
+      if (response.statusCode == 200) {
+        // Mengambil nilai 'key' dari atribut 'attributes'
+        _apiKey = response.data['data'][0]['attributes']['key'].toString();
+        debugPrint('API Key: $_apiKey');
+      } else {
+        debugPrint('Failed to fetch API key: ${response.statusCode}');
+      }
+    } catch (error) {
+      // An error occurred
+      debugPrint('Error fetching API key: $error');
     }
-  } catch (error) {
-    // An error occurred
-    print('Error fetching API key: $error');
   }
-}
-
 
   Future<Map<String, dynamic>?> chatbot({required String prompt}) async {
     // Fetch API key before making the chatbot request
@@ -52,17 +53,17 @@ class ChatbotService {
         },
       );
 
-      print('Response Status Code: ${response.statusCode}');
-      print('Response Body: ${response.data}');
+      debugPrint('Response Status Code: ${response.statusCode}');
+      debugPrint('Response Body: ${response.data}');
 
       if (response.statusCode == 200) {
         return response.data;
       } else {
-        print('Failed to make API request: ${response.statusCode}');
+        debugPrint('Failed to make API request: ${response.statusCode}');
       }
     } catch (error) {
       // An error occurred
-      print('Error: $error');
+      debugPrint('Error: $error');
     }
     return null;
   }
