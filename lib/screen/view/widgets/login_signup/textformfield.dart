@@ -10,8 +10,10 @@ Widget customTextFormField({
   TextInputType? keyboardType,
   List<TextInputFormatter>? inputFormatters,
   String? Function(String?)? validator,
+  TextCapitalization textCapitalization = TextCapitalization.none,
 }) {
   return TextFormField(
+    textCapitalization: textCapitalization,
     keyboardType: keyboardType,
     inputFormatters: inputFormatters,
     controller: controller,

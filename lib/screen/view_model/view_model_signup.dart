@@ -11,14 +11,15 @@ class SignUpViewModel with ChangeNotifier {
   final TextEditingController password = TextEditingController();
   final TextEditingController phone = TextEditingController();
   final TextEditingController address = TextEditingController();
-  final List<String> genderList = ['Select Gender', 'Laki-Laki', 'Perempuan'];
-  String selectedGender = 'Select Gender';
+  final List<String> genderList = ['Jenis Kelamin', 'Laki-Laki', 'Perempuan'];
+  String selectedGender = 'Jenis Kelamin';
   bool agree = false;
   bool isResponseSuccess = false;
   String kodeOtp = "";
   final service = SignUpService();
   ModelOtp? otp;
   bool isPasswordVisible = false;
+  bool heightContainer = false;
 
   Future<void> signUp() async {
     final nameUser = fullname.text;
@@ -96,7 +97,7 @@ class SignUpViewModel with ChangeNotifier {
   }
 
   String? validateGender(String value) {
-    if (value.isEmpty || value == 'Select Gender') {
+    if (value.isEmpty || value == 'Jenis Kelamin') {
       return 'Pilih jenis kelamin';
     }
     return null;
@@ -105,6 +106,10 @@ class SignUpViewModel with ChangeNotifier {
   String? validatePhone(String value) {
     if (value.isEmpty) {
       return 'Nomor tidak boleh kosong';
+    } else if (!value.startsWith('0')) {
+      return 'Nomor harus diawali 0';
+    } else if (value.length < 10) {
+      return 'Nomor minimal 10 digit';
     }
     return null;
   }
