@@ -114,37 +114,6 @@ class DetailVolunteerPage extends StatelessWidget {
               ),
             ),
 
-            // List Syarat
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Syarat & Ketentuan:',
-                    style: TextStyle(
-                      color: AppTheme.primaryColor,
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  // Menampilkan numbering pada list syarat
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: volunteerData.description.length,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        contentPadding: EdgeInsets.zero,
-                        title: Text(
-                            '${index + 1}. ${volunteerData.description[index]}'),
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ),
-
             // List Skill
             Padding(
               padding: const EdgeInsets.all(16.0),
@@ -193,6 +162,8 @@ class DetailVolunteerPage extends StatelessWidget {
                 ],
               ),
             ),
+
+            const SizedBox(height: 100),
             // Tombol Ikuti Program
             Padding(
               padding: const EdgeInsets.all(16.0),

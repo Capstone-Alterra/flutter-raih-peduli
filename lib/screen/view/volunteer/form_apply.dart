@@ -39,7 +39,7 @@ class _ApplyFormVolunteerState extends State<ApplyFormVolunteer> {
           children: [
             const TextFormVolunteer(),
             Padding(
-              padding: EdgeInsets.only(top: size.height * 0.16),
+              padding: EdgeInsets.only(top: size.height * 0.12),
               child: const ButtonVolunteer(),
             ),
           ],

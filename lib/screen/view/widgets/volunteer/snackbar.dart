@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-SnackBar snackBarVolunteer(Size size, context) {
+SnackBar snackBarVolunteer(Size size, context, {required String message, required bool isError}) {
   return SnackBar(
     duration: const Duration(seconds: 3),
     dismissDirection: DismissDirection.up,
