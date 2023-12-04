@@ -1,29 +1,33 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/model/model_chat_bot.dart';
+
+import '../utils/utils.dart';
 
 class ChatbotService {
   final Dio _dio = Dio();
   String _apiKey = ''; // Menyimpan nilai 'key' yang diambil dari endpoint
 
- Future<void> fetchApiKey() async {
-  try {
-    final response = await _dio.get('https://strapi-postgresql-sistem-informasi.onrender.com/api/ais');
+  Future<void> fetchApiKey() async {
+    try {
+      final response = await _dio.get(
+          'https://strapi-postgresql-sistem-informasi.onrender.com/api/ais');
 
-    print('API Key Response Status Code: ${response.statusCode}');
-    print('API Key Response Body: ${response.data}');
+      print('API Key Response Status Code: ${response.statusCode}');
+      print('API Key Response Body: ${response.data}');
 
-    if (response.statusCode == 200) {
-      // Mengambil nilai 'key' dari atribut 'attributes'
-      _apiKey = response.data['data'][0]['attributes']['key'].toString();
-      print('API Key: $_apiKey');
-    } else {
-      print('Failed to fetch API key: ${response.statusCode}');
+      if (response.statusCode == 200) {
+        // Mengambil nilai 'key' dari atribut 'attributes'
+        _apiKey = response.data['data'][0]['attributes']['key'].toString();
+        print('API Key: $_apiKey');
+      } else {
+        print('Failed to fetch API key: ${response.statusCode}');
+      }
+    } catch (error) {
+      // An error occurred
+      print('Error fetching API key: $error');
     }
-  } catch (error) {
-    // An error occurred
-    print('Error fetching API key: $error');
   }
-}
-
 
   Future<Map<String, dynamic>?> chatbot({required String prompt}) async {
     // Fetch API key before making the chatbot request
@@ -65,5 +69,23 @@ class ChatbotService {
       print('Error: $error');
     }
     return null;
+  }
+
+  Future<ModelChatBot> hitChatBot({
+    required String query,
+  }) async {
+    try {
+      final response = await _dio.post(
+        Urls.baseUrl + Urls.chatBot,
+        data: {
+          'message': query,
+        },
+      );
+      debugPrint("=>${response.data}");
+      return ModelChatBot.fromJson(response.data);
+    // ignore: deprecated_member_use
+    } on DioError catch (_) {
+      rethrow;
+    }
   }
 }

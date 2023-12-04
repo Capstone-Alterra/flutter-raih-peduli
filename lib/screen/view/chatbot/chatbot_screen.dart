@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/chatbot/widget/chatbubble_widget.dart';
 import 'package:flutter_raih_peduli/screen/view/chatbot/widget/textfield_widget.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_chatbot.dart';
-import 'package:flutter_raih_peduli/screen/view_model/view_model_homescreeen.dart';
+// import 'package:flutter_raih_peduli/screen/view_model/view_model_homescreeen.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:provider/provider.dart';
+
+import 'widget/chatbubble_reply.dart';
 
 class ChatbotScreen extends StatefulWidget {
   const ChatbotScreen({super.key});
@@ -16,19 +18,16 @@ class ChatbotScreen extends StatefulWidget {
 }
 
 class _ChatbotScreenState extends State<ChatbotScreen> {
-  final homeScreenViewModel = HomeScreenViewModel();
-  late final ChatbotViewModel chatbotViewModel;
-
-  /*@override
+  late ChatbotViewModel viewModel;
+  @override
   void initState() {
+    viewModel = Provider.of<ChatbotViewModel>(context, listen: false);
     super.initState();
-    // Inisialisasi chatbotViewModel dan panggil fetchApiKey
-    chatbotViewModel = ChatbotViewModel();
-    chatbotViewModel.fetchApiKey();
-  }*/
+  }
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -52,36 +51,36 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),
-      body: Column(
-        children: [
-          // Chat bubbles
-          Expanded(
-            child: Consumer<ChatbotViewModel>(
-              builder: (context, viewModel, child) {
-                return ListView.builder(
-                  itemCount: viewModel.messages.length,
-                  itemBuilder: (context, index) {
-                    final message = viewModel.messages[index];
-                    return ChatBubble(
-                      message: message.text,
-                      isUser: message.isUser,
-                      timestamp: message.timestamp,
-                      isLoading: index == viewModel.messages.length - 1 &&
-                          viewModel
-                              .isLoading, // Menunjukkan loading pada index terakhir
-                    );
-                  },
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Consumer<ChatbotViewModel>(
+              builder: (context, viewMode, child) {
+                final data = viewModel.modelChatBot?.data;
+                final tanya = data?.question ?? "";
+                final jawab = data?.reply ?? "";
+                return SizedBox(
+                  height: size.height / 1.55,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        ChatBubble(tanya: tanya, isSender: false),
+                        ChatBotReply(jawaban: jawab, isSender: true),
+                      ],
+                    ),
+                  ),
                 );
               },
             ),
-          ),
-          // Rounded textfield
-          Consumer<ChatbotViewModel>(
-            builder: (context, viewModel, child) {
-              return RoundedTextField(controller: viewModel.messageController);
-            },
-          ),
-        ],
+            Consumer<ChatbotViewModel>(
+              builder: (context, viewModel, child) {
+                return RoundedTextField(
+                    controller: viewModel.messageController);
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

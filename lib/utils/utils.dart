@@ -11,6 +11,8 @@ class Urls {
   static const String searchNews = "/news?page=1&page_size=10&title=";
   static const String profile = "/mobile/users/my-profile";
   static const String fetchAllFundraises = "/fundraises?page=1&page_size=5";
+  static const String fetchFundraisesPagination = "/fundraises?page=";
   static const String fetchAllVolunteer = "/volunteer-vacancies";
   static const String searchVolunteer = "/volunteer-vacancies?title=";
+  static const String chatBot = "/chatbots";
 }

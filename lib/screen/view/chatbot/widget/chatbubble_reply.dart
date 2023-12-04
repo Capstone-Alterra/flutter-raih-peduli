@@ -1,19 +1,19 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: camel_case_types, prefer_typing_uninitialized_variables, must_be_immutable
 
 import 'package:flutter/material.dart';
-// import 'package:flutter_raih_peduli/model/model_chat_bot.dart';
-// import 'package:flutter_raih_peduli/theme.dart';
 
-class ChatBubble extends StatelessWidget {
-  String tanya;
+// import '../../../../model/model_chat_bot.dart';
+
+class ChatBotReply extends StatelessWidget {
   // final Data chatBotData;
-  final bool isSender;
+    String jawaban;
 
-  ChatBubble({
+  final bool isSender;
+ ChatBotReply({
     super.key,
     // required this.chatBotData,
     required this.isSender,
-    required this.tanya,
+    required this.jawaban,
   });
 
   @override
@@ -28,20 +28,20 @@ class ChatBubble extends StatelessWidget {
             Container(
               width: size.width / 1.3,
               decoration: const BoxDecoration(
-                color: Color(0xff293066),
+                color: Color(0xffD1DAEC),
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(15.0),
                   topRight: Radius.circular(15.0),
-                  bottomLeft: Radius.circular(15.0),
-                  bottomRight: Radius.circular(0.0),
+                  bottomLeft: Radius.circular(0.0),
+                  bottomRight: Radius.circular(15.0),
                 ),
               ),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  tanya,
+                 jawaban,
                   style: TextStyle(
-                    color: const Color(0xffFFFFFF),
+                    color: const Color(0xff293066),
                     fontFamily: 'Helvetica',
                     fontSize: size.height / 50,
                   ),

@@ -42,7 +42,7 @@ class RoundedTextField extends StatelessWidget {
                   child: IconButton(
                     icon: const Icon(Icons.send, color: AppTheme.primaryColor),
                     onPressed: () {
-                      viewModel.sendMessage(); // Panggil sendMessage langsung dari viewModel
+                      viewModel.chatBot(); // Panggil sendMessage langsung dari viewModel
                     },
                   ),
                 ),

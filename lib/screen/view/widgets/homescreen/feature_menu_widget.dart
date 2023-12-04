@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/about/about_ua.dart';
+import 'package:flutter_raih_peduli/screen/view/fundraises/fundraise_screen.dart';
 
 import '../../news/news_page.dart';
 import '../../volunteer/access_volunteer_screen.dart';
@@ -63,7 +64,8 @@ class FeatureMenuList extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const AboutUsPage()),
+                MaterialPageRoute(
+                    builder: (context) => const FundraiseScreen()),
               );
             },
           ),

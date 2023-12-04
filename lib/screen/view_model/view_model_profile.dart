@@ -14,7 +14,6 @@ class ProfileViewModel with ChangeNotifier {
   }) async {
     try {
       isLoading = true;
-      notifyListeners();
       modelProfile = await service.hitProfile(token: accessToken);
       isLoading = false;
       notifyListeners();

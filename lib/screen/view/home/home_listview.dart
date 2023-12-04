@@ -69,7 +69,9 @@ class _HomeListViewBuilderState extends State<HomeListViewBuilder> {
         Consumer<FundraisesViewModel>(
           builder: (context, viewMode, child) {
             return viewModelFundraises.isLoading
-                ? const Center(child: CircularProgressIndicator())
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
                 : SizedBox(
                     height: size.width / 1.975,
                     child: ListView(
@@ -85,7 +87,6 @@ class _HomeListViewBuilderState extends State<HomeListViewBuilder> {
                             child: FundraisingCard(
                               fundraiseData: viewModelFundraises
                                   .modelFundraises!.data[index],
-                       
                             ),
                           ),
                       ],
@@ -128,8 +129,10 @@ class _HomeListViewBuilderState extends State<HomeListViewBuilder> {
         const SizedBox(height: 2.5),
         Consumer<VolunteerViewModel>(
           builder: (context, viewMode, child) {
-            return viewModelFundraises.isLoading
-                ? const Center(child: CircularProgressIndicator())
+            return viewModelVolunteer.isLoading
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
                 : SizedBox(
                     height: size.width / 1.975,
                     child: ListView(
@@ -143,8 +146,7 @@ class _HomeListViewBuilderState extends State<HomeListViewBuilder> {
                             width: size.width / 1.975,
                             child: VolunteerCard(
                                 volunteerData: viewModelVolunteer
-                                    .modelVolunteer!.data[index]
-                                ),
+                                    .modelVolunteer!.data[index]),
                           ),
                       ],
                     ),
@@ -199,9 +201,7 @@ class _HomeListViewBuilderState extends State<HomeListViewBuilder> {
                           SizedBox(
                             width: size.width / 1.975,
                             child: NewsCard(
-                            newsData: viewModelNews
-                                    .modelNews!.data[index]
-                            ),
+                                newsData: viewModelNews.modelNews!.data[index]),
                           ),
                       ],
                     ),
