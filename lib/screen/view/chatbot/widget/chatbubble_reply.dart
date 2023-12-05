@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 
 class ChatBotReply extends StatelessWidget {
   // final Data chatBotData;
-    String jawaban;
+  String jawaban;
 
   final bool isSender;
- ChatBotReply({
+  ChatBotReply({
     super.key,
     // required this.chatBotData,
     required this.isSender,
@@ -18,12 +18,15 @@ class ChatBotReply extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DateTime now = DateTime.now();
+    String timestamp = "${now.hour}:${now.minute}";
     Size size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2.5),
       child: Container(
         alignment: isSender ? Alignment.centerLeft : Alignment.centerRight,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               width: size.width / 1.3,
@@ -39,13 +42,21 @@ class ChatBotReply extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                 jawaban,
+                  jawaban,
                   style: TextStyle(
                     color: const Color(0xff293066),
                     fontFamily: 'Helvetica',
                     fontSize: size.height / 50,
                   ),
                 ),
+              ),
+            ),
+            Text(
+              "Ai $timestamp",
+              style: TextStyle(
+                color: const Color(0xff293066),
+                fontFamily: 'Helvetica',
+                fontSize: size.height / 60,
               ),
             ),
           ],

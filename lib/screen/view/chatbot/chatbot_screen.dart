@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/chatbot/widget/chatbubble_widget.dart';
 import 'package:flutter_raih_peduli/screen/view/chatbot/widget/textfield_widget.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_chatbot.dart';
-// import 'package:flutter_raih_peduli/screen/view_model/view_model_homescreeen.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -30,6 +29,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         centerTitle: true,
         title: const Text(
           'Chatbot',
@@ -38,15 +38,6 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
               fontFamily: 'Helvetica',
               fontSize: 18,
               fontWeight: FontWeight.bold),
-        ),
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            color: AppTheme.primaryColor,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
         ),
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -57,16 +48,32 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
           children: [
             Consumer<ChatbotViewModel>(
               builder: (context, viewMode, child) {
-                final data = viewModel.modelChatBot?.data;
-                final tanya = data?.question ?? "";
-                final jawab = data?.reply ?? "";
+                // final data = viewModel.modelChatBot?.data;
+                // final tanya = data?.question ?? "";
+                // final jawab = data?.reply ?? "";
                 return SizedBox(
                   height: size.height / 1.55,
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        ChatBubble(tanya: tanya, isSender: false),
-                        ChatBotReply(jawaban: jawab, isSender: true),
+                        for (var chatData in viewModel.chatList)
+                          Padding(
+                            padding: const EdgeInsets.all(5),
+                            child: Column(
+                              children: [
+                                // Text("${chatData.question}"),
+                                // Text("${chatData.reply}"),
+                                ChatBubble(
+                                  tanya: chatData.question,
+                                  isSender: false,
+                                ),
+                                ChatBotReply(
+                                  jawaban: chatData.reply,
+                                  isSender: true,
+                                ),
+                              ],
+                            ),
+                          )
                       ],
                     ),
                   ),

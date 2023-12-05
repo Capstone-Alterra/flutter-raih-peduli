@@ -24,6 +24,7 @@ class SignInViewModel with ChangeNotifier {
   String accessTokenSharedPreference = '';
   String refreshTokenSharedPreference = '';
   bool isPasswordVisible = false;
+  bool isSudahLogin = false;
 
   SignInViewModel() {
     checkSharedPreferences();
@@ -132,5 +133,21 @@ class SignInViewModel with ChangeNotifier {
             (route) => false);
       });
     }
+  }
+
+  void setSudahLogibn() {
+    if (accessTokenSharedPreference != '' &&
+        refreshTokenSharedPreference != '') {
+      isSudahLogin = true;
+    } else {
+      isSudahLogin = false;
+    }
+    notifyListeners();
+  }
+
+  void keluar() {
+    accessTokenSharedPreference = '';
+    refreshTokenSharedPreference = '';
+    notifyListeners();
   }
 }

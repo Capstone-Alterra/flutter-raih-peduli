@@ -25,14 +25,13 @@ class EditTextFieldState extends State<EditTextField> {
     final TextEditingController emailTextController = TextEditingController();
     final TextEditingController notelpTextController = TextEditingController();
     final TextEditingController alamatTextController = TextEditingController();
-    final TextEditingController passwordTextController =
-        TextEditingController();
+    final TextEditingController nikTextController = TextEditingController();
     return Column(
       children: [
         const Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            'Nama',
+            'Fullname',
             style: TextStyle(
               color: Color(0xff293066),
               fontFamily: 'Helvetica',
@@ -90,34 +89,6 @@ class EditTextFieldState extends State<EditTextField> {
         const Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            'Kata Sandi',
-            style: TextStyle(
-              color: Color(0xff293066),
-              fontFamily: 'Helvetica',
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ),
-        TextField(
-          controller: passwordTextController,
-          obscureText: true,
-          cursorColor: Colors.black,
-          autocorrect: true,
-          style: const TextStyle(color: Colors.black),
-          decoration: const InputDecoration(
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.black, width: 2),
-            ),
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.black, width: 2),
-            ),
-          ),
-        ),
-        SizedBox(height: size.height * 0.03),
-        const Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
             'Nomor Telepon',
             style: TextStyle(
               color: Color(0xff293066),
@@ -169,6 +140,35 @@ class EditTextFieldState extends State<EditTextField> {
               borderSide: BorderSide(color: Colors.black, width: 2),
             ),
             hintText: widget.address,
+            hintStyle: TextStyle(color: Colors.black.withOpacity(0.4)),
+          ),
+        ),
+        SizedBox(height: size.height * 0.03),
+        const Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            'Nik',
+            style: TextStyle(
+              color: Color(0xff293066),
+              fontFamily: 'Helvetica',
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+        TextField(
+          controller: nikTextController,
+          cursorColor: Colors.black,
+          autocorrect: true,
+          style: const TextStyle(color: Colors.black),
+          decoration: InputDecoration(
+            enabledBorder: const UnderlineInputBorder(
+              borderSide: BorderSide(color: Colors.black, width: 2),
+            ),
+            focusedBorder: const UnderlineInputBorder(
+              borderSide: BorderSide(color: Colors.black, width: 2),
+            ),
+            // hintText: widget.address,
             hintStyle: TextStyle(color: Colors.black.withOpacity(0.4)),
           ),
         ),

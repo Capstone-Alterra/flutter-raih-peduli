@@ -9,13 +9,19 @@ class ChatbotViewModel with ChangeNotifier {
   bool chatBotQuestion = false;
   final TextEditingController messageController = TextEditingController();
   ModelChatBot? modelChatBot;
+  List<Data> chatList = [];
 
-  Future<void> chatBot() async {
+  Future<void> chatBot(String waktu) async {
     isLoading = true;
     final query = messageController.text;
     final data = await service.hitChatBot(query: query);
     modelChatBot = data;
     isLoading = false;
+    // ignore: unnecessary_null_comparison
+    if (data != null && data.data != null) {
+      chatList.add(data.data);
+    }
+
     messageController.clear();
     notifyListeners();
   }

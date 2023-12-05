@@ -33,7 +33,7 @@ class _RiwayatState extends State<Riwayat> {
         centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
-        
+        automaticallyImplyLeading: false,
       ),
       body: SingleChildScrollView(
         child: Column(

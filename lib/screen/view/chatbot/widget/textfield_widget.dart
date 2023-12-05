@@ -10,6 +10,8 @@ class RoundedTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+        DateTime now = DateTime.now();
+        String timestamp = "${now.hour}:${now.minute}";
     final viewModel = Provider.of<ChatbotViewModel>(context, listen: false);
 
     return Padding(
@@ -42,7 +44,7 @@ class RoundedTextField extends StatelessWidget {
                   child: IconButton(
                     icon: const Icon(Icons.send, color: AppTheme.primaryColor),
                     onPressed: () {
-                      viewModel.chatBot(); // Panggil sendMessage langsung dari viewModel
+                      viewModel.chatBot(timestamp); 
                     },
                   ),
                 ),

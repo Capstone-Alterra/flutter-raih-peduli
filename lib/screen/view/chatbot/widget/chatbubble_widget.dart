@@ -18,12 +18,15 @@ class ChatBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DateTime now = DateTime.now();
+    String timestamp = "${now.hour}:${now.minute}";
     Size size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2.5),
       child: Container(
         alignment: isSender ? Alignment.centerLeft : Alignment.centerRight,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Container(
               width: size.width / 1.3,
@@ -46,6 +49,14 @@ class ChatBubble extends StatelessWidget {
                     fontSize: size.height / 50,
                   ),
                 ),
+              ),
+            ),
+            Text(
+              "Pengguna $timestamp",
+              style: TextStyle(
+                color: const Color(0xff293066),
+                fontFamily: 'Helvetica',
+                fontSize: size.height / 60,
               ),
             ),
           ],
