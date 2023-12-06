@@ -38,16 +38,15 @@ class _ApplyFormVolunteerState extends State<ApplyFormVolunteer> {
           size.width * 0.05,
           size.height * 0.05,
         ),
-        child: Column(
-          children: [
-            const TextFormVolunteer(),
-            Padding(
-              padding: EdgeInsets.only(top: size.height * 0.12),
-              child: ButtonVolunteer(
-                volunteerId: widget.volunteerId,
-              ),
-            ),
-          ],
+        child: const TextFormVolunteer(),
+      ),
+      bottomNavigationBar: SizedBox(
+        height: 100,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          child: ButtonVolunteer(
+            volunteerId: widget.volunteerId,
+          ),
         ),
       ),
     );
