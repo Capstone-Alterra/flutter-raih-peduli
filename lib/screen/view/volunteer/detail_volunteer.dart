@@ -173,7 +173,6 @@ class DetailVolunteerPage extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () {
                   // Tambahkan logika yang diinginkan saat tombol ditekan
-                  viewModel.setVolunteerId(volunteerData.id); 
                   Navigator.push(
                     context,
                     MaterialPageRoute(

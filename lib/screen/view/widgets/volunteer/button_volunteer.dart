@@ -5,15 +5,20 @@ import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/snackbar.dart'
 import 'package:flutter_raih_peduli/screen/view_model/view_model_detail_volunteer.dart';
 
 class ButtonVolunteer extends StatefulWidget {
-  const ButtonVolunteer({super.key});
+  final int volunteerId;
+
+  const ButtonVolunteer({Key? key, required this.volunteerId}) : super(key: key);
 
   @override
-  State<ButtonVolunteer> createState() => _ButtonVolunteerState();
+  State<ButtonVolunteer> createState() => _ButtonVolunteerState(volunteerId: volunteerId);
 }
 
 class _ButtonVolunteerState extends State<ButtonVolunteer> {
   final DetailVolunteerViewModel viewModel = DetailVolunteerViewModel();
-  
+  final int volunteerId;
+
+  _ButtonVolunteerState({required this.volunteerId});
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -32,10 +37,13 @@ class _ButtonVolunteerState extends State<ButtonVolunteer> {
           width: size.width * 0.43,
           child: ElevatedButton(
             onPressed: () {
-              final snackBar = snackBarVolunteer(size, context,
-                  message:
-                      'Masukkan NIK terlebih dahulu sebelum memulai aplikasi Raih Peduli :)',
-                  isError: true);
+              final snackBar = snackBarVolunteer(
+                size,
+                context,
+                message:
+                    'Masukkan NIK terlebih dahulu sebelum memulai aplikasi Raih Peduli :)',
+                isError: true,
+              );
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
               Future.delayed(const Duration(seconds: 4), () {
                 Navigator.push(
@@ -71,7 +79,7 @@ class _ButtonVolunteerState extends State<ButtonVolunteer> {
           child: ElevatedButton(
             onPressed: () async {
               //showCustomDialog(context, size);
-              await viewModel.tambahData(context);
+              await viewModel.tambahData(context, volunteerId);
             },
             style: ButtonStyle(
               elevation: MaterialStateProperty.all(0),

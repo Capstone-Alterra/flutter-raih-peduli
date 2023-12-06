@@ -24,10 +24,11 @@ class _ApplyFormVolunteerState extends State<ApplyFormVolunteer> {
         title: const Text(
           'Lamar Relawan',
           style: TextStyle(
-              color: Color(0xff293066),
-              fontFamily: 'Helvetica',
-              fontSize: 22,
-              fontWeight: FontWeight.bold),
+            color: Color(0xff293066),
+            fontFamily: 'Helvetica',
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
       body: Padding(
@@ -42,7 +43,9 @@ class _ApplyFormVolunteerState extends State<ApplyFormVolunteer> {
             const TextFormVolunteer(),
             Padding(
               padding: EdgeInsets.only(top: size.height * 0.12),
-              child: const ButtonVolunteer(),
+              child: ButtonVolunteer(
+                volunteerId: widget.volunteerId,
+              ),
             ),
           ],
         ),

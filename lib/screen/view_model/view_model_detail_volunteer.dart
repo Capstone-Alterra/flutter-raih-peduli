@@ -55,8 +55,9 @@ class DetailVolunteerViewModel with ChangeNotifier {
     }
   }
 
-  Future<void> tambahData(BuildContext context) async {
+  Future<void> tambahData(BuildContext context, int volunteerId) async {
     // Cetak data untuk memeriksa
+    print('Volunteer ID: $volunteerId');
     print('Selected Skills: $selectedSkills');
     print('Resume: ${resumeController.text}');
     print('Reason: ${reasonController.text}');
