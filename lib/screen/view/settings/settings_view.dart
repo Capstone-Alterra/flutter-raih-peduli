@@ -87,7 +87,6 @@ class SettingScreenState extends State<SettingScreen> {
                               ),
                             ),
                             const SizedBox(height: 10),
-                            const SizedBox(height: 10),
                             GestureDetector(
                               onTap: () {
                                 showDialog(
@@ -285,8 +284,12 @@ class SettingScreenState extends State<SettingScreen> {
                                       10, 0, 0, 0),
                                   child: Row(
                                     children: [
-                                      SvgPicture.asset(
-                                          'assets/Password Reset.svg'),
+                                      Image.asset(
+                                        "assets/Password Reset.png",
+                                        width: 24,
+                                        height: 24,
+                                        // fit: BoxFit.fill,
+                                      ),
                                       const SizedBox(width: 10),
                                       const Text(
                                         'Ubah Kata Sandi',

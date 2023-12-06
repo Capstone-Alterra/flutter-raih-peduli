@@ -5,6 +5,7 @@ import 'package:flutter_raih_peduli/screen/view/chatbot/widget/chatbubble_widget
 import 'package:flutter_raih_peduli/screen/view/chatbot/widget/textfield_widget.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_chatbot.dart';
 import 'package:flutter_raih_peduli/theme.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 import 'widget/chatbubble_reply.dart';
@@ -21,6 +22,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
   @override
   void initState() {
     viewModel = Provider.of<ChatbotViewModel>(context, listen: false);
+    // viewModel.setDataKosong();
     super.initState();
   }
 
@@ -48,46 +50,50 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
           children: [
             Consumer<ChatbotViewModel>(
               builder: (context, viewMode, child) {
-                // final data = viewModel.modelChatBot?.data;
-                // final tanya = data?.question ?? "";
-                // final jawab = data?.reply ?? "";
                 return SizedBox(
                   height: size.height / 1.55,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        for (var chatData in viewModel.chatList)
-                          Padding(
-                            padding: const EdgeInsets.all(5),
-                            child: Column(
-                              children: [
-                                // Text("${chatData.question}"),
-                                // Text("${chatData.reply}"),
-                                ChatBubble(
-                                  tanya: chatData.question,
-                                  isSender: false,
-                                ),
-                                ChatBotReply(
-                                  jawaban: chatData.reply,
-                                  isSender: true,
-                                ),
-                              ],
-                            ),
-                          )
-                      ],
-                    ),
-                  ),
+                  child: viewModel.chatList.isEmpty
+                      ? Center(
+                          child: SvgPicture.asset(
+                            "assets/chatBotKosong.svg",
+                          ),
+                        )
+                      : SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              for (var chatData in viewModel.chatList)
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 5,
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      ChatBubble(
+                                        time: chatData.questionTime,
+                                        tanya: chatData.question,
+                                        isSender: false,
+                                      ),
+                                      ChatBotReply(
+                                        time: chatData.replyTime,
+                                        jawaban: chatData.reply,
+                                        isSender: true,
+                                      ),
+                                    ],
+                                  ),
+                                )
+                            ],
+                          ),
+                        ),
                 );
-              },
-            ),
-            Consumer<ChatbotViewModel>(
-              builder: (context, viewModel, child) {
-                return RoundedTextField(
-                    controller: viewModel.messageController);
               },
             ),
           ],
         ),
+      ),
+      bottomNavigationBar: Consumer<ChatbotViewModel>(
+        builder: (context, viewModel, child) {
+          return RoundedTextField(controller: viewModel.messageController);
+        },
       ),
     );
   }
