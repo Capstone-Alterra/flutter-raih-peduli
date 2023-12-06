@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_onboarding.dart';
 import 'package:provider/provider.dart';
 
-Container buildDot(int index, BuildContext context) {
+Widget buildDot(int index, BuildContext context) {
   final viewModel = Provider.of<OnBoardingViewModel>(context, listen: false);
 
   return Container(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/masuk_atau_daftar.dart';
 import '../../model/model_onboarding.dart';
-import '../view/login.dart';
 
 class OnBoardingViewModel with ChangeNotifier {
   int currentIndex = 0;
@@ -26,7 +26,7 @@ class OnBoardingViewModel with ChangeNotifier {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (_) => const LoginScreen(),
+        builder: (_) => const LoginAtauDaftar(),
       ),
     );
   }
