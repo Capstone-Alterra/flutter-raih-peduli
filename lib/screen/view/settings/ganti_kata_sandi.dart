@@ -78,7 +78,12 @@ class GantiPassword extends StatelessWidget {
                             viewModel.togglePasswordVisibilityPasswordLama();
                           },
                         ),
-                        border: InputBorder.none,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: const BorderSide(
+                            color: Colors.black,
+                          ),
+                        ),
                         enabledBorder: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(5)),
                           borderSide: BorderSide(
@@ -98,7 +103,8 @@ class GantiPassword extends StatelessWidget {
                           ),
                         ),
                       ),
-                      // validator: (value) => viewModel.validatePasswordBaru(value!),
+                      validator: (value) =>
+                          viewModel.validatePasswordLama(value!),
                     ),
                     const SizedBox(height: 10),
                     TextFormField(
@@ -176,6 +182,8 @@ class GantiPassword extends StatelessWidget {
                                   builder: (_) => const SuksesGantiKataSandi(),
                                 ),
                               );
+                              viewModel.passwordLama.clear();
+                              viewModel.passwordBaru.clear();
                             } else {
                               customAlert(
                                 context: context,

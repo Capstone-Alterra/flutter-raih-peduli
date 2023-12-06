@@ -29,6 +29,15 @@ class GantiPasswordViewModel with ChangeNotifier {
     return null;
   }
 
+  String? validatePasswordLama(String value) {
+    if (value.isEmpty) {
+      notifyListeners();
+      return 'Password tidak boleh kosong';
+    }
+    notifyListeners();
+    return null;
+  }
+
   void togglePasswordVisibilityPasswordLama() {
     isPasswordVisiblePasswordLama = !isPasswordVisiblePasswordLama;
     notifyListeners();
@@ -49,7 +58,6 @@ class GantiPasswordViewModel with ChangeNotifier {
         oldPassword: passwordLama.text,
       );
       isGagalCheckPasswordLama = true;
-      notifyListeners();
     } catch (e) {
       if (e is DioError) {
         try {
@@ -58,7 +66,6 @@ class GantiPasswordViewModel with ChangeNotifier {
             oldPassword: passwordLama.text,
           );
           isGagalCheckPasswordLama = true;
-          notifyListeners();
         } catch (e) {
           if (e is DioError) {
             isGagalCheckPasswordLama = false;
@@ -67,6 +74,7 @@ class GantiPasswordViewModel with ChangeNotifier {
         }
       }
     }
+    notifyListeners();
   }
 
   Future fetchNewPassword({
@@ -95,7 +103,6 @@ class GantiPasswordViewModel with ChangeNotifier {
         }
       }
     }
-
     notifyListeners();
   }
 }

@@ -2,13 +2,19 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/masuk_atau_daftar.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
+
+import '../../view_model/view_model_navigation.dart';
 
 class SuksesGantiKataSandi extends StatelessWidget {
   const SuksesGantiKataSandi({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final sp = Provider.of<SignInViewModel>(context, listen: false);
+    final nav = Provider.of<NavigationProvider>(context, listen: false);
     final heightMediaQuery = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Center(
@@ -22,6 +28,8 @@ class SuksesGantiKataSandi extends StatelessWidget {
                 builder: (context) => const LoginAtauDaftar(),
               ),
               (route) => false);
+          sp.keluar();
+          nav.out();
         },
         child: SizedBox(
           width: double.infinity,

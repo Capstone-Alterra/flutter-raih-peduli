@@ -309,7 +309,9 @@ class SettingScreenState extends State<SettingScreen> {
                     ),
                   ),
                 )
-              : Text("text${sp.isSudahLogin}");
+              : const Center(
+                  child: Text("Anda Belum Login"),
+                );
         },
       ),
     );
