@@ -97,26 +97,10 @@ class _BannerSettingState extends State<BannerSetting> {
                             ),
                             child: ElevatedButton(
                               onPressed: () {
-                                final fullname =
-                                    viewModel.modelProfile!.data.fullname;
-                                final foto =
-                                    viewModel.modelProfile!.data.profilePicture;
-                                final email =
-                                    viewModel.modelProfile!.data.email;
-                                final telp =
-                                    viewModel.modelProfile!.data.phoneNumber;
-                                final address =
-                                    viewModel.modelProfile!.data.address;
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => ProfileEdit(
-                                      fullname: fullname,
-                                      foto: foto,
-                                      email: email,
-                                      telp: telp,
-                                      address: address,
-                                    ),
+                                    builder: (context) => ProfileEdit(),
                                   ),
                                 );
                               },

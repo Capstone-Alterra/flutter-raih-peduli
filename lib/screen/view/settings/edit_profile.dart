@@ -2,20 +2,25 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/settings/widget_profile_edit.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+
+import '../../view_model/view_model_profile.dart';
 
 class ProfileEdit extends StatefulWidget {
-  String foto;
-  String fullname;
-  String email;
-  String telp;
-  String address;
+  // String foto;
+  // String fullname;
+  // String email;
+  // String telp;
+  // String address;
   ProfileEdit(
-      {required this.foto,
-      required this.fullname,
-      required this.email,
-      required this.telp,
-      required this.address,
+      {
+      //   required this.foto,
+      // required this.fullname,
+      // required this.email,
+      // required this.telp,
+      // required this.address,
       super.key});
 
   @override
@@ -23,6 +28,21 @@ class ProfileEdit extends StatefulWidget {
 }
 
 class _ProfileEditState extends State<ProfileEdit> {
+  late ProfileViewModel viewModel;
+  late SignInViewModel sp;
+  @override
+  void initState() {
+    viewModel = Provider.of<ProfileViewModel>(context, listen: false);
+    sp = Provider.of<SignInViewModel>(context, listen: false);
+    final accessToken = sp.accessTokenSharedPreference;
+    final refreshToken = sp.refreshTokenSharedPreference;
+    viewModel.fetchProfile(
+      accessToken: accessToken,
+      refreshToken: refreshToken,
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -58,8 +78,8 @@ class _ProfileEditState extends State<ProfileEdit> {
                       CircleAvatar(
                         radius: size.width * 0.19,
                         backgroundImage: NetworkImage(
-                          widget.foto,
-                        ),
+                            // widget.foto,
+                            viewModel.modelProfile!.data.profilePicture),
                       ),
                       Positioned(
                         bottom: 0,
@@ -71,11 +91,17 @@ class _ProfileEditState extends State<ProfileEdit> {
                 ),
                 SizedBox(height: size.height * 0.1),
                 EditTextField(
-                  email: widget.email,
-                  fullname: widget.fullname,
-                  phone: widget.telp,
-                  address: widget.address,
+                  profileData: viewModel.modelProfile!.data,
                 ),
+                ElevatedButton(
+                  onPressed: () {
+                    viewModel.fetchNik(
+                      accessToken: sp.accessTokenSharedPreference,
+                      refreshToken: sp.refreshTokenSharedPreference,
+                    );
+                  },
+                  child: Text("send"),
+                )
               ],
             ),
           ),

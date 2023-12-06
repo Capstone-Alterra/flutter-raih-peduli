@@ -33,7 +33,7 @@ class GantiPasswordService {
       {required String token, required String newPassword}) async {
     try {
       final response = await _dio.post(
-        Urls.baseUrl + Urls.ChangePasswordInSetting,
+        Urls.baseUrl + Urls.changePasswordInSetting,
         options: Options(
           headers: {
             'Authorization': 'Bearer $token',
