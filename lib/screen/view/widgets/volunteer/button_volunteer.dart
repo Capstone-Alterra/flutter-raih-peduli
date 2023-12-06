@@ -1,26 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/settings/edit_profile.dart';
-import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/dialog_popup.dart';
+// import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/dialog_popup.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/snackbar.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_detail_volunteer.dart';
+import 'package:provider/provider.dart';
 
 class ButtonVolunteer extends StatefulWidget {
   final int volunteerId;
 
-  const ButtonVolunteer({Key? key, required this.volunteerId}) : super(key: key);
+  const ButtonVolunteer({Key? key, required this.volunteerId})
+      : super(key: key);
 
   @override
-  State<ButtonVolunteer> createState() => _ButtonVolunteerState(volunteerId: volunteerId);
+  State<ButtonVolunteer> createState() =>
+      _ButtonVolunteerState(volunteerId: volunteerId);
 }
 
 class _ButtonVolunteerState extends State<ButtonVolunteer> {
-  final DetailVolunteerViewModel viewModel = DetailVolunteerViewModel();
+  // final DetailVolunteerViewModel viewModel = DetailVolunteerViewModel();
   final int volunteerId;
 
   _ButtonVolunteerState({required this.volunteerId});
 
   @override
   Widget build(BuildContext context) {
+    final viewModel =
+        Provider.of<DetailVolunteerViewModel>(context, listen: false);
     Size size = MediaQuery.of(context).size;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

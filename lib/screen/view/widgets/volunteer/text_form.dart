@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/skill_filter.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/text_volunteer.dart';
-import 'package:flutter_raih_peduli/screen/view_model/view_model_detail_volunteer.dart';
+// import 'package:flutter_raih_peduli/screen/view_model/view_model_detail_volunteer.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+
+import '../../../view_model/view_model_detail_volunteer.dart';
 
 class TextFormVolunteer extends StatefulWidget {
   const TextFormVolunteer({super.key});
@@ -16,10 +19,12 @@ class TextFormVolunteer extends StatefulWidget {
 class TextFormVolunteerState extends State<TextFormVolunteer> {
   List<String> selectedSkills = [];
 
-  final DetailVolunteerViewModel viewModel = DetailVolunteerViewModel();
+  // final DetailVolunteerViewModel viewModel = DetailVolunteerViewModel();
 
   @override
   Widget build(BuildContext context) {
+    final viewModel =
+        Provider.of<DetailVolunteerViewModel>(context, listen: false);
     Size size = MediaQuery.of(context).size;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,13 +35,10 @@ class TextFormVolunteerState extends State<TextFormVolunteer> {
           onTap: () async {
             final selectedSkillResult = await showSkillFilter(context);
             if (selectedSkillResult != null) {
-
-              selectedSkills = selectedSkillResult
-                    .split(',')
-                    .map((e) => e.trim())
-                    .toList();
-                viewModel.skillController.text =
-                    viewModel.selectedSkills.join(', ');
+              selectedSkills =
+                  selectedSkillResult.split(',').map((e) => e.trim()).toList();
+              viewModel.skillController.text =
+                  viewModel.selectedSkills.join(', ');
               /*setState(() {
                 
               });*/
