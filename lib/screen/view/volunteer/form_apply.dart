@@ -3,7 +3,9 @@ import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/button_volunte
 import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/text_form.dart';
 
 class ApplyFormVolunteer extends StatefulWidget {
-  const ApplyFormVolunteer({super.key});
+  final int volunteerId;
+
+  const ApplyFormVolunteer({super.key, required this.volunteerId});
 
   @override
   State<ApplyFormVolunteer> createState() => _ApplyFormVolunteerState();

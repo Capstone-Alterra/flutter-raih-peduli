@@ -106,7 +106,7 @@ class VolunteerCard extends StatelessWidget {
                         // Aksi yang akan dijalankan saat tombol lihat detail ditekan
                         Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => DetailVolunteerPage(volunteerData: volunteerData),),
+                        MaterialPageRoute(builder: (context) => DetailVolunteerPage(volunteerData: volunteerData, volunteerId: volunteerData.id,),),
                       );
                       },
                       child: Container(

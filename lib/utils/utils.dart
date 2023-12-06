@@ -11,4 +11,5 @@ class Urls {
   static const String searchNews = "/news?page=1&page_size=10&title=";
   static const String fetchAllVolunteer = "/volunteer-vacancies";
   static const String searchVolunteer = "/volunteer-vacancies?title=";
+  static const String applyVolunteer = "/volunteer-vacancies/register";
 }

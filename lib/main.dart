@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/screen/view/volunteer/access_volunteer_screen.dart';
+import 'package:flutter_raih_peduli/screen/view/volunteer/form_apply.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_chatbot.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_detail_volunteer.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_homescreeen.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_volunteer.dart';
 import 'package:flutter_raih_peduli/services/service_api_key.dart';
@@ -35,6 +38,7 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => NavigationProvider()),
           ChangeNotifierProvider(create: (_) => HomeScreenViewModel()),
           ChangeNotifierProvider(create: (_) => VolunteerViewModel()),
+          ChangeNotifierProvider(create: (_) => DetailVolunteerViewModel()),
           ChangeNotifierProvider(create: (_) => NewsViewModel()),
           ChangeNotifierProvider(create: (_) => ChatbotViewModel()),
         ],
@@ -47,7 +51,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
           debugShowCheckedModeBanner: false,
-          home: const Onbording(),
+          home: const AccessVolunteerScreen(),
         ));
   }
 }

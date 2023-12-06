@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 
 class RelawanCard extends StatelessWidget {
   final Data volunteerData;
+  
 
   const RelawanCard({
     required this.volunteerData,
@@ -25,7 +26,7 @@ class RelawanCard extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) =>
-                DetailVolunteerPage(volunteerData: volunteerData),
+                DetailVolunteerPage(volunteerData: volunteerData, volunteerId: volunteerData.id,),
           ),
         );
       },

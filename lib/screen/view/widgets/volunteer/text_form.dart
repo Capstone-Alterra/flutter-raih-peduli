@@ -15,7 +15,6 @@ class TextFormVolunteer extends StatefulWidget {
 
 class TextFormVolunteerState extends State<TextFormVolunteer> {
   List<String> selectedSkills = [];
-  String? imagePath;
 
   final DetailVolunteerViewModel viewModel = DetailVolunteerViewModel();
 
@@ -31,14 +30,16 @@ class TextFormVolunteerState extends State<TextFormVolunteer> {
           onTap: () async {
             final selectedSkillResult = await showSkillFilter(context);
             if (selectedSkillResult != null) {
-              setState(() {
-                selectedSkills = selectedSkillResult
+
+              selectedSkills = selectedSkillResult
                     .split(',')
                     .map((e) => e.trim())
                     .toList();
-                    viewModel.skillController.text =
-          viewModel.selectedSkills.join(', ');
-              });
+                viewModel.skillController.text =
+                    viewModel.selectedSkills.join(', ');
+              /*setState(() {
+                
+              });*/
             }
           },
           child: Container(
@@ -177,7 +178,7 @@ class TextFormVolunteerState extends State<TextFormVolunteer> {
                       final image = await viewModel.pickImage();
                       if (image != null) {
                         setState(() {
-                          imagePath = image;
+                          viewModel.imagePath = image;
                         });
                       }
                     },

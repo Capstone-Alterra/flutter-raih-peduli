@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/model_volunteer.dart';
 import 'package:flutter_raih_peduli/screen/view/volunteer/form_apply.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/save_widget.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_detail_volunteer.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:intl/intl.dart';
 
 class DetailVolunteerPage extends StatelessWidget {
   final Data volunteerData;
+  final int volunteerId;
 
-  DetailVolunteerPage({required this.volunteerData});
+  DetailVolunteerPage({required this.volunteerData, required this.volunteerId});
+  final DetailVolunteerViewModel viewModel = DetailVolunteerViewModel();
 
   @override
   Widget build(BuildContext context) {
@@ -170,10 +173,11 @@ class DetailVolunteerPage extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () {
                   // Tambahkan logika yang diinginkan saat tombol ditekan
+                  viewModel.setVolunteerId(volunteerData.id); 
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const ApplyFormVolunteer()),
+                        builder: (context) =>  ApplyFormVolunteer(volunteerId: volunteerData.id,)),
                   );
                 },
                 style: ElevatedButton.styleFrom(

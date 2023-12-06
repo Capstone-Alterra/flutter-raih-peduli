@@ -1,36 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/dialog_popup.dart';
+import 'package:flutter_raih_peduli/theme.dart';
 import 'package:image_picker/image_picker.dart';
 
-class DetailVolunteerViewModel extends ChangeNotifier {
-  final Set<String> _selectedSkills = <String>{};
-  Set<String> get selectedSkills => _selectedSkills;
-
+class DetailVolunteerViewModel with ChangeNotifier {
+  List<String> selectedSkills = [];
   TextEditingController resumeController = TextEditingController();
   TextEditingController reasonController = TextEditingController();
   TextEditingController skillController = TextEditingController();
   String? imagePath;
+  int? volunteerId;
 
-  @override
+  /*@override
   void dispose() {
     resumeController.dispose();
     reasonController.dispose();
     skillController.dispose();
     super.dispose();
+  }*/
+
+  void setVolunteerId(int id) {
+    volunteerId = id;
+    notifyListeners();
   }
 
   void addSkill(String skill) {
-    _selectedSkills.add(skill);
+    selectedSkills.add(skill);
     notifyListeners();
   }
 
   void removeSkill(String skill) {
-    _selectedSkills.remove(skill);
+    selectedSkills.remove(skill);
     notifyListeners();
   }
 
   void clearSelectedSkills() {
-    _selectedSkills.clear();
+    selectedSkills.clear();
     notifyListeners();
   }
 
@@ -43,12 +48,20 @@ class DetailVolunteerViewModel extends ChangeNotifier {
       // Disini, kamu dapat meng-handle path gambar yang dipilih sesuai kebutuhanmu
       // Misalnya, menyimpan path gambar ke property di ViewModel atau mengembalikannya sebagai String
       return pickedImage.path;
+    } else {
+      // Tampilkan pesan kesalahan jika tidak ada gambar yang dipilih
+      print('Tidak ada gambar yang dipilih.');
+      return null;
     }
-
-    return null; // Return null jika tidak ada gambar yang dipilih
   }
 
   Future<void> tambahData(BuildContext context) async {
+    // Cetak data untuk memeriksa
+    print('Selected Skills: $selectedSkills');
+    print('Resume: ${resumeController.text}');
+    print('Reason: ${reasonController.text}');
+    print('Image Path: $imagePath');
+
     // Validasi data sebelum menambahkannya
     if (selectedSkills.isEmpty ||
         resumeController.text.isEmpty ||
@@ -59,9 +72,9 @@ class DetailVolunteerViewModel extends ChangeNotifier {
         const SnackBar(
           content: Text(
             'Harap isi semua data dengan lengkap.',
-            style: TextStyle(color: Color(0xffFFAF0F)),
+            style: TextStyle(color: AppTheme.white),
           ),
-          backgroundColor: Color(0xffFFCC1B), // Ganti warna sesuai keinginan
+          backgroundColor: Colors.red, // Ganti warna sesuai keinginan
         ),
       );
       return;
