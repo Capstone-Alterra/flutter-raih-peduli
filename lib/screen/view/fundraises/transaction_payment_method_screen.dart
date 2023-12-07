@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/model_fundraise_pagination.dart';
-import 'package:flutter_raih_peduli/screen/view/volunteer/form_apply.dart';
-import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/save_widget.dart';
 import 'package:flutter_raih_peduli/theme.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:intl/intl.dart';
+// import 'package:flutter_raih_peduli/screen/view/volunteer/form_apply.dart';
+// import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/save_widget.dart';
+
+// import 'package:flutter_svg/flutter_svg.dart';
+// import 'package:intl/intl.dart';
 
 class TransactionPaymentMethodScreen extends StatelessWidget {
   final TextEditingController controllerAmount = TextEditingController();
@@ -13,7 +14,7 @@ class TransactionPaymentMethodScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    // Size size = MediaQuery.of(context).size;
 
     return Scaffold(
       appBar: AppBar(
@@ -69,7 +70,8 @@ class TransactionPaymentMethodScreen extends StatelessWidget {
                     TextField(
                       controller: controllerAmount,
                       decoration: InputDecoration(
-                        prefix: Text('Rp.', style: TextStyle(
+                        prefix:
+                         Text('Rp.', style: TextStyle(
                           color: AppTheme.primaryColor,
                           fontFamily: 'Helvetica',
                           fontSize: 14,
