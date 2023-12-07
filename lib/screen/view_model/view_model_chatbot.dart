@@ -7,34 +7,31 @@ import '../../services/service_chat_bot.dart';
 
 class ChatbotViewModel with ChangeNotifier {
   final service = ChatbotService();
-  bool isLoading = false;
+  // bool isLoading = false;
   bool chatBotQuestion = false;
   final TextEditingController messageController = TextEditingController();
   ModelChatBot? modelChatBot;
   List<Data> chatList = [];
-  // bool isKosong = false;
 
-  Future<void> chatBot(String waktu) async {
-    isLoading = true;
+  Future<void> chatBot() async {
     final query = messageController.text;
+
+    chatList.add(Data(
+      question: query,
+      questionTime: DateTime.now(),
+      reply: 'Tunggu...',
+      replyTime: DateTime.now(),
+    ));
+    notifyListeners();
+    messageController.clear();
     final data = await service.hitChatBot(query: query);
-    modelChatBot = data;
-    isLoading = false;
 
     if (data != null && data.data != null) {
-      chatList.add(data.data);
+      chatList.last.question = data.data.question;
+      chatList.last.reply = data.data.reply;
+      chatList.last.replyTime = data.data.replyTime;
     }
-    // isKosong = false;
-    messageController.clear();
+
     notifyListeners();
   }
-
-  // void setDataKosong() {
-  //   if (chatList != []) {
-  //     isKosong = true;
-  //   } else {
-  //     isKosong = false;
-  //   }
-  //   notifyListeners();
-  // }
 }

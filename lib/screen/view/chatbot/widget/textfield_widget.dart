@@ -10,12 +10,11 @@ class RoundedTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-        DateTime now = DateTime.now();
-        String timestamp = "${now.hour}:${now.minute}";
     final viewModel = Provider.of<ChatbotViewModel>(context, listen: false);
 
     return Padding(
-      padding: const EdgeInsets.only(left: 16, top: 16.0, right: 16, bottom: 4.0),
+      padding:
+          const EdgeInsets.only(left: 16, top: 16.0, right: 16, bottom: 4.0),
       child: Row(
         children: [
           Expanded(
@@ -30,7 +29,8 @@ class RoundedTextField extends StatelessWidget {
                     controller: controller,
                     decoration: InputDecoration(
                       hintText: 'Tanyakan Apapun...',
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                      contentPadding:
+                          const EdgeInsets.symmetric(horizontal: 16),
                       border: InputBorder.none,
                       filled: true,
                       fillColor: AppTheme.secondaryColor.withOpacity(0.2),
@@ -44,7 +44,7 @@ class RoundedTextField extends StatelessWidget {
                   child: IconButton(
                     icon: const Icon(Icons.send, color: AppTheme.primaryColor),
                     onPressed: () {
-                      viewModel.chatBot(timestamp); 
+                      viewModel.chatBot();
                     },
                   ),
                 ),
