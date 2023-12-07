@@ -75,7 +75,8 @@ class _FundraiseScreenState extends State<FundraiseScreen> {
                       )
                     : Container(
                         // color: Colors.red,
-                        height: size.height / 1.3,
+                        height: size.height / 1.3
+                  ,
                         child: ListView.builder(
                           controller: viewModel.scrollController,
                           itemCount:
