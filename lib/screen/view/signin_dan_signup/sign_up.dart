@@ -7,6 +7,7 @@ import 'package:flutter_raih_peduli/screen/view/widgets/login_signup/button.dart
 import 'package:flutter_raih_peduli/screen/view/widgets/login_signup/textformfield.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_signup.dart';
 import 'package:provider/provider.dart';
+import '../../view_model/view_model_signin.dart';
 import '../navigation/navigation.dart';
 
 double getAppBarHeight(BuildContext context) {
@@ -21,10 +22,12 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  late SignInViewModel guest;
   late SignUpViewModel viewModel;
   @override
   void initState() {
     viewModel = Provider.of<SignUpViewModel>(context, listen: false);
+    guest = Provider.of<SignInViewModel>(context, listen: false);
     super.initState();
   }
 
@@ -333,7 +336,8 @@ class _SignUpState extends State<SignUp> {
                 child: Column(
                   children: [
                     GestureDetector(
-                      onTap: () {
+                      onTap: () async {
+                        await guest.keluar();
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => const BottomNavgationBar(),

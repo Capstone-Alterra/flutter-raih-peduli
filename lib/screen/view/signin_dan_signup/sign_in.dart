@@ -2,10 +2,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/forget_password/forget_password.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/login_signup/alert.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/login_signup/button.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/login_signup/textformfield.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
 import 'package:provider/provider.dart';
+import 'package:quickalert/models/quickalert_type.dart';
 import '../navigation/navigation.dart';
 
 double getAppBarHeight(BuildContext context) {
@@ -176,19 +178,32 @@ class _SignInState extends State<SignIn> {
                                     if (viewModel.formKeySignin.currentState!
                                         .validate()) {
                                       await viewModel.signIn();
+                                      if (viewModel.isSuksesLogin != false) {
+                                        Navigator.of(context)
+                                            .pushAndRemoveUntil(
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const BottomNavgationBar(),
+                                          ),
+                                          (route) => false,
+                                        );
+                                        viewModel.email.clear();
+                                        viewModel.password.clear();
+                                        viewModel.isSuksesLogin = false;
+                                      } else {
+                                        customAlert(
+                                          context: context,
+                                          alertType: QuickAlertType.error,
+                                          text:
+                                              'Gagal login mohon periksa email atau kata sandi anda',
+                                        );
+                                      }
                                       await viewModel
                                           .saveDataSharedPreferences();
                                       if (viewModel.rememberMe != false) {
                                         viewModel.logindata
                                             .setBool('login', false);
                                       }
-                                      Navigator.of(context).pushAndRemoveUntil(
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const BottomNavgationBar(),
-                                        ),
-                                        (route) => false,
-                                      );
                                     }
                                   },
                                 ),
@@ -233,7 +248,8 @@ class _SignInState extends State<SignIn> {
                 child: Column(
                   children: [
                     GestureDetector(
-                      onTap: () {
+                      onTap: () async {
+                        await viewModel.keluar();
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => const BottomNavgationBar(),

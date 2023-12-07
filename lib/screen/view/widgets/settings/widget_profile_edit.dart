@@ -36,7 +36,8 @@
 // ignore_for_file: camel_case_types, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/screen/view/widgets/settings/textFieldSetting.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/settings/text_field_setting.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/settings/text_title_text_field.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../model/model_profile.dart';
@@ -67,141 +68,34 @@ class _EditTextFieldState extends State<EditTextField> {
             ? const Center(child: CircularProgressIndicator())
             : Column(
                 children: [
-                  const Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Fullname',
-                      style: TextStyle(
-                        color: Color(0xff293066),
-                        fontFamily: 'Helvetica',
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                  textFieldSetting(controller: viewModel.fullNameController),
-                  // TextField(
-                  //   controller: viewModel.fullNameController,
-                  //   cursorColor: Colors.black,
-                  //   autocorrect: true,
-                  //   style: const TextStyle(color: Colors.black),
-                  //   decoration: InputDecoration(
-                  //     enabledBorder: const UnderlineInputBorder(
-                  //       borderSide: BorderSide(color: Colors.black, width: 2),
-                  //     ),
-                  //     focusedBorder: const UnderlineInputBorder(
-                  //       borderSide: BorderSide(color: Colors.black, width: 2),
-                  //     ),
-                  //     hintText: widget.fullname,
-                  //     hintStyle: TextStyle(color: Colors.black.withOpacity(0.4)),
-                  //   ),
-                  // ),
-                  SizedBox(height: size.height * 0.03),
-                  const Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Email',
-                      style: TextStyle(
-                        color: Color(0xff293066),
-                        fontFamily: 'Helvetica',
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                  textFieldSetting(controller: viewModel.emailController),
-                  // TextField(
-                  //   controller: viewModel.notelpTextController,
-                  //   cursorColor: Colors.black,
-                  //   autocorrect: true,
-                  //   style: const TextStyle(color: Colors.black),
-                  //   decoration: InputDecoration(
-                  //     enabledBorder: const UnderlineInputBorder(
-                  //       borderSide: BorderSide(color: Colors.black, width: 2),
-                  //     ),
-                  //     focusedBorder: const UnderlineInputBorder(
-                  //       borderSide: BorderSide(color: Colors.black, width: 2),
-                  //     ),
-                  //     hintText: widget.email,
-                  //     hintStyle: TextStyle(color: Colors.black.withOpacity(0.4)),
-                  //   ),
-                  // ),
-                  SizedBox(height: size.height * 0.03),
-                  const Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Nomor Telepon',
-                      style: TextStyle(
-                        color: Color(0xff293066),
-                        fontFamily: 'Helvetica',
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                  textFieldSetting(controller: viewModel.telpController),
-                  // TextField(
-                  //   controller: notelpTextController,
-                  //   cursorColor: Colors.black,
-                  //   autocorrect: true,
-                  //   style: const TextStyle(color: Colors.black),
-                  //   decoration: InputDecoration(
-                  //     enabledBorder: const UnderlineInputBorder(
-                  //       borderSide: BorderSide(color: Colors.black, width: 2),
-                  //     ),
-                  //     focusedBorder: const UnderlineInputBorder(
-                  //       borderSide: BorderSide(color: Colors.black, width: 2),
-                  //     ),
-                  //     hintText: widget.phone,
-                  //     hintStyle: TextStyle(color: Colors.black.withOpacity(0.4)),
-                  //   ),
-                  // ),
-                  SizedBox(height: size.height * 0.03),
-                  const Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Alamat',
-                      style: TextStyle(
-                        color: Color(0xff293066),
-                        fontFamily: 'Helvetica',
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                  textFieldSetting(controller: viewModel.alamatController),
-                  // TextField(
-                  //   controller: alamatTextController,
-                  //   cursorColor: Colors.black,
-                  //   autocorrect: true,
-                  //   style: const TextStyle(color: Colors.black),
-                  //   decoration: InputDecoration(
-                  //     enabledBorder: const UnderlineInputBorder(
-                  //       borderSide: BorderSide(color: Colors.black, width: 2),
-                  //     ),
-                  //     focusedBorder: const UnderlineInputBorder(
-                  //       borderSide: BorderSide(color: Colors.black, width: 2),
-                  //     ),
-                  //     hintText: widget.address,
-                  //     hintStyle: TextStyle(color: Colors.black.withOpacity(0.4)),
-                  //   ),
-                  // ),
-                  SizedBox(height: size.height * 0.03),
-                  const Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Nik',
-                      style: TextStyle(
-                        color: Color(0xff293066),
-                        fontFamily: 'Helvetica',
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
+                  textSetting(text: "Fullname"),
                   textFieldSetting(
-                      controller: viewModel.nikController,
-                      labelText: widget.profileData.nik),
+                    controller: viewModel.fullNameController,
+                    labelText: widget.profileData.fullname,
+                  ),
+                  textSetting(text: "Email"),
+                  textFieldSetting(
+                    controller: viewModel.emailController,
+                    labelText: widget.profileData.email,
+                  ),
+                  SizedBox(height: size.height * 0.03),
+                  textSetting(text: "Nomor Telepon"),
+                  textFieldSetting(
+                    controller: viewModel.telpController,
+                    labelText: widget.profileData.phoneNumber,
+                  ),
+                  SizedBox(height: size.height * 0.03),
+                  textSetting(text: "Alamat"),
+                  textFieldSetting(
+                    controller: viewModel.alamatController,
+                    labelText: widget.profileData.address,
+                  ),
+                  SizedBox(height: size.height * 0.03),
+                  textSetting(text: "Nik"),
+                  textFieldSetting(
+                    controller: viewModel.nikController,
+                    labelText: widget.profileData.nik,
+                  ),
                 ],
               );
       },

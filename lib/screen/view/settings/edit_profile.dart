@@ -9,19 +9,7 @@ import 'package:provider/provider.dart';
 import '../../view_model/view_model_profile.dart';
 
 class ProfileEdit extends StatefulWidget {
-  // String foto;
-  // String fullname;
-  // String email;
-  // String telp;
-  // String address;
-  ProfileEdit(
-      {
-      //   required this.foto,
-      // required this.fullname,
-      // required this.email,
-      // required this.telp,
-      // required this.address,
-      super.key});
+  const ProfileEdit({super.key});
 
   @override
   State<ProfileEdit> createState() => _ProfileEditState();
@@ -54,10 +42,11 @@ class _ProfileEditState extends State<ProfileEdit> {
         title: const Text(
           'Ubah Profile',
           style: TextStyle(
-              color: Color(0xff293066),
-              fontFamily: 'Helvetica',
-              fontSize: 18,
-              fontWeight: FontWeight.bold),
+            color: Color(0xff293066),
+            fontFamily: 'Helvetica',
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -78,7 +67,6 @@ class _ProfileEditState extends State<ProfileEdit> {
                       CircleAvatar(
                         radius: size.width * 0.19,
                         backgroundImage: NetworkImage(
-                            // widget.foto,
                             viewModel.modelProfile!.data.profilePicture),
                       ),
                       Positioned(
@@ -100,7 +88,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                       refreshToken: sp.refreshTokenSharedPreference,
                     );
                   },
-                  child: Text("send"),
+                  child: const Text("send"),
                 )
               ],
             ),

@@ -22,7 +22,7 @@ class _RiwayatState extends State<Riwayat> {
   @override
   void initState() {
     sp = Provider.of<SignInViewModel>(context, listen: false);
-    sp.setSudahLogibn();
+    sp.setSudahLogin();
     super.initState();
   }
 

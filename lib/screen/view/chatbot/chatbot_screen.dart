@@ -8,6 +8,7 @@ import 'package:flutter_raih_peduli/theme.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
+import '../../view_model/view_model_signin.dart';
 import 'widget/chatbubble_reply.dart';
 
 class ChatbotScreen extends StatefulWidget {
@@ -19,10 +20,12 @@ class ChatbotScreen extends StatefulWidget {
 
 class _ChatbotScreenState extends State<ChatbotScreen> {
   late ChatbotViewModel viewModel;
+  late SignInViewModel sp;
   @override
   void initState() {
     viewModel = Provider.of<ChatbotViewModel>(context, listen: false);
-    // viewModel.setDataKosong();
+    sp = Provider.of<SignInViewModel>(context, listen: false);
+    sp.setSudahLogin();
     super.initState();
   }
 
@@ -36,63 +39,74 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
         title: const Text(
           'Chatbot',
           style: TextStyle(
-              color: AppTheme.primaryColor,
-              fontFamily: 'Helvetica',
-              fontSize: 18,
-              fontWeight: FontWeight.bold),
+            color: AppTheme.primaryColor,
+            fontFamily: 'Helvetica',
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Consumer<ChatbotViewModel>(
-              builder: (context, viewMode, child) {
-                return SizedBox(
-                  height: size.height / 1.55,
-                  child: viewModel.chatList.isEmpty
-                      ? Center(
-                          child: SvgPicture.asset(
-                            "assets/chatBotKosong.svg",
-                          ),
-                        )
-                      : SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              for (var chatData in viewModel.chatList)
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 5,
+      body: Consumer<SignInViewModel>(
+        builder: (context, contactModel, child) {
+          return sp.isSudahLogin
+              ? SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Consumer<ChatbotViewModel>(
+                        builder: (context, viewMode, child) {
+                          return SizedBox(
+                            height: size.height / 1.55,
+                            child: viewModel.chatList.isEmpty
+                                ? Center(
+                                    child: SvgPicture.asset(
+                                      "assets/chatBotKosong.svg",
+                                    ),
+                                  )
+                                : SingleChildScrollView(
+                                    child: Column(
+                                      children: [
+                                        for (var chatData in viewModel.chatList)
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 5,
+                                            ),
+                                            child: Column(
+                                              children: [
+                                                ChatBubble(
+                                                  time: chatData.questionTime,
+                                                  tanya: chatData.question,
+                                                  isSender: false,
+                                                ),
+                                                ChatBotReply(
+                                                  time: chatData.replyTime,
+                                                  jawaban: chatData.reply,
+                                                  isSender: true,
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                      ],
+                                    ),
                                   ),
-                                  child: Column(
-                                    children: [
-                                      ChatBubble(
-                                        time: chatData.questionTime,
-                                        tanya: chatData.question,
-                                        isSender: false,
-                                      ),
-                                      ChatBotReply(
-                                        time: chatData.replyTime,
-                                        jawaban: chatData.reply,
-                                        isSender: true,
-                                      ),
-                                    ],
-                                  ),
-                                )
-                            ],
-                          ),
-                        ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                )
+              : const Center(
+                  child: Text("Anda Belum Login"),
                 );
-              },
-            ),
-          ],
-        ),
+        },
       ),
-      bottomNavigationBar: Consumer<ChatbotViewModel>(
-        builder: (context, viewModel, child) {
-          return RoundedTextField(controller: viewModel.messageController);
+      bottomNavigationBar: Consumer<SignInViewModel>(
+        builder: (context, contactModel, child) {
+          return sp.isSudahLogin
+              ? RoundedTextField(controller: viewModel.messageController)
+              : const SizedBox(height: 1);
         },
       ),
     );

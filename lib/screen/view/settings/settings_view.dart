@@ -23,6 +23,7 @@ class SettingScreenState extends State<SettingScreen> {
   late SharedPreferences logindata;
   late SignInViewModel sp;
   late NavigationProvider nav;
+
   @override
   void initState() {
     viewModel = Provider.of<ProfileViewModel>(context, listen: false);
@@ -30,7 +31,7 @@ class SettingScreenState extends State<SettingScreen> {
     final accessToken = sp.accessTokenSharedPreference;
     final refreshToken = sp.refreshTokenSharedPreference;
     nav = Provider.of<NavigationProvider>(context, listen: false);
-    sp.setSudahLogibn();
+    sp.setSudahLogin();
     viewModel.fetchProfile(
       accessToken: accessToken,
       refreshToken: refreshToken,
@@ -112,7 +113,6 @@ class SettingScreenState extends State<SettingScreen> {
                                         ),
                                       ],
                                     ),
-                                    // content: const Text('This is a warning message.'),
                                     icon: Padding(
                                       padding: const EdgeInsets.only(
                                         bottom: 20,

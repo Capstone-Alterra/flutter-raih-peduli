@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 class RoundedTextField extends StatelessWidget {
   final TextEditingController controller;
 
-  RoundedTextField({required this.controller});
+  const RoundedTextField({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
