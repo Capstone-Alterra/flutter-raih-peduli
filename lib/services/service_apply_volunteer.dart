@@ -1,41 +1,47 @@
+import 'dart:convert';
+import 'dart:io';
 import 'package:dio/dio.dart';
-import 'package:flutter_raih_peduli/screen/view_model/view_model_detail_volunteer.dart';
-import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/utils/utils.dart';
 
 class ApplyVolunteerService {
   final Dio dio = Dio();
 
   Future<void> applyVolunteerWithRefreshToken(
-    DetailVolunteerViewModel viewModel,
-    SignInViewModel provider, 
-    String refreshToken, // Tambahkan parameter volunteerId
+    int volunteerId,
+    List<String> selectedSkills,
+    TextEditingController resumeController,
+    TextEditingController reasonController,
+    File imageFile,
+    String imagePath,
+    String accessTokenSharedPreference,
+    String refreshTokenSharedPreference,
   ) async {
     try {
-      // Konstruksi form data
-      FormData formData = FormData.fromMap({
-        'vacancy_id' : viewModel.volunteerId, // Gunakan volunteerId sebagai vacancy_id
-        'skills': viewModel.selectedSkills.join(','),
-        'resume': viewModel.resumeController.text,
-        'reason': viewModel.reasonController.text,
-        'image': await MultipartFile.fromFile(viewModel.imagePath!),
-      });
+      final accessToken = accessTokenSharedPreference;
+      final refreshToken = refreshTokenSharedPreference;
 
-      final refreshToken = provider.refreshTokenSharedPreference;
+      // Baca file sebagai bytes
+      //List<int> imageBytes = await imageFile.readAsBytes();
 
-      // Konstruksi header dengan refreshToken sebagai bearer token
-      Options options = Options(
-        headers: {
-          'Authorization': refreshToken,
-          'Content-Type': 'multipart/form-data',
-        },
-      );
+      // Encode bytes menjadi base64
+      //String base64Image = base64Encode(imageBytes);
 
       // Kirim permintaan POST
       Response response = await dio.post(
         Urls.baseUrl + Urls.applyVolunteer,
-        data: formData,
-        options: options,
+        options: Options(
+          headers: {
+            'Authorization': refreshToken,
+          },
+        ),
+        data: {
+          'vacancy_id': volunteerId,
+          'skills': selectedSkills.join(','),
+          'resume': resumeController.text,
+          'reason': reasonController.text,
+          'photo': imageFile,
+        },
       );
 
       // Cek status response
@@ -44,7 +50,8 @@ class ApplyVolunteerService {
         print('Volunteer berhasil mendaftar.');
       } else {
         // Ada kesalahan dalam permintaan
-        print('Gagal mendaftar sebagai Volunteer. Status: ${response.statusCode}');
+        print(
+            'Gagal mendaftar sebagai Volunteer. Status: ${response.statusCode}');
       }
     } catch (error) {
       // Tangani kesalahan

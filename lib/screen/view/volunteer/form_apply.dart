@@ -41,7 +41,7 @@ class _ApplyFormVolunteerState extends State<ApplyFormVolunteer> {
         child: const TextFormVolunteer(),
       ),
       bottomNavigationBar: SizedBox(
-        height: 100,
+        height: size.height * 0.15,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: ButtonVolunteer(
