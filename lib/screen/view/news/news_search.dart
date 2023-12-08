@@ -1,26 +1,21 @@
-// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: camel_case_types, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/model/model_news_pagination.dart';
+import 'package:flutter_raih_peduli/screen/view/news/newsdetailpage.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_news.dart';
 import 'package:provider/provider.dart';
-import 'newsdetailpage.dart';
 
-class News extends StatefulWidget {
-  final Datum newsData;
+import '../../../model/model_news.dart';
 
-  const News({
-    super.key,
-    required this.newsData,
-  });
+class NewsSearch extends StatefulWidget {
+    final Datum newsData;
+  const NewsSearch({super.key, required this.newsData});
 
   @override
-  _NewsState createState() => _NewsState();
+  State<NewsSearch> createState() => _NewsSearchState();
 }
 
-class _NewsState extends State<News> {
-  bool isBookmarked = false;
-
+class _NewsSearchState extends State<NewsSearch> {
   @override
   Widget build(BuildContext context) {
     final viewModel = Provider.of<NewsViewModel>(context, listen: false);

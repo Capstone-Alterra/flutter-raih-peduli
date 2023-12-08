@@ -204,7 +204,6 @@ class _SignInState extends State<SignIn> {
                                         viewModel.logindata
                                             .setBool('login', false);
                                       }
-                              
                                     }
                                   },
                                 ),

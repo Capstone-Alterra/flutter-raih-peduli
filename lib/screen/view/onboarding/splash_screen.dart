@@ -18,8 +18,8 @@ class _SplashScreenState extends State<SplashScreen> {
     autoLogin = Provider.of<SignInViewModel>(context, listen: false);
     skipOnboarding = Provider.of<OnBoardingViewModel>(context, listen: false);
     super.initState();
-    autoLogin.checkLogin(context);
     skipOnboarding.checkDownload(context);
+    autoLogin.checkLogin(context);
   }
 
   @override

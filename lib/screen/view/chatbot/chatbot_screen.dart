@@ -9,6 +9,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 import '../../view_model/view_model_signin.dart';
+import '../fundraises/widgets/amount_button_widget.dart';
+import '../signin_dan_signup/masuk_atau_daftar.dart';
 import 'widget/chatbubble_reply.dart';
 
 class ChatbotScreen extends StatefulWidget {
@@ -97,8 +99,31 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                     ],
                   ),
                 )
-              : const Center(
-                  child: Text("Anda Belum Login"),
+              : Center(
+                  child: Column(
+                    children: [
+                      SizedBox(height: size.height / 12),
+                      SvgPicture.asset(
+                        "assets/akun_guest.svg",
+                      ),
+                      const SizedBox(height: 20),
+                      customAmountButton(
+                        text: 'Masuk / Daftar',
+                        bgColor: const Color(0xFF293066),
+                        width: size.width / 1.5,
+                        height: size.height / 19,
+                        textColor: Colors.white,
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const LoginAtauDaftar(),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                 );
         },
       ),

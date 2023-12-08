@@ -1,6 +1,7 @@
 // ignore_for_file: camel_case_types, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/screen/view/fundraises/widgets/amount_button_widget.dart';
 import 'package:flutter_raih_peduli/screen/view/riwayat/detail_riwayat.dart';
 import 'package:flutter_raih_peduli/screen/view/riwayat/widgets/card_riwayat.dart';
 import 'package:flutter_raih_peduli/screen/view/riwayat/widgets/skil.dart';
@@ -8,7 +9,9 @@ import 'package:flutter_raih_peduli/screen/view/riwayat/widgets/status.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
+import '../../../theme.dart';
 import '../../view_model/view_model_signin.dart';
+import '../signin_dan_signup/masuk_atau_daftar.dart';
 
 class Riwayat extends StatefulWidget {
   const Riwayat({super.key});
@@ -28,23 +31,26 @@ class _RiwayatState extends State<Riwayat> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     final widthMediaQuery = MediaQuery.of(context).size.width;
     final heightMediaQuery = MediaQuery.of(context).size.height;
     final heightCard = heightMediaQuery / 6.5;
     final widthContent = widthMediaQuery / 2;
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
+        centerTitle: true,
         title: const Text(
           'Riwayat',
           style: TextStyle(
-            fontSize: 20,
-            color: Color(0xFF293066),
+            color: AppTheme.primaryColor,
+            fontFamily: 'Helvetica',
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
           ),
         ),
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
         elevation: 0,
-        automaticallyImplyLeading: false,
+        backgroundColor: Colors.transparent,
       ),
       body: Consumer<SignInViewModel>(
         builder: (context, contactModel, child) {
@@ -312,8 +318,31 @@ class _RiwayatState extends State<Riwayat> {
                     ],
                   ),
                 )
-              : const Center(
-                  child: Text("Anda Belum Login"),
+              : Center(
+                  child: Column(
+                    children: [
+                      SizedBox(height: size.height / 12),
+                      SvgPicture.asset(
+                        "assets/transaksi_guest.svg",
+                      ),
+                      const SizedBox(height: 20),
+                      customAmountButton(
+                        text: 'Masuk / Daftar',
+                        bgColor: const Color(0xFF293066),
+                        width: size.width / 1.5,
+                        height: size.height / 19,
+                        textColor: Colors.white,
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const LoginAtauDaftar(),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                 );
         },
       ),

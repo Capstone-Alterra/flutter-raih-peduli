@@ -79,7 +79,10 @@ class RelawanCard extends StatelessWidget {
                                 textBaseline: TextBaseline.alphabetic,
                                 children: [
                                   Text(
-                                    volunteerData.title,
+                                    viewModel.truncateText(
+                                      volunteerData.title,
+                                      20,
+                                    ),
                                     style: TextStyle(
                                       color: AppTheme.primaryColor,
                                       fontFamily: 'Helvetica',

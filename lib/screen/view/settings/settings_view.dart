@@ -7,8 +7,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../theme.dart';
 import '../../view_model/view_model_navigation.dart';
 import '../../view_model/view_model_signin.dart';
+import '../fundraises/widgets/amount_button_widget.dart';
 import '../signin_dan_signup/masuk_atau_daftar.dart';
 
 class SettingScreen extends StatefulWidget {
@@ -49,19 +51,19 @@ class SettingScreenState extends State<SettingScreen> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        centerTitle: true,
         automaticallyImplyLeading: false,
+        centerTitle: true,
         title: const Text(
           'Pengaturan',
           style: TextStyle(
-            color: Colors.black,
+            color: AppTheme.primaryColor,
             fontFamily: 'Helvetica',
             fontSize: 18,
-            fontWeight: FontWeight.w700,
+            fontWeight: FontWeight.bold,
           ),
         ),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
       ),
       body: Consumer<SignInViewModel>(
         builder: (context, viewModel, child) {
@@ -309,8 +311,31 @@ class SettingScreenState extends State<SettingScreen> {
                     ),
                   ),
                 )
-              : const Center(
-                  child: Text("Anda Belum Login"),
+              : Center(
+                  child: Column(
+                    children: [
+                      SizedBox(height: size.height / 12),
+                      SvgPicture.asset(
+                        "assets/setting_guest.svg",
+                      ),
+                      const SizedBox(height: 20),
+                      customAmountButton(
+                        text: 'Masuk / Daftar',
+                        bgColor: const Color(0xFF293066),
+                        width: size.width / 1.5,
+                        height: size.height / 19,
+                        textColor: Colors.white,
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const LoginAtauDaftar(),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                 );
         },
       ),
