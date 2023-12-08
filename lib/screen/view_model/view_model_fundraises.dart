@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/model_fundraise_pagination.dart';
@@ -6,9 +8,15 @@ import 'package:flutter_raih_peduli/services/service_fundraises.dart';
 
 class FundraisesViewModel with ChangeNotifier {
   ModelFundraises? modelFundraises;
+  final TextEditingController amountController = TextEditingController();
   ModelFundraisesPagination? modelFundraisesPagination;
   final service = FundraisesService();
   bool isLoading = false;
+
+  updateAmount(String amount){
+    amountController.text = amount;
+    notifyListeners();
+  }
 
   late final scrollController = ScrollController();
   int indexPagination = 1;

@@ -47,7 +47,7 @@ class DetailFundraisePage extends StatelessWidget {
           children: [
             // Banner Image
             Container(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
               child: ClipRRect(
                 borderRadius:
                 BorderRadius.circular(12.0), // Sesuaikan dengan kebutuhan
