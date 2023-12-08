@@ -5,18 +5,19 @@ Widget textFieldSetting({
   required TextEditingController controller,
   String? labelText,
   bool? obscureText,
+  bool? enable,
   TextInputType? keyboardType,
   List<TextInputFormatter>? inputFormatters,
   String? Function(String?)? validator,
   TextCapitalization textCapitalization = TextCapitalization.none,
 }) {
   return TextFormField(
+    enabled: enable,
     cursorColor: Colors.black,
     keyboardType: keyboardType,
     inputFormatters: inputFormatters,
     controller: controller,
     decoration: InputDecoration(
-      contentPadding: const EdgeInsets.symmetric(vertical: 8),
       hintText: labelText,
       hintStyle: const TextStyle(
         color: Color(0xFFB0B0B0),
@@ -25,21 +26,20 @@ Widget textFieldSetting({
         color: Colors.blueGrey,
       ),
       border: InputBorder.none,
-      enabledBorder: const OutlineInputBorder(
-        borderRadius: BorderRadius.all(Radius.circular(5)),
+      enabledBorder: const UnderlineInputBorder(
         borderSide: BorderSide(
-          color: Colors.white,
+          color: Colors.black,
+          width: 0.5,
         ),
       ),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(5),
-        borderSide: const BorderSide(
-          color: Colors.white,
+      focusedBorder: const UnderlineInputBorder(
+        borderSide: BorderSide(
+          color: Colors.black,
+          width: 0.5,
         ),
       ),
-      errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(5),
-        borderSide: const BorderSide(
+      errorBorder: const UnderlineInputBorder(
+        borderSide: BorderSide(
           color: Colors.red,
         ),
       ),
@@ -47,19 +47,3 @@ Widget textFieldSetting({
     validator: validator,
   );
 }
-                  // TextField(
-                  //   controller: viewModel.fullNameController,
-                  //   cursorColor: Colors.black,
-                  //   autocorrect: true,
-                  //   style: const TextStyle(color: Colors.black),
-                  //   decoration: InputDecoration(
-                  //     enabledBorder: const UnderlineInputBorder(
-                  //       borderSide: BorderSide(color: Colors.black, width: 2),
-                  //     ),
-                  //     focusedBorder: const UnderlineInputBorder(
-                  //       borderSide: BorderSide(color: Colors.black, width: 2),
-                  //     ),
-                  //     hintText: widget.fullname,
-                  //     hintStyle: TextStyle(color: Colors.black.withOpacity(0.4)),
-                  //   ),
-                  // ),

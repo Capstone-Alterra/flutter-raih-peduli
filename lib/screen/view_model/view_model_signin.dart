@@ -3,9 +3,11 @@
 import 'package:dio/dio.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_raih_peduli/model/model_sign_in.dart';
 import 'package:flutter_raih_peduli/services/service_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../view/navigation/navigation.dart';
 import '../view/onboarding/onboarding_view.dart';
 
@@ -24,9 +26,12 @@ class SignInViewModel with ChangeNotifier {
   String fotoSharedPreference = '';
   String accessTokenSharedPreference = '';
   String refreshTokenSharedPreference = '';
+  String nikSharedPreference = '';
   bool isPasswordVisible = false;
   bool isSudahLogin = false;
   bool isSuksesLogin = false;
+  // ModelProfile? modelProfile;
+  // final serviceProvile = ProfileService();
 
   SignInViewModel() {
     checkSharedPreferences();
@@ -155,4 +160,35 @@ class SignInViewModel with ChangeNotifier {
     isSuksesLogin = false;
     notifyListeners();
   }
+
+  // Future fetchProfile() async {
+  //   try {
+  //     modelProfile =
+  //         await serviceProvile.hitProfile(token: accessTokenSharedPreference);
+  //     nikSharedPreference = modelProfile!.data.nik;
+  //   } catch (e) {
+  //     // ignore: deprecated_member_use
+  //     if (e is DioError) {
+  //       modelProfile = await serviceProvile.hitProfile(
+  //           token: refreshTokenSharedPreference);
+  //           nikSharedPreference = modelProfile!.data.nik;
+  //       e.response!.statusCode;
+  //     }
+  //   }
+  //   notifyListeners();
+  // }
+
+  // Future<void> saveDataNik() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   await prefs.setString('nik', nikSharedPreference);
+  //   notifyListeners();
+  // }
+
+  // Future<void> checkNik() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   final storedNik = prefs.getString('nik');
+
+  //   nikSharedPreference = storedNik!;
+  //   notifyListeners();
+  // }
 }

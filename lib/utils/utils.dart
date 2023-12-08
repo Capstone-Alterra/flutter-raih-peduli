@@ -18,4 +18,5 @@ class Urls {
   static const String checkPassword = "/mobile/users/check-password";
   static const String changePasswordInSetting = "/mobile/users/change-password";
   static const String updateProfile = "/mobile/users";
+  static const String applyVolunteer = "/mobile/volunteer-vacancies/register";
 }
