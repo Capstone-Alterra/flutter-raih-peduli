@@ -1,7 +1,9 @@
-// ignore_for_file: camel_case_types, prefer_typing_uninitialized_variables
+// ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/screen/view/navigation/navigation.dart';
 import 'package:flutter_raih_peduli/screen/view/porsonalisasi/personalisasi_content.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:provider/provider.dart';
 import '../../view_model/view_model_personalisasi.dart';
@@ -13,6 +15,7 @@ class PersonalisasiKonten extends StatelessWidget {
   Widget build(BuildContext context) {
     final viewModel =
         Provider.of<PersonalisasiViewModel>(context, listen: false);
+    final sp = Provider.of<SignInViewModel>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -143,8 +146,18 @@ class PersonalisasiKonten extends StatelessWidget {
               borderRadius: BorderRadius.circular(14),
             ),
           ),
-          onPressed: () {
-            print("=>${viewModel.selectedItems}");
+          onPressed: () async {
+            await viewModel.fetchPersonalisasi(
+              accessToken: sp.accessTokenSharedPreference,
+              refreshToken: sp.refreshTokenSharedPreference,
+            );
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const BottomNavgationBar(),
+              ),
+              (route) => false,
+            );
           },
           child: const SizedBox(
             height: 20,

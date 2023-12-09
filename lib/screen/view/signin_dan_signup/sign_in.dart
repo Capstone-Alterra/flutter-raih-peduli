@@ -171,40 +171,41 @@ class _SignInState extends State<SignIn> {
                                     ),
                                   ],
                                 ),
-                                customButton(
-                                  text: "Masuk",
-                                  bgColor: const Color(0xFF484F88),
-                                  onPressed: () async {
-                                    if (viewModel.formKeySignin.currentState!
-                                        .validate()) {
-                                      await viewModel.signIn();
-                                      if (viewModel.isSuksesLogin != false) {
-                                        Navigator.of(context)
-                                            .pushAndRemoveUntil(
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                const BottomNavgationBar(),
-                                          ),
-                                          (route) => false,
-                                        );
-                                        viewModel.email.clear();
-                                        viewModel.password.clear();
-                                        viewModel.isSuksesLogin = false;
-                                      } else {
-                                        customAlert(
-                                          context: context,
-                                          alertType: QuickAlertType.error,
-                                          text:
-                                              'Gagal login mohon periksa email atau kata sandi anda',
-                                        );
-                                      }
-                                      await viewModel
-                                          .saveDataSharedPreferences();
-                                      if (viewModel.rememberMe != false) {
-                                        viewModel.logindata
-                                            .setBool('login', false);
-                                      }
-                                    }
+                                Consumer<SignInViewModel>(
+                                  builder: (context, viewMode, child) {
+                                    // bool personalisasi = viewModel.dataLogin!.data.personalizeUser;
+                                    return customButton(
+                                      text: "Masuk",
+                                      bgColor: const Color(0xFF484F88),
+                                      onPressed: () async {
+                                        if (viewModel
+                                            .formKeySignin.currentState!
+                                            .validate()) {
+                                          await viewModel.signIn();
+                                          if (viewModel.isSuksesLogin !=
+                                              false) {
+                                            await viewModel
+                                                .checkPersonalisasi(context);
+                                            viewModel.email.clear();
+                                            viewModel.password.clear();
+                                            viewModel.isSuksesLogin = false;
+                                          } else {
+                                            customAlert(
+                                              context: context,
+                                              alertType: QuickAlertType.error,
+                                              text:
+                                                  'Gagal login mohon periksa email atau kata sandi anda',
+                                            );
+                                          }
+                                          await viewModel
+                                              .saveDataSharedPreferences();
+                                          if (viewModel.rememberMe != false) {
+                                            viewModel.logindata
+                                                .setBool('login', false);
+                                          }
+                                        }
+                                      },
+                                    );
                                   },
                                 ),
                                 const SizedBox(height: 15),

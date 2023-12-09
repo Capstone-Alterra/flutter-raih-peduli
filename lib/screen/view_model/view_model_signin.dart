@@ -10,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../view/navigation/navigation.dart';
 import '../view/onboarding/onboarding_view.dart';
+import '../view/porsonalisasi/personalisasi.dart';
 
 class SignInViewModel with ChangeNotifier {
   late GlobalKey<FormState> formKeySignin;
@@ -161,34 +162,25 @@ class SignInViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  // Future fetchProfile() async {
-  //   try {
-  //     modelProfile =
-  //         await serviceProvile.hitProfile(token: accessTokenSharedPreference);
-  //     nikSharedPreference = modelProfile!.data.nik;
-  //   } catch (e) {
-  //     // ignore: deprecated_member_use
-  //     if (e is DioError) {
-  //       modelProfile = await serviceProvile.hitProfile(
-  //           token: refreshTokenSharedPreference);
-  //           nikSharedPreference = modelProfile!.data.nik;
-  //       e.response!.statusCode;
-  //     }
-  //   }
-  //   notifyListeners();
-  // }
-
-  // Future<void> saveDataNik() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   await prefs.setString('nik', nikSharedPreference);
-  //   notifyListeners();
-  // }
-
-  // Future<void> checkNik() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   final storedNik = prefs.getString('nik');
-
-  //   nikSharedPreference = storedNik!;
-  //   notifyListeners();
-  // }
+  Future<void> checkPersonalisasi(BuildContext context) async {
+    bool personalizeUser = dataLogin!.data.personalizeUser;
+    if (personalizeUser != true) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const BottomNavgationBar(),
+        ),
+        (route) => false,
+      );
+    } else {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (_) => const PersonalisasiKonten(),
+        ),
+        (route) => false,
+      );
+    }
+    notifyListeners();
+  }
 }
