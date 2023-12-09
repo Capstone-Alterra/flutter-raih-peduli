@@ -12,6 +12,7 @@ import 'package:flutter_raih_peduli/screen/view_model/view_model_onboarding.dart
 import 'package:flutter_raih_peduli/screen/view_model/view_model_signup.dart';
 import 'screen/view_model/view_model_detail_volunteer.dart';
 import 'screen/view_model/view_model_news.dart';
+import 'screen/view_model/view_model_personalisasi.dart';
 import 'screen/view_model/view_model_signin.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_navigation.dart';
 
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => VolunteerViewModel()),
           ChangeNotifierProvider(create: (_) => GantiPasswordViewModel()),
           ChangeNotifierProvider(create: (_) => DetailVolunteerViewModel()),
+          ChangeNotifierProvider(create: (_) => PersonalisasiViewModel()),
         ],
         child: MaterialApp(
           theme: ThemeData(
