@@ -14,10 +14,11 @@ import 'package:flutter_raih_peduli/theme.dart';
 
 class TransactionPaymentTypeScreen extends StatelessWidget {
   List<PaymentType> paymentTypeList;
+  String amount;
   String title;
   final Datum fundraise;
 
-  TransactionPaymentTypeScreen({super.key, required this.fundraise, required this.paymentTypeList, required this.title});
+  TransactionPaymentTypeScreen({super.key, required this.fundraise, required this.paymentTypeList, required this.title, required this.amount});
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +67,7 @@ class TransactionPaymentTypeScreen extends StatelessWidget {
                       MaterialPageRoute(
                         builder: (context) =>
                             TransactionConfirmScreen(
-                              fundraise: fundraise, paymentType: paymentType),
+                              fundraise: fundraise, paymentType: paymentType, amount: amount),
                       ));
                 }),
           ],

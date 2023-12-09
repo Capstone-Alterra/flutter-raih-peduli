@@ -4,6 +4,8 @@ import 'package:flutter_raih_peduli/model/model_fundraise_pagination.dart';
 import 'package:flutter_raih_peduli/screen/view/fundraises/transaction_payment_method_screen.dart';
 import 'package:flutter_raih_peduli/screen/view/fundraises/widgets/amount_button_widget.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_fundraises.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_transaction.dart';
 
 // import 'package:flutter_raih_peduli/screen/view/volunteer/form_apply.dart';
 // import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/save_widget.dart';
@@ -14,13 +16,16 @@ import 'package:provider/provider.dart';
 // import 'package:intl/intl.dart';
 
 class TransactionConfirmScreen extends StatelessWidget {
+  String amount;
   PaymentType paymentType;
   final Datum fundraise;
 
-  TransactionConfirmScreen({super.key, required this.fundraise, required this.paymentType});
+  TransactionConfirmScreen({super.key, required this.fundraise, required this.paymentType, required this.amount});
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = Provider.of<TransactionViewModel>(context, listen: false);
+    final sp = Provider.of<SignInViewModel>(context, listen: false);
     Size size = MediaQuery
         .of(context)
         .size;
@@ -85,7 +90,9 @@ class TransactionConfirmScreen extends StatelessWidget {
             padding: const EdgeInsets.all(16.0),
             child: ElevatedButton(
               onPressed: () {
-                // Tambahkan logika yang diinginkan saat tombol ditekan
+                viewModel.createTransaction(accessToken: sp.accessTokenSharedPreference, refreshToken: sp.refreshTokenSharedPreference,amount: int.parse(amount),fundraiseId: fundraise.id, paymentType: paymentType.id );
+                //Tambahkan logika yang diinginkan saat tombol ditekan
+
                 //   Navigator.push(
                 //       context,
                 //       MaterialPageRoute(
