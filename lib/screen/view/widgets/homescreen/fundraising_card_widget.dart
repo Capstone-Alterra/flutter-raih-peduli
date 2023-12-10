@@ -8,8 +8,11 @@ import 'package:flutter_raih_peduli/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
+import '../../fundraises/detail_fundraise.dart';
+
 class FundraisingCard extends StatelessWidget {
   // final Data fundraiseData;
+  final int id;
   final String photo;
   final String title;
   final String description;
@@ -21,6 +24,7 @@ class FundraisingCard extends StatelessWidget {
     required this.title,
     required this.description,
     required this.target,
+    required this.id,
   });
 
   @override
@@ -126,16 +130,15 @@ class FundraisingCard extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => NewsDetailPage(
-                    //       title: title,
-                    //       image: imageUrl,
-                    //       description: description,
-                    //     ),
-                    //   ),
-                    // );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DetailFundraisePage(
+                       
+                          id: id,
+                        ),
+                      ),
+                    );
                   },
                   child: Container(
                     width: sizecontent / 3,

@@ -2,18 +2,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/model_fundraise_pagination.dart';
-import 'package:flutter_raih_peduli/screen/view/fundraises/detail_fundraise.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/save_widget.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_fundraises.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:flutter_svg/svg.dart';
-// import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+import 'detail_fundraise.dart';
 
 class CardFundraise extends StatelessWidget {
   final Datum fundraise;
   const CardFundraise({super.key, required this.fundraise});
-
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +20,14 @@ class CardFundraise extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) =>
-              DetailFundraisePage(fundraise: fundraise),
-        ),
-      );},
+          context,
+          MaterialPageRoute(
+            builder: (context) => DetailFundraisePage(
+              id: fundraise.id,
+            ),
+          ),
+        );
+      },
       child: Card(
         color: AppTheme.white,
         elevation: 3,
@@ -188,15 +188,6 @@ class CardFundraise extends StatelessWidget {
                         ],
                       ),
                     ),
-                    //                     Padding(
-                    //   padding: const EdgeInsets.only(right: 8.0),
-                    //   child: LinearProgressIndicator(
-                    //     value: volunteerData.totalRegistrar /
-                    //         volunteerData.numberOfVacancies,
-                    //     color: AppTheme.primaryColor,
-                    //     backgroundColor: Colors.grey,
-                    //   ),
-                    // ),
                   ],
                 ),
               ),

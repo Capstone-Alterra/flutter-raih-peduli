@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/bank_ewallet.dart';
-import 'package:flutter_raih_peduli/model/model_fundraise_pagination.dart';
+// import 'package:flutter_raih_peduli/model/model_fundraise_pagination.dart';
 // import 'package:flutter_raih_peduli/screen/view/fundraises/transaction_payment_method_screen.dart';
 // import 'package:flutter_raih_peduli/screen/view/fundraises/widgets/amount_button_widget.dart';
 // import 'package:flutter_raih_peduli/screen/view_model/view_model_fundraises.dart';
@@ -17,9 +17,10 @@ import 'package:flutter_raih_peduli/theme.dart';
 
 class TransactionConfirmScreen extends StatelessWidget {
   PaymentType paymentType;
-  final Datum fundraise;
+  // final Datum fundraise;
+  final int id;
 
-  TransactionConfirmScreen({super.key, required this.fundraise, required this.paymentType});
+  TransactionConfirmScreen({super.key, required this.id, required this.paymentType});
 
   @override
   Widget build(BuildContext context) {

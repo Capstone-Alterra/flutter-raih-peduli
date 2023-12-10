@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/screen/view/fundraises/fundraise_screen.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/homescreen/fundraising_card_widget.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/homescreen/news_card_widget.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/homescreen/viewall_widget.dart';
@@ -21,27 +22,16 @@ class HomeListViewBuilder extends StatefulWidget {
 }
 
 class _HomeListViewBuilderState extends State<HomeListViewBuilder> {
-  // late NewsViewModel viewModelNews;
-  // late FundraisesViewModel viewModelFundraises;
-  // late VolunteerViewModel viewModelVolunteer;
-
   late HomeViewModel viewModel;
   late SignInViewModel sp;
   @override
   void initState() {
-    // viewModelFundraises =
-    //     Provider.of<FundraisesViewModel>(context, listen: false);
-    // viewModelVolunteer =
-    //     Provider.of<VolunteerViewModel>(context, listen: false);
     viewModel = Provider.of<HomeViewModel>(context, listen: false);
     sp = Provider.of<SignInViewModel>(context, listen: false);
     viewModel.fetchHome(
       accessToken: sp.accessTokenSharedPreference,
       refreshToken: sp.refreshTokenSharedPreference,
     );
-    // viewModelFundraises.fetchAllFundraises();
-    // viewModelVolunteer.fetchAllVolunteer();
-    // viewModelNews.fetchAllNews();
     super.initState();
   }
 
@@ -74,7 +64,13 @@ class _HomeListViewBuilderState extends State<HomeListViewBuilder> {
                             ),
                             ViewallWidget(
                               onPressed: () {
-                                // Aksi yang akan dijalankan saat tombol ditekan
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const FundraiseScreen(),
+                                  ),
+                                );
                               },
                             ),
                           ],
@@ -87,9 +83,6 @@ class _HomeListViewBuilderState extends State<HomeListViewBuilder> {
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: [
-                        // for (var index = 0;
-                        //     index < viewModel.modelHome!.data.fundraise.length;
-                        //     index++)
                         for (var fundraise
                             in viewModel.modelHome!.data.fundraise)
                           SizedBox(
@@ -99,6 +92,7 @@ class _HomeListViewBuilderState extends State<HomeListViewBuilder> {
                               photo: fundraise.photo,
                               description: fundraise.description,
                               target: fundraise.target!,
+                              id: fundraise.id,
                             ),
                           ),
                       ],
@@ -152,6 +146,7 @@ class _HomeListViewBuilderState extends State<HomeListViewBuilder> {
                               title: volunteer.title,
                               description: volunteer.description,
                               numberOfVacancies: volunteer.numberOfVacancies!,
+                              id: volunteer.id,
                             ),
                           ),
                       ],

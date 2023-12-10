@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/model/model_volunteer_pagination.dart';
-// import 'package:flutter_raih_peduli/model/model_volunteer.dart';
-// import 'package:flutter_raih_peduli/model/model_volunteer.dart';
 import 'package:flutter_raih_peduli/screen/view/volunteer/detail_volunteer.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/save_widget.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_volunteer.dart';
@@ -9,12 +6,14 @@ import 'package:flutter_raih_peduli/theme.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
+import '../../../model/model_volunteer.dart';
+
 // import '../../../../model/model_volunteer_pagination.dart';
 
-class RelawanCard extends StatelessWidget {
+class RelawanCardSearch extends StatelessWidget {
   final Datum volunteerData;
 
-  const RelawanCard({
+  const RelawanCardSearch({
     super.key,
     required this.volunteerData,
   });

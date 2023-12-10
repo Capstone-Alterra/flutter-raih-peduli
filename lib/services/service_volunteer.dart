@@ -3,7 +3,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/model_volunteer.dart';
+import 'package:flutter_raih_peduli/model/model_volunteer_pagination.dart';
 
+import '../model/model_detail_volunteer.dart';
 import '../utils/utils.dart';
 
 class VolunteerService {
@@ -25,9 +27,36 @@ class VolunteerService {
     required String query,
   }) async {
     try {
-      final response = await _dio.get(Urls.baseUrl + Urls.searchVolunteer + query);
+      final response =
+          await _dio.get(Urls.baseUrl + Urls.searchVolunteer + query);
       debugPrint("=>${response.data}");
       return ModelVolunteer.fromJson(response.data);
+    } on DioError catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<ModelDetailVolunteer> hitDetailVolunteer({
+    required int id,
+  }) async {
+    try {
+      final response = await _dio.get(
+        "${Urls.baseUrl}${Urls.fetchDetailVolunteer}$id",
+      );
+      final newData = ModelDetailVolunteer.fromJson(response.data);
+      return newData;
+    } on DioError catch (_) {
+      rethrow;
+    }
+  }
+
+    Future<ModelVolunteerPagination> hitVolunteerPagination(int index) async {
+    try {
+      final response = await _dio.get(
+        "${Urls.baseUrl + Urls.fetchVolunteerPagination}$index&page_size=5",
+      );
+      debugPrint("=>${response.data}");
+      return ModelVolunteerPagination.fromJson(response.data);
     } on DioError catch (_) {
       rethrow;
     }
