@@ -1,29 +1,33 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/model/model_history.dart';
-import 'package:flutter_raih_peduli/services/service_history.dart';
+import 'package:flutter_raih_peduli/model/model_historycreatefundrise.dart';
+import 'package:flutter_raih_peduli/services/service_historycreatefundrise.dart';
+import 'package:flutter_raih_peduli/utils/state/finite_state.dart';
 
-class ProfileViewModel with ChangeNotifier {
-  HistoryAll? historyAll;
-  final service = HistoryService();
-  bool isLoading = false;
+class CreateFundriseViewModel extends ChangeNotifier {
+  MyState myState = MyState.loading;
+  HistoryCreateFundrise? historyCreateFundrise;
+  final services = HistoryCreateFundriseServices();
 
-  Future fetchProfile({
+  Future<void> getCreateFundriseHistory({
     required String accessToken,
     required String refreshToken,
   }) async {
     try {
-      isLoading = true;
-      historyAll = await service.fetchHistoryAll(token: accessToken);
-      isLoading = false;
+      myState = MyState.loading;
+      notifyListeners();
+      historyCreateFundrise =
+          await services.fetchHistoryCreateFundrise(token: accessToken);
+      print(historyCreateFundrise!.data);
+      myState = MyState.loaded;
       notifyListeners();
     } catch (e) {
-      // ignore: deprecated_member_use
-      if (e is DioError) {
-        isLoading = true;
+      if (e is DioException) {
+        myState = MyState.loading;
         notifyListeners();
-        historyAll = await service.fetchHistoryAll(token: refreshToken);
-        isLoading = false;
+        historyCreateFundrise =
+            await services.fetchHistoryCreateFundrise(token: refreshToken);
+        myState = MyState.loaded;
         notifyListeners();
         e.response!.statusCode;
       }

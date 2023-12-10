@@ -41,7 +41,7 @@ class SignInViewModel with ChangeNotifier {
     accessTokenSharedPreference = dataLogin!.data.accessToken;
     refreshTokenSharedPreference = dataLogin!.data.refreshToken;
     email.clear;
-    password.clear;
+    password.clear; 
     notifyListeners();
   }
 

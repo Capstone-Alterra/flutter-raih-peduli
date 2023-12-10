@@ -3,6 +3,7 @@ import 'package:flutter_raih_peduli/screen/view/onboarding/splash_screen.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_chatbot.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_fundraises.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_ganti_password.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_historydonation.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_homescreeen.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_profile.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_volunteer.dart';
@@ -46,6 +47,7 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => ChatbotViewModel()),
           ChangeNotifierProvider(create: (_) => VolunteerViewModel()),
           ChangeNotifierProvider(create: (_) => GantiPasswordViewModel()),
+          ChangeNotifierProvider(create: (_) => DonationHistoryViewModel()),
         ],
         child: MaterialApp(
           theme: ThemeData(

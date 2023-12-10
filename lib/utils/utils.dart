@@ -15,5 +15,6 @@ class Urls {
   static const String fetchAllVolunteer = "/volunteer-vacancies";
   static const String searchVolunteer = "/volunteer-vacancies?title=";
   static const String chatBot = "/chatbots";
-  static const String historyAll = "/history";
+  static const String historyCreateFundriseByUser = "/history/fundraises";
+  static const String historyDonation = "/history/donations";
 }
