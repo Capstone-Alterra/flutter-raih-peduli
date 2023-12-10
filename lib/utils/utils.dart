@@ -21,4 +21,5 @@ class Urls {
   static const String applyVolunteer = "/mobile/volunteer-vacancies/register";
   static const String fetchNewsPagination = "/news?page=";
   static const String fetchPersonalisasi = "/mobile/users/personalization";
+  static const String fetchHome = "/home/mobile";
 }

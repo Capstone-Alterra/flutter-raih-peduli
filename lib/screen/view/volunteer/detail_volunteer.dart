@@ -6,7 +6,7 @@ import 'package:flutter_raih_peduli/theme.dart';
 import 'package:intl/intl.dart';
 
 class DetailVolunteerPage extends StatelessWidget {
-  final Data volunteerData;
+  final Datum volunteerData;
   const DetailVolunteerPage({super.key, required this.volunteerData});
 
   @override
@@ -163,7 +163,7 @@ class DetailVolunteerPage extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 8.0),
                     child: Wrap(
                       children: [
-                        for (var skill in volunteerData.skillsRequred)
+                        for (var skill in volunteerData.skillsRequired)
                           Container(
                             margin: const EdgeInsets.all(4.0),
                             padding: const EdgeInsets.symmetric(
