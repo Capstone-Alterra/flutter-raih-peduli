@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-SnackBar snackBarVolunteer(Size size, context, {required String message, required bool isError}) {
+SnackBar snackBarVolunteer(Size size, context) {
   return SnackBar(
     duration: const Duration(seconds: 3),
     dismissDirection: DismissDirection.up,
@@ -45,4 +45,3 @@ SnackBar snackBarVolunteer(Size size, context, {required String message, require
     ),
   );
 }
-

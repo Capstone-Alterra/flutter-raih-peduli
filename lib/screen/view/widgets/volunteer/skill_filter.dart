@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_detail_volunteer.dart';
 import 'package:flutter_raih_peduli/theme.dart';
+import 'package:provider/provider.dart';
 
 class SkillFilter extends StatefulWidget {
   @override
@@ -17,60 +18,67 @@ class _SkillFilterState extends State<SkillFilter> {
   }
 
   Widget _buildFilterOption(String title, List<String> options) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 26.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 16.0,
-              color: AppTheme.primaryColor,
-            ),
-          ),
-          const SizedBox(height: 4.0),
-          Row(
-            children: [
-              Expanded(
-                child: Wrap(
-                  spacing: 8.0,
-                  runSpacing: 4.0,
-                  children: options.map((option) {
-                    return ChoiceChip(
-                      label: Text(option),
-                      selected: _viewModel.selectedSkills.contains(option),
-                      onSelected: (bool selected) {
-                        setState(() {
-                          _viewModel.addSkill(option);
-                        });
-                      },
-                      labelStyle: TextStyle(
-                        color: _viewModel.selectedSkills.contains(option)
-                            ? AppTheme.primaryColor
-                            : Colors.grey,
-                      ),
-                      backgroundColor: Colors.white,
-                      selectedColor: AppTheme.primaryColor.withOpacity(0.2),
-                      shape: StadiumBorder(
-                        side: BorderSide(
-                          color: _viewModel.selectedSkills.contains(option)
-                              ? AppTheme.primaryColor
-                              : Colors.grey.withOpacity(0.5),
-                        ),
-                      ),
-                    );
-                  }).toList(),
-                ),
+  return Consumer<DetailVolunteerViewModel>(
+    builder: (context, viewModel, child) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 26.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16.0,
+                color: AppTheme.primaryColor,
               ),
-            ],
-          ),
-          const SizedBox(height: 16.0),
-        ],
-      ),
-    );
-  }
+            ),
+            const SizedBox(height: 4.0),
+            Row(
+              children: [
+                Expanded(
+                  child: Wrap(
+                    spacing: 8.0,
+                    runSpacing: 4.0,
+                    children: options.map((option) {
+                      return ChoiceChip(
+                        label: Text(option),
+                        selected: viewModel.selectedSkills.contains(option),
+                        onSelected: (bool selected) {
+                          if (selected) {
+                            viewModel.addSkill(option);
+                          } else {
+                            viewModel.removeSkill(option);
+                          }
+                        },
+                        labelStyle: TextStyle(
+                          color: viewModel.selectedSkills.contains(option)
+                              ? AppTheme.primaryColor
+                              : Colors.grey,
+                        ),
+                        backgroundColor: Colors.white,
+                        selectedColor: AppTheme.primaryColor.withOpacity(0.2),
+                        shape: StadiumBorder(
+                          side: BorderSide(
+                            color: viewModel.selectedSkills.contains(option)
+                                ? AppTheme.primaryColor
+                                : Colors.grey.withOpacity(0.5),
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16.0),
+          ],
+        ),
+      );
+    },
+  );
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -99,6 +107,7 @@ class _SkillFilterState extends State<SkillFilter> {
                     icon: const Icon(Icons.close),
                     onPressed: () {
                       Navigator.pop(context);
+                      _viewModel.clearSelectedSkills();
                     },
                   ),
                 ],

@@ -1,5 +1,5 @@
-import 'dart:convert';
 import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/utils/utils.dart';
@@ -7,55 +7,40 @@ import 'package:flutter_raih_peduli/utils/utils.dart';
 class ApplyVolunteerService {
   final Dio dio = Dio();
 
-  Future<void> applyVolunteerWithRefreshToken(
-    int volunteerId,
-    List<String> selectedSkills,
-    TextEditingController resumeController,
-    TextEditingController reasonController,
-    File imageFile,
-    String imagePath,
-    String accessTokenSharedPreference,
-    String refreshTokenSharedPreference,
-  ) async {
+  Future<void> hitApplyVolunteer({
+    required String token,
+    required int id,
+    required String skills,
+    required String resume,
+    required String reason,
+    required File foto,
+  }) async {
     try {
-      final accessToken = accessTokenSharedPreference;
-      final refreshToken = refreshTokenSharedPreference;
+      final formData = FormData.fromMap({
+        'vacancy_id': id,
+        'skills': skills,
+        'resume': resume,
+        'reason': reason,
+        'photo': await MultipartFile.fromFile(
+          foto.path,
+          filename: 'photo.jpg',
+        ),
+      });
 
-      // Baca file sebagai bytes
-      //List<int> imageBytes = await imageFile.readAsBytes();
-
-      // Encode bytes menjadi base64
-      //String base64Image = base64Encode(imageBytes);
-
-      // Kirim permintaan POST
-      Response response = await dio.post(
+      final response = await dio.post(
         Urls.baseUrl + Urls.applyVolunteer,
         options: Options(
           headers: {
-            'Authorization': refreshToken,
+            'Authorization': 'Bearer $token',
           },
         ),
-        data: {
-          'vacancy_id': volunteerId,
-          'skills': selectedSkills.join(','),
-          'resume': resumeController.text,
-          'reason': reasonController.text,
-          'photo': imageFile,
-        },
+        data: formData,
       );
 
-      // Cek status response
-      if (response.statusCode == 200) {
-        // Volunteer berhasil mendaftar
-        print('Volunteer berhasil mendaftar.');
-      } else {
-        // Ada kesalahan dalam permintaan
-        print(
-            'Gagal mendaftar sebagai Volunteer. Status: ${response.statusCode}');
-      }
-    } catch (error) {
-      // Tangani kesalahan
-      print('Terjadi kesalahan: $error');
+      debugPrint("API Response: ${response.data}");
+    } catch (e) {
+      debugPrint("Unexpected error: $e");
+      rethrow;
     }
   }
 }

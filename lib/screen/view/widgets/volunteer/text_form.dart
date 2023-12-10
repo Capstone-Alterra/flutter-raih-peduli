@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
-import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/skill_filter.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/text_volunteer.dart';
-import 'package:flutter_raih_peduli/screen/view_model/view_model_detail_volunteer.dart';
-import 'package:flutter_raih_peduli/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:path/path.dart';
 import 'package:provider/provider.dart';
+
+import '../../../../theme.dart';
+import '../../../view_model/view_model_detail_volunteer.dart';
+import 'skill_filter.dart';
 
 class TextFormVolunteer extends StatefulWidget {
   const TextFormVolunteer({Key? key});
@@ -18,9 +19,8 @@ class TextFormVolunteerState extends State<TextFormVolunteer> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
     return Consumer<DetailVolunteerViewModel>(
-      builder: (context, viewModel, _) {
+      builder: (context, viewModel, child) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -30,10 +30,15 @@ class TextFormVolunteerState extends State<TextFormVolunteer> {
               onTap: () async {
                 final selectedSkillResult = await showSkillFilter(context);
                 if (selectedSkillResult != null) {
-                  viewModel.selectedSkills = selectedSkillResult
+                  final skills = selectedSkillResult
                       .split(',')
                       .map((e) => e.trim())
                       .toList();
+
+                  for (var skill in skills) {
+                    viewModel.addSkill(skill);
+                  }
+
                   viewModel.skillController.text =
                       viewModel.selectedSkills.join(', ');
                 }
@@ -52,22 +57,37 @@ class TextFormVolunteerState extends State<TextFormVolunteer> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      viewModel.selectedSkills.isEmpty
-                          ? const Text(
-                              'Select Skills',
-                              style: TextStyle(
-                                color: Color(0xffB0B0B0),
+                      Expanded(
+                        child: Wrap(
+                          spacing: 6.0,
+                          runSpacing: 4.0,
+                          children: viewModel.selectedSkills.map((skill) {
+                            return Chip(
+                              label: Text(
+                                skill,
+                                style: const TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              deleteIcon: const Icon(
+                                Icons.close,
+                                color: AppTheme.white,
+                                size: 16,
+                              ),
+                              onDeleted: () {
+                                viewModel.removeSkill(skill);
+                              },
+                              backgroundColor: AppTheme.primaryColor,
+                              labelStyle: const TextStyle(
+                                color: AppTheme.white,
                                 fontFamily: 'Helvetica',
                                 fontSize: 12,
                               ),
-                            )
-                          : Wrap(
-                              spacing: 6.0,
-                              runSpacing: 4.0,
-                              children: viewModel.selectedSkills.map((skill) {
-                                return _buildSkillChip(skill);
-                              }).toList(),
-                            ),
+                            );
+                          }).toList(),
+                        ),
+                      ),
                       const Icon(Icons.arrow_drop_down),
                     ],
                   ),
@@ -215,7 +235,7 @@ class TextFormVolunteerState extends State<TextFormVolunteer> {
                               if (viewModel.imagePath != null)
                                 GestureDetector(
                                   onTap: () {
-                                    viewModel.imagePath = null;
+                                    viewModel.removeImagePath();
                                   },
                                   child: Container(
                                     padding: const EdgeInsets.all(8),
@@ -237,32 +257,6 @@ class TextFormVolunteerState extends State<TextFormVolunteer> {
           ],
         );
       },
-    );
-  }
-
-  Widget _buildSkillChip(String skill) {
-    final DetailVolunteerViewModel viewModel = DetailVolunteerViewModel();
-    return Chip(
-      label: Text(
-        skill,
-        style: const TextStyle(
-            fontSize: 10, // Sesuaikan ukuran font sesuai kebutuhan
-            fontWeight: FontWeight.bold),
-      ),
-      deleteIcon: const Icon(
-        Icons.close,
-        color: AppTheme.white,
-        size: 16, // Sesuaikan ukuran ikon delete sesuai kebutuhan
-      ),
-      onDeleted: () {
-          viewModel.selectedSkills.remove(skill);
-      },
-      backgroundColor: AppTheme.primaryColor,
-      labelStyle: const TextStyle(
-        color: AppTheme.white,
-        fontFamily: 'Helvetica',
-        fontSize: 12,
-      ),
     );
   }
 }

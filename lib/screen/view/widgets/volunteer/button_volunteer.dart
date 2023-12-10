@@ -1,31 +1,35 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/screen/view/settings/edit_profile.dart';
-// import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/dialog_popup.dart';
+import 'package:flutter_raih_peduli/screen/view/volunteer/access_volunteer_screen.dart';
+// import 'package:flutter_raih_peduli/screen/view/settings/edit_profile.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/dialog_popup.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/snackbar.dart';
-import 'package:flutter_raih_peduli/screen/view_model/view_model_detail_volunteer.dart';
 import 'package:provider/provider.dart';
+
+import '../../../view_model/view_model_detail_volunteer.dart';
+import '../../../view_model/view_model_signin.dart';
 
 class ButtonVolunteer extends StatefulWidget {
   final int volunteerId;
-
-  const ButtonVolunteer({Key? key, required this.volunteerId})
-      : super(key: key);
+  const ButtonVolunteer({super.key, required this.volunteerId});
 
   @override
-  State<ButtonVolunteer> createState() =>
-      _ButtonVolunteerState(volunteerId: volunteerId);
+  State<ButtonVolunteer> createState() => _ButtonVolunteerState();
 }
 
 class _ButtonVolunteerState extends State<ButtonVolunteer> {
-  // final DetailVolunteerViewModel viewModel = DetailVolunteerViewModel();
-  final int volunteerId;
-
-  _ButtonVolunteerState({required this.volunteerId});
+  late DetailVolunteerViewModel viewModel;
+  late SignInViewModel sp;
+  @override
+  void initState() {
+    viewModel = Provider.of<DetailVolunteerViewModel>(context, listen: false);
+    sp = Provider.of<SignInViewModel>(context, listen: false);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final viewModel =
-        Provider.of<DetailVolunteerViewModel>(context, listen: false);
     Size size = MediaQuery.of(context).size;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -42,19 +46,13 @@ class _ButtonVolunteerState extends State<ButtonVolunteer> {
           width: size.width * 0.43,
           child: ElevatedButton(
             onPressed: () {
-              final snackBar = snackBarVolunteer(
-                size,
-                context,
-                message:
-                    'Masukkan NIK terlebih dahulu sebelum memulai aplikasi Raih Peduli :)',
-                isError: true,
-              );
+              final snackBar = snackBarVolunteer(size, context);
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
               Future.delayed(const Duration(seconds: 4), () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ProfileEdit()),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => ProfileEdit()),
+                // );
               });
             },
             style: ButtonStyle(
@@ -83,8 +81,19 @@ class _ButtonVolunteerState extends State<ButtonVolunteer> {
           width: size.width * 0.43,
           child: ElevatedButton(
             onPressed: () async {
-              //showCustomDialog(context, size);
-              await viewModel.tambahData(context, volunteerId);
+              await viewModel.fetchApplyVolunteer(
+                volunteerId: widget.volunteerId,
+                accessToken: sp.accessTokenSharedPreference,
+                refreshToken: sp.refreshTokenSharedPreference,
+              );
+              showCustomDialog(context, size);
+              viewModel.clearAll();
+              Future.delayed(const Duration(seconds: 4), () {
+                Navigator.push(
+                   context,
+                   MaterialPageRoute(builder: (context) => const AccessVolunteerScreen()),
+                 );
+              });
             },
             style: ButtonStyle(
               elevation: MaterialStateProperty.all(0),

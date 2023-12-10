@@ -1,11 +1,13 @@
 import 'dart:io';
+import 'dart:js';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/dialog_popup.dart';
-import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
-import 'package:flutter_raih_peduli/services/service_apply_volunteer.dart';
-import 'package:flutter_raih_peduli/theme.dart';
+import 'package:flutter_raih_peduli/screen/view/settings/edit_profile.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/snackbar.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../../services/service_apply_volunteer.dart';
 
 class ImageData {
   final String path;
@@ -19,20 +21,32 @@ class DetailVolunteerViewModel with ChangeNotifier {
   TextEditingController resumeController = TextEditingController();
   TextEditingController reasonController = TextEditingController();
   TextEditingController skillController = TextEditingController();
+  final TextEditingController nikTextController = TextEditingController();
   File? imageFile;
   String? imagePath;
   int? volunteerId;
+  Size size = MediaQuery.of(context as BuildContext).size;
+  bool isNikEmpty() {
+    return nikTextController.text.trim().isEmpty;
+  }
 
   final service = ApplyVolunteerService();
-  final provider = SignInViewModel();
 
-  /*@override
-  void dispose() {
-    resumeController.dispose();
-    reasonController.dispose();
-    skillController.dispose();
-    super.dispose();
-  }*/
+  Future<void> checkNik(BuildContext context) async {
+    if (isNikEmpty()) {
+      // Lakukan navigasi atau tindakan lain jika NIK terisi
+      final snackBar = snackBarVolunteer(size, context);
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              Future.delayed(const Duration(seconds: 4), () {
+                 Navigator.push(
+                   context,
+                   MaterialPageRoute(builder: (context) => ProfileEdit()),
+                 );
+              });
+    } else {
+
+    }
+  }
 
   void setVolunteerId(int id) {
     volunteerId = id;
@@ -40,9 +54,12 @@ class DetailVolunteerViewModel with ChangeNotifier {
   }
 
   void addSkill(String skill) {
+  // Pastikan skill belum ada dalam daftar selectedSkills
+  if (!selectedSkills.contains(skill)) {
     selectedSkills.add(skill);
     notifyListeners();
   }
+}
 
   void removeSkill(String skill) {
     selectedSkills.remove(skill);
@@ -54,6 +71,11 @@ class DetailVolunteerViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  void removeImagePath() {
+    imagePath = null;
+    notifyListeners();
+  }
+
   Future<ImageData?> pickImage() async {
     final imagePicker = ImagePicker();
     final pickedImage =
@@ -61,6 +83,7 @@ class DetailVolunteerViewModel with ChangeNotifier {
 
     if (pickedImage != null) {
       // Mengembalikan ImageData yang berisi path dan file
+      notifyListeners();
       return ImageData(pickedImage.path, File(pickedImage.path));
     } else {
       // Tampilkan pesan kesalahan jika tidak ada gambar yang dipilih
@@ -69,66 +92,44 @@ class DetailVolunteerViewModel with ChangeNotifier {
     }
   }
 
-  Future<void> tambahData(BuildContext context, int volunteerId) async {
-    // Gantilah sesuai dengan kebutuhan Anda
-    final accessTokenSharedPreference = provider.accessTokenSharedPreference;
-    final refreshTokenSharedPreference = provider.refreshTokenSharedPreference;
-
-    // Cetak data untuk memeriksa
-    print('Volunteer ID: $volunteerId');
-    print('Selected Skills: $skillController');
-    print('Resume: ${resumeController.text}');
-    print('Reason: ${reasonController.text}');
-    print('Image Path: $imagePath');
-    print('token: $refreshTokenSharedPreference');
-
-    // Validasi data sebelum menambahkannya
-    if (selectedSkills.isEmpty ||
-        resumeController.text.isEmpty ||
-        reasonController.text.isEmpty ||
-        imagePath == null) {
-      // Tampilkan snackbar jika ada data yang kurang
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            'Harap isi semua data dengan lengkap.',
-            style: TextStyle(color: AppTheme.white),
-          ),
-          backgroundColor: Colors.red, // Ganti warna sesuai keinginan
-        ),
+  Future fetchApplyVolunteer({
+    required String accessToken,
+    required String refreshToken,
+    required int volunteerId,
+    // required File foto,
+  }) async {
+    try {
+      await service.hitApplyVolunteer(
+        token: accessToken,
+        id: volunteerId,
+        skills: skillController.text,
+        resume: resumeController.text,
+        reason: reasonController.text,
+        foto: imageFile!,
       );
-      return;
+    } catch (e) {
+      // ignore: deprecated_member_use
+      if (e is DioError) {
+        await service.hitApplyVolunteer(
+          token: refreshToken,
+          id: volunteerId,
+          skills: skillController.text,
+          resume: resumeController.text,
+          reason: reasonController.text,
+          foto: imageFile!,
+        );
+
+        e.response!.statusCode;
+      }
     }
-
-    // Lakukan sesuatu dengan data yang sudah diisi (misalnya, menyimpan ke database)
-    // ...
-    if (selectedSkills.isNotEmpty &&
-        resumeController.text.isNotEmpty &&
-        reasonController.text.isNotEmpty &&
-        imagePath != null) {
-          
-      await service.applyVolunteerWithRefreshToken(
-          volunteerId,
-          selectedSkills,
-          resumeController,
-          reasonController,
-          imageFile!,
-          imagePath!,
-          accessTokenSharedPreference,
-          refreshTokenSharedPreference);
-
-      showCustomDialog(context, Size.zero);
-    }
-
-    // Reset form dan tampilkan snackbar atau navigasi ke halaman lain jika diperlukan
-    clearForm();
+    notifyListeners();
   }
 
-  // Tambahkan metode untuk mereset form
-  void clearForm() {
+  void clearAll() {
     selectedSkills.clear();
     resumeController.clear();
     reasonController.clear();
+    imageFile = null;
     imagePath = null;
     notifyListeners();
   }
