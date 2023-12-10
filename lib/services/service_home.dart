@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/model_home.dart';
 
 import '../utils/utils.dart';
@@ -19,11 +18,13 @@ class HomeService {
           },
         ),
       );
-      debugPrint("=>${response.data}");
       return ModelHome.fromJson(response.data);
       // ignore: deprecated_member_use
     } on DioError catch (_) {
-      rethrow;
+      final response = await _dio.get(
+        Urls.baseUrl + Urls.fetchHome,
+      );
+      return ModelHome.fromJson(response.data);
     }
   }
 }

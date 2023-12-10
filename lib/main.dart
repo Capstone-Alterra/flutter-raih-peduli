@@ -19,11 +19,7 @@ import 'package:flutter_raih_peduli/screen/view_model/view_model_navigation.dart
 
 void main() async {
   final signInViewModel = SignInViewModel();
-  // final newsViewModel = NewsViewModel();
-  // final fundraiseViewModel = FundraisesViewModel();
   runApp(const MyApp());
-  // await fundraiseViewModel.fetchAllFundraises();
-  // await newsViewModel.fetchAllNews();
   await signInViewModel.checkSharedPreferences();
 }
 
