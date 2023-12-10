@@ -1,7 +1,9 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
-import '../../../model/model_news.dart';
+import 'package:flutter_raih_peduli/model/model_news_pagination.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_news.dart';
+import 'package:provider/provider.dart';
 import 'newsdetailpage.dart';
 
 class News extends StatefulWidget {
@@ -21,6 +23,7 @@ class _NewsState extends State<News> {
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = Provider.of<NewsViewModel>(context, listen: false);
     return Card(
       color: const Color(0xffFFFFFF),
       elevation: 0,
@@ -59,7 +62,7 @@ class _NewsState extends State<News> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    widget.newsData.title,
+                    viewModel.truncateText(widget.newsData.title, 25),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
@@ -72,7 +75,7 @@ class _NewsState extends State<News> {
                     height: 5,
                   ),
                   Text(
-                    widget.newsData.description,
+                    viewModel.truncateText(widget.newsData.description, 45),
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
@@ -92,7 +95,9 @@ class _NewsState extends State<News> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => NewsDetailPage(
-                                newsData: widget.newsData,
+                                foto: widget.newsData.photo,
+                                title: widget.newsData.title,
+                                description: widget.newsData.description,
                               ),
                             ),
                           );

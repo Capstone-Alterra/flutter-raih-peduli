@@ -1,28 +1,38 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/screen/view/widgets/settings/widget_profile_edit.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/settings/text_title_text_field.dart';
+// import 'package:flutter_raih_peduli/screen/view/widgets/settings/widget_profile_edit.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+
+import '../../view_model/view_model_profile.dart';
+import '../widgets/settings/text_field_setting.dart';
 
 class ProfileEdit extends StatefulWidget {
-  String foto;
-  String fullname;
-  String email;
-  String telp;
-  String address;
-  ProfileEdit(
-      {required this.foto,
-      required this.fullname,
-      required this.email,
-      required this.telp,
-      required this.address,
-      super.key});
+  const ProfileEdit({super.key});
 
   @override
   State<ProfileEdit> createState() => _ProfileEditState();
 }
 
 class _ProfileEditState extends State<ProfileEdit> {
+  late ProfileViewModel viewModel;
+  late SignInViewModel sp;
+  @override
+  void initState() {
+    viewModel = Provider.of<ProfileViewModel>(context, listen: false);
+    sp = Provider.of<SignInViewModel>(context, listen: false);
+    final accessToken = sp.accessTokenSharedPreference;
+    final refreshToken = sp.refreshTokenSharedPreference;
+    viewModel.fetchProfile(
+      accessToken: accessToken,
+      refreshToken: refreshToken,
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -34,19 +44,20 @@ class _ProfileEditState extends State<ProfileEdit> {
         title: const Text(
           'Ubah Profile',
           style: TextStyle(
-              color: Color(0xff293066),
-              fontFamily: 'Helvetica',
-              fontSize: 18,
-              fontWeight: FontWeight.bold),
+            color: Color(0xff293066),
+            fontFamily: 'Helvetica',
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 40, right: 40, top: 50),
-          child: Align(
-            alignment: const AlignmentDirectional(0.00, 0.00),
+        child: SizedBox(
+          height: size.height * 1.1,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               children: [
                 GestureDetector(
@@ -56,26 +67,71 @@ class _ProfileEditState extends State<ProfileEdit> {
                   child: Stack(
                     children: [
                       CircleAvatar(
-                        radius: size.width * 0.19,
+                        radius: size.width * 0.17,
                         backgroundImage: NetworkImage(
-                          widget.foto,
-                        ),
+                            viewModel.modelProfile!.data.profilePicture),
                       ),
                       Positioned(
                         bottom: 0,
-                        left: size.width * 0.30,
+                        left: size.width * 0.25,
                         child: SvgPicture.asset('assets/edit.svg'),
                       ),
                     ],
                   ),
                 ),
-                SizedBox(height: size.height * 0.1),
-                EditTextField(
-                  email: widget.email,
-                  fullname: widget.fullname,
-                  phone: widget.telp,
-                  address: widget.address,
+                SizedBox(height: size.height * 0.03),
+                Consumer<ProfileViewModel>(
+                  builder: (context, contactModel, child) {
+                    return viewModel.isLoading
+                        ? const Center(child: CircularProgressIndicator())
+                        : Column(
+                            children: [
+                              textSetting(text: "Fullname"),
+                              textFieldSetting(
+                                controller: viewModel.fullNameController,
+                                labelText:
+                                    viewModel.modelProfile!.data.fullname,
+                              ),
+                              SizedBox(height: size.height * 0.015),
+                              textSetting(text: "Email"),
+                              textFieldSetting(
+                                // enable: false,
+                                controller: viewModel.emailController,
+                                labelText: viewModel.modelProfile!.data.email,
+                              ),
+                              SizedBox(height: size.height * 0.015),
+                              textSetting(text: "Nomor Telepon"),
+                              textFieldSetting(
+                                controller: viewModel.telpController,
+                                labelText:
+                                    viewModel.modelProfile!.data.phoneNumber,
+                              ),
+                              SizedBox(height: size.height * 0.015),
+                              textSetting(text: "Alamat"),
+                              textFieldSetting(
+                                controller: viewModel.alamatController,
+                                labelText: viewModel.modelProfile!.data.address,
+                              ),
+                              SizedBox(height: size.height * 0.015),
+                              textSetting(text: "Nik"),
+                              textFieldSetting(
+                                // enable: false,
+                                controller: viewModel.nikController,
+                                labelText: viewModel.modelProfile!.data.nik,
+                              ),
+                            ],
+                          );
+                  },
                 ),
+                ElevatedButton(
+                  onPressed: () {
+                    viewModel.fetchNik(
+                      accessToken: sp.accessTokenSharedPreference,
+                      refreshToken: sp.refreshTokenSharedPreference,
+                    );
+                  },
+                  child: const Text("send"),
+                )
               ],
             ),
           ),

@@ -7,6 +7,11 @@ class ProfileViewModel with ChangeNotifier {
   ModelProfile? modelProfile;
   final service = ProfileService();
   bool isLoading = false;
+  final TextEditingController fullNameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController telpController = TextEditingController();
+  final TextEditingController alamatController = TextEditingController();
+  final TextEditingController nikController = TextEditingController();
 
   Future fetchProfile({
     required String accessToken,
@@ -16,17 +21,45 @@ class ProfileViewModel with ChangeNotifier {
       isLoading = true;
       modelProfile = await service.hitProfile(token: accessToken);
       isLoading = false;
-      notifyListeners();
     } catch (e) {
       // ignore: deprecated_member_use
       if (e is DioError) {
         isLoading = true;
-        notifyListeners();
         modelProfile = await service.hitProfile(token: refreshToken);
         isLoading = false;
-        notifyListeners();
         e.response!.statusCode;
       }
     }
+    notifyListeners();
+  }
+
+  Future fetchNik({
+    required String accessToken,
+    required String refreshToken,
+  }) async {
+    try {
+      await service.hitUpdateProfile(
+        token: accessToken,
+        fullname: fullNameController.text,
+        email: emailController.text,
+        nik: nikController.text,
+        phone: telpController.text,
+        address: alamatController.text,
+      );
+    } catch (e) {
+      // ignore: deprecated_member_use
+      if (e is DioError) {
+        await service.hitUpdateProfile(
+          token: refreshToken,
+          fullname: fullNameController.text,
+          email: emailController.text,
+          nik: nikController.text,
+          phone: telpController.text,
+          address: alamatController.text,
+        );
+        e.response!.statusCode;
+      }
+    }
+    notifyListeners();
   }
 }

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/model_fundraise_pagination.dart';
+import 'package:flutter_raih_peduli/screen/view/fundraises/detail_fundraise.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/save_widget.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_fundraises.dart';
 import 'package:flutter_raih_peduli/theme.dart';
@@ -13,12 +14,20 @@ class CardFundraise extends StatelessWidget {
   final Datum fundraise;
   const CardFundraise({super.key, required this.fundraise});
 
+
   @override
   Widget build(BuildContext context) {
     final viewModel = Provider.of<FundraisesViewModel>(context, listen: false);
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              DetailFundraisePage(fundraise: fundraise),
+        ),
+      );},
       child: Card(
         color: AppTheme.white,
         elevation: 3,

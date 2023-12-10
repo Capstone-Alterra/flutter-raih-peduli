@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/model/model_volunteer.dart';
-import 'package:flutter_raih_peduli/screen/view/volunteer/detail_volunteer.dart';
+// import 'package:flutter_raih_peduli/model/model_volunteer.dart';
+// import 'package:flutter_raih_peduli/screen/view/volunteer/detail_volunteer.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class VolunteerCard extends StatelessWidget {
-  final Data volunteerData;
+  // final Datum volunteerData;
+  final String photo;
+  final String title;
+  final String description;
+  final int numberOfVacancies;
 
   const VolunteerCard({
     super.key,
-    required this.volunteerData,
+    required this.photo,
+    required this.title,
+    required this.description,
+    required this.numberOfVacancies,
   });
 
   @override
@@ -39,7 +46,7 @@ class VolunteerCard extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(8.0)),
                     child: Image.network(
-                      volunteerData.photo,
+                      photo,
                       width: double.infinity,
                       fit: BoxFit.cover,
                     ),
@@ -53,7 +60,7 @@ class VolunteerCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      volunteerData.title,
+                      title,
                       style: TextStyle(
                         color: AppTheme.primaryColor,
                         fontFamily: 'Helvetica',
@@ -63,7 +70,7 @@ class VolunteerCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 1),
                     Text(
-                      volunteerData.description,
+                      description,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -101,7 +108,7 @@ class VolunteerCard extends StatelessWidget {
                       ],
                     ),
                     Text(
-                      '${volunteerData.numberOfVacancies} Orang',
+                      '${numberOfVacancies} Orang',
                       style: TextStyle(
                         fontFamily: 'Helvetica',
                         color: AppTheme.primaryColor,
@@ -113,13 +120,13 @@ class VolunteerCard extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            DetailVolunteerPage(volunteerData: volunteerData),
-                      ),
-                    );
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) =>
+                    //         DetailVolunteerPage(volunteerData: volunteerData),
+                    //   ),
+                    // );
                   },
                   child: Container(
                     width: sizecontent / 3,

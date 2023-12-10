@@ -90,10 +90,7 @@ class AccessVolunteerScreen extends StatelessWidget {
             ),
           ],
         ),
-        floatingActionButton: Padding(
-          padding: const EdgeInsets.only(bottom: 0),
-          child: CustomFloatingButton(),
-        ),
+        floatingActionButton: CustomFloatingButton(),
       ),
     );
   }

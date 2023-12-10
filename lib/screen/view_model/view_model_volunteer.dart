@@ -13,7 +13,7 @@ class VolunteerViewModel with ChangeNotifier {
   bool _isOverlayVisible = false;
   bool get isOverlayVisible => _isOverlayVisible;
 
-  VolunteerViewModel(){
+  VolunteerViewModel() {
     fetchAllVolunteer();
   }
 
@@ -42,7 +42,7 @@ class VolunteerViewModel with ChangeNotifier {
     }
   }
 
-    String truncateText(String text, int maxLength) {
+  String truncateText(String text, int maxLength) {
     if (text.length <= maxLength) {
       return text;
     }

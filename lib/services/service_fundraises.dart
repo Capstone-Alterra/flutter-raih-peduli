@@ -38,7 +38,7 @@ class FundraisesService {
   ) async {
     try {
       final response = await _dio.get(
-        "${Urls.baseUrl}${Urls.fetchFundraisesPagination}$index&page_size=1",
+        "${Urls.baseUrl}${Urls.fetchFundraisesPagination}$index&page_size=2",
       );
       debugPrint("=>${response.data}");
 

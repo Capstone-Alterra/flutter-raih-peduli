@@ -1,11 +1,17 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
-import '../../../model/model_news.dart';
+import 'package:flutter_raih_peduli/theme.dart';
 
 class NewsDetailPage extends StatelessWidget {
-  final Datum newsData;
+  String? foto;
+  String? title;
+  String? description;
 
-  const NewsDetailPage({
-    required this.newsData,
+  NewsDetailPage({
+    this.foto,
+    this.title,
+    this.description,
     super.key,
   });
 
@@ -16,6 +22,15 @@ class NewsDetailPage extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0.0,
         title: const Text('Detail Berita'),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: AppTheme.primaryColor,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -25,11 +40,14 @@ class NewsDetailPage extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(12.0),
-                child: Image.network(newsData.photo, fit: BoxFit.cover),
+                child: Image.network(
+                  foto ?? "",
+                  fit: BoxFit.cover,
+                ),
               ),
               const SizedBox(height: 10.0),
               Text(
-                newsData.title,
+                title ?? "",
                 style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -38,7 +56,7 @@ class NewsDetailPage extends StatelessWidget {
               ),
               const SizedBox(height: 12.0),
               Text(
-                newsData.description,
+                description ?? "",
                 maxLines: null,
                 style: const TextStyle(
                   color: Color(0xFF293066),

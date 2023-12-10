@@ -12,6 +12,7 @@ class CustomFloatingButton extends StatefulWidget {
 class _CustomFloatingButtonState extends State<CustomFloatingButton> {
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     final overlayProvider = Provider.of<VolunteerViewModel>(context);
 
     return Stack(
@@ -19,7 +20,8 @@ class _CustomFloatingButtonState extends State<CustomFloatingButton> {
         // Overlay
         if (overlayProvider.isOverlayVisible)
           Padding(
-            padding: const EdgeInsets.only(top: 600.0, left: 140),
+            padding:
+                EdgeInsets.only(top: size.height / 1.4, left: size.width / 3),
             child: Column(
               children: [
                 // Button 1: Buat Request Donasi
@@ -27,36 +29,37 @@ class _CustomFloatingButtonState extends State<CustomFloatingButton> {
                   padding: const EdgeInsets.only(left: 16.0),
                   child: Row(
                     children: [
-                      const Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          'Buat Request Donasi',
-                          style: TextStyle(
-                            fontFamily: 'Helvetica',
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            fontSize: 17.0,
-                          ),
+                      Text(
+                        'Buat Request Donasi',
+                        style: TextStyle(
+                          fontFamily: 'Helvetica',
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: size.height / 50,
                         ),
                       ),
                       const Spacer(),
-                      ElevatedButton(
-                        onPressed: () {
-                          // Handle action for Buat Request Donasi
-                          overlayProvider.toggleOverlay();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
+                      GestureDetector(
+                        onTap: () {},
+                        child: Container(
+                          width: size.height / 13,
+                          height: size.height / 13,
+                          decoration: const BoxDecoration(
+                            color: AppTheme.primaryColor,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(
+                                8.0,
+                              ),
+                            ),
                           ),
-                          backgroundColor: AppTheme.primaryColor,
-                          padding: const EdgeInsets.all(16.0),
+                          child: Center(
+                            child: SvgPicture.asset(
+                              'assets/donate.svg',
+                              height: size.height / 25,
+                            ),
+                          ),
                         ),
-                        child: SvgPicture.asset(
-                          'assets/donate.svg', // Gantilah dengan path SVG yang sesuai
-                          height: 24.0, // Sesuaikan dengan kebutuhan
-                        ),
-                      ),
+                      )
                     ],
                   ),
                 ),
@@ -68,37 +71,37 @@ class _CustomFloatingButtonState extends State<CustomFloatingButton> {
                   padding: const EdgeInsets.only(left: 16.0),
                   child: Row(
                     children: [
-                      const Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          'Buat Request Relawan',
-                          style: TextStyle(
-                            fontFamily: 'Helvetica',
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            fontSize: 17.0,
-                          ),
+                      Text(
+                        'Buat Request Relawan',
+                        style: TextStyle(
+                          fontFamily: 'Helvetica',
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: size.height / 50,
                         ),
                       ),
                       const Spacer(),
-                      ElevatedButton(
-                        onPressed: () {
-                          // Handle action for Buat Request Relawan
-                          
-                          overlayProvider.toggleOverlay();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
+                      GestureDetector(
+                        onTap: () {},
+                        child: Container(
+                          width: size.height / 13,
+                          height: size.height / 13,
+                          decoration: const BoxDecoration(
+                            color: AppTheme.primaryColor,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(
+                                8.0,
+                              ),
+                            ),
                           ),
-                          backgroundColor: AppTheme.primaryColor,
-                          padding: const EdgeInsets.all(16.0),
+                          child: Center(
+                            child: SvgPicture.asset(
+                              'assets/tangan_create_volunteer.svg',
+                              height: size.height / 25,
+                            ),
+                          ),
                         ),
-                        child: SvgPicture.asset(
-                          'assets/volunteer.svg', // Gantilah dengan path SVG yang sesuai
-                          height: 24.0, // Sesuaikan dengan kebutuhan
-                        ),
-                      ),
+                      )
                     ],
                   ),
                 ),

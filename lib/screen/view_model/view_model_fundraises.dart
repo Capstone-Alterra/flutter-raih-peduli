@@ -1,3 +1,5 @@
+// import 'dart:ffi';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/model_fundraise_pagination.dart';
@@ -6,9 +8,15 @@ import 'package:flutter_raih_peduli/services/service_fundraises.dart';
 
 class FundraisesViewModel with ChangeNotifier {
   ModelFundraises? modelFundraises;
+  final TextEditingController amountController = TextEditingController();
   ModelFundraisesPagination? modelFundraisesPagination;
   final service = FundraisesService();
   bool isLoading = false;
+
+  updateAmount(String amount){
+    amountController.text = amount;
+    notifyListeners();
+  }
 
   late final scrollController = ScrollController();
   int indexPagination = 1;
@@ -34,7 +42,7 @@ class FundraisesViewModel with ChangeNotifier {
     try {
       isLoading = true;
       modelFundraisesPagination =
-          await service.hitAllFundraisesPagination(indexPagination);
+      await service.hitAllFundraisesPagination(indexPagination);
       isLoading = false;
       notifyListeners();
     } catch (e) {
@@ -45,7 +53,7 @@ class FundraisesViewModel with ChangeNotifier {
     }
   }
   void awal() async {
-indexPagination = 1;
+    indexPagination = 1;
   }
   // void scrollListener() async {
   //   if (scrollController.position.pixels ==
@@ -59,15 +67,13 @@ indexPagination = 1;
   //   }
   //   notifyListeners();
   // }
-   void scrollListener() async {
+  void scrollListener() async {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
       indexPagination++;
-      isLoading = true;
       notifyListeners();
       final newData = await service.hitAllFundraisesPagination(indexPagination);
       modelFundraisesPagination?.addAllData(newData.data);
-      isLoading = false;
       print("coba");
     }
     notifyListeners();

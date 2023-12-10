@@ -8,7 +8,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 class RelawanCard extends StatelessWidget {
-  final Data volunteerData;
+  final Datum volunteerData;
 
   const RelawanCard({
     super.key,
@@ -79,7 +79,10 @@ class RelawanCard extends StatelessWidget {
                                 textBaseline: TextBaseline.alphabetic,
                                 children: [
                                   Text(
-                                    volunteerData.title,
+                                    viewModel.truncateText(
+                                      volunteerData.title,
+                                      20,
+                                    ),
                                     style: TextStyle(
                                       color: AppTheme.primaryColor,
                                       fontFamily: 'Helvetica',
@@ -113,7 +116,7 @@ class RelawanCard extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(right: 8.0),
                       child: LinearProgressIndicator(
-                        value: volunteerData.totalRegistrar /
+                        value: volunteerData.totalRegistrants /
                             volunteerData.numberOfVacancies,
                         color: AppTheme.primaryColor,
                         backgroundColor: Colors.grey,

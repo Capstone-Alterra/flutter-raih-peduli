@@ -27,4 +27,35 @@ class ProfileService {
       rethrow;
     }
   }
+
+  Future<void> hitUpdateProfile({
+    required String token,
+    required String email,
+    required String fullname,
+    required String address,
+    required String phone,
+    required String nik,
+  }) async {
+    try {
+      final response = await _dio.put(
+        Urls.baseUrl + Urls.updateProfile,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+        data: {
+          'email': email,
+          'fullname': fullname,
+          'address': address,
+          'phone_number': phone,
+          'nik': nik,
+        },
+      );
+      debugPrint("=>${response.data}");
+      return;
+    } on DioError catch (_) {
+      rethrow;
+    }
+  }
 }

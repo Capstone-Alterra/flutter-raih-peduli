@@ -17,7 +17,6 @@ class FundraiseScreen extends StatefulWidget {
 
 class _FundraiseScreenState extends State<FundraiseScreen> {
   late FundraisesViewModel viewModel;
-  // final scrollController = ScrollController();
 
   @override
   void initState() {
@@ -73,8 +72,7 @@ class _FundraiseScreenState extends State<FundraiseScreen> {
                     ? const Center(
                         child: CircularProgressIndicator(),
                       )
-                    : Container(
-                        // color: Colors.red,
+                    : SizedBox(
                         height: size.height / 1.3,
                         child: ListView.builder(
                           controller: viewModel.scrollController,

@@ -1,12 +1,16 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:dio/dio.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_raih_peduli/model/model_sign_in.dart';
 import 'package:flutter_raih_peduli/services/service_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../view/navigation/navigation.dart';
 import '../view/onboarding/onboarding_view.dart';
+import '../view/porsonalisasi/personalisasi.dart';
 
 class SignInViewModel with ChangeNotifier {
   late GlobalKey<FormState> formKeySignin;
@@ -23,25 +27,33 @@ class SignInViewModel with ChangeNotifier {
   String fotoSharedPreference = '';
   String accessTokenSharedPreference = '';
   String refreshTokenSharedPreference = '';
+  String nikSharedPreference = '';
   bool isPasswordVisible = false;
   bool isSudahLogin = false;
+  bool isSuksesLogin = false;
+  // ModelProfile? modelProfile;
+  // final serviceProvile = ProfileService();
 
   SignInViewModel() {
     checkSharedPreferences();
   }
 
-  Future<void> signIn() async {
-    final emailUser = email.text;
-    final passwordUser = password.text;
-    final data = await service.signInAccount(emailUser, passwordUser);
-    dataLogin = data;
-    nameSharedPreference = dataLogin!.data.fullname;
-    emailSharedPreference = dataLogin!.data.email;
-    fotoSharedPreference = dataLogin!.data.profilePicture;
-    accessTokenSharedPreference = dataLogin!.data.accessToken;
-    refreshTokenSharedPreference = dataLogin!.data.refreshToken;
-    email.clear;
-    password.clear; 
+  Future signIn() async {
+    try {
+      dataLogin = await service.signInAccount(email.text, password.text);
+      nameSharedPreference = dataLogin!.data.fullname;
+      emailSharedPreference = dataLogin!.data.email;
+      fotoSharedPreference = dataLogin!.data.profilePicture;
+      accessTokenSharedPreference = dataLogin!.data.accessToken;
+      refreshTokenSharedPreference = dataLogin!.data.refreshToken;
+      isSuksesLogin = true;
+    } catch (e) {
+      // ignore: deprecated_member_use
+      if (e is DioError) {
+        isSuksesLogin = false;
+        e.response!.statusCode;
+      }
+    }
     notifyListeners();
   }
 
@@ -50,18 +62,13 @@ class SignInViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> saveDataSharedPreferences(
-      // String name, String foto, String accessToken, String refreshToken
-      ) async {
-    // final emailUser = email.text;
+  Future<void> saveDataSharedPreferences() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('full_name', nameSharedPreference);
     await prefs.setString('email', emailSharedPreference);
     await prefs.setString('profile_picture', fotoSharedPreference);
     await prefs.setString('access_token', accessTokenSharedPreference);
     await prefs.setString('refresh_token', refreshTokenSharedPreference);
-    email.clear();
-    password.clear();
     notifyListeners();
   }
 
@@ -135,7 +142,7 @@ class SignInViewModel with ChangeNotifier {
     }
   }
 
-  void setSudahLogibn() {
+  void setSudahLogin() {
     if (accessTokenSharedPreference != '' &&
         refreshTokenSharedPreference != '') {
       isSudahLogin = true;
@@ -145,9 +152,35 @@ class SignInViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  void keluar() {
+  Future<void> keluar() async {
     accessTokenSharedPreference = '';
     refreshTokenSharedPreference = '';
+    fotoSharedPreference = '';
+    nameSharedPreference = '';
+    emailSharedPreference = '';
+    isSuksesLogin = false;
+    notifyListeners();
+  }
+
+  Future<void> checkPersonalisasi(BuildContext context) async {
+    bool personalizeUser = dataLogin!.data.personalizeUser;
+    if (personalizeUser != true) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const BottomNavgationBar(),
+        ),
+        (route) => false,
+      );
+    } else {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (_) => const PersonalisasiKonten(),
+        ),
+        (route) => false,
+      );
+    }
     notifyListeners();
   }
 }
