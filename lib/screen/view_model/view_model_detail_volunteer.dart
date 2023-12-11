@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:js';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -21,32 +20,30 @@ class DetailVolunteerViewModel with ChangeNotifier {
   TextEditingController resumeController = TextEditingController();
   TextEditingController reasonController = TextEditingController();
   TextEditingController skillController = TextEditingController();
-  final TextEditingController nikTextController = TextEditingController();
   File? imageFile;
   String? imagePath;
   int? volunteerId;
-  Size size = MediaQuery.of(context as BuildContext).size;
+  final service = ApplyVolunteerService();
+
+  /*final TextEditingController nikTextController = TextEditingController();
   bool isNikEmpty() {
     return nikTextController.text.trim().isEmpty;
   }
 
-  final service = ApplyVolunteerService();
-
   Future<void> checkNik(BuildContext context) async {
     if (isNikEmpty()) {
       // Lakukan navigasi atau tindakan lain jika NIK terisi
+       Size size = MediaQuery.of(context).size;
       final snackBar = snackBarVolunteer(size, context);
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              Future.delayed(const Duration(seconds: 4), () {
-                 Navigator.push(
-                   context,
-                   MaterialPageRoute(builder: (context) => ProfileEdit()),
-                 );
-              });
-    } else {
-
-    }
-  }
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      Future.delayed(const Duration(seconds: 4), () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => ProfileEdit()),
+        );
+      });
+    } else {}
+  }*/
 
   void setVolunteerId(int id) {
     volunteerId = id;
@@ -54,12 +51,12 @@ class DetailVolunteerViewModel with ChangeNotifier {
   }
 
   void addSkill(String skill) {
-  // Pastikan skill belum ada dalam daftar selectedSkills
-  if (!selectedSkills.contains(skill)) {
-    selectedSkills.add(skill);
-    notifyListeners();
+    // Pastikan skill belum ada dalam daftar selectedSkills
+    if (!selectedSkills.contains(skill)) {
+      selectedSkills.add(skill);
+      notifyListeners();
+    }
   }
-}
 
   void removeSkill(String skill) {
     selectedSkills.remove(skill);
