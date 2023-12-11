@@ -2,26 +2,22 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/bank_ewallet.dart';
-import 'package:flutter_raih_peduli/model/model_fundraise_pagination.dart';
 import 'package:flutter_raih_peduli/screen/view/fundraises/payment_basic_screen.dart';
 import 'package:flutter_raih_peduli/screen/view/fundraises/payment_gopay_screen.dart';
 import 'package:flutter_raih_peduli/screen/view/fundraises/payment_qris_screen.dart';
-import 'package:flutter_raih_peduli/screen/view/fundraises/transaction_payment_method_screen.dart';
-import 'package:flutter_raih_peduli/screen/view/fundraises/widgets/amount_button_widget.dart';
-import 'package:flutter_raih_peduli/screen/view_model/view_model_fundraises.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_transaction.dart';
 import 'package:flutter_raih_peduli/theme.dart';
+import 'package:provider/provider.dart';
 
 class TransactionConfirmScreen extends StatelessWidget {
   String amount;
   PaymentType paymentType;
-  // final Datum fundraise;
   final int id;
 
   TransactionConfirmScreen(
       {super.key,
-      required this.fundraise,
+      required this.id,
       required this.paymentType,
       required this.amount});
 
@@ -29,7 +25,6 @@ class TransactionConfirmScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final viewModel = Provider.of<TransactionViewModel>(context, listen: false);
     final sp = Provider.of<SignInViewModel>(context, listen: false);
-    Size size = MediaQuery.of(context).size;
 
     return Scaffold(
       appBar: AppBar(
@@ -54,9 +49,6 @@ class TransactionConfirmScreen extends StatelessWidget {
         ),
         elevation: 0,
         backgroundColor: Colors.transparent,
-        // actions: [
-        //   SaveWidget(),
-        // ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -73,7 +65,7 @@ class TransactionConfirmScreen extends StatelessWidget {
               children: <TextSpan>[
                 TextSpan(
                   text: '${paymentType.name}?',
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: AppTheme.primaryColor,
                     fontFamily: 'Helvetica',
                     fontSize: 16,
@@ -94,43 +86,36 @@ class TransactionConfirmScreen extends StatelessWidget {
                 accessToken: sp.accessTokenSharedPreference,
                 refreshToken: sp.refreshTokenSharedPreference,
                 amount: int.parse(amount),
-                fundraiseId: fundraise.id,
+                fundraiseId: id,
                 paymentType: paymentType.id);
-            //Tambahkan logika yang diinginkan saat tombol ditekan
-
-
             if (paymentType.id == 11) {
               Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(
-                  builder: (context) =>
-                  const PaymentQrisPage(),
+                  builder: (context) => const PaymentQrisPage(),
                 ),
-                    (route) => false,
+                (route) => false,
               );
-            } else if(bankPaymentIds.contains(paymentType.id)){
+            } else if (bankPaymentIds.contains(paymentType.id)) {
               Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(
-                  builder: (context) =>
-                  const PaymentBasicPage(),
+                  builder: (context) => const PaymentBasicPage(),
                 ),
-                    (route) => false,
+                (route) => false,
               );
-            } else if(paymentType.id == 10){
+            } else if (paymentType.id == 10) {
               Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(
-                  builder: (context) =>
-                  const PaymentPage(),
+                  builder: (context) => const PaymentPage(),
                 ),
-                    (route) => false,
+                (route) => false,
               );
             }
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: AppTheme.primaryColor,
-            // Warna fill sesuai AppTheme.primaryColor
             shape: RoundedRectangleBorder(
               borderRadius:
-                  BorderRadius.circular(8.0), // Tombol bulat dengan radius 20.0
+                  BorderRadius.circular(8.0), 
             ),
           ),
           child: const Padding(

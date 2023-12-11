@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_media_downloader/flutter_media_downloader.dart';
-import 'package:flutter_raih_peduli/model/model_fundraise_pagination.dart';
-import 'package:flutter_raih_peduli/screen/view/fundraises/transaction_amount_screen.dart';
+// import 'package:flutter_media_downloader/flutter_media_downloader.dart';
+// import 'package:flutter_raih_peduli/model/model_fundraise_pagination.dart';
+// import 'package:flutter_raih_peduli/screen/view/fundraises/transaction_amount_screen.dart';
 import 'package:flutter_raih_peduli/screen/view/home/homescreen.dart';
 
 // import 'package:flutter_raih_peduli/screen/view/volunteer/form_apply.dart';
-import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/save_widget.dart';
+// import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/save_widget.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_fundraises.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_transaction.dart';
 import 'package:flutter_raih_peduli/theme.dart';
@@ -20,24 +20,29 @@ class PaymentQrisPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _flutterMediaDownloaderPlugin = MediaDownload();
-    final viewModelFundraise = Provider.of<FundraisesViewModel>(context, listen: false);
-    final viewModelTransaction = Provider.of<TransactionViewModel>(context, listen: false);
-    Size size = MediaQuery.of(context).size;
+    // final _flutterMediaDownloaderPlugin = MediaDownload();
+    final viewModelFundraise =
+        Provider.of<FundraisesViewModel>(context, listen: false);
+    final viewModelTransaction =
+        Provider.of<TransactionViewModel>(context, listen: false);
+    // Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Consumer<TransactionViewModel>(builder: (context, isLoading, child) {
+        title: Consumer<TransactionViewModel>(
+            builder: (context, isLoading, child) {
           return viewModelTransaction.isLoading
-              ? Text('') : Text(
-            viewModelTransaction.modelTransaction!.data.paymentType,
-            style: TextStyle(
-              color: AppTheme.primaryColor,
-              fontFamily: 'Helvetica',
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
-          );}),
+              ? const Text('')
+              : Text(
+                  viewModelTransaction.modelTransaction!.data.paymentType,
+                  style: const TextStyle(
+                    color: AppTheme.primaryColor,
+                    fontFamily: 'Helvetica',
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                );
+        }),
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),
@@ -50,13 +55,11 @@ class PaymentQrisPage extends StatelessWidget {
             : Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  // Banner Image
                   Container(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 16.0, vertical: 8),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(12.0),
-                      // Sesuaikan dengan kebutuhan
                       child: Image.network(
                         viewModelTransaction.modelTransaction!.data.urlCallback,
                         height: 350.0,
@@ -64,8 +67,6 @@ class PaymentQrisPage extends StatelessWidget {
                       ),
                     ),
                   ),
-
-                  // Volunteer Title
 
                   Padding(
                     padding:
@@ -83,7 +84,7 @@ class PaymentQrisPage extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
+                              const Text(
                                 'Total Payment',
                                 style: TextStyle(
                                   color: AppTheme.primaryColor,
@@ -94,7 +95,7 @@ class PaymentQrisPage extends StatelessWidget {
                               ),
                               Text(
                                 'Rp. ${viewModelTransaction.modelTransaction!.data.amount}',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: AppTheme.primaryColor,
                                   fontFamily: 'Helvetica',
                                   fontSize: 14,
@@ -103,10 +104,10 @@ class PaymentQrisPage extends StatelessWidget {
                               ),
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 12,
                           ),
-                          Row(
+                          const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
@@ -137,42 +138,43 @@ class PaymentQrisPage extends StatelessWidget {
                 ],
               );
       })),
-      bottomNavigationBar:  Consumer<TransactionViewModel>(builder: (context, isLoading, child) {
-      return viewModelTransaction.isLoading
-          ? Text('')
-          : Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: ElevatedButton(
-          onPressed: () async {
-            Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(
-                builder: (context) => HomeScreen(),
-              ),
-              (route) => false,
-            );
-            // _flutterMediaDownloaderPlugin.downloadMedia(context,'assets/dummy_qris.png');
-            viewModelFundraise.amountController.clear();
-          },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: AppTheme
-                .primaryColor, // Warna fill sesuai AppTheme.primaryColor
-            shape: RoundedRectangleBorder(
-              borderRadius:
-                  BorderRadius.circular(8.0), // Tombol bulat dengan radius 20.0
-            ),
-          ),
-          child: const Padding(
-            padding: EdgeInsets.all(12.0),
-            child: Text(
-              'Simpan Kode QR',
-              style: TextStyle(
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ),
-      );}),
+      bottomNavigationBar: Consumer<TransactionViewModel>(
+        builder: (context, isLoading, child) {
+          return viewModelTransaction.isLoading
+              ? const Text('')
+              : Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                          builder: (context) => HomeScreen(),
+                        ),
+                        (route) => false,
+                      );
+
+                      viewModelFundraise.amountController.clear();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppTheme.primaryColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.all(12.0),
+                      child: Text(
+                        'Simpan Kode QR',
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+        },
+      ),
     );
   }
 }
