@@ -112,12 +112,11 @@ class _CreateFundraiseState extends State<CreateFundraise> {
               width: size.width * 0.43,
               child: ElevatedButton(
                 onPressed: () async {
-                  print("====${viewModel.start}");
-                  print("====${viewModel.end}");
-              
-                  viewModel.createFundraising(
+                  await viewModel.createFundraising(
                       accessToken: sp.accessTokenSharedPreference,
                       refreshToken: sp.refreshTokenSharedPreference);
+                  print("====${viewModel.start}");
+                  print("====${viewModel.end}");
                   // await viewModel.fetchApplyVolunteer(
                   //   volunteerId: widget.volunteerId,
                   //   accessToken: sp.accessTokenSharedPreference,

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/model_create_fundraise.dart';
+import 'package:intl/intl.dart';
 import '../utils/utils.dart';
 
 class ServiceCreateFundraise {
@@ -17,6 +18,11 @@ class ServiceCreateFundraise {
     required DateTime startDate,
     required DateTime endDate,
   }) async {
+    final DateFormat formatter = DateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+    final start = formatter.format(startDate);
+    final end = formatter.format(endDate);
+    print(start);
+    print(end);
     try {
       final formData = FormData.fromMap({
         'title': title,
@@ -26,8 +32,8 @@ class ServiceCreateFundraise {
           foto.path,
           filename: 'photo.jpg',
         ),
-        'start_date': startDate.toIso8601String(),
-        'end_date': endDate.toIso8601String(),
+        'start_date': formatter.format(startDate),
+        'end_date': formatter.format(endDate),
       });
       final response = await _dio.post(
         Urls.baseUrl + Urls.createFundraise,
