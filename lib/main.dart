@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/onboarding/splash_screen.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_chatbot.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_create_fundraise.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_fundraises.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_ganti_password.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_home.dart';
@@ -47,6 +48,7 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => DetailVolunteerViewModel()),
           ChangeNotifierProvider(create: (_) => PersonalisasiViewModel()),
           ChangeNotifierProvider(create: (_) => HomeViewModel()),
+          ChangeNotifierProvider(create: (_) => ViewModelCreateFundraises()),
         ],
         child: MaterialApp(
           theme: ThemeData(

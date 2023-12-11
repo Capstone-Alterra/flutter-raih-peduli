@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/screen/view/create_fundraise/create_fundraise_screen.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_volunteer.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_raih_peduli/theme.dart';
@@ -40,7 +41,14 @@ class _CustomFloatingButtonState extends State<CustomFloatingButton> {
                       ),
                       const Spacer(),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CreateFundraise(),
+                            ),
+                          );
+                        },
                         child: Container(
                           width: size.height / 13,
                           height: size.height / 13,
