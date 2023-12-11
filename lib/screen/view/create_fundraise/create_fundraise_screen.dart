@@ -114,6 +114,7 @@ class _CreateFundraiseState extends State<CreateFundraise> {
                 onPressed: () async {
                   print("====${viewModel.start}");
                   print("====${viewModel.end}");
+              
                   viewModel.createFundraising(
                       accessToken: sp.accessTokenSharedPreference,
                       refreshToken: sp.refreshTokenSharedPreference);

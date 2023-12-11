@@ -1,13 +1,10 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:dio/dio.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_raih_peduli/model/model_sign_in.dart';
 import 'package:flutter_raih_peduli/services/service_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../view/navigation/navigation.dart';
 import '../view/onboarding/onboarding_view.dart';
 import '../view/porsonalisasi/personalisasi.dart';
@@ -31,8 +28,7 @@ class SignInViewModel with ChangeNotifier {
   bool isPasswordVisible = false;
   bool isSudahLogin = false;
   bool isSuksesLogin = false;
-  // ModelProfile? modelProfile;
-  // final serviceProvile = ProfileService();
+  String fcm = "";
 
   SignInViewModel() {
     checkSharedPreferences();
@@ -40,7 +36,11 @@ class SignInViewModel with ChangeNotifier {
 
   Future signIn() async {
     try {
-      dataLogin = await service.signInAccount(email.text, password.text);
+      dataLogin = await service.signInAccount(
+        email: email.text,
+        password: password.text,
+        fcm: fcm,
+      );
       nameSharedPreference = dataLogin!.data.fullname;
       emailSharedPreference = dataLogin!.data.email;
       fotoSharedPreference = dataLogin!.data.profilePicture;
@@ -183,4 +183,16 @@ class SignInViewModel with ChangeNotifier {
     }
     notifyListeners();
   }
+
+  Future<String?> getTokenFcm() async {
+    String? token = await FirebaseMessaging.instance.getToken(
+        vapidKey:
+            'BNKkaUWxyP_yC_lki1kYazgca0TNhuzt2drsOrL6WrgGbqnMnr8ZMLzg_rSPDm6HKphABS0KzjPfSqCXHXEd06Y');
+    fcm = token!;
+    print("FCM Token: $token");
+    return token;
+  }
+
+
+ 
 }
