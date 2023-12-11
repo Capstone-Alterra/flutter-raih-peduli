@@ -132,9 +132,7 @@ class TransactionPaymentMethodScreen extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => TransactionPaymentTypeScreen(
-                            id: id,
-                            paymentTypeList: ewallet,
-                            title: 'E-Wallet'),
+                            fundraise: fundraise, paymentTypeList: ewallet, title: 'E-Wallet', amount:controllerAmount.text ),
                       ));
                 },
                 child: Container(
@@ -187,9 +185,8 @@ class TransactionPaymentMethodScreen extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => TransactionPaymentTypeScreen(
-                            id: id,
-                            paymentTypeList: bank,
-                            title: 'Bank Transfer'),
+
+                            fundraise: fundraise, paymentTypeList: bank, title: 'Bank Transfer', amount: controllerAmount.text,),
                       ));
                 },
                 child: Container(

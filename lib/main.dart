@@ -6,6 +6,7 @@ import 'package:flutter_raih_peduli/screen/view_model/view_model_ganti_password.
 import 'package:flutter_raih_peduli/screen/view_model/view_model_home.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_homescreeen.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_profile.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_transaction.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_volunteer.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_forget_password.dart';
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => ChatbotViewModel()),
           ChangeNotifierProvider(create: (_) => VolunteerViewModel()),
           ChangeNotifierProvider(create: (_) => GantiPasswordViewModel()),
+          ChangeNotifierProvider(create: (_) => TransactionViewModel()),
           ChangeNotifierProvider(create: (_) => DetailVolunteerViewModel()),
           ChangeNotifierProvider(create: (_) => PersonalisasiViewModel()),
           ChangeNotifierProvider(create: (_) => HomeViewModel()),

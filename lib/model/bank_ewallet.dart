@@ -52,3 +52,5 @@ List<PaymentType> bank = [
       name: "Bank Mandiri"
   ),
 ];
+
+List<int> bankPaymentIds = bank.map((paymentType) => paymentType.id).toList();

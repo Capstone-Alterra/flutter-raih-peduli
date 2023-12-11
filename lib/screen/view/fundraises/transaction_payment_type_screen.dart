@@ -16,15 +16,12 @@ import 'package:flutter_raih_peduli/theme.dart';
 
 class TransactionPaymentTypeScreen extends StatelessWidget {
   List<PaymentType> paymentTypeList;
+  String amount;
   String title;
   // final Datum fundraise;
   final int id;
 
-  TransactionPaymentTypeScreen(
-      {super.key,
-      required this.id,
-      required this.paymentTypeList,
-      required this.title});
+  TransactionPaymentTypeScreen({super.key, required this.fundraise, required this.paymentTypeList, required this.title, required this.amount});
 
   @override
   Widget build(BuildContext context) {
@@ -62,19 +59,20 @@ class TransactionPaymentTypeScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             // Banner Image
-            for (PaymentType paymentType in paymentTypeList)
-              customPaymentType(
-                  photo: paymentType.photo,
-                  height: 40,
-                  text: paymentType.name,
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => TransactionConfirmScreen(
-                              id: id, paymentType: paymentType),
-                        ));
-                  }),
+            for( PaymentType paymentType in paymentTypeList)
+            customPaymentType(
+                photo: paymentType.photo,
+                height: 40,
+                text: paymentType.name,
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            TransactionConfirmScreen(
+                              fundraise: fundraise, paymentType: paymentType, amount: amount),
+                      ));
+                }),
           ],
         ),
       ),

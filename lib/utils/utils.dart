@@ -14,6 +14,7 @@ class Urls {
   static const String fetchFundraisesPagination = "/fundraises?page=";
   static const String fetchAllVolunteer = "/volunteer-vacancies";
   static const String searchVolunteer = "/volunteer-vacancies?title=";
+  static const String createTransaction = "/transactions";
   static const String chatBot = "/chatbots";
   static const String checkPassword = "/mobile/users/check-password";
   static const String changePasswordInSetting = "/mobile/users/change-password";
