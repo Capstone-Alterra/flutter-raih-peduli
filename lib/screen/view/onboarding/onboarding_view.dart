@@ -85,6 +85,7 @@ class Onbording extends StatelessWidget {
                         ),
                         onPressed: () {
                           viewModel.skipPage(context);
+                          viewModel.pernahDownload.setBool('download', false);
                         },
                         child: SizedBox(
                           width: screenWidth,
@@ -132,6 +133,8 @@ class Onbording extends StatelessWidget {
                                         ),
                                         onPressed: () {
                                           viewModel.skipPage(context);
+                                          viewModel.pernahDownload
+                                              .setBool('download', false);
                                         },
                                       ),
                                     )

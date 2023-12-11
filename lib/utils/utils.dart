@@ -16,4 +16,14 @@ class Urls {
   static const String searchVolunteer = "/volunteer-vacancies?title=";
   static const String createTransaction = "/transactions";
   static const String chatBot = "/chatbots";
+  static const String checkPassword = "/mobile/users/check-password";
+  static const String changePasswordInSetting = "/mobile/users/change-password";
+  static const String updateProfile = "/mobile/users";
+  static const String applyVolunteer = "/mobile/volunteer-vacancies/register";
+  static const String fetchNewsPagination = "/news?page=";
+  static const String fetchPersonalisasi = "/mobile/users/personalization";
+  static const String fetchHome = "/home/mobile";
+  static const String fetchDetailFundraises = "/fundraises/";
+  static const String fetchDetailVolunteer = "/volunteer-vacancies/";
+  static const String fetchVolunteerPagination = "/volunteer-vacancies?page=";
 }

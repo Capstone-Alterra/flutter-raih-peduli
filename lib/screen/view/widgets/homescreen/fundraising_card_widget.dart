@@ -1,20 +1,30 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+// import 'package:flutter_raih_peduli/model/model_home.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_fundraises.dart';
 // import 'package:flutter_raih_peduli/model/fundraising_data.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../model/model_fundraises.dart';
+import '../../fundraises/detail_fundraise.dart';
 
 class FundraisingCard extends StatelessWidget {
-  final Datum fundraiseData;
+  // final Data fundraiseData;
+  final int id;
+  final String photo;
+  final String title;
+  final String description;
+  final int target;
 
   const FundraisingCard({
     super.key,
-    required this.fundraiseData,
+    required this.photo,
+    required this.title,
+    required this.description,
+    required this.target,
+    required this.id,
   });
 
   @override
@@ -45,7 +55,8 @@ class FundraisingCard extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(8.0)),
                     child: Image.network(
-                      fundraiseData.photo,
+                      // fundraiseData.photo,
+                      photo,
                       width: double.infinity,
                       fit: BoxFit.cover,
                     ),
@@ -59,7 +70,7 @@ class FundraisingCard extends StatelessWidget {
                   children: [
                     const SizedBox(height: 5),
                     Text(
-                      viewModel.truncateText(fundraiseData.title, 25),
+                      viewModel.truncateText(title, 25),
                       style: TextStyle(
                         color: AppTheme.primaryColor,
                         fontFamily: 'Helvetica',
@@ -69,7 +80,7 @@ class FundraisingCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 1),
                     Text(
-                      viewModel.truncateText(fundraiseData.description, 25),
+                      viewModel.truncateText(description, 25),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -107,7 +118,7 @@ class FundraisingCard extends StatelessWidget {
                       ],
                     ),
                     Text(
-                      'Rp. ${fundraiseData.target}',
+                      'Rp. $target',
                       style: TextStyle(
                         color: AppTheme.primaryColor,
                         fontFamily: 'Helvetica',
@@ -119,16 +130,15 @@ class FundraisingCard extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => NewsDetailPage(
-                    //       title: title,
-                    //       image: imageUrl,
-                    //       description: description,
-                    //     ),
-                    //   ),
-                    // );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DetailFundraisePage(
+                       
+                          id: id,
+                        ),
+                      ),
+                    );
                   },
                   child: Container(
                     width: sizecontent / 3,

@@ -1,13 +1,20 @@
+// ignore_for_file: deprecated_member_use
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/services/service_ganti_password.dart';
 
 class GantiPasswordViewModel with ChangeNotifier {
-    final formKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
   final TextEditingController passwordLama = TextEditingController();
   final TextEditingController passwordBaru = TextEditingController();
   bool isPasswordVisiblePasswordLama = false;
   bool isPasswordVisiblePasswordBaru = false;
-  
-    String? validatePasswordBaru(String value) {
+  bool isGagalCheckPasswordLama = false;
+  bool isGagalChangePassword = false;
+  final service = GantiPasswordService();
+
+  String? validatePasswordBaru(String value) {
     if (value.isEmpty) {
       notifyListeners();
       return 'Password tidak boleh kosong';
@@ -22,12 +29,80 @@ class GantiPasswordViewModel with ChangeNotifier {
     return null;
   }
 
-    void togglePasswordVisibilityPasswordLama() {
+  String? validatePasswordLama(String value) {
+    if (value.isEmpty) {
+      notifyListeners();
+      return 'Password tidak boleh kosong';
+    }
+    notifyListeners();
+    return null;
+  }
+
+  void togglePasswordVisibilityPasswordLama() {
     isPasswordVisiblePasswordLama = !isPasswordVisiblePasswordLama;
     notifyListeners();
   }
-      void togglePasswordVisibilityPasswordBaru() {
+
+  void togglePasswordVisibilityPasswordBaru() {
     isPasswordVisiblePasswordBaru = !isPasswordVisiblePasswordBaru;
+    notifyListeners();
+  }
+
+  Future fetchOldPassword({
+    required String accessToken,
+    required String refreshToken,
+  }) async {
+    try {
+      await service.hitCheckPassword(
+        token: accessToken,
+        oldPassword: passwordLama.text,
+      );
+      isGagalCheckPasswordLama = true;
+    } catch (e) {
+      if (e is DioError) {
+        try {
+          await service.hitCheckPassword(
+            token: refreshToken,
+            oldPassword: passwordLama.text,
+          );
+          isGagalCheckPasswordLama = true;
+        } catch (e) {
+          if (e is DioError) {
+            isGagalCheckPasswordLama = false;
+            e.response!.statusCode;
+          }
+        }
+      }
+    }
+    notifyListeners();
+  }
+
+  Future fetchNewPassword({
+    required String accessToken,
+    required String refreshToken,
+  }) async {
+    try {
+      await service.hitChangePassword(
+        token: accessToken,
+        newPassword: passwordBaru.text,
+      );
+      isGagalChangePassword = true;
+    } catch (e) {
+      if (e is DioError) {
+        try {
+          await service.hitChangePassword(
+            token: refreshToken,
+            newPassword: passwordBaru.text,
+          );
+          isGagalChangePassword = true;
+        } catch (e) {
+          if (e is DioError) {
+            isGagalChangePassword = false;
+            e.response!.statusCode;
+          }
+        }
+      }
+    }
     notifyListeners();
   }
 }

@@ -1,16 +1,32 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 // import 'package:flutter_raih_peduli/screen/view/settings/edit_profile.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/dialog_popup.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/snackbar.dart';
+import 'package:provider/provider.dart';
+
+import '../../../view_model/view_model_detail_volunteer.dart';
+import '../../../view_model/view_model_signin.dart';
 
 class ButtonVolunteer extends StatefulWidget {
-  const ButtonVolunteer({super.key});
+  final int volunteerId;
+  const ButtonVolunteer({super.key, required this.volunteerId});
 
   @override
   State<ButtonVolunteer> createState() => _ButtonVolunteerState();
 }
 
 class _ButtonVolunteerState extends State<ButtonVolunteer> {
+  late DetailVolunteerViewModel viewModel;
+  late SignInViewModel sp;
+  @override
+  void initState() {
+    viewModel = Provider.of<DetailVolunteerViewModel>(context, listen: false);
+    sp = Provider.of<SignInViewModel>(context, listen: false);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -63,8 +79,14 @@ class _ButtonVolunteerState extends State<ButtonVolunteer> {
           height: size.height * 0.06,
           width: size.width * 0.43,
           child: ElevatedButton(
-            onPressed: () {
+            onPressed: () async {
+              await viewModel.fetchApplyVolunteer(
+                volunteerId: widget.volunteerId,
+                accessToken: sp.accessTokenSharedPreference,
+                refreshToken: sp.refreshTokenSharedPreference,
+              );
               showCustomDialog(context, size);
+              viewModel.clearAll();
             },
             style: ButtonStyle(
               elevation: MaterialStateProperty.all(0),

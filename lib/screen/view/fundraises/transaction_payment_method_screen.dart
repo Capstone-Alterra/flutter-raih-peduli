@@ -1,22 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/bank_ewallet.dart';
-import 'package:flutter_raih_peduli/model/model_fundraise_pagination.dart';
 import 'package:flutter_raih_peduli/screen/view/fundraises/transaction_payment_type_screen.dart';
 import 'package:flutter_raih_peduli/screen/view/fundraises/widgets/bank_small_widget.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 
-// import 'package:flutter_raih_peduli/screen/view/volunteer/form_apply.dart';
-// import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/save_widget.dart';
-
-// import 'package:flutter_svg/flutter_svg.dart';
-// import 'package:intl/intl.dart';
-
 class TransactionPaymentMethodScreen extends StatelessWidget {
-
   final TextEditingController controllerAmount;
-  final Datum fundraise;
+  final int id;
+  // final Datum fundraise;
 
-  TransactionPaymentMethodScreen({super.key, required this.fundraise, required this.controllerAmount});
+  const TransactionPaymentMethodScreen(
+      {super.key, required this.id, required this.controllerAmount});
 
   @override
   Widget build(BuildContext context) {
@@ -175,9 +169,9 @@ class TransactionPaymentMethodScreen extends StatelessWidget {
                         ],
                       ),
                       const Icon(
-                          Icons.navigate_next,
-                          color: AppTheme.primaryColor,
-                        ),
+                        Icons.navigate_next,
+                        color: AppTheme.primaryColor,
+                      ),
                     ],
                   ),
                 ),
@@ -186,17 +180,18 @@ class TransactionPaymentMethodScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
               child: GestureDetector(
-                onTap: (){
+                onTap: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => TransactionPaymentTypeScreen(
+
                             fundraise: fundraise, paymentTypeList: bank, title: 'Bank Transfer', amount: controllerAmount.text,),
                       ));
                 },
                 child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12.0, vertical: 12),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 12.0, vertical: 12),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                       border: Border.all(

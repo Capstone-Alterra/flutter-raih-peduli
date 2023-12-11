@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/screen/view/fundraises/fundraise_screen.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -41,7 +42,14 @@ class HeaderWidget extends StatelessWidget {
                 ),
                 const SizedBox(height: 8.0),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const FundraiseScreen(),
+                      ),
+                    );
+                  },
                   child: Container(
                     height: mediaQuery.height / 27,
                     width: mediaQuery.width / 3,

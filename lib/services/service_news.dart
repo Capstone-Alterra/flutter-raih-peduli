@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/model_news.dart';
 
+import '../model/model_news_pagination.dart';
 import '../utils/utils.dart';
 
 class NewsService {
@@ -28,6 +29,18 @@ class NewsService {
       final response = await _dio.get(Urls.baseUrl + Urls.searchNews + query);
       debugPrint("=>${response.data}");
       return ModelNews.fromJson(response.data);
+    } on DioError catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<ModelNewsPagination> hitNewsPagination(int index) async {
+    try {
+      final response = await _dio.get(
+        "${Urls.baseUrl + Urls.fetchNewsPagination}$index&page_size=5",
+      );
+      debugPrint("=>${response.data}");
+      return ModelNewsPagination.fromJson(response.data);
     } on DioError catch (_) {
       rethrow;
     }

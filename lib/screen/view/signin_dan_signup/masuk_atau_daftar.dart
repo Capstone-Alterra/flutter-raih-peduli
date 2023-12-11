@@ -1,8 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/navigation/navigation.dart';
 import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/sign_in.dart';
 import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/sign_up.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
+import 'package:provider/provider.dart';
 
 class LoginAtauDaftar extends StatelessWidget {
   const LoginAtauDaftar({super.key});
@@ -11,11 +15,8 @@ class LoginAtauDaftar extends StatelessWidget {
   Widget build(BuildContext context) {
     final widthMediaQuery = MediaQuery.of(context).size.width;
     final heightMediaQuery = MediaQuery.of(context).size.height;
-    // double appBarHeight = AppBar().preferredSize.height;
+    final viewModel = Provider.of<SignInViewModel>(context, listen: false);
     return Scaffold(
-      // appBar: AppBar(
-      //   elevation: 0,
-      // ),
       body: Column(
         children: [
           SizedBox(
@@ -169,7 +170,8 @@ class LoginAtauDaftar extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                         fontFamily: 'Helvetica'),
                     recognizer: TapGestureRecognizer()
-                      ..onTap = () {
+                      ..onTap = () async {
+                       await viewModel.keluar();
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => const BottomNavgationBar(),

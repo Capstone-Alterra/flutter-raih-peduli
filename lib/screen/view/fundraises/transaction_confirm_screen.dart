@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/bank_ewallet.dart';
 import 'package:flutter_raih_peduli/model/model_fundraise_pagination.dart';
@@ -9,19 +11,13 @@ import 'package:flutter_raih_peduli/screen/view/fundraises/widgets/amount_button
 import 'package:flutter_raih_peduli/screen/view_model/view_model_fundraises.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_transaction.dart';
-
-// import 'package:flutter_raih_peduli/screen/view/volunteer/form_apply.dart';
-// import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/save_widget.dart';
 import 'package:flutter_raih_peduli/theme.dart';
-import 'package:provider/provider.dart';
-
-// import 'package:flutter_svg/flutter_svg.dart';
-// import 'package:intl/intl.dart';
 
 class TransactionConfirmScreen extends StatelessWidget {
   String amount;
   PaymentType paymentType;
-  final Datum fundraise;
+  // final Datum fundraise;
+  final int id;
 
   TransactionConfirmScreen(
       {super.key,
