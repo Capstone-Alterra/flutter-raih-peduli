@@ -21,6 +21,8 @@ dependencies:
   shared_preferences: ^2.2.2
   quickalert: ^1.0.2
   email_validator: ^2.1.17
+  flutter_media_downloader: ^1.0.3
+  url_launcher: ^6.2.2
 
 flutter_native_splash:
   color: "#FFFFFF"
