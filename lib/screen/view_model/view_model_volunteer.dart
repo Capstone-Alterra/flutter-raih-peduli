@@ -17,8 +17,8 @@ class VolunteerViewModel with ChangeNotifier {
   bool isLoading = false;
   bool dataHasilSearch = false;
   bool isMenuOpen = false;
-  bool _isOverlayVisible = false;
-  bool get isOverlayVisible => _isOverlayVisible;
+  // bool _isOverlayVisible = false;
+  bool  isOverlayVisible = false;
   bool isDetail = false;
   int indexPagination = 1;
   late final scrollController = ScrollController();
@@ -63,7 +63,12 @@ class VolunteerViewModel with ChangeNotifier {
   }
 
   void toggleOverlay() {
-    _isOverlayVisible = !_isOverlayVisible;
+    isOverlayVisible = !isOverlayVisible;
+    notifyListeners();
+  }
+
+    void overlay() {
+    isOverlayVisible = false;
     notifyListeners();
   }
 

@@ -29,6 +29,11 @@ class _CustomFloatingButtonState extends State<CustomFloatingButton> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
@@ -40,48 +45,48 @@ class _CustomFloatingButtonState extends State<CustomFloatingButton> {
             if (overlayProvider.isOverlayVisible)
               Padding(
                 padding: EdgeInsets.only(
-                    top: size.height / 1.4, left: size.width / 3),
+                    top: size.height / 1.25, left: size.width / 3),
                 child: Column(
                   children: [
-                    Container(
-                      padding: const EdgeInsets.only(left: 16.0),
-                      child: Row(
-                        children: [
-                          Text(
-                            'Buat Request Relawan',
-                            style: TextStyle(
-                              fontFamily: 'Helvetica',
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              fontSize: size.height / 50,
-                            ),
-                          ),
-                          const Spacer(),
-                          GestureDetector(
-                            onTap: () {},
-                            child: Container(
-                              width: size.height / 13,
-                              height: size.height / 13,
-                              decoration: const BoxDecoration(
-                                color: AppTheme.primaryColor,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(
-                                    8.0,
-                                  ),
-                                ),
-                              ),
-                              child: Center(
-                                child: SvgPicture.asset(
-                                  'assets/tangan_create_volunteer.svg',
-                                  height: size.height / 25,
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 10.0),
+                    // Container(
+                    //   padding: const EdgeInsets.only(left: 16.0),
+                    //   child: Row(
+                    //     children: [
+                    //       Text(
+                    //         'Buat Request Relawan',
+                    //         style: TextStyle(
+                    //           fontFamily: 'Helvetica',
+                    //           fontWeight: FontWeight.bold,
+                    //           color: Colors.white,
+                    //           fontSize: size.height / 50,
+                    //         ),
+                    //       ),
+                    //       const Spacer(),
+                    //       GestureDetector(
+                    //         onTap: () {},
+                    //         child: Container(
+                    //           width: size.height / 13,
+                    //           height: size.height / 13,
+                    //           decoration: const BoxDecoration(
+                    //             color: AppTheme.primaryColor,
+                    //             borderRadius: BorderRadius.all(
+                    //               Radius.circular(
+                    //                 8.0,
+                    //               ),
+                    //             ),
+                    //           ),
+                    //           child: Center(
+                    //             child: SvgPicture.asset(
+                    //               'assets/tangan_create_volunteer.svg',
+                    //               height: size.height / 25,
+                    //             ),
+                    //           ),
+                    //         ),
+                    //       )
+                    //     ],
+                    //   ),
+                    // ),
+                    // const SizedBox(height: 10.0),
                     Container(
                       padding: const EdgeInsets.only(left: 16.0),
                       child: Row(
@@ -115,6 +120,7 @@ class _CustomFloatingButtonState extends State<CustomFloatingButton> {
                                         const CreateFundraise(),
                                   ),
                                 );
+                                overlayProvider.overlay();
                               }
                             },
                             child: Container(

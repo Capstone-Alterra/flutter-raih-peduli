@@ -28,6 +28,7 @@ class _AccessVolunteerScreenState extends State<AccessVolunteerScreen> {
     viewModel.awal();
     viewModel.scrollController.addListener(viewModel.scrollListener);
     viewModel.fetchNewsPagination();
+    viewModel.overlay();
     super.initState();
   }
 

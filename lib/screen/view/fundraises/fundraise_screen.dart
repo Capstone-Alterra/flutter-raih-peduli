@@ -30,6 +30,7 @@ class _FundraiseScreenState extends State<FundraiseScreen> {
         Provider.of<VolunteerViewModel>(context, listen: false);
     sp = Provider.of<SignInViewModel>(context, listen: false);
     viewModel.awal();
+    viewModelVolunteer.overlay();
     super.initState();
     viewModel.scrollController.addListener(viewModel.scrollListener);
     viewModel.fetchAllFundraisesPagination();

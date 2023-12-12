@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 
 import '../../../theme.dart';
+import '../../view_model/view_model_navigation.dart';
 import '../widgets/login_signup/alert.dart';
 // import '../widgets/volunteer/text_form.dart';
 
@@ -22,10 +23,12 @@ class CreateFundraise extends StatefulWidget {
 class _CreateFundraiseState extends State<CreateFundraise> {
   late ViewModelCreateFundraises viewModel;
   late SignInViewModel sp;
+  late NavigationProvider navigation;
   @override
   void initState() {
     viewModel = Provider.of<ViewModelCreateFundraises>(context, listen: false);
     sp = Provider.of<SignInViewModel>(context, listen: false);
+    navigation = Provider.of<NavigationProvider>(context, listen: false);
     super.initState();
     viewModel.clearAll();
   }
@@ -54,7 +57,6 @@ class _CreateFundraiseState extends State<CreateFundraise> {
           ),
           onPressed: () {
             Navigator.pop(context);
-            // viewModel.clearAll();
           },
         ),
       ),
@@ -113,13 +115,13 @@ class _CreateFundraiseState extends State<CreateFundraise> {
                       refreshToken: sp.refreshTokenSharedPreference,
                     );
                     if (viewModel.isSukses == true) {
+                      navigation.goRiwayat();
                       customAlert(
                         context: context,
                         alertType: QuickAlertType.custom,
-                        customAsset: 'assets/Group 427318233.png',
+                        customAsset: 'assets/Component 5.png',
                         text: 'Berhasil membuat penggalangan dana',
                         afterDelay: () {
-                          // Navigator.pop(context);
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
