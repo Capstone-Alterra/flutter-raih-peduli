@@ -13,7 +13,7 @@ import '../widgets/login_signup/alert.dart';
 // import '../widgets/volunteer/text_form.dart';
 
 class CreateFundraise extends StatefulWidget {
-  const CreateFundraise({Key? key}) : super(key: key);
+  const CreateFundraise({super.key});
 
   @override
   State<CreateFundraise> createState() => _CreateFundraiseState();

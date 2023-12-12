@@ -25,7 +25,7 @@ import 'screen/view_model/view_model_signin.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_navigation.dart';
 
 void main() async {
-    WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -33,7 +33,7 @@ void main() async {
   if (await Permission.notification.request().isGranted) {
     await NotificationService().initNotifications();
   }
-   await NotificationController.initializeLocalNotifications();
+  await NotificationController.initializeLocalNotifications();
   await NotificationController.initializeIsolateReceivePort();
   final signInViewModel = SignInViewModel();
   runApp(const MyApp());

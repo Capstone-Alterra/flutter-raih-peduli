@@ -9,7 +9,6 @@ import 'package:flutter_raih_peduli/screen/view_model/view_model_fundraises.dart
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:provider/provider.dart';
 
-
 class TransactionAmountScreen extends StatelessWidget {
   // final Datum fundraise;
   final int id;
@@ -69,7 +68,7 @@ class TransactionAmountScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Masukkan Nominal Donasi',
                         style: TextStyle(
                           color: AppTheme.primaryColor,
@@ -78,13 +77,13 @@ class TransactionAmountScreen extends StatelessWidget {
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       TextField(
                         controller: viewModel.amountController,
                         decoration: InputDecoration(
-                          prefix: Text(
+                          prefix: const Text(
                             'Rp.',
                             style: TextStyle(
                               color: AppTheme.primaryColor,
@@ -100,10 +99,10 @@ class TransactionAmountScreen extends StatelessWidget {
                           fillColor: AppTheme.secondaryColor.withOpacity(0.2),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
-                      Text('Minimal Donasi Rp.10.000',
+                      const Text('Minimal Donasi Rp.10.000',
                           style: TextStyle(
                             color: AppTheme.primaryColor,
                             fontFamily: 'Helvetica',

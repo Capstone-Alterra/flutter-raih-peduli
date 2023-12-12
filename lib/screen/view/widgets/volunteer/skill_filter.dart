@@ -84,7 +84,7 @@ class _SkillFilterState extends State<SkillFilter> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     'Skill Yang Dimiliki',
                     style: TextStyle(
                       color: AppTheme.primaryColor,

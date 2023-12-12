@@ -13,8 +13,6 @@ class PersonalisasiService {
     required String personalization2,
     required String personalization3,
   }) async {
-    print(
-        "aaaaaaaaaa${personalization1 + personalization2 + personalization3}");
     try {
       final response = await _dio.post(
         Urls.baseUrl + Urls.fetchPersonalisasi,
@@ -32,7 +30,6 @@ class PersonalisasiService {
       debugPrint("=>${response.data}");
       return;
     } on DioError catch (_) {
-      print("aaaaaaaaaaaaaaaa");
       rethrow;
     }
   }

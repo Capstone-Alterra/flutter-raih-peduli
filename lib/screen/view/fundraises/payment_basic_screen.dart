@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/screen/view/home/homescreen.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_fundraises.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_transaction.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import '../../view_model/view_model_navigation.dart';
+import '../navigation/navigation.dart';
 
 class PaymentBasicPage extends StatelessWidget {
   const PaymentBasicPage({super.key});
@@ -15,6 +16,8 @@ class PaymentBasicPage extends StatelessWidget {
         Provider.of<FundraisesViewModel>(context, listen: false);
     final viewModelTransaction =
         Provider.of<TransactionViewModel>(context, listen: false);
+    final viewModelNavigation =
+        Provider.of<NavigationProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -144,10 +147,10 @@ class PaymentBasicPage extends StatelessWidget {
                               const SizedBox(
                                 height: 14,
                               ),
-                               Column(
+                              Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Row(
+                                  const Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
@@ -160,7 +163,7 @@ class PaymentBasicPage extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 12,
                                   ),
                                   Row(
@@ -168,8 +171,8 @@ class PaymentBasicPage extends StatelessWidget {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        "${DateFormat('dd MMMM yyy , hh:mm').format(DateTime.parse(viewModelTransaction.modelTransaction!.data.validUntil.toString()))}",
-                                        style: TextStyle(
+                                        DateFormat('dd MMMM yyy , hh:mm').format(DateTime.parse(viewModelTransaction.modelTransaction!.data.validUntil.toString())),
+                                        style: const TextStyle(
                                           color: AppTheme.primaryColor,
                                           fontFamily: 'Helvetica',
                                           fontSize: 14,
@@ -198,9 +201,10 @@ class PaymentBasicPage extends StatelessWidget {
                   padding: const EdgeInsets.all(16.0),
                   child: ElevatedButton(
                     onPressed: () {
+                      viewModelNavigation.goRiwayat();
                       Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(
-                          builder: (context) => HomeScreen(),
+                          builder: (context) => const BottomNavgationBar(),
                         ),
                         (route) => false,
                       );
