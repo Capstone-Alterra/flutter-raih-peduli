@@ -27,6 +27,11 @@ class TransactionViewModel with ChangeNotifier {
     required int amount,
   }) async {
     try {
+      print(accessToken);
+      print(refreshToken);
+      print(fundraiseId);
+      print(paymentType);
+      print(amount);
       isLoading = true;
       modelTransaction = await service.hitTransaction(
         token: accessToken,

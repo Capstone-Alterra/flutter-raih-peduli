@@ -3,6 +3,7 @@ import 'package:flutter_raih_peduli/screen/view/fundraises/transaction_amount_sc
 import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/save_widget.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_fundraises.dart';
 import 'package:flutter_raih_peduli/theme.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class DetailFundraisePage extends StatefulWidget {
@@ -89,7 +90,7 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
                       Padding(
                         padding: const EdgeInsets.only(left: 16.0, right: 16.0),
                         child: Text(
-                          '${viewModel.modelDetailFundraises!.data.createdAt} - ${viewModel.modelDetailFundraises!.data.endDate}',
+                          "${DateFormat('dd MMMM').format(DateTime.parse(viewModel.modelDetailFundraises!.data.startDate.toString()))} - ${DateFormat('dd MMMM yyy').format(DateTime.parse(viewModel.modelDetailFundraises!.data.endDate.toString()))}",
                           style: TextStyle(
                               fontFamily: 'Helvetica',
                               fontSize: size.height / 60),
@@ -160,7 +161,7 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
                                   height: 5,
                                 ),
                                 Text(
-                                  "12 Hari",
+                                  '${viewModel.modelDetailFundraises!.data.endDate.difference(DateTime.now()).inDays} Hari',
                                   style: TextStyle(
                                     color: AppTheme.tertiaryColor,
                                     fontFamily: 'Helvetica',
@@ -173,20 +174,20 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
                           ],
                         ),
                       ),
-                      const Padding(
-                        padding: EdgeInsets.only(left: 16.0, top: 16.0),
-                        child: Text(
-                          'Penggalang Dana',
-                          style: TextStyle(
-                            color: AppTheme.primaryColor,
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      const Padding(
-                          padding: EdgeInsets.only(left: 16.0, top: 16.0),
-                          child: Row()),
+                      // const Padding(
+                      //   padding: EdgeInsets.only(left: 16.0, top: 16.0),
+                      //   child: Text(
+                      //     'Penggalang Dana',
+                      //     style: TextStyle(
+                      //       color: AppTheme.primaryColor,
+                      //       fontSize: 18.0,
+                      //       fontWeight: FontWeight.bold,
+                      //     ),
+                      //   ),
+                      // ),
+                      // const Padding(
+                      //     padding: EdgeInsets.only(left: 16.0, top: 16.0),
+                      //     child: Row()),
                       const Padding(
                         padding: EdgeInsets.only(left: 16.0, top: 16.0),
                         child: Text(
