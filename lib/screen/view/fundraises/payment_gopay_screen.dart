@@ -1,6 +1,8 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/screen/view/home/homescreen.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_fundraises.dart';
 import 'package:flutter_raih_peduli/screen/view/navigation/navigation.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_transaction.dart';
 import 'package:flutter_raih_peduli/theme.dart';
@@ -13,6 +15,8 @@ class PaymentPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final viewModelTransaction =
         Provider.of<TransactionViewModel>(context, listen: false);
+    final viewModelFundraise =
+        Provider.of<FundraisesViewModel>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -68,6 +72,14 @@ class PaymentPage extends StatelessWidget {
                       String url = viewModelTransaction
                           .modelTransaction!.data.urlCallback;
                       viewModelTransaction.openGopay(Uri.parse(url));
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                          builder: (context) => HomeScreen(),
+                        ),
+                        (route) => false,
+                      );
+
+                      viewModelFundraise.amountController.clear();
                       Future.delayed(const Duration(seconds: 10));
                       Navigator.pushAndRemoveUntil(
                           context,
@@ -75,6 +87,7 @@ class PaymentPage extends StatelessWidget {
                             builder: (_) => const BottomNavgationBar(),
                           ),
                           (route) => false);
+
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppTheme.primaryColor,

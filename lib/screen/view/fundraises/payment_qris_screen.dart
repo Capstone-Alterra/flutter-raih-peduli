@@ -9,6 +9,7 @@ import 'package:flutter_raih_peduli/screen/view/home/homescreen.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_fundraises.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_transaction.dart';
 import 'package:flutter_raih_peduli/theme.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 // import 'package:flutter_svg/flutter_svg.dart';
@@ -107,7 +108,7 @@ class PaymentQrisPage extends StatelessWidget {
                           const SizedBox(
                             height: 12,
                           ),
-                          const Row(
+                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
@@ -120,7 +121,7 @@ class PaymentQrisPage extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                '01-03-2023',
+                                "${DateFormat('dd MMMM yyy , hh:mm').format(DateTime.parse(viewModelTransaction.modelTransaction!.data.validUntil.toString()))}",
                                 style: TextStyle(
                                   color: AppTheme.primaryColor,
                                   fontFamily: 'Helvetica',

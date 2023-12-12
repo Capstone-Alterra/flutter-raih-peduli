@@ -3,6 +3,7 @@ import 'package:flutter_raih_peduli/screen/view/home/homescreen.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_fundraises.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_transaction.dart';
 import 'package:flutter_raih_peduli/theme.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class PaymentBasicPage extends StatelessWidget {
@@ -143,7 +144,7 @@ class PaymentBasicPage extends StatelessWidget {
                               const SizedBox(
                                 height: 14,
                               ),
-                              const Column(
+                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Row(
@@ -167,7 +168,7 @@ class PaymentBasicPage extends StatelessWidget {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        'Sabtu, 12 Desember 12:00',
+                                        "${DateFormat('dd MMMM yyy , hh:mm').format(DateTime.parse(viewModelTransaction.modelTransaction!.data.validUntil.toString()))}",
                                         style: TextStyle(
                                           color: AppTheme.primaryColor,
                                           fontFamily: 'Helvetica',
