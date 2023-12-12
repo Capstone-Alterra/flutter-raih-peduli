@@ -1,13 +1,16 @@
 // ignore_for_file: camel_case_types, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_create_fundraise.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 // import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 
 import '../../../theme.dart';
 import '../widgets/volunteer/text_volunteer.dart';
+import 'text_field_create_fundraise.dart';
 
 class FormCreateFundraise extends StatelessWidget {
   const FormCreateFundraise({super.key});
@@ -16,6 +19,7 @@ class FormCreateFundraise extends StatelessWidget {
   Widget build(BuildContext context) {
     final viewModel =
         Provider.of<ViewModelCreateFundraises>(context, listen: false);
+    final DateFormat formatter = DateFormat("dd-MM-yyyy");
     Size size = MediaQuery.of(context).size;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,125 +33,201 @@ class FormCreateFundraise extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   textForVolunteer('Judul Penggalangan Dana'),
-                  TextFormField(
+                  textFormFieldCreateFundraises(
                     controller: viewModel.judul,
-                    decoration: InputDecoration(
-                      hintText:
-                          'Ex. Seorang individu yang berkomitmen untuk memberikan dampak positif pada masyarakat dan masa depan generasi penerus.',
-                      hintStyle: const TextStyle(
-                        color: Color.fromARGB(255, 112, 112, 112),
-                        fontFamily: 'Helvetica',
-                        fontSize: 12,
-                      ),
-                      filled: true,
-                      fillColor: const Color.fromARGB(
-                          79, 140, 162, 206), // Warna latar belakang
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide.none, // Agar tidak ada border
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide.none, // Agar tidak ada border
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                    ),
+                    validator: (value) => viewModel.validateJudul(value!),
+                    labelText:
+                        "Ex. Bantu Anak-Anak Sekolah Mewujudkan Masa Depan Cerah",
                   ),
                   const SizedBox(height: 18),
                   textForVolunteer('Isi Deskripsi'),
-                  const SizedBox(height: 8),
-                  TextFormField(
+                  textFormFieldCreateFundraises(
                     controller: viewModel.deskripsi,
-                    decoration: InputDecoration(
-                      hintText:
-                          'Ex. Seorang individu yang berkomitmen untuk memberikan dampak positif pada masyarakat dan masa depan generasi penerus.',
-                      hintStyle: const TextStyle(
-                        color: Color.fromARGB(255, 112, 112, 112),
-                        fontFamily: 'Helvetica',
-                        fontSize: 12,
-                      ),
-                      filled: true,
-                      fillColor: const Color.fromARGB(
-                          79, 140, 162, 206), // Warna latar belakang
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide.none, // Agar tidak ada border
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide.none, // Agar tidak ada border
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                    ),
+                    validator: (value) => viewModel.validateDeskripsi(value!),
+                    labelText:
+                        "Ex. Membantu anak-anak kurang mampu mendapatkan pendidikan dan perawatan yang mereka butuhkan.",
+                    maxLine: 5,
                   ),
                   const SizedBox(height: 18),
                   textForVolunteer('Target'),
-                  const SizedBox(height: 8),
-                  TextFormField(
+                  textFormFieldCreateFundraises(
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      // FilteringTextInputFormatter.singleLineFormatter,
+                      // TextInputFormatter.withFunction(
+                      //   (oldValue, newValue) =>
+                      //       viewModel.formatTarget(oldValue, newValue),
+                      // ),
+                    ],
+                    keyboardType: TextInputType.phone,
                     controller: viewModel.target,
-                    decoration: InputDecoration(
-                      hintText:
-                          'Ex. Seorang individu yang berkomitmen untuk memberikan dampak positif pada masyarakat dan masa depan generasi penerus.',
-                      hintStyle: const TextStyle(
-                        color: Color.fromARGB(255, 112, 112, 112),
-                        fontFamily: 'Helvetica',
-                        fontSize: 12,
-                      ),
-                      filled: true,
-                      fillColor: const Color.fromARGB(
-                          79, 140, 162, 206), // Warna latar belakang
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide.none, // Agar tidak ada border
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide.none, // Agar tidak ada border
-                        borderRadius: BorderRadius.circular(5.0),
+                    validator: (value) => viewModel.validateTarget(value!),
+                    labelText: "Ex.50.000.000",
+                    prefixIcon: Text(
+                      'Rp ',
+                      style: TextStyle(
+                        fontSize: size.width / 25,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Tanggal Mulai"),
+                          Text(
+                            " Tanggal Mulai",
+                            style: TextStyle(
+                                color: const Color(0xff293066),
+                                fontFamily: 'Helvetica',
+                                fontSize: size.width / 25,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(height: size.width / 70),
                           GestureDetector(
+                            onTap: () {
+                              viewModel.selectStartDate(context);
+                            },
                             child: Container(
-                              width: size.width / 3,
-                              height: 50,
-                              decoration: const BoxDecoration(
-                                color: Colors.orange,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(
-                                    8.0,
-                                  ),
+                              width: size.width / 2.25,
+                              height: size.width / 9,
+                              decoration: BoxDecoration(
+                                color: const Color.fromARGB(
+                                  79,
+                                  140,
+                                  162,
+                                  206,
+                                ),
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(7.0),
+                                ),
+                                border: Border.all(
+                                  color: const Color(0xFF293066),
                                 ),
                               ),
-                              child: Text("text"),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          formatter.format(viewModel.start),
+                                          style: TextStyle(
+                                            fontSize: size.width / 27.5,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  const Icon(
+                                    Icons.calendar_month,
+                                    size: 24.0,
+                                  ),
+                                ],
+                              ),
                             ),
                           )
                         ],
                       ),
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Tanggal Selesai"),
+                          Text(
+                            "Tanggal Selesai",
+                            style: TextStyle(
+                                color: const Color(0xff293066),
+                                fontFamily: 'Helvetica',
+                                fontSize: size.width / 25,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(height: size.width / 70),
                           GestureDetector(
+                            onTap: () {
+                              viewModel.selectEndDate(context);
+                            },
                             child: Container(
-                              width: size.width / 3,
-                              height: 50,
-                              decoration: const BoxDecoration(
-                                color: Colors.orange,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(
-                                    8.0,
-                                  ),
+                              width: size.width / 2.25,
+                              height: size.width / 9,
+                              decoration: BoxDecoration(
+                                color: const Color.fromARGB(
+                                  79,
+                                  140,
+                                  162,
+                                  206,
+                                ),
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(7.0),
+                                ),
+                                border: Border.all(
+                                  color: const Color(0xFF293066),
                                 ),
                               ),
-                              child: Text("text"),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          formatter.format(viewModel.end),
+                                          style: TextStyle(
+                                            fontSize: size.width / 27.5,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  const Icon(
+                                    Icons.calendar_month,
+                                    size: 24.0,
+                                  ),
+                                ],
+                              ),
                             ),
                           )
                         ],
                       ),
+                      // Column(
+                      //   children: [
+                      //     const Text("Tanggal Selesai"),
+                      //     GestureDetector(
+                      //       onTap: () {
+                      //         viewModel.selectEndDate(context);
+                      //       },
+                      //       child: Container(
+                      //         width: size.width / 3,
+                      //         height: 50,
+                      //         decoration: const BoxDecoration(
+                      //           color: Colors.orange,
+                      //           borderRadius: BorderRadius.all(
+                      //             Radius.circular(
+                      //               8.0,
+                      //             ),
+                      //           ),
+                      //         ),
+                      //         child: Center(
+                      //           child: Text(
+                      //             formatter.format(viewModel.end),
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     )
+                      //   ],
+                      // ),
                     ],
                   ),
                 ],

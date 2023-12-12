@@ -2,9 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_fundraises.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_volunteer.dart';
 import 'package:provider/provider.dart';
 import '../../../theme.dart';
 // import '../widgets/volunteer/header_widget.dart';
+import '../../view_model/view_model_signin.dart';
+import '../widgets/volunteer/floating_button.dart';
 import '../widgets/volunteer/header_widget.dart';
 import 'card_fundraise.dart';
 
@@ -17,10 +20,15 @@ class FundraiseScreen extends StatefulWidget {
 
 class _FundraiseScreenState extends State<FundraiseScreen> {
   late FundraisesViewModel viewModel;
+  late VolunteerViewModel viewModelVolunteer;
+  late SignInViewModel sp;
 
   @override
   void initState() {
     viewModel = Provider.of<FundraisesViewModel>(context, listen: false);
+    viewModelVolunteer =
+        Provider.of<VolunteerViewModel>(context, listen: false);
+    sp = Provider.of<SignInViewModel>(context, listen: false);
     viewModel.awal();
     super.initState();
     viewModel.scrollController.addListener(viewModel.scrollListener);
@@ -53,46 +61,71 @@ class _FundraiseScreenState extends State<FundraiseScreen> {
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SearchAndFilterBar(
-                searchController: TextEditingController(),
-                onSearchChanged: (text) {},
-                onFilterPressed: () {
-                  // showFilterBottomSheet(context);
-                },
-              ),
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SearchAndFilterBar(
+                    searchController: TextEditingController(),
+                    onSearchChanged: (text) {},
+                    onFilterPressed: () {
+                      // showFilterBottomSheet(context);
+                    },
+                  ),
+                ),
+                Consumer<FundraisesViewModel>(
+                  builder: (context, isLoading, child) {
+                    return viewModel.isLoading
+                        ? const Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : SizedBox(
+                            height: size.height / 1.3,
+                            child: ListView.builder(
+                              controller: viewModel.scrollController,
+                              itemCount: viewModel
+                                  .modelFundraisesPagination!.data.length,
+                              itemBuilder: (context, index) {
+                                return SizedBox(
+                                  height: 130,
+                                  child: CardFundraise(
+                                    fundraise: viewModel
+                                        .modelFundraisesPagination!.data[index],
+                                  ),
+                                );
+                              },
+                            ),
+                          );
+                  },
+                ),
+              ],
             ),
-            Consumer<FundraisesViewModel>(
-              builder: (context, isLoading, child) {
-                return viewModel.isLoading
-                    ? const Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : SizedBox(
-                        height: size.height / 1.3,
-                        child: ListView.builder(
-                          controller: viewModel.scrollController,
-                          itemCount:
-                              viewModel.modelFundraisesPagination!.data.length,
-                          itemBuilder: (context, index) {
-                            return SizedBox(
-                              height: 130,
-                              child: CardFundraise(
-                                fundraise: viewModel
-                                    .modelFundraisesPagination!.data[index],
-                              ),
-                            );
-                          },
-                        ),
-                      );
-              },
-            ),
-          ],
-        ),
+          ),
+          Consumer<VolunteerViewModel>(
+            builder: (context, overlayProvider, child) {
+              return IgnorePointer(
+                ignoring: !overlayProvider.isOverlayVisible,
+                child: AnimatedOpacity(
+                  opacity: overlayProvider.isOverlayVisible ? 0.6 : 0.0,
+                  duration: const Duration(milliseconds: 200),
+                  child: Container(
+                    color: Colors.black,
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+      floatingActionButton: Consumer<SignInViewModel>(
+        builder: (context, contactModel, child) {
+          return const CustomFloatingButton();
+        },
       ),
     );
   }

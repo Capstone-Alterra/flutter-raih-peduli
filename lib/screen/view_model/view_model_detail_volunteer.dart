@@ -54,7 +54,7 @@ class DetailVolunteerViewModel with ChangeNotifier {
       return ImageData(pickedImage.path, File(pickedImage.path));
     } else {
       // Tampilkan pesan kesalahan jika tidak ada gambar yang dipilih
-      print('Tidak ada gambar yang dipilih.');
+      debugPrint('Tidak ada gambar yang dipilih.');
       return null;
     }
   }

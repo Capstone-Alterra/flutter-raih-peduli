@@ -6,6 +6,7 @@ import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/floating_butto
 import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/header_widget.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/relawan_card_widget.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_bookmarkscreen.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_volunteer.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:provider/provider.dart';
@@ -19,9 +20,11 @@ class AccessVolunteerScreen extends StatefulWidget {
 
 class _AccessVolunteerScreenState extends State<AccessVolunteerScreen> {
   late VolunteerViewModel viewModel;
+  late SignInViewModel sp;
   @override
   void initState() {
     viewModel = Provider.of<VolunteerViewModel>(context, listen: false);
+    sp = Provider.of<SignInViewModel>(context, listen: false);
     viewModel.awal();
     viewModel.scrollController.addListener(viewModel.scrollListener);
     viewModel.fetchNewsPagination();
@@ -31,7 +34,6 @@ class _AccessVolunteerScreenState extends State<AccessVolunteerScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    // final viewModel = Provider.of<VolunteerViewModel>(context, listen: false);
     return ChangeNotifierProvider(
       create: (context) => BookmarkScreenViewModel(),
       child: Scaffold(
@@ -140,7 +142,11 @@ class _AccessVolunteerScreenState extends State<AccessVolunteerScreen> {
             ),
           ],
         ),
-        floatingActionButton: CustomFloatingButton(),
+        floatingActionButton: Consumer<SignInViewModel>(
+          builder: (context, contactModel, child) {
+            return const CustomFloatingButton();
+          },
+        ),
       ),
     );
   }

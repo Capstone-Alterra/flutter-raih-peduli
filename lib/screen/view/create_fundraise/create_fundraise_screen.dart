@@ -1,12 +1,15 @@
-// ignore_for_file: camel_case_types, prefer_typing_uninitialized_variables
+// ignore_for_file: camel_case_types, prefer_typing_uninitialized_variables, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/create_fundraise/form_create_fundraise.dart';
+import 'package:flutter_raih_peduli/screen/view/navigation/navigation.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_create_fundraise.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
 import 'package:provider/provider.dart';
+import 'package:quickalert/models/quickalert_type.dart';
 
 import '../../../theme.dart';
+import '../widgets/login_signup/alert.dart';
 // import '../widgets/volunteer/text_form.dart';
 
 class CreateFundraise extends StatefulWidget {
@@ -24,6 +27,7 @@ class _CreateFundraiseState extends State<CreateFundraise> {
     viewModel = Provider.of<ViewModelCreateFundraises>(context, listen: false);
     sp = Provider.of<SignInViewModel>(context, listen: false);
     super.initState();
+    viewModel.clearAll();
   }
 
   @override
@@ -76,16 +80,7 @@ class _CreateFundraiseState extends State<CreateFundraise> {
               height: size.height * 0.06,
               width: size.width * 0.43,
               child: ElevatedButton(
-                onPressed: () {
-                  // final snackBar = snackBarVolunteer(size, context);
-                  // ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  // Future.delayed(const Duration(seconds: 4), () {
-                  //   Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(builder: (context) => ProfileEdit()),
-                  //   );
-                  // });
-                },
+                onPressed: () {},
                 style: ButtonStyle(
                   elevation: MaterialStateProperty.all(0),
                   backgroundColor: MaterialStateProperty.all(
@@ -112,18 +107,36 @@ class _CreateFundraiseState extends State<CreateFundraise> {
               width: size.width * 0.43,
               child: ElevatedButton(
                 onPressed: () async {
-                  print("====${viewModel.start}");
-                  print("====${viewModel.end}");
-                  viewModel.createFundraising(
+                  if (viewModel.formKey.currentState!.validate()) {
+                    await viewModel.createFundraising(
                       accessToken: sp.accessTokenSharedPreference,
-                      refreshToken: sp.refreshTokenSharedPreference);
-                  // await viewModel.fetchApplyVolunteer(
-                  //   volunteerId: widget.volunteerId,
-                  //   accessToken: sp.accessTokenSharedPreference,
-                  //   refreshToken: sp.refreshTokenSharedPreference,
-                  // );
-                  // showCustomDialog(context, size);
-                  // viewModel.clearAll();
+                      refreshToken: sp.refreshTokenSharedPreference,
+                    );
+                    if (viewModel.isSukses == true) {
+                      customAlert(
+                        context: context,
+                        alertType: QuickAlertType.custom,
+                        customAsset: 'assets/Group 427318233.png',
+                        text: 'Berhasil membuat penggalangan dana',
+                        afterDelay: () {
+                          // Navigator.pop(context);
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const BottomNavgationBar(),
+                            ),
+                          );
+                        },
+                      );
+                      viewModel.clearAll();
+                    } else {
+                      customAlert(
+                        context: context,
+                        alertType: QuickAlertType.error,
+                        text: 'Terjadi kesalahan mohon coba lagi',
+                      );
+                    }
+                  }
                 },
                 style: ButtonStyle(
                   elevation: MaterialStateProperty.all(0),

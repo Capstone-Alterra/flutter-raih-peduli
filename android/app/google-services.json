@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "655476303847",
+    "project_id": "raihpeduli-92b4c",
+    "storage_bucket": "raihpeduli-92b4c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:655476303847:android:1b06a2ca0f049b87dabf42",
+        "android_client_info": {
+          "package_name": "com.denbei.fcmtest"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyRDYGuZq7O8V4_ILxkw4kcIMDkTzMFXA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:655476303847:android:1a1e0502f55fee60dabf42",
+        "android_client_info": {
+          "package_name": "com.example.flutter_raih_peduli"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyRDYGuZq7O8V4_ILxkw4kcIMDkTzMFXA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
