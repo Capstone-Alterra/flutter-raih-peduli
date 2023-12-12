@@ -1,16 +1,16 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/model/model_historydonation.dart';
-import 'package:flutter_raih_peduli/services/service_historydonation.dart';
+import 'package:flutter_raih_peduli/model/model.historycreatefundraise.dart';
+import 'package:flutter_raih_peduli/services/service_historycreatefundraise.dart';
 import 'package:flutter_raih_peduli/utils/state/finite_state.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class DonationHistoryViewModel extends ChangeNotifier {
-  HistoryDonationModel? historyDonationModel;
-  final services = HistoryDonationServices();
+class CreateFundraiseHistoryViewModel extends ChangeNotifier {
+  HistoryCreateFundraiseModel? historyCreateFundraiseModel;
+  final services = HistoryCreateFundraiseServices();
   String accessToken = '';
-  String statusText = '';
+  int remainingDays = 0;
 
   MyState myState = MyState.loading;
 
@@ -18,30 +18,30 @@ class DonationHistoryViewModel extends ChangeNotifier {
   Color borderColor = const Color(0xff166648);
   Color textColor = const Color(0xff166648);
 
-  Future<void> getDonationHistory() async {
+  String statusText = '';
+
+  Future<void> getCreateFundraiseHistory() async {
     await getAccessToken();
     try {
       myState = MyState.loading;
       notifyListeners();
 
-      historyDonationModel =
-          await services.fetchHistoryDonation(token: accessToken);
+      historyCreateFundraiseModel = await services.fetchhistorycreatefundraise(token: accessToken);
 
-      if (historyDonationModel != null &&
-          historyDonationModel!.data.isNotEmpty) {
-        String status = historyDonationModel!.data.first.status;
+      if (historyCreateFundraiseModel != null && historyCreateFundraiseModel!.data.isNotEmpty) {
+        String status = historyCreateFundraiseModel!.data.first.status;
         switch (status) {
-          case 'Paid':
+          case 'accepted':
             containerColor = const Color(0xffEFFAF4); // Green color
             borderColor = const Color(0xff166648); // Dark green color
             textColor = const Color(0xff166648); // Dark green color
-            statusText = 'Dibayar';
+            statusText = 'Diterima';
             break;
-          case 'Waiting For Payment':
+          case 'pending':
             containerColor = const Color(0xffFFFDEA); // Yellow color
             borderColor = const Color(0xffBB5902); // Dark yellow color
             textColor = const Color(0xffBB5902); // Dark yellow color
-            statusText = 'Waiting For Payment';
+            statusText = 'Pending';
             break;
           default:
             containerColor = const Color(0xffFEF2F2); // Red color
@@ -51,7 +51,13 @@ class DonationHistoryViewModel extends ChangeNotifier {
             break;
         }
       }
+      
+      if (historyCreateFundraiseModel != null && historyCreateFundraiseModel!.data.isNotEmpty) {
+      final fundraiser = historyCreateFundraiseModel!.data.first;
 
+      // Calculate the difference in days
+      remainingDays = fundraiser.endDate.difference(fundraiser.startDate).inDays;
+    }
       myState = MyState.loaded;
       notifyListeners();
     } catch (e) {
@@ -67,6 +73,11 @@ class DonationHistoryViewModel extends ChangeNotifier {
   Future<void> getAccessToken() async {
     final getAccToken = await SharedPreferences.getInstance();
     accessToken = getAccToken.getString('access_token')!;
+  }
+
+  String formatDate(DateTime dateTime) {
+    final DateFormat formatter = DateFormat('dd MMMM y');
+    return formatter.format(dateTime);
   }
 
   String formattedPrice(price) => NumberFormat.currency(

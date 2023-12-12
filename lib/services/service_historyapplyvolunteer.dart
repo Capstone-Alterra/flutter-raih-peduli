@@ -1,16 +1,16 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_raih_peduli/model/model_historycreatefundrise.dart';
+import 'package:flutter_raih_peduli/model/model_historyapplyvolunteer.dart';
 import 'package:flutter_raih_peduli/utils/utils.dart';
 
-class HistoryCreateFundriseServices {
+class HistoryApplyVolunteerServices {
   final Dio _dio = Dio();
 
-  Future<HistoryCreateFundrise> fetchHistoryCreateFundrise({
+  Future<HistoryApplyVolunteerModel> fetchHistoryApplyVolunteer({
     required String token,
   }) async {
     try {
       final response = await _dio.get(
-        Urls.baseUrl + Urls.historyCreateFundriseByUser,
+        Urls.baseUrl + Urls.fetchHistoryApplyVolunteer,
         options: Options(
           headers: {
             'Authorization': 'Bearer $token',
@@ -18,7 +18,7 @@ class HistoryCreateFundriseServices {
         ),
       );
       print("=>${response.data}");
-      return historyCreateFundriseFromJson(response.data);
+      return historyApplyVolunteerModelFromJson(response.data);
     } on DioException catch (_) {
       rethrow;
     }

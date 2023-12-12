@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/onboarding/splash_screen.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_chatbot.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_createfundraisehistory.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_fundraises.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_ganti_password.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_historyapplyvolunteer.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_historycreatevolunteer.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_historydonation.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_home.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_homescreeen.dart';
@@ -47,6 +50,12 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => DetailVolunteerViewModel()),
           ChangeNotifierProvider(create: (_) => PersonalisasiViewModel()),
           ChangeNotifierProvider(create: (_) => HomeViewModel()),
+          ChangeNotifierProvider(
+              create: (_) => HistoryCreateVolunteerViewModel()),
+          ChangeNotifierProvider(
+              create: (_) => CreateFundraiseHistoryViewModel()),
+          ChangeNotifierProvider(
+              create: (_) => HistoryApplyVolunteerViewModel()),
         ],
         child: MaterialApp(
           theme: ThemeData(

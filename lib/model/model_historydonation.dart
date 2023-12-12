@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final historyDonationModel = historyDonationModelFromJson(jsonString);
+
 import 'dart:convert';
 
 HistoryDonationModel historyDonationModelFromJson(Map<String, dynamic> map) =>
@@ -36,11 +40,13 @@ class Datum {
   final String phoneNumber;
   final String profilePicture;
   final int fundraiseId;
+  final String fundraiseName;
   final int amount;
   final String paymentType;
   final String virtualAccount;
   final String urlCallback;
   final String paidAt;
+  final DateTime validUntil;
   final String status;
   final String postType;
 
@@ -53,11 +59,13 @@ class Datum {
     required this.phoneNumber,
     required this.profilePicture,
     required this.fundraiseId,
+    required this.fundraiseName,
     required this.amount,
     required this.paymentType,
     required this.virtualAccount,
     required this.urlCallback,
     required this.paidAt,
+    required this.validUntil,
     required this.status,
     required this.postType,
   });
@@ -71,11 +79,13 @@ class Datum {
         phoneNumber: json["phone_number"],
         profilePicture: json["profile_picture"],
         fundraiseId: json["fundraise_id"],
+        fundraiseName: json["fundraise_name"],
         amount: json["amount"],
         paymentType: json["payment_type"],
         virtualAccount: json["virtual_account"],
         urlCallback: json["url_callback"],
         paidAt: json["paid_at"],
+        validUntil: DateTime.parse(json["valid_until"]),
         status: json["status"],
         postType: json["post_type"],
       );
@@ -89,11 +99,13 @@ class Datum {
         "phone_number": phoneNumber,
         "profile_picture": profilePicture,
         "fundraise_id": fundraiseId,
+        "fundraise_name": fundraiseName,
         "amount": amount,
         "payment_type": paymentType,
         "virtual_account": virtualAccount,
         "url_callback": urlCallback,
         "paid_at": paidAt,
+        "valid_until": validUntil.toIso8601String(),
         "status": status,
         "post_type": postType,
       };

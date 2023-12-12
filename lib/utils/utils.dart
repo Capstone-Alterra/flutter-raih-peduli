@@ -24,4 +24,8 @@ class Urls {
   static const String fetchNewsPagination = "/news?page=";
   static const String fetchPersonalisasi = "/mobile/users/personalization";
   static const String fetchHome = "/home/mobile";
+  static const String fetchAllFundraise = "/mobile/fundraises?page=1";
+  static const String fetchCreateVolunteerHistory = "/history/volunteer-vacancies";
+  static const String fetchHistoryCreateFundraise = "/history/fundraises";
+  static const String fetchHistoryApplyVolunteer = "/history/volunteer-vacancies/registered";
 }
