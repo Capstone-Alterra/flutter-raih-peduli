@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:dio/dio.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -149,7 +151,6 @@ class SignInViewModel with ChangeNotifier {
     } else {
       isSudahLogin = false;
     }
-    notifyListeners();
   }
 
   Future<void> keluar() async {
@@ -189,10 +190,6 @@ class SignInViewModel with ChangeNotifier {
         vapidKey:
             'BNKkaUWxyP_yC_lki1kYazgca0TNhuzt2drsOrL6WrgGbqnMnr8ZMLzg_rSPDm6HKphABS0KzjPfSqCXHXEd06Y');
     fcm = token!;
-    print("FCM Token: $token");
     return token;
   }
-
-
- 
 }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/model_create_fundraise.dart';
 import 'package:flutter_raih_peduli/services/service_create_fundraise.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
 class ViewModelCreateFundraises with ChangeNotifier {
   ModelCreateFundraise? createFundraise;
@@ -128,13 +129,13 @@ class ViewModelCreateFundraises with ChangeNotifier {
     return null;
   }
 
-String? validateTarget(String value) {
+  String? validateTarget(String value) {
     if (value.isEmpty) {
       return 'Target tidak boleh kosong';
     } else {
       try {
         final targetValue = int.parse(value);
-        if (targetValue < 100000) {
+        if (targetValue < 20000) {
           return 'Target minimal Rp. 100.000';
         }
       } catch (e) {
@@ -143,5 +144,23 @@ String? validateTarget(String value) {
     }
     notifyListeners();
     return null;
+  }
+
+  TextEditingValue formatTarget(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    final numericValue = int.tryParse(newValue.text.replaceAll(',', ''));
+
+    if (numericValue != null) {
+      final formattedValue =
+          NumberFormat('#,##0', 'en_US').format(numericValue);
+      return newValue.copyWith(
+        text: formattedValue,
+        selection: TextSelection.collapsed(offset: formattedValue.length),
+      );
+    }
+
+    return newValue;
   }
 }

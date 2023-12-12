@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/create_fundraise/form_create_fundraise.dart';
-import 'package:flutter_raih_peduli/screen/view/riwayat/riwayat.dart';
+import 'package:flutter_raih_peduli/screen/view/navigation/navigation.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_create_fundraise.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
 import 'package:provider/provider.dart';
@@ -119,11 +119,11 @@ class _CreateFundraiseState extends State<CreateFundraise> {
                         customAsset: 'assets/Group 427318233.png',
                         text: 'Berhasil membuat penggalangan dana',
                         afterDelay: () {
-                          Navigator.pop(context);
+                          // Navigator.pop(context);
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (_) => const Riwayat(),
+                              builder: (_) => const BottomNavgationBar(),
                             ),
                           );
                         },
