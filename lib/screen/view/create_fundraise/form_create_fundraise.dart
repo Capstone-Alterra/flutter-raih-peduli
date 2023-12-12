@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_create_fundraise.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 // import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 
@@ -16,6 +17,7 @@ class FormCreateFundraise extends StatelessWidget {
   Widget build(BuildContext context) {
     final viewModel =
         Provider.of<ViewModelCreateFundraises>(context, listen: false);
+    final DateFormat formatter = DateFormat("dd-MM-yyyy");
     Size size = MediaQuery.of(context).size;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,6 +53,7 @@ class FormCreateFundraise extends StatelessWidget {
                         borderRadius: BorderRadius.circular(5.0),
                       ),
                     ),
+                    validator: (value) => viewModel.validateJudul(value!),
                   ),
                   const SizedBox(height: 18),
                   textForVolunteer('Isi Deskripsi'),
@@ -77,6 +80,7 @@ class FormCreateFundraise extends StatelessWidget {
                         borderRadius: BorderRadius.circular(5.0),
                       ),
                     ),
+                    validator: (value) => viewModel.validateDeskripsi(value!),
                   ),
                   const SizedBox(height: 18),
                   textForVolunteer('Target'),
@@ -103,15 +107,19 @@ class FormCreateFundraise extends StatelessWidget {
                         borderRadius: BorderRadius.circular(5.0),
                       ),
                     ),
+                    validator: (value) => viewModel.validateTarget(value!),
                   ),
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Column(
                         children: [
-                          Text("Tanggal Mulai"),
+                          const Text("Tanggal Mulai"),
                           GestureDetector(
+                            onTap: () {
+                              viewModel.selectStartDate(context);
+                            },
                             child: Container(
                               width: size.width / 3,
                               height: 50,
@@ -123,15 +131,22 @@ class FormCreateFundraise extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              child: Text("text"),
+                              child: Center(
+                                child: Text(
+                                  formatter.format(viewModel.start),
+                                ),
+                              ),
                             ),
                           )
                         ],
                       ),
                       Column(
                         children: [
-                          Text("Tanggal Selesai"),
+                          const Text("Tanggal Selesai"),
                           GestureDetector(
+                            onTap: () {
+                              viewModel.selectEndDate(context);
+                            },
                             child: Container(
                               width: size.width / 3,
                               height: 50,
@@ -143,7 +158,11 @@ class FormCreateFundraise extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              child: Text("text"),
+                              child: Center(
+                                child: Text(
+                                  formatter.format(viewModel.end),
+                                ),
+                              ),
                             ),
                           )
                         ],

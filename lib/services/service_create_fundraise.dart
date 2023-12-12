@@ -19,10 +19,6 @@ class ServiceCreateFundraise {
     required DateTime endDate,
   }) async {
     final DateFormat formatter = DateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-    final start = formatter.format(startDate);
-    final end = formatter.format(endDate);
-    print(start);
-    print(end);
     try {
       final formData = FormData.fromMap({
         'title': title,
