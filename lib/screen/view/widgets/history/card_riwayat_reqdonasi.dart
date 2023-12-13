@@ -34,6 +34,7 @@ class _HistoryRequestDonationCardState
           );
         } else {
           return ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemCount: provider.historyCreateFundraiseModel!.data.length,
             itemBuilder: (BuildContext context, int index) {

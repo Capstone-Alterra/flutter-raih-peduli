@@ -16,7 +16,6 @@ class Urls {
   static const String searchVolunteer = "/volunteer-vacancies?title=";
   static const String chatBot = "/chatbots";
   static const String historyCreateFundriseByUser = "/history/fundraises";
-  static const String historyDonation = "/history/donations";
   static const String checkPassword = "/mobile/users/check-password";
   static const String changePasswordInSetting = "/mobile/users/change-password";
   static const String updateProfile = "/mobile/users";
@@ -25,7 +24,11 @@ class Urls {
   static const String fetchPersonalisasi = "/mobile/users/personalization";
   static const String fetchHome = "/home/mobile";
   static const String fetchAllFundraise = "/mobile/fundraises?page=1";
-  static const String fetchCreateVolunteerHistory = "/history/volunteer-vacancies";
-  static const String fetchHistoryCreateFundraise = "/history/fundraises";
-  static const String fetchHistoryApplyVolunteer = "/history/volunteer-vacancies/registered";
+  static const String historyDonation = "/mobile/history/donations";
+  static const String fetchCreateVolunteerHistory =
+      "/mobile/history/volunteer-vacancies";
+  static const String fetchHistoryCreateFundraise =
+      "/mobile/history/fundraises";
+  static const String fetchHistoryApplyVolunteer =
+      "/mobile/history/volunteer-vacancies/registered";
 }

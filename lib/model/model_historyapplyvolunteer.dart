@@ -40,6 +40,9 @@ class Datum {
   final String reason;
   final String photo;
   final String status;
+  final int vacancyId;
+  final String vacancyName;
+  final String vacancyPhoto;
   final String postType;
 
   Datum({
@@ -55,6 +58,9 @@ class Datum {
     required this.reason,
     required this.photo,
     required this.status,
+    required this.vacancyId,
+    required this.vacancyName,
+    required this.vacancyPhoto,
     required this.postType,
   });
 
@@ -72,6 +78,9 @@ class Datum {
         reason: json["reason"],
         photo: json["photo"],
         status: json["status"],
+        vacancyId: json["vacancy_id"],
+        vacancyName: json["vacancy_name"],
+        vacancyPhoto: json["vacancy_Photo"],
         postType: json["post_type"],
       );
 
@@ -88,6 +97,9 @@ class Datum {
         "reason": reason,
         "photo": photo,
         "status": status,
+        "vacancy_id": vacancyId,
+        "vacancy_name": vacancyName,
+        "vacancy_Photo": vacancyPhoto,
         "post_type": postType,
       };
 }

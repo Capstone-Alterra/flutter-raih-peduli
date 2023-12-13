@@ -38,9 +38,9 @@ class Datum {
   final String fullname;
   final String address;
   final String phoneNumber;
-  final String profilePicture;
   final int fundraiseId;
   final String fundraiseName;
+  final String fundraisePhoto;
   final int amount;
   final String paymentType;
   final String virtualAccount;
@@ -57,9 +57,9 @@ class Datum {
     required this.fullname,
     required this.address,
     required this.phoneNumber,
-    required this.profilePicture,
     required this.fundraiseId,
     required this.fundraiseName,
+    required this.fundraisePhoto,
     required this.amount,
     required this.paymentType,
     required this.virtualAccount,
@@ -77,9 +77,9 @@ class Datum {
         fullname: json["fullname"],
         address: json["address"],
         phoneNumber: json["phone_number"],
-        profilePicture: json["profile_picture"],
         fundraiseId: json["fundraise_id"],
         fundraiseName: json["fundraise_name"],
+        fundraisePhoto: json["fundraise_photo"],
         amount: json["amount"],
         paymentType: json["payment_type"],
         virtualAccount: json["virtual_account"],
@@ -97,9 +97,9 @@ class Datum {
         "fullname": fullname,
         "address": address,
         "phone_number": phoneNumber,
-        "profile_picture": profilePicture,
         "fundraise_id": fundraiseId,
         "fundraise_name": fundraiseName,
+        "fundraise_photo": fundraisePhoto,
         "amount": amount,
         "payment_type": paymentType,
         "virtual_account": virtualAccount,

@@ -35,6 +35,7 @@ class _HistoryApplyVolunteerCardState extends State<HistoryApplyVolunteerCard> {
           );
         } else {
           return ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemCount: providerData.length,
             itemBuilder: (BuildContext context, int index) {
@@ -69,7 +70,8 @@ class _HistoryApplyVolunteerCardState extends State<HistoryApplyVolunteerCard> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'a',
+                                  provider.historyApplyVolunteerModel!
+                                      .data[index].vacancyName,
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Color(0xff293066),
@@ -79,87 +81,62 @@ class _HistoryApplyVolunteerCardState extends State<HistoryApplyVolunteerCard> {
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 2,
                                 ),
-                                Text(
-                                  'b',
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    fontFamily: 'Helvetica',
-                                    fontSize: 8,
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            const Text(
-                                              'Target',
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 10,
-                                                fontFamily: 'Helvetica',
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: size.width * 0.002),
-                                              child: Icon(
-                                                Icons.location_on,
-                                                size: size.width * 0.028,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        const SizedBox(height: 5),
-                                        Text(
-                                          'c',
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 10,
-                                            fontFamily: 'Helvetica',
-                                          ),
-                                        ),
-                                      ],
+                                    const Text(
+                                      'Skill',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 10,
+                                        fontFamily: 'Helvetica',
+                                      ),
                                     ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            const Text(
-                                              'Hari',
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 10,
-                                                fontFamily: 'Helvetica',
+                                    const SizedBox(height: 5),
+                                    SizedBox(
+                                      height: 20,
+                                      width: 180,
+                                      child: ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
+                                        itemCount: 2,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          return Row(
+                                            children: [
+                                              Container(
+                                                width: size.width * 0.16,
+                                                height: size.width * 0.05,
+                                                decoration: BoxDecoration(
+                                                  color:
+                                                      const Color(0xffFFFFFF),
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                  border: Border.all(
+                                                    color:
+                                                        const Color(0xff293066),
+                                                    width: 2,
+                                                  ),
+                                                ),
+                                                alignment:
+                                                    const AlignmentDirectional(
+                                                        0.00, 0.00),
+                                                child: const Text(
+                                                  'Pendidikan',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Color(0xff293066),
+                                                    fontSize: 8,
+                                                    fontFamily: 'Helvetica',
+                                                  ),
+                                                ),
                                               ),
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: size.width * 0.005),
-                                              child: SvgPicture.asset(
-                                                'assets/kalender.svg',
-                                                width: size.width * 0.028,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        const SizedBox(height: 5),
-                                        Text(
-                                          'Hari',
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 10,
-                                            fontFamily: 'Helvetica',
-                                          ),
-                                        ),
-                                      ],
+                                              const SizedBox(width: 2),
+                                            ],
+                                          );
+                                        },
+                                      ),
                                     ),
                                   ],
                                 ),

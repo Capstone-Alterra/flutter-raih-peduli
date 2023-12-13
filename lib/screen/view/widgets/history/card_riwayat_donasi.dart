@@ -52,7 +52,7 @@ class _HistoryDonationCardState extends State<HistoryDonationCard> {
                             borderRadius: BorderRadius.circular(8.0),
                             image: DecorationImage(
                               image: NetworkImage(provider.historyDonationModel!
-                                  .data[index].profilePicture),
+                                  .data[index].fundraisePhoto),
                               fit: BoxFit.cover,
                             ),
                           ),
