@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
 import '../../navigation/navigation.dart';
 
 void showCustomDialog(BuildContext context, Size size) {
@@ -26,7 +25,6 @@ void showCustomDialog(BuildContext context, Size size) {
           ),
         ],
       ),
-      // content: const Text('This is a warning message.'),
       icon: Padding(
         padding: const EdgeInsets.only(
           bottom: 20,
@@ -42,11 +40,10 @@ void showCustomDialog(BuildContext context, Size size) {
       ),
     ),
   ).then((_) {
-    // Setelah dialog ditutup, arahkan ke halaman beranda
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => BottomNavgationBar(),
+        builder: (context) => const BottomNavgationBar(),
       ),
     );
   });

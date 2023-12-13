@@ -12,7 +12,6 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     title: message.data["Title"],
     message: message.data["Message"],
   );
-  print('Handling a background message ${message.data}');
 }
 
 class NotificationService {
@@ -26,15 +25,6 @@ class NotificationService {
     if (!kIsWeb) {
       await setupFlutterNotifications();
     }
-  }
-
-  Future<String?> getToken() async {
-    String? token = await FirebaseMessaging.instance.getToken(
-        vapidKey:
-            'BNKkaUWxyP_yC_lki1kYazgca0TNhuzt2drsOrL6WrgGbqnMnr8ZMLzg_rSPDm6HKphABS0KzjPfSqCXHXEd06Y');
-
-    print("FCM Token: $token");
-    return token;
   }
 
   Future<void> setupFlutterNotifications() async {

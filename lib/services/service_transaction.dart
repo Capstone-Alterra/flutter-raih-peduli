@@ -15,10 +15,6 @@ class TransactionService {
     required int paymentType,
     required int amount,
   }) async {
-    print(token);
-    print(paymentType);
-    print(fundraiseId);
-    print(amount);
     try {
       final formData = FormData.fromMap({
         'fundraise_id': fundraiseId,
@@ -35,7 +31,7 @@ class TransactionService {
         ),
         data: formData,
       );
-      print("=>${response.data}");
+      debugPrint("=>${response.data}");
       return ModelTransaction.fromJson(response.data);
     } on DioError catch (error) {
       debugPrint("Error: ${error.message}");

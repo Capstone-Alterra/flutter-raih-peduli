@@ -1,9 +1,13 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_detail_volunteer.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:provider/provider.dart';
 
 class SkillFilter extends StatefulWidget {
+  const SkillFilter({super.key});
+
   @override
   _SkillFilterState createState() => _SkillFilterState();
 }
@@ -140,7 +144,7 @@ Future<String?> showSkillFilter(BuildContext context) async {
         child: Container(
           padding: const EdgeInsets.all(16.0),
           height: MediaQuery.of(context).size.height * 0.5,
-          child: SkillFilter(),
+          child: const SkillFilter(),
         ),
       );
     },

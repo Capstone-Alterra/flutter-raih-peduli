@@ -1,64 +1,68 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/model/bank_ewallet.dart';
-import 'package:flutter_raih_peduli/screen/view/fundraises/payment_bank_screen.dart';
-import 'package:flutter_raih_peduli/screen/view/fundraises/payment_gopay_screen.dart';
-import 'package:flutter_raih_peduli/screen/view/fundraises/payment_qris_screen.dart';
 import 'package:flutter_raih_peduli/screen/view/navigation/navigation.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_navigation.dart';
-import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
-import 'package:flutter_raih_peduli/screen/view_model/view_model_transaction.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:provider/provider.dart';
 
 class SuccessDonationScreen extends StatelessWidget {
-
-  SuccessDonationScreen(
-      {super.key,});
+  const SuccessDonationScreen({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     final viewModelNavigation =
-    Provider.of<NavigationProvider>(context, listen: false);
+        Provider.of<NavigationProvider>(context, listen: false);
 
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 36.0),
-                child: Image.asset('assets/checklist.png'),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 30.0,  left: 5.0, right: 5.0),
-                child: Text("Terima kasih!", style: const TextStyle(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 36.0),
+              child: Image.asset('assets/checklist.png'),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(top: 30.0, left: 5.0, right: 5.0),
+              child: Text(
+                "Terima kasih!",
+                style: TextStyle(
                   fontFamily: 'Helvetica',
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                ),),
-              ),Padding(
-                padding: const EdgeInsets.only(top: 5.0, left: 5.0, right: 5.0),
-                child: Text("Donasi telah berhasil dilakukan", style: const TextStyle(
-                fontFamily: 'Helvetica',
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                ),),
-              ),Padding(
-                padding: const EdgeInsets.only(top: 5.0),
-                child: Text("Cek riwayat untuk melihat riwayat donasi", style: TextStyle(
+                ),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(top: 5.0, left: 5.0, right: 5.0),
+              child: Text(
+                "Donasi telah berhasil dilakukan",
+                style: TextStyle(
+                  fontFamily: 'Helvetica',
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 5.0),
+              child: Text(
+                "Cek riwayat untuk melihat riwayat donasi",
+                style: TextStyle(
                   color: AppTheme.primaryColor.withOpacity(0.6),
                   fontFamily: 'Helvetica',
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
-                ),),
+                ),
               ),
-            ],
-          )
-        ),
+            ),
+          ],
+        )),
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -70,13 +74,12 @@ class SuccessDonationScreen extends StatelessWidget {
                 MaterialPageRoute(
                   builder: (_) => const BottomNavgationBar(),
                 ),
-                    (route) => false);
+                (route) => false);
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: AppTheme.primaryColor,
             shape: RoundedRectangleBorder(
-              borderRadius:
-              BorderRadius.circular(8.0),
+              borderRadius: BorderRadius.circular(8.0),
             ),
           ),
           child: const Padding(

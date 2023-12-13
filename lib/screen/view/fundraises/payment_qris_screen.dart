@@ -1,17 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/fundraises/success_donation_screen.dart';
-// import 'package:flutter_media_downloader/flutter_media_downloader.dart';
-// import 'package:flutter_raih_peduli/model/model_fundraise_pagination.dart';
-// import 'package:flutter_raih_peduli/screen/view/fundraises/transaction_amount_screen.dart';
-// import 'package:flutter_raih_peduli/screen/view/home/homescreen.dart';
-
 import 'package:flutter_raih_peduli/screen/view_model/view_model_fundraises.dart';
-import 'package:flutter_raih_peduli/screen/view_model/view_model_navigation.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_transaction.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import '../navigation/navigation.dart';
 
 class PaymentQrisPage extends StatelessWidget {
   const PaymentQrisPage({super.key});
@@ -22,8 +15,6 @@ class PaymentQrisPage extends StatelessWidget {
         Provider.of<FundraisesViewModel>(context, listen: false);
     final viewModelTransaction =
         Provider.of<TransactionViewModel>(context, listen: false);
-    final viewModelNavigation =
-        Provider.of<NavigationProvider>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(
@@ -149,7 +140,7 @@ class PaymentQrisPage extends StatelessWidget {
                       Future.delayed(const Duration(seconds: 2));
                       Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(
-                          builder: (context) => SuccessDonationScreen(),
+                          builder: (context) => const SuccessDonationScreen(),
                         ),
                             (route) => false,
                       );

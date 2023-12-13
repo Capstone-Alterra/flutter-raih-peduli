@@ -60,7 +60,7 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
         ),
         elevation: 0,
         backgroundColor: Colors.transparent,
-        actions: [
+        actions: const [
           SaveWidget(),
         ],
       ),
@@ -97,22 +97,34 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
                       Padding(
                         padding: const EdgeInsets.only(left: 16.0, right: 16.0),
                         child: Text(
-                          "${DateFormat('dd MMMM').format(DateTime.parse(viewModel.modelDetailFundraises!.data.startDate.toString()))} - ${DateFormat('dd MMMM yyy').format(DateTime.parse(viewModel.modelDetailFundraises!.data.endDate.toString()))}",
+                          "${DateFormat('dd MMMM').format(
+                            DateTime.parse(
+                              viewModel.modelDetailFundraises!.data.startDate
+                                  .toString(),
+                            ),
+                          )} - ${DateFormat('dd MMMM yyy').format(
+                            DateTime.parse(
+                              viewModel.modelDetailFundraises!.data.endDate
+                                  .toString(),
+                            ),
+                          )}",
                           style: TextStyle(
                               fontFamily: 'Helvetica',
                               fontSize: size.height / 60),
                         ),
                       ),
-                       Padding(
-                        padding:
-                            EdgeInsets.only(left: 16.0, top: 6, right: 16.0),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 16.0, top: 6, right: 16.0),
                         child: LinearProgressIndicator(
                           color: AppTheme.tertiaryColor,
-                          value:
-                          (viewModel.modelDetailFundraises!.data.fundAcquired/viewModel.modelDetailFundraises!.data.target).toDouble(),
+                          value: (viewModel.modelDetailFundraises!.data
+                                      .fundAcquired /
+                                  viewModel.modelDetailFundraises!.data.target)
+                              .toDouble(),
                           minHeight: 10,
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(10)), // Set the
+                          borderRadius: const BorderRadius.all(
+                              Radius.circular(10)), // Set the
                         ),
                       ),
                       Padding(
@@ -232,8 +244,9 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
           return viewModel.isDetail
               ? Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child:Consumer<FundraisesViewModel>(
-                    builder: (context, contactModel, child) { return ElevatedButton(
+                  child: Consumer<FundraisesViewModel>(
+                      builder: (context, contactModel, child) {
+                    return ElevatedButton(
                       onPressed: () {
                         if (sp.isSudahLogin == false) {
                           customAlert(
@@ -245,18 +258,16 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
                             },
                           );
                         } else {
-                          if (viewModel.modelDetailFundraises!
-                              .data.endDate
-                              .difference(DateTime.now())
-                              .inDays >=
+                          if (viewModel.modelDetailFundraises!.data.endDate
+                                  .difference(DateTime.now())
+                                  .inDays >=
                               0) {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    TransactionAmountScreen(
-                                      id: widget.id,
-                                    ),
+                                builder: (context) => TransactionAmountScreen(
+                                  id: widget.id,
+                                ),
                               ),
                             );
                           }
@@ -264,10 +275,10 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: viewModel
-                            .modelDetailFundraises!.data.endDate
-                            .difference(DateTime.now())
-                            .inDays >=
-                            0
+                                    .modelDetailFundraises!.data.endDate
+                                    .difference(DateTime.now())
+                                    .inDays >=
+                                0
                             ? AppTheme.primaryColor
                             : AppTheme.secondaryColor,
                         shape: RoundedRectangleBorder(
@@ -284,7 +295,8 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
                           ),
                         ),
                       ),
-                    );}),
+                    );
+                  }),
                 )
               : const SizedBox(
                   height: 1,

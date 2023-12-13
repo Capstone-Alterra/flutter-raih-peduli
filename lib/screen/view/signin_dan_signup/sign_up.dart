@@ -28,6 +28,7 @@ class _SignUpState extends State<SignUp> {
   void initState() {
     viewModel = Provider.of<SignUpViewModel>(context, listen: false);
     guest = Provider.of<SignInViewModel>(context, listen: false);
+    viewModel.setAwalGender();
     super.initState();
   }
 

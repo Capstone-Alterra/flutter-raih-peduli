@@ -109,9 +109,9 @@ class CardFundraise extends StatelessWidget {
                               ),
                               Text(
                                 fundraise.endDate
-                                    .difference(DateTime.now())
-                                    .inDays >=
-                                    0
+                                            .difference(DateTime.now())
+                                            .inDays >=
+                                        0
                                     ? '${fundraise.endDate.difference(DateTime.now()).inDays} Hari'
                                     : "Waktu Donasi Habis",
                                 style: TextStyle(
@@ -183,7 +183,7 @@ class CardFundraise extends StatelessWidget {
                             ),
                             child: Center(
                               child: Text(
-                                "${(fundraise.fundAcquired/fundraise.target).toStringAsFixed(2)} %",
+                                "${(fundraise.fundAcquired / fundraise.target).toStringAsFixed(2)} %",
                                 style: TextStyle(
                                   color: AppTheme.primaryColor,
                                   fontFamily: 'Helvetica',
@@ -196,15 +196,14 @@ class CardFundraise extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding:
-                      EdgeInsets.only( top: 8, right: 5.0),
+                      padding: const EdgeInsets.only(top: 8, right: 5.0),
                       child: LinearProgressIndicator(
                         color: AppTheme.tertiaryColor,
-                        value:
-                        (fundraise.fundAcquired/fundraise.target).toDouble(),
+                        value: (fundraise.fundAcquired / fundraise.target)
+                            .toDouble(),
                         minHeight: 10,
-                        borderRadius:
-                        BorderRadius.all(Radius.circular(10)), // Set the
+                        borderRadius: const BorderRadius.all(
+                            Radius.circular(10)), // Set the
                       ),
                     ),
                   ],
