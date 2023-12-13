@@ -5,6 +5,7 @@ import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/forget_passwor
 import 'package:flutter_raih_peduli/screen/view/widgets/login_signup/alert.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/login_signup/button.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/login_signup/textformfield.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_navigation.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
 import 'package:provider/provider.dart';
 import 'package:quickalert/models/quickalert_type.dart';
@@ -23,10 +24,14 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   late SignInViewModel viewModel;
+  late NavigationProvider navigator;
   @override
   void initState() {
     viewModel = Provider.of<SignInViewModel>(context, listen: false);
+    navigator = Provider.of<NavigationProvider>(context, listen: false);
+    viewModel.clearSignInForm();
     viewModel.formKeySignin = GlobalKey<FormState>();
+
     super.initState();
   }
 
@@ -185,6 +190,7 @@ class _SignInState extends State<SignIn> {
                                           await viewModel.signIn();
                                           if (viewModel.isSuksesLogin !=
                                               false) {
+                                            navigator.out();
                                             await viewModel
                                                 .checkPersonalisasi(context);
                                             viewModel.email.clear();

@@ -65,6 +65,7 @@ class DetailVolunteerViewModel with ChangeNotifier {
     required String accessToken,
     required String refreshToken,
     required int volunteerId,
+    required String nik,
   }) async {
     try {
       isSukses = false;
@@ -75,6 +76,7 @@ class DetailVolunteerViewModel with ChangeNotifier {
         resume: resumeController.text,
         reason: reasonController.text,
         foto: imageFile!,
+        nik: nik,
       );
       isSukses = true;
     } catch (e) {
@@ -88,6 +90,7 @@ class DetailVolunteerViewModel with ChangeNotifier {
           resume: resumeController.text,
           reason: reasonController.text,
           foto: imageFile!,
+          nik: nik,
         );
         isSukses = true;
         e.response!.statusCode;

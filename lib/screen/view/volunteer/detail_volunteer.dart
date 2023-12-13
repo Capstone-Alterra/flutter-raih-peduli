@@ -8,6 +8,10 @@ import 'package:flutter_raih_peduli/screen/view_model/view_model_volunteer.dart'
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:quickalert/models/quickalert_type.dart';
+
+import '../../view_model/view_model_signin.dart';
+import '../widgets/login_signup/alert.dart';
 
 class DetailVolunteerPage extends StatefulWidget {
   int id;
@@ -23,10 +27,13 @@ class DetailVolunteerPage extends StatefulWidget {
 
 class _DetailVolunteerPageState extends State<DetailVolunteerPage> {
   late VolunteerViewModel viewModel;
+  late SignInViewModel sp;
   @override
   void initState() {
     viewModel = Provider.of<VolunteerViewModel>(context, listen: false);
     viewModel.fetchDetailVolunteer(id: widget.id);
+    sp = Provider.of<SignInViewModel>(context, listen: false);
+    sp.setSudahLogin();
     super.initState();
   }
 
@@ -187,35 +194,128 @@ class _DetailVolunteerPageState extends State<DetailVolunteerPage> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(16.0),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ApplyFormVolunteer(
-                                        volunteerId: widget.id,
-                                      )),
-                            );
+                        child: Consumer<VolunteerViewModel>(
+                          builder: (context, model, child) {
+                            if (viewModel.modelDetailVolunteer!.data
+                                    .applicationDeadline
+                                    .difference(DateTime.now())
+                                    .inDays >=
+                                0) {
+                              return ElevatedButton(
+                                onPressed: () {
+                                  if (sp.isSudahLogin == false) {
+                                    customAlert(
+                                      context: context,
+                                      alertType: QuickAlertType.error,
+                                      text: 'Anda belum melakukan login',
+                                      afterDelay: () {
+                                        Navigator.pop(context);
+                                      },
+                                    );
+                                  } else {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            ApplyFormVolunteer(
+                                          volunteerId: widget.id,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: AppTheme.primaryColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                  ),
+                                ),
+                                child: const Padding(
+                                  padding: EdgeInsets.all(12.0),
+                                  child: Text(
+                                    'Ikuti Program',
+                                    style: TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            } else {
+                              return ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: AppTheme.secondaryColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                  ),
+                                ),
+                                child: const Padding(
+                                  padding: EdgeInsets.all(12.0),
+                                  child: Text(
+                                    'Ikuti Program',
+                                    style: TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }
                           },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppTheme
-                                .primaryColor, // Warna fill sesuai AppTheme.primaryColor
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                  20.0), // Tombol bulat dengan radius 20.0
-                            ),
-                          ),
-                          child: const Padding(
-                            padding: EdgeInsets.all(12.0),
-                            child: Text(
-                              'Ikuti Program',
-                              style: TextStyle(
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
                         ),
+
+                        // Consumer<SignInViewModel>(
+                        //   builder: (context, model, child) {
+                        //     if (sp.isSudahLogin == false) {
+                        //       return
+                        //     } else {
+                        //       return
+                        //     }
+                        //   },
+                        // ),
+
+                        // ElevatedButton(
+                        //   onPressed: () {
+                        //     if (sp.isSudahLogin == false) {
+                        //       customAlert(
+                        //         context: context,
+                        //         alertType: QuickAlertType.error,
+                        //         text: 'Anda belum melakukan login',
+                        //         afterDelay: () {
+                        //           Navigator.pop(context);
+                        //         },
+                        //       );
+                        //     } else {
+                        //       Navigator.push(
+                        //         context,
+                        //         MaterialPageRoute(
+                        //           builder: (context) => ApplyFormVolunteer(
+                        //             volunteerId: widget.id,
+                        //           ),
+                        //         ),
+                        //       );
+                        //     }
+                        //   },
+                        //   style: ElevatedButton.styleFrom(
+                        //     backgroundColor: AppTheme
+                        //         .primaryColor, // Warna fill sesuai AppTheme.primaryColor
+                        //     shape: RoundedRectangleBorder(
+                        //       borderRadius: BorderRadius.circular(
+                        //           20.0), // Tombol bulat dengan radius 20.0
+                        //     ),
+                        //   ),
+                        //   child: const Padding(
+                        //     padding: EdgeInsets.all(12.0),
+                        //     child: Text(
+                        //       'Ikuti Program',
+                        //       style: TextStyle(
+                        //         fontSize: 18.0,
+                        //         fontWeight: FontWeight.bold,
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
                       ),
                     ],
                   ),

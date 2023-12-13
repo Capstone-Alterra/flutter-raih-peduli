@@ -34,6 +34,7 @@ class _FundraiseScreenState extends State<FundraiseScreen> {
     super.initState();
     viewModel.scrollController.addListener(viewModel.scrollListener);
     viewModel.fetchAllFundraisesPagination();
+    sp.setSudahLogin();
   }
 
   @override

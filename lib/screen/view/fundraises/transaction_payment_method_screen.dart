@@ -229,7 +229,6 @@ class TransactionPaymentMethodScreen extends StatelessWidget {
                           Row(
                             children: [
                               customSmallBank(photo: "assets/bni.png"),
-                              customSmallBank(photo: "assets/mandiri.png"),
                             ],
                           )
                         ],

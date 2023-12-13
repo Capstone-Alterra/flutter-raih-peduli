@@ -14,6 +14,7 @@ class ApplyVolunteerService {
     required String resume,
     required String reason,
     required File foto,
+    required String nik,
   }) async {
     try {
       final formData = FormData.fromMap({
@@ -25,6 +26,7 @@ class ApplyVolunteerService {
           foto.path,
           filename: 'photo.jpg',
         ),
+        'nik': nik,
       });
 
       final response = await dio.post(

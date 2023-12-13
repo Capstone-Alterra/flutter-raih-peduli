@@ -1,26 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/text_volunteer.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_detail_volunteer.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../theme.dart';
-import '../../../view_model/view_model_detail_volunteer.dart';
-// import 'skill_chip.dart';
 import 'skill_filter.dart';
+import 'text_volunteer.dart';
 
 class TextFormVolunteer extends StatefulWidget {
-  const TextFormVolunteer({super.key});
+  const TextFormVolunteer({Key? key}) : super(key: key);
 
   @override
-  State<TextFormVolunteer> createState() => TextFormVolunteerState();
+  State<TextFormVolunteer> createState() => _TextFormVolunteerState();
 }
 
-class TextFormVolunteerState extends State<TextFormVolunteer> {
+class _TextFormVolunteerState extends State<TextFormVolunteer> {
+  late DetailVolunteerViewModel viewModel;
+  @override
+  void initState() {
+    viewModel = Provider.of<DetailVolunteerViewModel>(context, listen: false);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final viewModel =
-        Provider.of<DetailVolunteerViewModel>(context, listen: false);
     Size size = MediaQuery.of(context).size;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,44 +58,49 @@ class TextFormVolunteerState extends State<TextFormVolunteer> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      viewModel.selectedSkills.isEmpty
-                          ? const Text(
-                              'Select Skills',
-                              style: TextStyle(
-                                color: Color(0xffB0B0B0),
-                                fontFamily: 'Helvetica',
-                                fontSize: 12,
-                              ),
-                            )
-                          : Wrap(
-                              spacing: 6.0,
-                              runSpacing: 4.0,
-                              children: viewModel.selectedSkills.map((skill) {
-                                return Chip(
-                                  label: Text(
-                                    skill,
-                                    style: const TextStyle(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  deleteIcon: const Icon(
-                                    Icons.close,
-                                    color: AppTheme.white,
-                                    size:
-                                        16, // Sesuaikan ukuran ikon delete sesuai kebutuhan
-                                  ),
-                                  onDeleted: () {
-                                    viewModel.selectedSkills.remove(skill);
-                                  },
-                                  backgroundColor: AppTheme.primaryColor,
-                                  labelStyle: const TextStyle(
-                                    color: AppTheme.white,
+                      Consumer<DetailVolunteerViewModel>(
+                        builder: (context, contactModel, child) {
+                          return viewModel.selectedSkills.isEmpty
+                              ? const Text(
+                                  'Select Skills',
+                                  style: TextStyle(
+                                    color: Color(0xffB0B0B0),
                                     fontFamily: 'Helvetica',
                                     fontSize: 12,
                                   ),
+                                )
+                              : Wrap(
+                                  spacing: 6.0,
+                                  runSpacing: 4.0,
+                                  children:
+                                      viewModel.selectedSkills.map((skill) {
+                                    return Chip(
+                                      label: Text(
+                                        skill,
+                                        style: const TextStyle(
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      // deleteIcon: const Icon(
+                                      //   Icons.close,
+                                      //   color: AppTheme.white,
+                                      //   size:
+                                      //       16, // Sesuaikan ukuran ikon delete sesuai kebutuhan
+                                      // ),
+                                      // onDeleted: () {
+                                      //   viewModel.selectedSkills.remove(skill);
+                                      // },
+                                      backgroundColor: AppTheme.primaryColor,
+                                      labelStyle: const TextStyle(
+                                        color: AppTheme.white,
+                                        fontFamily: 'Helvetica',
+                                        fontSize: 12,
+                                      ),
+                                    );
+                                  }).toList(),
                                 );
-                              }).toList(),
-                            ),
+                        },
+                      ),
                       const Icon(Icons.arrow_drop_down),
                     ],
                   ),
@@ -237,9 +245,7 @@ class TextFormVolunteerState extends State<TextFormVolunteer> {
                               const SizedBox(width: 8),
                               Expanded(
                                 child: Text(
-                                  viewModel.imagePath != null
-                                      ? basename(viewModel.imagePath!)
-                                      : 'Upload',
+                                  viewModel.imagePath ?? 'Upload',
                                   style: const TextStyle(
                                     color: Color(0xff293066),
                                     fontFamily: 'Helvetica',

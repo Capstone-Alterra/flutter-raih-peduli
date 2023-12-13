@@ -192,4 +192,9 @@ class SignInViewModel with ChangeNotifier {
     fcm = token!;
     return token;
   }
+
+  void clearSignInForm() {
+    email.clear();
+    password.clear();
+  }
 }

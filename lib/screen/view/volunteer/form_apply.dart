@@ -102,7 +102,7 @@ class _ApplyFormVolunteerState extends State<ApplyFormVolunteer> {
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: ButtonVolunteer(
-                  volunteerId: widget.volunteerId,
+                  volunteerId: widget.volunteerId, nik: profile.modelProfile!.data.nik,
                 ),
               );
             }

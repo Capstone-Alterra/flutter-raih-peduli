@@ -18,6 +18,7 @@ class TransactionViewModel with ChangeNotifier {
     Clipboard.setData(ClipboardData(text: teks));
     notifyListeners();
   }
+
   Future<void> urlLauncher(Uri url) async {
     if (!await launchUrl(
       url,
@@ -30,9 +31,8 @@ class TransactionViewModel with ChangeNotifier {
 
   saveNetworkImage(String pictUrl) async {
     print(pictUrl);
-    var response = await Dio().get(
-        pictUrl,
-        options: Options(responseType: ResponseType.bytes));
+    var response = await Dio()
+        .get(pictUrl, options: Options(responseType: ResponseType.bytes));
     final result = await ImageGallerySaver.saveImage(
         Uint8List.fromList(response.data),
         quality: 60,

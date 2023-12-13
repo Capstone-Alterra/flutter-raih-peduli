@@ -129,4 +129,8 @@ class SignUpViewModel with ChangeNotifier {
     isPasswordVisible = !isPasswordVisible;
     notifyListeners();
   }
+
+  void setUlangGender() {
+    selectedGender = 'Jenis Kelamin';
+  }
 }

@@ -30,6 +30,7 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
     viewModel = Provider.of<FundraisesViewModel>(context, listen: false);
     sp = Provider.of<SignInViewModel>(context, listen: false);
     viewModel.fetchDetailfundraises(id: widget.id);
+    sp.setSudahLogin();
     super.initState();
   }
 
@@ -103,13 +104,15 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
                               fontSize: size.height / 60),
                         ),
                       ),
-                       Padding(
+                      Padding(
                         padding:
                             EdgeInsets.only(left: 16.0, top: 6, right: 16.0),
                         child: LinearProgressIndicator(
                           color: AppTheme.tertiaryColor,
-                          value:
-                          (viewModel.modelDetailFundraises!.data.fundAcquired/viewModel.modelDetailFundraises!.data.target).toDouble(),
+                          value: (viewModel.modelDetailFundraises!.data
+                                      .fundAcquired /
+                                  viewModel.modelDetailFundraises!.data.target)
+                              .toDouble(),
                           minHeight: 10,
                           borderRadius:
                               BorderRadius.all(Radius.circular(10)), // Set the
@@ -232,59 +235,73 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
           return viewModel.isDetail
               ? Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child:Consumer<FundraisesViewModel>(
-                    builder: (context, contactModel, child) { return ElevatedButton(
-                      onPressed: () {
-                        if (sp.isSudahLogin == false) {
-                          customAlert(
-                            context: context,
-                            alertType: QuickAlertType.error,
-                            text: 'Anda belum melakukan login',
-                            afterDelay: () {
-                              Navigator.pop(context);
-                            },
-                          );
-                        } else {
-                          if (viewModel.modelDetailFundraises!
-                              .data.endDate
-                              .difference(DateTime.now())
-                              .inDays >=
-                              0) {
+                  child: Consumer<FundraisesViewModel>(
+                      builder: (context, contactModel, child) {
+                    if (viewModel.modelDetailFundraises!.data.endDate
+                            .difference(DateTime.now())
+                            .inDays >=
+                        0) {
+                      return ElevatedButton(
+                        onPressed: () {
+                          if (sp.isSudahLogin == false) {
+                            customAlert(
+                              context: context,
+                              alertType: QuickAlertType.error,
+                              text: 'Anda belum melakukan login',
+                              afterDelay: () {
+                                Navigator.pop(context);
+                              },
+                            );
+                          } else {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    TransactionAmountScreen(
-                                      id: widget.id,
-                                    ),
+                                builder: (context) => TransactionAmountScreen(
+                                  id: widget.id,
+                                ),
                               ),
                             );
                           }
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: viewModel
-                            .modelDetailFundraises!.data.endDate
-                            .difference(DateTime.now())
-                            .inDays >=
-                            0
-                            ? AppTheme.primaryColor
-                            : AppTheme.secondaryColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(12.0),
-                        child: Text(
-                          'Donasi Sekarang',
-                          style: TextStyle(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppTheme.primaryColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
                         ),
-                      ),
-                    );}),
+                        child: const Padding(
+                          padding: EdgeInsets.all(12.0),
+                          child: Text(
+                            'Donasi Sekarang',
+                            style: TextStyle(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      );
+                    } else {
+                      return ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppTheme.secondaryColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                        child: const Padding(
+                          padding: EdgeInsets.all(12.0),
+                          child: Text(
+                            'Donasi Sekarang',
+                            style: TextStyle(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+                  }),
                 )
               : const SizedBox(
                   height: 1,
