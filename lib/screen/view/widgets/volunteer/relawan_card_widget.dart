@@ -86,7 +86,7 @@ class RelawanCard extends StatelessWidget {
                                   Text(
                                     viewModel.truncateText(
                                       volunteerData.title,
-                                      20,
+                                      16,
                                     ),
                                     style: TextStyle(
                                       color: AppTheme.primaryColor,

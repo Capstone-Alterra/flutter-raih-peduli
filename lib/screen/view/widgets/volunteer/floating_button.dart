@@ -45,7 +45,7 @@ class _CustomFloatingButtonState extends State<CustomFloatingButton> {
             if (overlayProvider.isOverlayVisible)
               Padding(
                 padding: EdgeInsets.only(
-                    top: size.height / 1.25, left: size.width / 3),
+                    top: size.height / 1.25, left: size.width / 3.2),
                 child: Column(
                   children: [
                     // Container(
