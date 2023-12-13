@@ -25,15 +25,19 @@ class _HistoryDonationCardState extends State<HistoryDonationCard> {
     Size size = MediaQuery.of(context).size;
     return Consumer<DonationHistoryViewModel>(
       builder: (context, provider, child) {
+        final providerData = provider.historyDonationModel!.data;
         if (provider.myState == MyState.loading) {
           return const Center(
             child: CircularProgressIndicator(),
           );
         } else {
-          return ListView.builder(
+          if (providerData.isEmpty) {
+            return const Text('');
+          } else {
+            return ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            itemCount: provider.historyDonationModel!.data.length,
+            itemCount: providerData.length,
             itemBuilder: (BuildContext context, int index) {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
@@ -51,8 +55,7 @@ class _HistoryDonationCardState extends State<HistoryDonationCard> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8.0),
                             image: DecorationImage(
-                              image: NetworkImage(provider.historyDonationModel!
-                                  .data[index].fundraisePhoto),
+                              image: NetworkImage(providerData[index].fundraisePhoto),
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -66,7 +69,7 @@ class _HistoryDonationCardState extends State<HistoryDonationCard> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  provider.historyDonationModel!.data[index]
+                                  providerData[index]
                                       .fundraiseName,
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
@@ -79,7 +82,7 @@ class _HistoryDonationCardState extends State<HistoryDonationCard> {
                                 ),
                                 Text(
                                   donationHistoryViewModel.formattedPrice(
-                                      provider.historyDonationModel!.data[index]
+                                      providerData[index]
                                           .amount
                                           .toString()),
                                   style: const TextStyle(
@@ -125,6 +128,7 @@ class _HistoryDonationCardState extends State<HistoryDonationCard> {
               );
             },
           );
+          }
         }
       },
     );

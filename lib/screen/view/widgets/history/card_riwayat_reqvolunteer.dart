@@ -26,15 +26,19 @@ class _CardReqVolunteerState extends State<HistoryReqVolunteerCard> {
     Size size = MediaQuery.of(context).size;
     return Consumer<HistoryCreateVolunteerViewModel>(
         builder: (context, provider, child) {
+          final providerData = provider.historyCreateVolunteerModel!.data;
       if (provider.myState == MyState.loading) {
         return const Center(
           child: CircularProgressIndicator(),
         );
       } else {
-        return ListView.builder(
+        if (providerData.isEmpty) {
+          return const Text('');
+        } else {
+          return ListView.builder(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemCount: provider.historyCreateVolunteerModel!.data.length,
+          itemCount: providerData.length,
           itemBuilder: (BuildContext context, int index) {
             return Padding(
               padding: const EdgeInsets.only(bottom: 8.0),
@@ -52,9 +56,7 @@ class _CardReqVolunteerState extends State<HistoryReqVolunteerCard> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8.0),
                           image: DecorationImage(
-                            image: NetworkImage(provider
-                                .historyCreateVolunteerModel!
-                                .data[index]
+                            image: NetworkImage(providerData[index]
                                 .photo),
                             fit: BoxFit.cover,
                           ),
@@ -69,8 +71,7 @@ class _CardReqVolunteerState extends State<HistoryReqVolunteerCard> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                provider.historyCreateVolunteerModel!
-                                    .data[index].title,
+                                providerData[index].title,
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Color(0xff293066),
@@ -82,8 +83,7 @@ class _CardReqVolunteerState extends State<HistoryReqVolunteerCard> {
                               ),
                               Text(
                                 historyCreateVolunteerViewModel.formatDate(
-                                    provider.historyCreateVolunteerModel!
-                                        .data[index].applicationDeadline),
+                                    providerData[index].applicationDeadline),
                                 style: const TextStyle(
                                   fontWeight: FontWeight.w700,
                                   fontFamily: 'Helvetica',
@@ -101,9 +101,7 @@ class _CardReqVolunteerState extends State<HistoryReqVolunteerCard> {
                                       Row(
                                         children: [
                                           Text(
-                                            provider
-                                                .historyCreateVolunteerModel!
-                                                .data[index]
+                                            providerData[index]
                                                 .city,
                                             style: const TextStyle(
                                               fontWeight: FontWeight.bold,
@@ -122,8 +120,7 @@ class _CardReqVolunteerState extends State<HistoryReqVolunteerCard> {
                                         ],
                                       ),
                                       Text(
-                                        provider.historyCreateVolunteerModel!
-                                            .data[index].province,
+                                        providerData[index].province,
                                         style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 10,
@@ -157,7 +154,7 @@ class _CardReqVolunteerState extends State<HistoryReqVolunteerCard> {
                                         ],
                                       ),
                                       Text(
-                                        '${provider.historyCreateVolunteerModel!.data[index].numberOfVacancies} Orang',
+                                        '${providerData[index].numberOfVacancies} Orang',
                                         style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 10,
@@ -206,6 +203,7 @@ class _CardReqVolunteerState extends State<HistoryReqVolunteerCard> {
             );
           },
         );
+        }
       }
     });
   }
