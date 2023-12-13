@@ -27,8 +27,9 @@ class _AccessVolunteerScreenState extends State<AccessVolunteerScreen> {
     sp = Provider.of<SignInViewModel>(context, listen: false);
     viewModel.awal();
     viewModel.scrollController.addListener(viewModel.scrollListener);
-    viewModel.fetchNewsPagination();
+    viewModel.fetchVolunteerPagination();
     viewModel.overlay();
+    sp.setSudahLogin();
     super.initState();
   }
 

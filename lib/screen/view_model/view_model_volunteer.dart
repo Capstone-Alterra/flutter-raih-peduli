@@ -18,12 +18,11 @@ class VolunteerViewModel with ChangeNotifier {
   bool dataHasilSearch = false;
   bool isMenuOpen = false;
   // bool _isOverlayVisible = false;
-  bool  isOverlayVisible = false;
+  bool isOverlayVisible = false;
   bool isDetail = false;
   int indexPagination = 1;
   late final scrollController = ScrollController();
   bool isSearch = false;
-  
 
   Future<void> fetchAllVolunteer() async {
     isLoading = true;
@@ -67,9 +66,8 @@ class VolunteerViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-    void overlay() {
+  void overlay() {
     isOverlayVisible = false;
-    notifyListeners();
   }
 
   Future fetchDetailVolunteer({
@@ -89,7 +87,7 @@ class VolunteerViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> fetchNewsPagination() async {
+  Future<void> fetchVolunteerPagination() async {
     isSearch = false;
     isLoading = true;
     final data = await service.hitVolunteerPagination(indexPagination);

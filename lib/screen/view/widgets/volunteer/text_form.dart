@@ -72,8 +72,7 @@ class TextFormVolunteerState extends State<TextFormVolunteer> {
                                   label: Text(
                                     skill,
                                     style: const TextStyle(
-                                        fontSize:
-                                            10,
+                                        fontSize: 10,
                                         fontWeight: FontWeight.bold),
                                   ),
                                   deleteIcon: const Icon(
@@ -209,11 +208,12 @@ class TextFormVolunteerState extends State<TextFormVolunteer> {
                   children: [
                     InkWell(
                       onTap: () async {
-                        final imageData = await viewModel.pickImage();
-                        if (imageData != null) {
-                          viewModel.imagePath = imageData.path;
-                          viewModel.imageFile = imageData.file;
-                        }
+                        viewModel.pickImage();
+                        // final imageData = await viewModel.pickImage();
+                        // if (imageData != null) {
+                        //   viewModel.imagePath = imageData.path;
+                        //   viewModel.imageFile = imageData.file;
+                        // }
                       },
                       child: Container(
                         alignment: Alignment.centerLeft,

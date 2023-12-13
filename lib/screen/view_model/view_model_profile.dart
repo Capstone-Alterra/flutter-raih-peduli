@@ -12,6 +12,7 @@ class ProfileViewModel with ChangeNotifier {
   final TextEditingController telpController = TextEditingController();
   final TextEditingController alamatController = TextEditingController();
   final TextEditingController nikController = TextEditingController();
+  bool isCheckNik = true;
 
   Future fetchProfile({
     required String accessToken,
@@ -61,5 +62,13 @@ class ProfileViewModel with ChangeNotifier {
       }
     }
     notifyListeners();
+  }
+
+  void setSudahLogin() {
+    if (modelProfile!.data.nik == '') {
+      isCheckNik = false;
+    } else {
+      isCheckNik = true;
+    }
   }
 }
