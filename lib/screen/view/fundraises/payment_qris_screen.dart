@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/screen/view/fundraises/success_donation_screen.dart';
 // import 'package:flutter_media_downloader/flutter_media_downloader.dart';
 // import 'package:flutter_raih_peduli/model/model_fundraise_pagination.dart';
 // import 'package:flutter_raih_peduli/screen/view/fundraises/transaction_amount_screen.dart';
@@ -143,13 +144,14 @@ class PaymentQrisPage extends StatelessWidget {
               : Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: ElevatedButton(
-                    onPressed: () async {
-                      viewModelNavigation.goRiwayat();
+                    onPressed: () {
+                      viewModelTransaction.saveNetworkImage(viewModelTransaction.modelTransaction!.data.urlCallback);
+                      Future.delayed(const Duration(seconds: 2));
                       Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(
-                          builder: (context) => const BottomNavgationBar(),
+                          builder: (context) => SuccessDonationScreen(),
                         ),
-                        (route) => false,
+                            (route) => false,
                       );
 
                       viewModelFundraise.amountController.clear();

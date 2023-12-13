@@ -91,7 +91,7 @@ class _FundraiseScreenState extends State<FundraiseScreen> {
                                   .modelFundraisesPagination!.data.length,
                               itemBuilder: (context, index) {
                                 return SizedBox(
-                                  height: 130,
+                                  height: 150,
                                   child: CardFundraise(
                                     fundraise: viewModel
                                         .modelFundraisesPagination!.data[index],

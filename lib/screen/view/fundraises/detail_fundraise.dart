@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/fundraises/transaction_amount_screen.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/login_signup/alert.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/save_widget.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_fundraises.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:quickalert/models/quickalert_type.dart';
 
 class DetailFundraisePage extends StatefulWidget {
   final int id;
@@ -20,15 +23,19 @@ class DetailFundraisePage extends StatefulWidget {
 
 class _DetailFundraisePageState extends State<DetailFundraisePage> {
   late FundraisesViewModel viewModel;
+  late SignInViewModel sp;
+
   @override
   void initState() {
     viewModel = Provider.of<FundraisesViewModel>(context, listen: false);
+    sp = Provider.of<SignInViewModel>(context, listen: false);
     viewModel.fetchDetailfundraises(id: widget.id);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    var formatter = NumberFormat("#,##0", "en_US");
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -96,12 +103,13 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
                               fontSize: size.height / 60),
                         ),
                       ),
-                      const Padding(
+                       Padding(
                         padding:
                             EdgeInsets.only(left: 16.0, top: 6, right: 16.0),
                         child: LinearProgressIndicator(
                           color: AppTheme.tertiaryColor,
-                          value: 0.6,
+                          value:
+                          (viewModel.modelDetailFundraises!.data.fundAcquired/viewModel.modelDetailFundraises!.data.target).toDouble(),
                           minHeight: 10,
                           borderRadius:
                               BorderRadius.all(Radius.circular(10)), // Set the
@@ -132,7 +140,7 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
                                   height: 5,
                                 ),
                                 Text(
-                                  "${viewModel.modelDetailFundraises!.data.target}",
+                                  "Rp. ${formatter.format(viewModel.modelDetailFundraises!.data.target)}",
                                   style: TextStyle(
                                     color: AppTheme.tertiaryColor,
                                     fontFamily: 'Helvetica',
@@ -161,7 +169,12 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
                                   height: 5,
                                 ),
                                 Text(
-                                  '${viewModel.modelDetailFundraises!.data.endDate.difference(DateTime.now()).inDays} Hari',
+                                  viewModel.modelDetailFundraises!.data.endDate
+                                              .difference(DateTime.now())
+                                              .inDays >=
+                                          0
+                                      ? '${viewModel.modelDetailFundraises!.data.endDate.difference(DateTime.now()).inDays} Hari'
+                                      : "Waktu Donasi Habis",
                                   style: TextStyle(
                                     color: AppTheme.tertiaryColor,
                                     fontFamily: 'Helvetica',
@@ -219,34 +232,59 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
           return viewModel.isDetail
               ? Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => TransactionAmountScreen(
-                            id: widget.id,
+                  child:Consumer<FundraisesViewModel>(
+                    builder: (context, contactModel, child) { return ElevatedButton(
+                      onPressed: () {
+                        if (sp.isSudahLogin == false) {
+                          customAlert(
+                            context: context,
+                            alertType: QuickAlertType.error,
+                            text: 'Anda belum melakukan login',
+                            afterDelay: () {
+                              Navigator.pop(context);
+                            },
+                          );
+                        } else {
+                          if (viewModel.modelDetailFundraises!
+                              .data.endDate
+                              .difference(DateTime.now())
+                              .inDays >=
+                              0) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    TransactionAmountScreen(
+                                      id: widget.id,
+                                    ),
+                              ),
+                            );
+                          }
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: viewModel
+                            .modelDetailFundraises!.data.endDate
+                            .difference(DateTime.now())
+                            .inDays >=
+                            0
+                            ? AppTheme.primaryColor
+                            : AppTheme.secondaryColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.all(12.0),
+                        child: Text(
+                          'Donasi Sekarang',
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppTheme.primaryColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
                       ),
-                    ),
-                    child: const Padding(
-                      padding: EdgeInsets.all(12.0),
-                      child: Text(
-                        'Donasi Sekarang',
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
+                    );}),
                 )
               : const SizedBox(
                   height: 1,
@@ -254,32 +292,6 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
                 );
         },
       ),
-    );
-  }
-
-  Widget _buildInfoColumn(String label, String value, IconData iconData) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Icon(
-              iconData,
-              color: AppTheme.primaryColor,
-            ),
-            const SizedBox(width: 8.0),
-            Text(
-              label,
-              style: const TextStyle(
-                color: AppTheme.primaryColor,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 4.0),
-        Text(value),
-      ],
     );
   }
 }

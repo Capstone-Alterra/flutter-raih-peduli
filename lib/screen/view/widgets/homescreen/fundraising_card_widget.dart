@@ -6,6 +6,7 @@ import 'package:flutter_raih_peduli/screen/view_model/view_model_fundraises.dart
 // import 'package:flutter_raih_peduli/model/fundraising_data.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../fundraises/detail_fundraise.dart';
@@ -29,6 +30,7 @@ class FundraisingCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var formatter = NumberFormat("#,##0", "en_US");
     final viewModel = Provider.of<FundraisesViewModel>(context, listen: false);
     Size size = MediaQuery.of(context).size;
     double sizecontent = size.width / 2;
@@ -118,7 +120,7 @@ class FundraisingCard extends StatelessWidget {
                       ],
                     ),
                     Text(
-                      'Rp. $target',
+                      "Rp ${formatter.format(target)}",
                       style: TextStyle(
                         color: AppTheme.primaryColor,
                         fontFamily: 'Helvetica',

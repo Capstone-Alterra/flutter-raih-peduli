@@ -1,7 +1,12 @@
+import 'dart:math';
+import 'dart:typed_data';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_raih_peduli/model/model_transaction.dart';
 import 'package:flutter_raih_peduli/services/service_transaction.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class TransactionViewModel with ChangeNotifier {
@@ -9,13 +14,30 @@ class TransactionViewModel with ChangeNotifier {
   final service = TransactionService();
   bool isLoading = false;
 
-  Future<void> openGopay(Uri url) async {
+  void salinKeClipboard(String teks) {
+    Clipboard.setData(ClipboardData(text: teks));
+    notifyListeners();
+  }
+  Future<void> urlLauncher(Uri url) async {
     if (!await launchUrl(
       url,
       mode: LaunchMode.externalApplication,
     )) {
       throw Exception('Could not launch $url');
     }
+    notifyListeners();
+  }
+
+  saveNetworkImage(String pictUrl) async {
+    print(pictUrl);
+    var response = await Dio().get(
+        pictUrl,
+        options: Options(responseType: ResponseType.bytes));
+    final result = await ImageGallerySaver.saveImage(
+        Uint8List.fromList(response.data),
+        quality: 60,
+        name: "hello");
+    print(result);
     notifyListeners();
   }
 

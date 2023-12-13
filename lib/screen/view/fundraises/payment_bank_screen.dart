@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/model/bank_ewallet.dart';
+import 'package:flutter_raih_peduli/screen/view/fundraises/success_donation_screen.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_fundraises.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_transaction.dart';
 import 'package:flutter_raih_peduli/theme.dart';
@@ -7,8 +9,9 @@ import 'package:provider/provider.dart';
 import '../../view_model/view_model_navigation.dart';
 import '../navigation/navigation.dart';
 
-class PaymentBasicPage extends StatelessWidget {
-  const PaymentBasicPage({super.key});
+class PaymentBankPage extends StatelessWidget {
+  PaymentType paymentType;
+  PaymentBankPage({super.key, required this.paymentType});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +29,7 @@ class PaymentBasicPage extends StatelessWidget {
           return viewModelTransaction.isLoading
               ? const Text('')
               : Text(
-                  viewModelTransaction.modelTransaction!.data.paymentType,
+                  '${viewModelTransaction.modelTransaction!.data.paymentType} ${paymentType.kode}',
                   style: const TextStyle(
                     color: AppTheme.primaryColor,
                     fontFamily: 'Helvetica',
@@ -96,7 +99,9 @@ class PaymentBasicPage extends StatelessWidget {
                                         ),
                                       ),
                                       GestureDetector(
-                                        onTap: () {},
+                                        onTap: () {
+                                          viewModelTransaction.salinKeClipboard(viewModelTransaction.modelTransaction!.data.virtualAccount);
+                                        },
                                         child: const Icon(
                                           size: 20,
                                           Icons.copy,
@@ -201,10 +206,11 @@ class PaymentBasicPage extends StatelessWidget {
                   padding: const EdgeInsets.all(16.0),
                   child: ElevatedButton(
                     onPressed: () {
-                      viewModelNavigation.goRiwayat();
+                      viewModelTransaction.urlLauncher(Uri.parse(paymentType.url));
+                      Future.delayed(const Duration(seconds: 2));
                       Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(
-                          builder: (context) => const BottomNavgationBar(),
+                          builder: (context) => SuccessDonationScreen(),
                         ),
                         (route) => false,
                       );
@@ -221,7 +227,7 @@ class PaymentBasicPage extends StatelessWidget {
                     child: const Padding(
                       padding: EdgeInsets.all(12.0),
                       child: Text(
-                        'Kembali Ke Beranda',
+                        'Lanjutkan',
                         style: TextStyle(
                           fontSize: 18.0,
                           fontWeight: FontWeight.bold,

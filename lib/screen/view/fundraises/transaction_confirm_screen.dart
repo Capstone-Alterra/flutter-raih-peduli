@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/bank_ewallet.dart';
-import 'package:flutter_raih_peduli/screen/view/fundraises/payment_basic_screen.dart';
+import 'package:flutter_raih_peduli/screen/view/fundraises/payment_bank_screen.dart';
 import 'package:flutter_raih_peduli/screen/view/fundraises/payment_gopay_screen.dart';
 import 'package:flutter_raih_peduli/screen/view/fundraises/payment_qris_screen.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
@@ -98,7 +98,7 @@ class TransactionConfirmScreen extends StatelessWidget {
             } else if (bankPaymentIds.contains(paymentType.id)) {
               Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(
-                  builder: (context) => const PaymentBasicPage(),
+                  builder: (context) => PaymentBankPage(paymentType: paymentType),
                 ),
                 (route) => false,
               );
