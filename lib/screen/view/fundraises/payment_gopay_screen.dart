@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/screen/view/fundraises/success_donation_screen.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_fundraises.dart';
 import 'package:flutter_raih_peduli/screen/view/navigation/navigation.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_transaction.dart';
@@ -74,15 +75,14 @@ class PaymentPage extends StatelessWidget {
                     onPressed: () async {
                       String url = viewModelTransaction
                           .modelTransaction!.data.urlCallback;
-                      viewModelTransaction.openGopay(Uri.parse(url));
-                      viewModelNavigation.goRiwayat();
-                      Future.delayed(const Duration(seconds: 10));
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const BottomNavgationBar(),
-                          ),
-                          (route) => false);
+                      viewModelTransaction.urlLauncher(Uri.parse(url));
+                      Future.delayed(const Duration(seconds: 2));
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                          builder: (context) => SuccessDonationScreen(),
+                        ),
+                            (route) => false,
+                      );
                       viewModelFundraise.amountController.clear();
                     },
                     style: ElevatedButton.styleFrom(
