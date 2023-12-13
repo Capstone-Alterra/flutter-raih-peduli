@@ -1,19 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/screen/view/volunteer/relawan_listview.dart';
+// import 'package:flutter_raih_peduli/screen/view/volunteer/relawan_listview.dart';
+import 'package:flutter_raih_peduli/screen/view/volunteer/volunteer_search.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/bottomsheet.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/floating_button.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/header_widget.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/relawan_card_widget.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_bookmarkscreen.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_volunteer.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:provider/provider.dart';
 
-class AccessVolunteerScreen extends StatelessWidget {
+class AccessVolunteerScreen extends StatefulWidget {
   const AccessVolunteerScreen({super.key});
 
   @override
+  State<AccessVolunteerScreen> createState() => _AccessVolunteerScreenState();
+}
+
+class _AccessVolunteerScreenState extends State<AccessVolunteerScreen> {
+  late VolunteerViewModel viewModel;
+  late SignInViewModel sp;
+  @override
+  void initState() {
+    viewModel = Provider.of<VolunteerViewModel>(context, listen: false);
+    sp = Provider.of<SignInViewModel>(context, listen: false);
+    viewModel.awal();
+    viewModel.scrollController.addListener(viewModel.scrollListener);
+    viewModel.fetchVolunteerPagination();
+    viewModel.overlay();
+    sp.setSudahLogin();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final viewModel = Provider.of<VolunteerViewModel>(context, listen: false);
+    Size size = MediaQuery.of(context).size;
     return ChangeNotifierProvider(
       create: (context) => BookmarkScreenViewModel(),
       child: Scaffold(
@@ -58,15 +80,47 @@ class AccessVolunteerScreen extends StatelessWidget {
                     ),
                   ),
 
-                  // Add your content widgets below the header
-                  // ...
-
                   Consumer<VolunteerViewModel>(
-                    builder: (context, isLoading, child) {
-                      return SizedBox(
-                          child: viewModel.isLoading
-                              ? const Center(child: CircularProgressIndicator())
-                              : RelawanListView());
+                    builder: (context, contactModel, child) {
+                      return viewModel.isLoading
+                          ? const Center(child: CircularProgressIndicator())
+                          : viewModel.isSearch
+                              ? Column(
+                                  children: [
+                                    if (viewModel.dataHasilSearch)
+                                      const Center(
+                                          child: Text(
+                                        'Pencarian Tidak Ditemukan',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.red,
+                                        ),
+                                      ))
+                                    else if (!viewModel.dataHasilSearch)
+                                      for (var newsItem
+                                          in viewModel.modelVolunteer!.data)
+                                        RelawanCardSearch(
+                                          volunteerData: newsItem,
+                                        )
+                                  ],
+                                )
+                              : SizedBox(
+                                  height: size.height / 1.3,
+                                  child: ListView.builder(
+                                    controller: viewModel.scrollController,
+                                    itemCount: viewModel
+                                        .modelVolunteerPagination!.data.length,
+                                    itemBuilder: (context, index) {
+                                      return SizedBox(
+                                          height: 130,
+                                          child: RelawanCard(
+                                            volunteerData: viewModel
+                                                .modelVolunteerPagination!
+                                                .data[index],
+                                          ));
+                                    },
+                                  ),
+                                );
                     },
                   ),
                 ],
@@ -90,7 +144,11 @@ class AccessVolunteerScreen extends StatelessWidget {
             ),
           ],
         ),
-        floatingActionButton: CustomFloatingButton(),
+        floatingActionButton: Consumer<SignInViewModel>(
+          builder: (context, contactModel, child) {
+            return const CustomFloatingButton();
+          },
+        ),
       ),
     );
   }

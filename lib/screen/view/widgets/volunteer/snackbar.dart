@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 SnackBar snackBarVolunteer(Size size, context) {
   return SnackBar(
-    duration: const Duration(seconds: 3),
+    duration: const Duration(seconds: 4),
     dismissDirection: DismissDirection.up,
     behavior: SnackBarBehavior.floating,
     backgroundColor: Colors.transparent,
@@ -32,7 +32,7 @@ SnackBar snackBarVolunteer(Size size, context) {
           SizedBox(
             width: size.width * 0.7,
             child: const Text(
-              'Masukkan NIK terlebih dahulu sebelum memulai aplikasi Raih Peduli :)',
+              'Masukkan NIK terlebih dahulu untuk mendaftar relawan :)',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontFamily: 'Helvetica',
@@ -45,4 +45,3 @@ SnackBar snackBarVolunteer(Size size, context) {
     ),
   );
 }
-

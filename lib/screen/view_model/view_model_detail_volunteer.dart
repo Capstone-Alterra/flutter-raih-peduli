@@ -5,13 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../services/service_apply_volunteer.dart';
+import '../view/settings/edit_profile.dart';
+import '../view/widgets/volunteer/snackbar.dart';
 
-class ImageData {
-  final String path;
-  final File file;
+// class ImageData {
+//   final String path;
+//   final File file;
 
-  ImageData(this.path, this.file);
-}
+//   ImageData(this.path, this.file);
+// }
 
 class DetailVolunteerViewModel with ChangeNotifier {
   List<String> selectedSkills = [];
@@ -21,6 +23,7 @@ class DetailVolunteerViewModel with ChangeNotifier {
   File? imageFile;
   String? imagePath;
   int? volunteerId;
+  bool isSukses = true;
 
   final service = ApplyVolunteerService();
 
@@ -44,28 +47,27 @@ class DetailVolunteerViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<ImageData?> pickImage() async {
+  Future<void> pickImage() async {
     final imagePicker = ImagePicker();
     final pickedImage =
         await imagePicker.pickImage(source: ImageSource.gallery);
 
     if (pickedImage != null) {
-      // Mengembalikan ImageData yang berisi path dan file
-      return ImageData(pickedImage.path, File(pickedImage.path));
+      imageFile = File(pickedImage.path);
+      imagePath = pickedImage.path;
     } else {
-      // Tampilkan pesan kesalahan jika tidak ada gambar yang dipilih
-      print('Tidak ada gambar yang dipilih.');
-      return null;
+      debugPrint('Tidak ada gambar yang dipilih.');
     }
+    notifyListeners();
   }
 
   Future fetchApplyVolunteer({
     required String accessToken,
     required String refreshToken,
     required int volunteerId,
-    // required File foto,
   }) async {
     try {
+      isSukses = false;
       await service.hitApplyVolunteer(
         token: accessToken,
         id: volunteerId,
@@ -74,9 +76,11 @@ class DetailVolunteerViewModel with ChangeNotifier {
         reason: reasonController.text,
         foto: imageFile!,
       );
+      isSukses = true;
     } catch (e) {
       // ignore: deprecated_member_use
       if (e is DioError) {
+        isSukses = false;
         await service.hitApplyVolunteer(
           token: refreshToken,
           id: volunteerId,
@@ -85,7 +89,7 @@ class DetailVolunteerViewModel with ChangeNotifier {
           reason: reasonController.text,
           foto: imageFile!,
         );
-
+        isSukses = true;
         e.response!.statusCode;
       }
     }
@@ -98,5 +102,15 @@ class DetailVolunteerViewModel with ChangeNotifier {
     reasonController.clear();
     imageFile = null;
     imagePath = null;
+  }
+
+  void alertKeProfile(size, context) async {
+    final snackBar = snackBarVolunteer(size, context);
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    await Future.delayed(const Duration(seconds: 4), () {});
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const ProfileEdit()),
+    );
   }
 }

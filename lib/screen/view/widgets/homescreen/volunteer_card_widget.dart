@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../volunteer/detail_volunteer.dart';
+
 class VolunteerCard extends StatelessWidget {
-  // final Datum volunteerData;
   final String photo;
   final String title;
   final String description;
   final int numberOfVacancies;
+  final int id;
 
   const VolunteerCard({
     super.key,
@@ -17,6 +19,7 @@ class VolunteerCard extends StatelessWidget {
     required this.title,
     required this.description,
     required this.numberOfVacancies,
+    required this.id,
   });
 
   @override
@@ -108,7 +111,7 @@ class VolunteerCard extends StatelessWidget {
                       ],
                     ),
                     Text(
-                      '${numberOfVacancies} Orang',
+                      '$numberOfVacancies Orang',
                       style: TextStyle(
                         fontFamily: 'Helvetica',
                         color: AppTheme.primaryColor,
@@ -120,13 +123,14 @@ class VolunteerCard extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) =>
-                    //         DetailVolunteerPage(volunteerData: volunteerData),
-                    //   ),
-                    // );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DetailVolunteerPage(
+                          id: id,
+                        ),
+                      ),
+                    );
                   },
                   child: Container(
                     width: sizecontent / 3,

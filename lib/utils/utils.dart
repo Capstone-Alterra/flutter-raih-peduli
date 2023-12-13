@@ -14,6 +14,7 @@ class Urls {
   static const String fetchFundraisesPagination = "/fundraises?page=";
   static const String fetchAllVolunteer = "/volunteer-vacancies";
   static const String searchVolunteer = "/volunteer-vacancies?title=";
+  static const String createTransaction = "/transactions";
   static const String chatBot = "/chatbots";
   static const String historyCreateFundriseByUser = "/history/fundraises";
   static const String checkPassword = "/mobile/users/check-password";
@@ -31,4 +32,8 @@ class Urls {
       "/mobile/history/fundraises";
   static const String fetchHistoryApplyVolunteer =
       "/mobile/history/volunteer-vacancies/registered";
+  static const String fetchDetailFundraises = "/fundraises/";
+  static const String fetchDetailVolunteer = "/volunteer-vacancies/";
+  static const String fetchVolunteerPagination = "/volunteer-vacancies?page=";
+  static const String createFundraise = "/fundraises";
 }
