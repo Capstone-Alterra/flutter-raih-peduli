@@ -28,19 +28,19 @@ class _HistoryRequestDonationCardState
     Size size = MediaQuery.of(context).size;
     return Consumer<CreateFundraiseHistoryViewModel>(
       builder: (context, provider, child) {
-        final providerData = provider.historyCreateFundraiseModel!.data;
         if (provider.myState == MyState.loading) {
           return const Center(
             child: CircularProgressIndicator(),
           );
         } else {
-          if (providerData.isEmpty) {
-            return const Text('');
+          if (provider.historyCreateFundraiseModel == null ||
+              provider.historyCreateFundraiseModel!.data.isEmpty) {
+            return const SizedBox.shrink();
           } else {
             return ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            itemCount: providerData.length,
+            itemCount: provider.historyCreateFundraiseModel!.data.length,
             itemBuilder: (BuildContext context, int index) {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
@@ -58,7 +58,9 @@ class _HistoryRequestDonationCardState
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8.0),
                             image: DecorationImage(
-                              image: NetworkImage(providerData[index]
+                              image: NetworkImage(provider
+                                    .historyCreateFundraiseModel!
+                                    .data[index]
                                   .photo),
                               fit: BoxFit.cover,
                             ),
@@ -73,7 +75,8 @@ class _HistoryRequestDonationCardState
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  providerData[index].title,
+                                  provider.historyCreateFundraiseModel!
+                                        .data[index].title,
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Color(0xff293066),
@@ -85,7 +88,8 @@ class _HistoryRequestDonationCardState
                                 ),
                                 Text(
                                   createFundraiseHistoryViewModel.formatDate(
-                                      providerData[index].endDate),
+                                      provider.historyCreateFundraiseModel!
+                                            .data[index].endDate),
                                   style: const TextStyle(
                                     fontWeight: FontWeight.w700,
                                     fontFamily: 'Helvetica',
@@ -124,7 +128,9 @@ class _HistoryRequestDonationCardState
                                         Text(
                                           createFundraiseHistoryViewModel
                                               .formattedPrice(
-                                                    providerData[index]
+                                                    provider
+                                                    .historyCreateFundraiseModel!
+                                                    .data[index]
                                                   .target
                                                   .toString()),
                                           style: const TextStyle(

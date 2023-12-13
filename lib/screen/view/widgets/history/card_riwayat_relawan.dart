@@ -27,19 +27,19 @@ class _HistoryApplyVolunteerCardState extends State<HistoryApplyVolunteerCard> {
     final Size size = MediaQuery.of(context).size;
     return Consumer<HistoryApplyVolunteerViewModel>(
       builder: (context, provider, child) {
-        final providerData = provider.historyApplyVolunteerModel!.data;
         if (provider.myState == MyState.loading) {
           return const Center(
             child: CircularProgressIndicator(),
           );
         } else {
-          if (providerData.isEmpty) {
-            return const Text('');
-          }else {
+          if (provider.historyApplyVolunteerModel == null ||
+              provider.historyApplyVolunteerModel!.data.isEmpty) {
+            return const SizedBox.shrink();
+          } else {
             return ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
-              itemCount: providerData.length,
+              itemCount: provider.historyApplyVolunteerModel!.data.length,
               itemBuilder: (BuildContext context, int index) {
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 8.0),
@@ -56,9 +56,8 @@ class _HistoryApplyVolunteerCardState extends State<HistoryApplyVolunteerCard> {
                             height: size.width * 0.25,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8.0),
-                              image: const DecorationImage(
-                                image: NetworkImage(
-                                    'https://d1vbn70lmn1nqe.cloudfront.net/prod/wp-content/uploads/2022/12/05093645/Benarkah-Relawan-Kesehatan-Tak-Perlu-Lulusan-Sekolah-Kesehatan.jpg'),
+                              image: DecorationImage(
+                                image: NetworkImage(provider.historyApplyVolunteerModel!.data[index].vacancyPhoto),
                                 fit: BoxFit.cover,
                               ),
                             ),
