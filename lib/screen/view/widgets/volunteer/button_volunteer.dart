@@ -12,7 +12,9 @@ import '../login_signup/alert.dart';
 
 class ButtonVolunteer extends StatefulWidget {
   final int volunteerId;
-  const ButtonVolunteer({super.key, required this.volunteerId});
+  final String nik;
+  const ButtonVolunteer(
+      {super.key, required this.volunteerId, required this.nik});
 
   @override
   State<ButtonVolunteer> createState() => _ButtonVolunteerState();
@@ -87,6 +89,7 @@ class _ButtonVolunteerState extends State<ButtonVolunteer> {
                 volunteerId: widget.volunteerId,
                 accessToken: sp.accessTokenSharedPreference,
                 refreshToken: sp.refreshTokenSharedPreference,
+                nik: widget.nik,
               );
               if (viewModel.isSukses == true) {
                 navigation.goRiwayat();
