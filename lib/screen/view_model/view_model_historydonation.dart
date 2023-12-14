@@ -11,6 +11,7 @@ class DonationHistoryViewModel extends ChangeNotifier {
   final services = HistoryDonationServices();
   String accessToken = '';
   String statusText = '';
+  String statusDetailText = '';
 
   MyState myState = MyState.loading;
 
@@ -36,18 +37,21 @@ class DonationHistoryViewModel extends ChangeNotifier {
             borderColor = const Color(0xff166648); // Dark green color
             textColor = const Color(0xff166648); // Dark green color
             statusText = 'Dibayar';
+            statusDetailText = 'Transaksi Donasi Telah Berhasil ';
             break;
           case 'Waiting For Payment':
             containerColor = const Color(0xffFFFDEA); // Yellow color
             borderColor = const Color(0xffBB5902); // Dark yellow color
             textColor = const Color(0xffBB5902); // Dark yellow color
             statusText = 'Waiting For Payment';
+            statusDetailText = 'Sedang Menunggu Pembayaran';
             break;
           default:
             containerColor = const Color(0xffFEF2F2); // Red color
             borderColor = const Color(0xffBF1616); // Dark red color
             textColor = const Color(0xffBF1616); // Dark red color
-            statusText = 'Ditolak';
+            statusText = 'Dibatalkan';
+            statusText = 'Transaksi Donasi Telah Dibatalkan';
             break;
         }
       }
@@ -74,4 +78,9 @@ class DonationHistoryViewModel extends ChangeNotifier {
         symbol: 'Rp. ', // Currency symbol
         decimalDigits: 0, // Number of decimal places
       ).format(int.parse(price));
+
+  String formatDate(DateTime dateTime) {
+    final DateFormat formatter = DateFormat('dd-MM-y');
+    return formatter.format(dateTime);
+  }
 }
