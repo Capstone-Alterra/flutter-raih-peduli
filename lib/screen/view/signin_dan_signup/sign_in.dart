@@ -181,6 +181,7 @@ class _SignInState extends State<SignIn> {
                                         if (viewModel
                                             .formKeySignin.currentState!
                                             .validate()) {
+                                          await viewModel.getTokenFcm();
                                           await viewModel.signIn();
                                           if (viewModel.isSuksesLogin !=
                                               false) {

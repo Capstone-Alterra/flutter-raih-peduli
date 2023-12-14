@@ -23,4 +23,9 @@ class NavigationProvider extends ChangeNotifier {
     pageIndex = 0;
     notifyListeners();
   }
+
+  void goRiwayat() {
+    pageIndex = 2;
+    notifyListeners();
+  }
 }

@@ -2,32 +2,34 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/model_fundraise_pagination.dart';
-import 'package:flutter_raih_peduli/screen/view/fundraises/detail_fundraise.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/save_widget.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_fundraises.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:flutter_svg/svg.dart';
-// import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'detail_fundraise.dart';
 
 class CardFundraise extends StatelessWidget {
   final Datum fundraise;
   const CardFundraise({super.key, required this.fundraise});
 
-
   @override
   Widget build(BuildContext context) {
+    var formatter = NumberFormat("#,##0", "en_US");
     final viewModel = Provider.of<FundraisesViewModel>(context, listen: false);
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
         Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) =>
-              DetailFundraisePage(fundraise: fundraise),
-        ),
-      );},
+          context,
+          MaterialPageRoute(
+            builder: (context) => DetailFundraisePage(
+              id: fundraise.id,
+            ),
+          ),
+        );
+      },
       child: Card(
         color: AppTheme.white,
         elevation: 3,
@@ -39,7 +41,7 @@ class CardFundraise extends StatelessWidget {
           children: [
             Container(
               width: size.width / 3,
-              height: size.width / 3,
+              height: size.width / 2,
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(8.0)),
               ),
@@ -106,7 +108,12 @@ class CardFundraise extends StatelessWidget {
                                 ],
                               ),
                               Text(
-                                "12 Hari",
+                                fundraise.endDate
+                                    .difference(DateTime.now())
+                                    .inDays >=
+                                    0
+                                    ? '${fundraise.endDate.difference(DateTime.now()).inDays} Hari'
+                                    : "Waktu Donasi Habis",
                                 style: TextStyle(
                                   color: AppTheme.primaryColor,
                                   fontFamily: 'Helvetica',
@@ -116,7 +123,7 @@ class CardFundraise extends StatelessWidget {
                             ],
                           ),
                           Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Row(
                                 children: [
@@ -134,7 +141,7 @@ class CardFundraise extends StatelessWidget {
                                 ],
                               ),
                               Text(
-                                "Rp 5.000.000",
+                                'Rp. ${formatter.format(fundraise.target)}',
                                 style: TextStyle(
                                   color: const Color(0xFF959CB4),
                                   fontFamily: 'Helvetica',
@@ -156,7 +163,7 @@ class CardFundraise extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Rp ${fundraise.fundAcquired}",
+                            "Rp ${formatter.format(fundraise.fundAcquired)}",
                             style: TextStyle(
                               color: AppTheme.primaryColor,
                               fontFamily: 'Helvetica',
@@ -165,7 +172,7 @@ class CardFundraise extends StatelessWidget {
                           ),
                           Container(
                             height: 15,
-                            width: 30,
+                            width: 45,
                             decoration: const BoxDecoration(
                               color: Color(0xFFD1DAEC),
                               borderRadius: BorderRadius.all(
@@ -176,7 +183,7 @@ class CardFundraise extends StatelessWidget {
                             ),
                             child: Center(
                               child: Text(
-                                "0%",
+                                "${(fundraise.fundAcquired/fundraise.target).toStringAsFixed(2)} %",
                                 style: TextStyle(
                                   color: AppTheme.primaryColor,
                                   fontFamily: 'Helvetica',
@@ -188,15 +195,18 @@ class CardFundraise extends StatelessWidget {
                         ],
                       ),
                     ),
-                    //                     Padding(
-                    //   padding: const EdgeInsets.only(right: 8.0),
-                    //   child: LinearProgressIndicator(
-                    //     value: volunteerData.totalRegistrar /
-                    //         volunteerData.numberOfVacancies,
-                    //     color: AppTheme.primaryColor,
-                    //     backgroundColor: Colors.grey,
-                    //   ),
-                    // ),
+                    Padding(
+                      padding:
+                      EdgeInsets.only( top: 8, right: 5.0),
+                      child: LinearProgressIndicator(
+                        color: AppTheme.tertiaryColor,
+                        value:
+                        (fundraise.fundAcquired/fundraise.target).toDouble(),
+                        minHeight: 10,
+                        borderRadius:
+                        BorderRadius.all(Radius.circular(10)), // Set the
+                      ),
+                    ),
                   ],
                 ),
               ),

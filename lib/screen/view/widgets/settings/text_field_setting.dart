@@ -10,6 +10,8 @@ Widget textFieldSetting({
   List<TextInputFormatter>? inputFormatters,
   String? Function(String?)? validator,
   TextCapitalization textCapitalization = TextCapitalization.none,
+  Color? fill,
+  Color? colorhintext,
 }) {
   return TextFormField(
     enabled: enable,
@@ -18,9 +20,10 @@ Widget textFieldSetting({
     inputFormatters: inputFormatters,
     controller: controller,
     decoration: InputDecoration(
+      fillColor: fill,
       hintText: labelText,
-      hintStyle: const TextStyle(
-        color: Color(0xFFB0B0B0),
+      hintStyle:  TextStyle(
+        color:  colorhintext,
       ),
       labelStyle: const TextStyle(
         color: Colors.blueGrey,

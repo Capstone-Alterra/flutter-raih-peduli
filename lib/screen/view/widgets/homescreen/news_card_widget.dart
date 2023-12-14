@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_raih_peduli/model/model_news.dart';
-// import 'package:flutter_raih_peduli/screen/view/news/newsdetailpage.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:provider/provider.dart';
 import '../../../view_model/view_model_news.dart';
+import '../../news/newsdetailpage.dart';
 
 class NewsCard extends StatelessWidget {
-  // final Datum newsData;
-    final String photo;
-    final String title;
-    final String description;
+  final String photo;
+  final String title;
+  final String description;
 
   const NewsCard({
-    // required this.newsData,
-    super.key, required this.photo, required this.title, required this.description,
+    super.key,
+    required this.photo,
+    required this.title,
+    required this.description,
   });
 
   @override
@@ -43,7 +43,7 @@ class NewsCard extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(8.0)),
                     child: Image.network(
-                     photo,
+                      photo,
                       width: double.infinity,
                       fit: BoxFit.cover,
                     ),
@@ -54,7 +54,7 @@ class NewsCard extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 5),
                 child: Text(
-                title,
+                  title,
                   style: TextStyle(
                     color: AppTheme.primaryColor,
                     fontFamily: 'Helvetica',
@@ -82,16 +82,16 @@ class NewsCard extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: GestureDetector(
               onTap: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => NewsDetailPage(
-                //       foto: newsData.photo,
-                //       title: newsData.title,
-                //       description: newsData.description,
-                //     ),
-                //   ),
-                // );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => NewsDetailPage(
+                      foto: photo,
+                      title: title,
+                      description: description,
+                    ),
+                  ),
+                );
               },
               child: Container(
                 height: sizecontent / 8,

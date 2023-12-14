@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, sort_child_properties_last
 
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/settings/text_title_text_field.dart';
@@ -50,6 +50,15 @@ class _ProfileEditState extends State<ProfileEdit> {
             fontWeight: FontWeight.bold,
           ),
         ),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            color: Color(0xff293066),
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),
@@ -91,13 +100,24 @@ class _ProfileEditState extends State<ProfileEdit> {
                                 controller: viewModel.fullNameController,
                                 labelText:
                                     viewModel.modelProfile!.data.fullname,
+                                enable: viewModel.isEdit,
+                                fill: viewModel.isEdit
+                                    ? Colors.white
+                                    : const Color.fromARGB(130, 158, 158, 158),
+                                colorhintext: viewModel.isEdit
+                                    ? const Color(0xFF999999)
+                                    : Colors.black,
                               ),
                               SizedBox(height: size.height * 0.015),
                               textSetting(text: "Email"),
                               textFieldSetting(
-                                // enable: false,
                                 controller: viewModel.emailController,
                                 labelText: viewModel.modelProfile!.data.email,
+                                enable: false,
+                                fill: viewModel.isEdit
+                                    ? Colors.white
+                                    : const Color.fromARGB(130, 158, 158, 158),
+                                colorhintext: Colors.black,
                               ),
                               SizedBox(height: size.height * 0.015),
                               textSetting(text: "Nomor Telepon"),
@@ -105,33 +125,102 @@ class _ProfileEditState extends State<ProfileEdit> {
                                 controller: viewModel.telpController,
                                 labelText:
                                     viewModel.modelProfile!.data.phoneNumber,
+                                enable: viewModel.isEdit,
+                                fill: viewModel.isEdit
+                                    ? Colors.white
+                                    : const Color.fromARGB(130, 158, 158, 158),
+                                colorhintext: viewModel.isEdit
+                                    ? const Color(0xFF999999)
+                                    : Colors.black,
                               ),
                               SizedBox(height: size.height * 0.015),
                               textSetting(text: "Alamat"),
                               textFieldSetting(
                                 controller: viewModel.alamatController,
                                 labelText: viewModel.modelProfile!.data.address,
+                                enable: viewModel.isEdit,
+                                fill: viewModel.isEdit
+                                    ? Colors.white
+                                    : const Color.fromARGB(130, 158, 158, 158),
+                                colorhintext: viewModel.isEdit
+                                    ? const Color(0xFF999999)
+                                    : Colors.black,
                               ),
                               SizedBox(height: size.height * 0.015),
                               textSetting(text: "Nik"),
                               textFieldSetting(
-                                // enable: false,
                                 controller: viewModel.nikController,
                                 labelText: viewModel.modelProfile!.data.nik,
+                                enable: viewModel.isEdit,
+                                fill: viewModel.isEdit
+                                    ? Colors.white
+                                    : const Color.fromARGB(130, 158, 158, 158),
+                                colorhintext: viewModel.isEdit
+                                    ? const Color(0xFF999999)
+                                    : Colors.black,
                               ),
                             ],
                           );
                   },
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    viewModel.fetchNik(
-                      accessToken: sp.accessTokenSharedPreference,
-                      refreshToken: sp.refreshTokenSharedPreference,
+                const SizedBox(
+                  height: 10,
+                ),
+                Consumer<ProfileViewModel>(
+                  builder: (context, contactModel, child) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            viewModel.enable();
+                            viewModel.clearAll();
+                            // if (modelview.formKey.currentState!
+                            //     .validate()) {
+                            //   modelview.toggleEditMode();
+                            // }
+                          },
+                          child:
+                              Text(viewModel.isEdit ? "Batal" : "Edit Profile"),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                viewModel.isEdit ? Colors.red : Colors.blueGrey,
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        if (viewModel.isEdit)
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.blueGrey,
+                            ),
+                            onPressed: () async {
+                              viewModel.enable();
+                              await viewModel.fetchNik(
+                                accessToken: sp.accessTokenSharedPreference,
+                                refreshToken: sp.refreshTokenSharedPreference,
+                                email: viewModel.modelProfile!.data.email,
+                              );
+                              await viewModel.fetchProfileTanpaLoading(
+                                accessToken: sp.accessTokenSharedPreference,
+                                refreshToken: sp.refreshTokenSharedPreference,
+                              );
+                              viewModel.clearAll();
+                            },
+                            child: const Text("Simpan"),
+                          ),
+                      ],
                     );
                   },
-                  child: const Text("send"),
-                )
+                ),
+                // ElevatedButton(
+                //   onPressed: () {
+                //     viewModel.fetchNik(
+                //       accessToken: sp.accessTokenSharedPreference,
+                //       refreshToken: sp.refreshTokenSharedPreference,
+                //     );
+                //   },
+                //   child: const Text("send"),
+                // )
               ],
             ),
           ),

@@ -6,13 +6,18 @@ import '../utils/utils.dart';
 class SignInService {
   final Dio _dio = Dio();
 
-  Future<ModelSignIn?> signInAccount(String email, String password) async {
+  Future<ModelSignIn?> signInAccount({
+    required String email,
+    required String password,
+    required String fcm,
+  }) async {
     try {
       final response = await _dio.post(
         Urls.baseUrl + Urls.signIn,
         data: {
           'email': email,
           'password': password,
+          'fcm_token': fcm,
         },
       );
       debugPrint("=>${response.data}");
