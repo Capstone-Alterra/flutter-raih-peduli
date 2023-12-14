@@ -4,6 +4,7 @@ import 'package:flutter_raih_peduli/model/model_profile.dart';
 import 'package:flutter_raih_peduli/services/service_edit_profile.dart';
 
 class ProfileViewModel with ChangeNotifier {
+  final formKey = GlobalKey<FormState>();
   ModelProfile? modelProfile;
   final service = ProfileService();
   bool isLoading = false;
@@ -107,11 +108,24 @@ class ProfileViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  void awal() {
+    isEdit = false;
+    notifyListeners();
+  }
+
   void clearAll() {
     fullNameController.clear();
     emailController.clear();
     telpController.clear();
     alamatController.clear();
     nikController.clear();
+  }
+
+  String? validateNik(String value) {
+    if (value.length != 16) {
+      return 'Jumlah NIK wajib 16 digit';
+    }
+
+    return null;
   }
 }

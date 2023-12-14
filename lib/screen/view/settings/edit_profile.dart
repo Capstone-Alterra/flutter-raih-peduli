@@ -30,6 +30,7 @@ class _ProfileEditState extends State<ProfileEdit> {
       accessToken: accessToken,
       refreshToken: refreshToken,
     );
+    viewModel.awal();
     super.initState();
   }
 
@@ -93,73 +94,84 @@ class _ProfileEditState extends State<ProfileEdit> {
                   builder: (context, contactModel, child) {
                     return viewModel.isLoading
                         ? const Center(child: CircularProgressIndicator())
-                        : Column(
-                            children: [
-                              textSetting(text: "Fullname"),
-                              textFieldSetting(
-                                controller: viewModel.fullNameController,
-                                labelText:
-                                    viewModel.modelProfile!.data.fullname,
-                                enable: viewModel.isEdit,
-                                fill: viewModel.isEdit
-                                    ? Colors.white
-                                    : const Color.fromARGB(130, 158, 158, 158),
-                                colorhintext: viewModel.isEdit
-                                    ? const Color(0xFF999999)
-                                    : Colors.black,
-                              ),
-                              SizedBox(height: size.height * 0.015),
-                              textSetting(text: "Email"),
-                              textFieldSetting(
-                                controller: viewModel.emailController,
-                                labelText: viewModel.modelProfile!.data.email,
-                                enable: false,
-                                fill: viewModel.isEdit
-                                    ? Colors.white
-                                    : const Color.fromARGB(130, 158, 158, 158),
-                                colorhintext: Colors.black,
-                              ),
-                              SizedBox(height: size.height * 0.015),
-                              textSetting(text: "Nomor Telepon"),
-                              textFieldSetting(
-                                controller: viewModel.telpController,
-                                labelText:
-                                    viewModel.modelProfile!.data.phoneNumber,
-                                enable: viewModel.isEdit,
-                                fill: viewModel.isEdit
-                                    ? Colors.white
-                                    : const Color.fromARGB(130, 158, 158, 158),
-                                colorhintext: viewModel.isEdit
-                                    ? const Color(0xFF999999)
-                                    : Colors.black,
-                              ),
-                              SizedBox(height: size.height * 0.015),
-                              textSetting(text: "Alamat"),
-                              textFieldSetting(
-                                controller: viewModel.alamatController,
-                                labelText: viewModel.modelProfile!.data.address,
-                                enable: viewModel.isEdit,
-                                fill: viewModel.isEdit
-                                    ? Colors.white
-                                    : const Color.fromARGB(130, 158, 158, 158),
-                                colorhintext: viewModel.isEdit
-                                    ? const Color(0xFF999999)
-                                    : Colors.black,
-                              ),
-                              SizedBox(height: size.height * 0.015),
-                              textSetting(text: "Nik"),
-                              textFieldSetting(
-                                controller: viewModel.nikController,
-                                labelText: viewModel.modelProfile!.data.nik,
-                                enable: viewModel.isEdit,
-                                fill: viewModel.isEdit
-                                    ? Colors.white
-                                    : const Color.fromARGB(130, 158, 158, 158),
-                                colorhintext: viewModel.isEdit
-                                    ? const Color(0xFF999999)
-                                    : Colors.black,
-                              ),
-                            ],
+                        : Form(
+                            key: viewModel.formKey,
+                            child: Column(
+                              children: [
+                                textSetting(text: "Fullname"),
+                                textFieldSetting(
+                                  controller: viewModel.fullNameController,
+                                  labelText:
+                                      viewModel.modelProfile!.data.fullname,
+                                  enable: viewModel.isEdit,
+                                  fill: viewModel.isEdit
+                                      ? Colors.white
+                                      : const Color.fromARGB(
+                                          130, 158, 158, 158),
+                                  colorhintext: viewModel.isEdit
+                                      ? const Color(0xFF999999)
+                                      : Colors.black,
+                                ),
+                                SizedBox(height: size.height * 0.015),
+                                textSetting(text: "Email"),
+                                textFieldSetting(
+                                  controller: viewModel.emailController,
+                                  labelText: viewModel.modelProfile!.data.email,
+                                  enable: false,
+                                  fill: viewModel.isEdit
+                                      ? Colors.white
+                                      : const Color.fromARGB(
+                                          130, 158, 158, 158),
+                                  colorhintext: Colors.black,
+                                ),
+                                SizedBox(height: size.height * 0.015),
+                                textSetting(text: "Nomor Telepon"),
+                                textFieldSetting(
+                                  controller: viewModel.telpController,
+                                  labelText:
+                                      viewModel.modelProfile!.data.phoneNumber,
+                                  enable: viewModel.isEdit,
+                                  fill: viewModel.isEdit
+                                      ? Colors.white
+                                      : const Color.fromARGB(
+                                          130, 158, 158, 158),
+                                  colorhintext: viewModel.isEdit
+                                      ? const Color(0xFF999999)
+                                      : Colors.black,
+                                ),
+                                SizedBox(height: size.height * 0.015),
+                                textSetting(text: "Alamat"),
+                                textFieldSetting(
+                                  controller: viewModel.alamatController,
+                                  labelText:
+                                      viewModel.modelProfile!.data.address,
+                                  enable: viewModel.isEdit,
+                                  fill: viewModel.isEdit
+                                      ? Colors.white
+                                      : const Color.fromARGB(
+                                          130, 158, 158, 158),
+                                  colorhintext: viewModel.isEdit
+                                      ? const Color(0xFF999999)
+                                      : Colors.black,
+                                ),
+                                SizedBox(height: size.height * 0.015),
+                                textSetting(text: "Nik"),
+                                textFieldSetting(
+                                  controller: viewModel.nikController,
+                                  labelText: viewModel.modelProfile!.data.nik,
+                                  enable: viewModel.isEdit,
+                                  fill: viewModel.isEdit
+                                      ? Colors.white
+                                      : const Color.fromARGB(
+                                          130, 158, 158, 158),
+                                  colorhintext: viewModel.isEdit
+                                      ? const Color(0xFF999999)
+                                      : Colors.black,
+                                  validator: (value) =>
+                                      viewModel.validateNik(value!),
+                                ),
+                              ],
+                            ),
                           );
                   },
                 ),
@@ -194,17 +206,19 @@ class _ProfileEditState extends State<ProfileEdit> {
                               backgroundColor: Colors.blueGrey,
                             ),
                             onPressed: () async {
-                              viewModel.enable();
-                              await viewModel.fetchNik(
-                                accessToken: sp.accessTokenSharedPreference,
-                                refreshToken: sp.refreshTokenSharedPreference,
-                                email: viewModel.modelProfile!.data.email,
-                              );
-                              await viewModel.fetchProfileTanpaLoading(
-                                accessToken: sp.accessTokenSharedPreference,
-                                refreshToken: sp.refreshTokenSharedPreference,
-                              );
-                              viewModel.clearAll();
+                              if (viewModel.formKey.currentState!.validate()) {
+                                viewModel.enable();
+                                await viewModel.fetchNik(
+                                  accessToken: sp.accessTokenSharedPreference,
+                                  refreshToken: sp.refreshTokenSharedPreference,
+                                  email: viewModel.modelProfile!.data.email,
+                                );
+                                await viewModel.fetchProfileTanpaLoading(
+                                  accessToken: sp.accessTokenSharedPreference,
+                                  refreshToken: sp.refreshTokenSharedPreference,
+                                );
+                                viewModel.clearAll();
+                              }
                             },
                             child: const Text("Simpan"),
                           ),
