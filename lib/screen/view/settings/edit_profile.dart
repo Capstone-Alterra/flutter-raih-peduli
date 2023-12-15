@@ -159,16 +159,20 @@ class _ProfileEditState extends State<ProfileEdit> {
                                 textFieldSetting(
                                   controller: viewModel.nikController,
                                   labelText: viewModel.modelProfile!.data.nik,
-                                  enable: viewModel.isEdit,
+                                  enable:
+                                      viewModel.isEdit && viewModel.isCheckNik,
                                   fill: viewModel.isEdit
                                       ? Colors.white
                                       : const Color.fromARGB(
                                           130, 158, 158, 158),
-                                  colorhintext: viewModel.isEdit
-                                      ? const Color(0xFF999999)
-                                      : Colors.black,
-                                  validator: (value) =>
-                                      viewModel.validateNik(value!),
+                                  colorhintext:
+                                      viewModel.isEdit && !viewModel.isCheckNik
+                                          ? const Color(0xFF999999)
+                                          : Colors.black,
+                                  validator: viewModel.isEdit &&
+                                          viewModel.isCheckNik
+                                      ? (value) => viewModel.validateNik(value!)
+                                      : null,
                                 ),
                               ],
                             ),

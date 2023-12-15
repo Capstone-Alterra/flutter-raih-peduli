@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/model_profile.dart';
@@ -122,10 +124,9 @@ class ProfileViewModel with ChangeNotifier {
   }
 
   String? validateNik(String value) {
-    if (value.length != 16) {
+    if (value == null && value.length != 16) {
       return 'Jumlah NIK wajib 16 digit';
     }
-
     return null;
   }
 }
