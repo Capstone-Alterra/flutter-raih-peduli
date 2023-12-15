@@ -72,16 +72,24 @@ class VolunteerViewModel with ChangeNotifier {
 
   Future fetchDetailVolunteer({
     required int id,
+    required String accessToken,
+    required String refreshToken,
   }) async {
     try {
       isDetail = false;
       modelDetailVolunteer = await service.hitDetailVolunteer(
         id: id,
+        token: accessToken,
       );
       isDetail = true;
     } catch (e) {
       if (e is DioError) {
-        e.response!.statusCode;
+        isDetail = false;
+        modelDetailVolunteer = await service.hitDetailVolunteer(
+          id: id,
+          token: refreshToken,
+        );
+        isDetail = true;
       }
     }
     notifyListeners();

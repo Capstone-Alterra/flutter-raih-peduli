@@ -38,19 +38,29 @@ class VolunteerService {
 
   Future<ModelDetailVolunteer> hitDetailVolunteer({
     required int id,
+    required String token,
   }) async {
     try {
       final response = await _dio.get(
         "${Urls.baseUrl}${Urls.fetchDetailVolunteer}$id",
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
       );
-      final newData = ModelDetailVolunteer.fromJson(response.data);
-      return newData;
+      print("aaaaaaaaaaaaaaa${response.data}");
+      return ModelDetailVolunteer.fromJson(response.data);
     } on DioError catch (_) {
-      rethrow;
+      final response = await _dio.get(
+        "${Urls.baseUrl}${Urls.fetchDetailVolunteer}$id",
+      );
+      print("aaaaaaaaaaaaaaa${response.data}");
+      return ModelDetailVolunteer.fromJson(response.data);
     }
   }
 
-    Future<ModelVolunteerPagination> hitVolunteerPagination(int index) async {
+  Future<ModelVolunteerPagination> hitVolunteerPagination(int index) async {
     try {
       final response = await _dio.get(
         "${Urls.baseUrl + Urls.fetchVolunteerPagination}$index&page_size=5",

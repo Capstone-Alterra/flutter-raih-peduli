@@ -31,8 +31,12 @@ class _DetailVolunteerPageState extends State<DetailVolunteerPage> {
   @override
   void initState() {
     viewModel = Provider.of<VolunteerViewModel>(context, listen: false);
-    viewModel.fetchDetailVolunteer(id: widget.id);
     sp = Provider.of<SignInViewModel>(context, listen: false);
+    viewModel.fetchDetailVolunteer(
+      id: widget.id,
+      accessToken: sp.accessTokenSharedPreference,
+      refreshToken: sp.refreshTokenSharedPreference,
+    );
     sp.setSudahLogin();
     super.initState();
   }
@@ -213,15 +217,28 @@ class _DetailVolunteerPageState extends State<DetailVolunteerPage> {
                                       },
                                     );
                                   } else {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            ApplyFormVolunteer(
-                                          volunteerId: widget.id,
+                                    if (viewModel.modelDetailVolunteer!.data
+                                            .isRegistered ==
+                                        false) {
+                                      customAlert(
+                                        context: context,
+                                        alertType: QuickAlertType.error,
+                                        text: 'Anda sudah pernah mendaftar',
+                                        afterDelay: () {
+                                          Navigator.pop(context);
+                                        },
+                                      );
+                                    } else {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              ApplyFormVolunteer(
+                                            volunteerId: widget.id,
+                                          ),
                                         ),
-                                      ),
-                                    );
+                                      );
+                                    }
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(
