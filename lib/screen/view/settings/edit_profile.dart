@@ -77,36 +77,51 @@ class _ProfileEditState extends State<ProfileEdit> {
                             onTap: () {
                               viewModel.pickImage();
                             },
-                            child: Stack(
+                            child: Column(
                               children: [
-                                // Menampilkan gambar yang telah dipilih (jika ada)
-                                CircleAvatar(
-                                  radius: size.width * 0.17,
-                                  backgroundImage: viewModel.imageFile != null
-                                      ? Image.file(viewModel.imageFile!).image
-                                      : NetworkImage(viewModel
-                                          .modelProfile!.data.profilePicture),
+                                Stack(
+                                  children: [
+                                    // Menampilkan gambar yang telah dipilih (jika ada)
+                                    CircleAvatar(
+                                      radius: size.width * 0.17,
+                                      backgroundImage:
+                                          viewModel.imageFile != null
+                                              ? Image.file(viewModel.imageFile!)
+                                                  .image
+                                              : NetworkImage(
+                                                  viewModel.modelProfile!.data
+                                                      .profilePicture,
+                                                ),
+                                    ),
+                                    Positioned(
+                                      bottom: 0,
+                                      left: size.width * 0.25,
+                                      child:
+                                          SvgPicture.asset('assets/edit.svg'),
+                                    ),
+                                  ],
                                 ),
-                                Positioned(
-                                  bottom: 0,
-                                  left: size.width * 0.25,
-                                  child: SvgPicture.asset('assets/edit.svg'),
-                                ),
+                                if (viewModel.fotoLebihLimaMB == true)
+                                  Text(
+                                    'File lebih dari 5MB',
+                                    style: TextStyle(
+                                      fontSize: size.height / 60,
+                                      color: Colors.red,
+                                    ),
+                                  ),
                               ],
                             ),
                           )
                         : GestureDetector(
                             onTap: () {},
-                            child: Stack(
-                              children: [
-                                CircleAvatar(
-                                  radius: size.width * 0.17,
-                                  backgroundImage: viewModel.imageFile != null
-                                      ? Image.file(viewModel.imageFile!).image
-                                      : NetworkImage(viewModel
-                                          .modelProfile!.data.profilePicture),
-                                ),
-                              ],
+                            child: CircleAvatar(
+                              radius: size.width * 0.17,
+                              backgroundImage: viewModel.imageFile != null
+                                  ? Image.file(viewModel.imageFile!).image
+                                  : NetworkImage(
+                                      viewModel
+                                          .modelProfile!.data.profilePicture,
+                                    ),
                             ),
                           );
                   },

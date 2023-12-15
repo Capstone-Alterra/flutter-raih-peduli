@@ -173,7 +173,10 @@ class RelawanCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            volunteerData.city,
+                            viewModel.truncateText(
+                              volunteerData.city,
+                              15,
+                            ),
                             style: TextStyle(
                               color: const Color(0xFF959CB4),
                               fontSize: size.height / 60,

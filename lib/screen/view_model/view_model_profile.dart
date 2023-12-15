@@ -22,6 +22,7 @@ class ProfileViewModel with ChangeNotifier {
   bool isEdit = false;
   File? imageFile;
   String? imagePath;
+  bool fotoLebihLimaMB = false;
 
   Future fetchProfile({
     required String accessToken,
@@ -130,6 +131,7 @@ class ProfileViewModel with ChangeNotifier {
     nikController.clear();
     imageFile = null;
     imagePath = null;
+    fotoLebihLimaMB = false;
   }
 
   String? validateNik(String value) {
@@ -159,15 +161,15 @@ class ProfileViewModel with ChangeNotifier {
       final int fileSizeInBytes = await imageFile.length();
 
       // Mengatur batas ukuran file (dalam bytes)
-      final int maxSizeInBytes = 5 * 1024 * 1024; // 5 MB
+      const int maxSizeInBytes = 5 * 1024 * 1024; // 5 MB
 
       if (fileSizeInBytes > maxSizeInBytes) {
-        // Menampilkan pesan jika ukuran file lebih dari 5MB
+        fotoLebihLimaMB = true;
         debugPrint('File lebih dari 5MB. Pilih gambar yang lebih kecil.');
       } else {
-        // Menyimpan informasi gambar jika ukuran file sesuai
+        fotoLebihLimaMB = false;
         this.imageFile = imageFile;
-        this.imagePath = pickedImage.path;
+        imagePath = pickedImage.path;
       }
     } else {
       debugPrint('Tidak ada gambar yang dipilih.');
