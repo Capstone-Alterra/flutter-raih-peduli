@@ -129,45 +129,81 @@ class _HistoryApplyVolunteerCardState extends State<HistoryApplyVolunteerCard> {
                                                 .length,
                                             itemBuilder: (BuildContext context,
                                                 int indexSkill) {
-                                              return Row(
-                                                children: [
-                                                  Container(
-                                                    width: size.width * 0.16,
-                                                    height: size.width * 0.05,
-                                                    decoration: BoxDecoration(
-                                                      color: const Color(
-                                                          0xffFFFFFF),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20),
-                                                      border: Border.all(
-                                                        color: const Color(
-                                                            0xff293066),
-                                                        width: 2,
-                                                      ),
-                                                    ),
-                                                    alignment:
-                                                        const AlignmentDirectional(
-                                                            0.00, 0.00),
-                                                    child: Text(
-                                                      provider
-                                                              .historyApplyVolunteerModel!
-                                                              .data[index]
-                                                              .skillsRequired[
-                                                          indexSkill],
-                                                      style: const TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color:
-                                                            Color(0xff293066),
-                                                        fontSize: 8,
-                                                        fontFamily: 'Helvetica',
-                                                      ),
+                                              if (provider
+                                                  .historyApplyVolunteerModel!
+                                                  .data[index]
+                                                  .skillsRequired[indexSkill]
+                                                  .isEmpty) {
+                                                return Container(
+                                                  width: size.width * 0.16,
+                                                  height: size.width * 0.05,
+                                                  decoration: BoxDecoration(
+                                                    color:
+                                                        const Color(0xffFFFFFF),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20),
+                                                    border: Border.all(
+                                                      color: Colors.red,
+                                                      width: 2,
                                                     ),
                                                   ),
-                                                  const SizedBox(width: 2),
-                                                ],
-                                              );
+                                                  alignment:
+                                                      const AlignmentDirectional(
+                                                          0.00, 0.00),
+                                                  child: const Text(
+                                                    'Skill Issue',
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.red,
+                                                      fontSize: 8,
+                                                      fontFamily: 'Helvetica',
+                                                    ),
+                                                  ),
+                                                );
+                                              } else {
+                                                return Row(
+                                                  children: [
+                                                    Container(
+                                                      width: size.width * 0.16,
+                                                      height: size.width * 0.05,
+                                                      decoration: BoxDecoration(
+                                                        color: const Color(
+                                                            0xffFFFFFF),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(20),
+                                                        border: Border.all(
+                                                          color: const Color(
+                                                              0xff293066),
+                                                          width: 2,
+                                                        ),
+                                                      ),
+                                                      alignment:
+                                                          const AlignmentDirectional(
+                                                              0.00, 0.00),
+                                                      child: Text(
+                                                        provider
+                                                                .historyApplyVolunteerModel!
+                                                                .data[index]
+                                                                .skillsRequired[
+                                                            indexSkill],
+                                                        style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color:
+                                                              Color(0xff293066),
+                                                          fontSize: 8,
+                                                          fontFamily:
+                                                              'Helvetica',
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    const SizedBox(width: 2),
+                                                  ],
+                                                );
+                                              }
                                             },
                                           ),
                                         ),

@@ -13,18 +13,13 @@ class DonationHistoryViewModel extends ChangeNotifier {
 
   MyState myState = MyState.loading;
 
-  Color containerColor = const Color(0xffEFFAF4);
-  Color borderColor = const Color(0xff166648);
-  Color textColor = const Color(0xff166648);
-
   Future<void> getDonationHistory() async {
     await getAccessToken();
     try {
       myState = MyState.loading;
       notifyListeners();
 
-      historyDonationModel =
-          await services.fetchHistoryDonation(token: accessToken);
+      historyDonationModel = await services.fetchHistoryDonation(token: accessToken);
 
       myState = MyState.loaded;
       notifyListeners();

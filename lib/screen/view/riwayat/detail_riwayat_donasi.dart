@@ -83,7 +83,7 @@ class _RiwayatDetailDonasiState extends State<RiwayatDetailDonasi> {
               const SizedBox(height: 15),
               Center(
                 child: reusableTextDetailHistory(colorStatus['statusRespond'],
-                    color: donationHistoryViewModel.textColor),
+                    color: colorStatus['textColor']),
               ),
               const SizedBox(height: 10),
               Container(
@@ -146,7 +146,7 @@ class _RiwayatDetailDonasiState extends State<RiwayatDetailDonasi> {
                         children: [
                           reusableTextDetailHistory('Status'),
                           reusableTextDetailHistory(colorStatus['statusText'],
-                              color: donationHistoryViewModel.textColor),
+                              color: colorStatus['textColor']),
                         ],
                       ),
                     ],
