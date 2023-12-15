@@ -70,24 +70,46 @@ class _ProfileEditState extends State<ProfileEdit> {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               children: [
-                GestureDetector(
-                  onTap: () {
-                    showImagePickerOption(context);
+                Consumer<ProfileViewModel>(
+                  builder: (context, contactModel, child) {
+                    return viewModel.isEdit
+                        ? GestureDetector(
+                            onTap: () {
+                              viewModel.pickImage();
+                            },
+                            child: Stack(
+                              children: [
+                                // Menampilkan gambar yang telah dipilih (jika ada)
+                                CircleAvatar(
+                                  radius: size.width * 0.17,
+                                  backgroundImage: viewModel.imageFile != null
+                                      ? Image.file(viewModel.imageFile!).image
+                                      : NetworkImage(viewModel
+                                          .modelProfile!.data.profilePicture),
+                                ),
+                                Positioned(
+                                  bottom: 0,
+                                  left: size.width * 0.25,
+                                  child: SvgPicture.asset('assets/edit.svg'),
+                                ),
+                              ],
+                            ),
+                          )
+                        : GestureDetector(
+                            onTap: () {},
+                            child: Stack(
+                              children: [
+                                CircleAvatar(
+                                  radius: size.width * 0.17,
+                                  backgroundImage: viewModel.imageFile != null
+                                      ? Image.file(viewModel.imageFile!).image
+                                      : NetworkImage(viewModel
+                                          .modelProfile!.data.profilePicture),
+                                ),
+                              ],
+                            ),
+                          );
                   },
-                  child: Stack(
-                    children: [
-                      CircleAvatar(
-                        radius: size.width * 0.17,
-                        backgroundImage: NetworkImage(
-                            viewModel.modelProfile!.data.profilePicture),
-                      ),
-                      Positioned(
-                        bottom: 0,
-                        left: size.width * 0.25,
-                        child: SvgPicture.asset('assets/edit.svg'),
-                      ),
-                    ],
-                  ),
                 ),
                 SizedBox(height: size.height * 0.03),
                 Consumer<ProfileViewModel>(
@@ -138,6 +160,11 @@ class _ProfileEditState extends State<ProfileEdit> {
                                   colorhintext: viewModel.isEdit
                                       ? const Color(0xFF999999)
                                       : Colors.black,
+                                  validator:
+                                      viewModel.isEdit && viewModel.isCheckNik
+                                          ? (value) =>
+                                              viewModel.validateNomor(value!)
+                                          : null,
                                 ),
                                 SizedBox(height: size.height * 0.015),
                                 textSetting(text: "Alamat"),
@@ -166,7 +193,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                                       : const Color.fromARGB(
                                           130, 158, 158, 158),
                                   colorhintext:
-                                      viewModel.isEdit && !viewModel.isCheckNik
+                                      viewModel.isEdit && viewModel.isCheckNik
                                           ? const Color(0xFF999999)
                                           : Colors.black,
                                   validator: viewModel.isEdit &&
@@ -191,10 +218,6 @@ class _ProfileEditState extends State<ProfileEdit> {
                           onPressed: () {
                             viewModel.enable();
                             viewModel.clearAll();
-                            // if (modelview.formKey.currentState!
-                            //     .validate()) {
-                            //   modelview.toggleEditMode();
-                            // }
                           },
                           child:
                               Text(viewModel.isEdit ? "Batal" : "Edit Profile"),
@@ -221,6 +244,10 @@ class _ProfileEditState extends State<ProfileEdit> {
                                   accessToken: sp.accessTokenSharedPreference,
                                   refreshToken: sp.refreshTokenSharedPreference,
                                 );
+                                sp.updateFoto(
+                                  viewModel.modelProfile!.data.profilePicture,
+                                );
+                                await sp.saveDataSharedPreferences();
                                 viewModel.clearAll();
                               }
                             },
@@ -230,15 +257,6 @@ class _ProfileEditState extends State<ProfileEdit> {
                     );
                   },
                 ),
-                // ElevatedButton(
-                //   onPressed: () {
-                //     viewModel.fetchNik(
-                //       accessToken: sp.accessTokenSharedPreference,
-                //       refreshToken: sp.refreshTokenSharedPreference,
-                //     );
-                //   },
-                //   child: const Text("send"),
-                // )
               ],
             ),
           ),
@@ -297,7 +315,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                           icon: const Icon(
                             Icons.close,
                             color: Colors.white,
-                            size: 14.38,
+                            size: 14.35,
                           )),
                     ),
                   ],
@@ -345,7 +363,9 @@ class _ProfileEditState extends State<ProfileEdit> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            viewModel.pickImage();
+                          },
                           child: Container(
                             width: size.width * 0.2,
                             height: size.height * 0.1,
