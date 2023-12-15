@@ -1,20 +1,24 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_detail_volunteer.dart';
 
 class EditTextField extends StatefulWidget {
-  const EditTextField({super.key});
+  String? email;
+  EditTextField({this.email, super.key});
 
   @override
   State<EditTextField> createState() => EditTextFieldState();
 }
 
 class EditTextFieldState extends State<EditTextField> {
+  final DetailVolunteerViewModel viewModel = DetailVolunteerViewModel();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final TextEditingController emailTextController = TextEditingController();
     final TextEditingController notelpTextController = TextEditingController();
     final TextEditingController alamatTextController = TextEditingController();
-    final TextEditingController nikTextController = TextEditingController();
     final TextEditingController passwordTextController =
         TextEditingController();
     return Column(
@@ -43,7 +47,7 @@ class EditTextFieldState extends State<EditTextField> {
             focusedBorder: const UnderlineInputBorder(
               borderSide: BorderSide(color: Colors.black, width: 2),
             ),
-            hintText: 'E.g achsanti@mail.com',
+            hintText: widget.email,
             hintStyle: TextStyle(color: Colors.black.withOpacity(0.4)),
           ),
         ),
@@ -147,7 +151,7 @@ class EditTextFieldState extends State<EditTextField> {
           ),
         ),
         TextField(
-          controller: nikTextController,
+          controller: viewModel.nikTextController,
           cursorColor: Colors.black,
           autocorrect: true,
           style: const TextStyle(color: Colors.black),

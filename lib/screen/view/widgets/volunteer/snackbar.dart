@@ -45,4 +45,3 @@ SnackBar snackBarVolunteer(Size size, context) {
     ),
   );
 }
-
