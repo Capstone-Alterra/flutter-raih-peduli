@@ -1,19 +1,10 @@
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-
 import '../../services/service_apply_volunteer.dart';
 import '../view/settings/edit_profile.dart';
 import '../view/widgets/volunteer/snackbar.dart';
-
-// class ImageData {
-//   final String path;
-//   final File file;
-
-//   ImageData(this.path, this.file);
-// }
 
 class DetailVolunteerViewModel with ChangeNotifier {
   List<String> selectedSkills = [];
@@ -24,6 +15,7 @@ class DetailVolunteerViewModel with ChangeNotifier {
   String? imagePath;
   int? volunteerId;
   bool isSukses = true;
+  bool fotoLebihLimaMB = false;
 
   final service = ApplyVolunteerService();
 
@@ -47,19 +39,19 @@ class DetailVolunteerViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> pickImage() async {
-    final imagePicker = ImagePicker();
-    final pickedImage =
-        await imagePicker.pickImage(source: ImageSource.gallery);
+  // Future<void> pickImage() async {
+  //   final imagePicker = ImagePicker();
+  //   final pickedImage =
+  //       await imagePicker.pickImage(source: ImageSource.gallery);
 
-    if (pickedImage != null) {
-      imageFile = File(pickedImage.path);
-      imagePath = pickedImage.path;
-    } else {
-      debugPrint('Tidak ada gambar yang dipilih.');
-    }
-    notifyListeners();
-  }
+  //   if (pickedImage != null) {
+  //     imageFile = File(pickedImage.path);
+  //     imagePath = pickedImage.path;
+  //   } else {
+  //     debugPrint('Tidak ada gambar yang dipilih.');
+  //   }
+  //   notifyListeners();
+  // }
 
   Future fetchApplyVolunteer({
     required String accessToken,
@@ -115,5 +107,63 @@ class DetailVolunteerViewModel with ChangeNotifier {
       context,
       MaterialPageRoute(builder: (context) => const ProfileEdit()),
     );
+  }
+
+  Future<void> pickImage() async {
+    final imagePicker = ImagePicker();
+    final pickedImage =
+        await imagePicker.pickImage(source: ImageSource.gallery);
+
+    if (pickedImage != null) {
+      final File newImageFile = File(pickedImage.path);
+      final int fileSizeInBytes = await newImageFile.length();
+      const int maxSizeInBytes = 5 * 1024 * 1024;
+
+      if (fileSizeInBytes > maxSizeInBytes) {
+        fotoLebihLimaMB = true;
+        debugPrint('File lebih dari 5MB. Pilih gambar yang lebih kecil.');
+      } else {
+        fotoLebihLimaMB = false;
+        imageFile = newImageFile;
+        imagePath = pickedImage.path;
+      }
+    } else {
+      imageFile = File('');
+      imagePath = null;
+      fotoLebihLimaMB = false;
+      debugPrint('Tidak ada gambar yang dipilih.');
+    }
+    notifyListeners();
+  }
+
+  Future<void> pickImageKamera() async {
+    final imagePicker = ImagePicker();
+    final pickedImage = await imagePicker.pickImage(source: ImageSource.camera);
+
+    if (pickedImage != null) {
+      final File newImageFile = File(pickedImage.path);
+      final int fileSizeInBytes = await newImageFile.length();
+      const int maxSizeInBytes = 5 * 1024 * 1024;
+
+      if (fileSizeInBytes > maxSizeInBytes) {
+        fotoLebihLimaMB = true;
+        debugPrint('File lebih dari 5MB. Pilih gambar yang lebih kecil.');
+      } else {
+        fotoLebihLimaMB = false;
+        imageFile = newImageFile;
+        imagePath = pickedImage.path;
+      }
+    } else {
+      imageFile = File('');
+      imagePath = null;
+      fotoLebihLimaMB = false;
+      debugPrint('Tidak ada gambar yang dipilih.');
+    }
+    notifyListeners();
+  }
+
+  void hapusFoto() {
+    imagePath = null;
+    notifyListeners();
   }
 }

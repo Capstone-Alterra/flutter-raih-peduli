@@ -55,7 +55,7 @@ class VolunteerService {
       final response = await _dio.get(
         "${Urls.baseUrl}${Urls.fetchDetailVolunteer}$id",
       );
-      print("aaaaaaaaaaaaaaa${response.data}");
+      print("bbbbbb${response.data}");
       return ModelDetailVolunteer.fromJson(response.data);
     }
   }

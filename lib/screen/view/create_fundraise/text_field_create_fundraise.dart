@@ -30,14 +30,14 @@ Widget textFormFieldCreateFundraises({
       fillColor: const Color.fromARGB(79, 140, 162, 206),
       enabledBorder: OutlineInputBorder(
         borderSide: const BorderSide(
-          color: Colors.black,
+          color: Color(0xff293066),
           width: 1.0,
         ),
         borderRadius: BorderRadius.circular(5.0),
       ),
       focusedBorder: OutlineInputBorder(
         borderSide: const BorderSide(
-          color: Colors.black,
+          color: Color(0xff293066),
           width: 1.0,
         ),
         borderRadius: BorderRadius.circular(5.0),

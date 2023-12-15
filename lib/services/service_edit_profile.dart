@@ -30,42 +30,51 @@ class ProfileService {
     }
   }
 
-  Future<void> hitUpdateProfile(
-      {required String token,
-      required String email,
-      required String fullname,
-      required String address,
-      required String phone,
-      required String nik,
-      required File foto}) async {
+  Future<void> hitUpdateProfile({
+    required String token,
+    required String email,
+    required String fullname,
+    required String address,
+    required String phone,
+    required String nik,
+    required File? foto,
+    required String photo,
+  }) async {
     try {
-      final formData = FormData.fromMap({
-        'email': email,
-        'fullname': fullname,
-        'address': address,
-        'phone_number': phone,
-        'nik': nik,
-        'profile_picture': await MultipartFile.fromFile(
-          foto.path,
-          filename: 'photo.jpg',
-        ),
-      });
-
-      final response = await _dio.put(Urls.baseUrl + Urls.updateProfile,
-          options: Options(
-            headers: {
-              'Authorization': 'Bearer $token',
-            },
+      FormData formData;
+      if (foto != null) {
+        formData = FormData.fromMap({
+          'email': email,
+          'fullname': fullname,
+          'address': address,
+          'phone_number': phone,
+          'nik': nik,
+          'profile_picture': await MultipartFile.fromFile(
+            foto.path,
+            filename: 'photo.jpg',
           ),
-          data: formData
-          // {
-          //   'email': email,
-          //   'fullname': fullname,
-          //   'address': address,
-          //   'phone_number': phone,
-          //   'nik': nik,
-          // },
-          );
+        });
+      } else {
+        // Use modelProfile!.data.profilePicture if imageFile is null
+        formData = FormData.fromMap({
+          'email': email,
+          'fullname': fullname,
+          'address': address,
+          'phone_number': phone,
+          'nik': nik,
+          'profile_picture': photo,
+        });
+      }
+
+      final response = await _dio.put(
+        Urls.baseUrl + Urls.updateProfile,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+        data: formData,
+      );
       debugPrint("=>${response.data}");
       return;
     } on DioError catch (_) {
