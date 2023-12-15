@@ -42,14 +42,16 @@ class _HistoryApplyVolunteerCardState extends State<HistoryApplyVolunteerCard> {
               shrinkWrap: true,
               itemCount: provider.historyApplyVolunteerModel!.data.length,
               itemBuilder: (BuildContext context, int index) {
+                final Map<String, dynamic> colorStatus =
+                    historyApplyVolunteerViewModel.getColorStatus(provider
+                        .historyApplyVolunteerModel!.data[index].status);
                 return InkWell(
-                  onTap: (){
+                  onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => RiwayatDetailApplyVolunteer(
-                            dataHistoryApplyVolunteer:
-                                provider
+                            dataHistoryApplyVolunteer: provider
                                 .historyApplyVolunteerModel!.data[index]),
                       ),
                     );
@@ -133,8 +135,8 @@ class _HistoryApplyVolunteerCardState extends State<HistoryApplyVolunteerCard> {
                                                     width: size.width * 0.16,
                                                     height: size.width * 0.05,
                                                     decoration: BoxDecoration(
-                                                      color:
-                                                          const Color(0xffFFFFFF),
+                                                      color: const Color(
+                                                          0xffFFFFFF),
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               20),
@@ -149,13 +151,15 @@ class _HistoryApplyVolunteerCardState extends State<HistoryApplyVolunteerCard> {
                                                             0.00, 0.00),
                                                     child: Text(
                                                       provider
-                                                          .historyApplyVolunteerModel!
-                                                          .data[index]
-                                                          .skillsRequired[indexSkill],
+                                                              .historyApplyVolunteerModel!
+                                                              .data[index]
+                                                              .skillsRequired[
+                                                          indexSkill],
                                                       style: const TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
-                                                        color: Color(0xff293066),
+                                                        color:
+                                                            Color(0xff293066),
                                                         fontSize: 8,
                                                         fontFamily: 'Helvetica',
                                                       ),
@@ -173,23 +177,20 @@ class _HistoryApplyVolunteerCardState extends State<HistoryApplyVolunteerCard> {
                                       width: double.infinity,
                                       height: size.width * 0.055,
                                       decoration: BoxDecoration(
-                                        color: historyApplyVolunteerViewModel
-                                            .containerColor,
+                                        color: colorStatus['containerColor'],
                                         borderRadius: BorderRadius.circular(20),
                                         border: Border.all(
-                                          color: historyApplyVolunteerViewModel
-                                              .borderColor,
+                                          color: colorStatus['borderColor'],
                                           width: 1,
                                         ),
                                       ),
                                       child: Center(
                                         child: Text(
-                                          historyApplyVolunteerViewModel
-                                              .statusText, // Use the updated status text here
+                                          colorStatus[
+                                              'statusText'], // Use the updated status text here
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            color: historyApplyVolunteerViewModel
-                                                .textColor,
+                                            color: colorStatus['textColor'],
                                             fontSize: 12,
                                             fontFamily: 'Helvetica',
                                           ),

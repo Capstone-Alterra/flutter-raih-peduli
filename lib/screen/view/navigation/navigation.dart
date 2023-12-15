@@ -4,14 +4,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import '../../../model/bottomnavbar.dart';
 
-class BottomNavgationBar extends StatefulWidget {
-  const BottomNavgationBar({super.key});
+class BottomNavgationBarWidget extends StatefulWidget {
+  const BottomNavgationBarWidget({super.key});
 
   @override
-  State<BottomNavgationBar> createState() => _BottomNavgationBarState();
+  State<BottomNavgationBarWidget> createState() =>
+      _BottomNavgationBarWidgetState();
 }
 
-class _BottomNavgationBarState extends State<BottomNavgationBar> {
+class _BottomNavgationBarWidgetState extends State<BottomNavgationBarWidget> {
   late final NavigationProvider navigationProvider;
   @override
   void initState() {

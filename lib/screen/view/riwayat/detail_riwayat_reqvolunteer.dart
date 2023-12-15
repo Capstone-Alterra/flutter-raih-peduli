@@ -1,30 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/model/model_historyapplyvolunteer.dart';
+import 'package:flutter_raih_peduli/model/model_historycreatevolunteer.dart';
 import 'package:flutter_raih_peduli/screen/view/navigation/navigation.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/history/detail_riwayat.dart';
-import 'package:flutter_raih_peduli/screen/view_model/view_model_historyapplyvolunteer.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_historycreatevolunteer.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_navigation.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:provider/provider.dart';
 
-class RiwayatDetailApplyVolunteer extends StatefulWidget {
-  const RiwayatDetailApplyVolunteer(
-      {super.key, required this.dataHistoryApplyVolunteer});
-  final Datum dataHistoryApplyVolunteer;
+class RiwayatDetailRequestVolunteer extends StatefulWidget {
+  const RiwayatDetailRequestVolunteer(
+      {super.key, required this.dataHistoryReqVolunteer});
+  final Datum dataHistoryReqVolunteer;
   @override
-  State<RiwayatDetailApplyVolunteer> createState() =>
-      _RiwayatDetailApplyVolunteerState();
+  State<RiwayatDetailRequestVolunteer> createState() =>
+      _RiwayatDetailRequestVolunteerState();
 }
 
-class _RiwayatDetailApplyVolunteerState
-    extends State<RiwayatDetailApplyVolunteer> {
-  late HistoryApplyVolunteerViewModel historyApplyVolunteerViewModel;
+class _RiwayatDetailRequestVolunteerState
+    extends State<RiwayatDetailRequestVolunteer> {
+  late HistoryCreateVolunteerViewModel historyCreateVolunteerViewModel;
   late final NavigationProvider navigationProvider;
   @override
   void initState() {
-    historyApplyVolunteerViewModel =
-        Provider.of<HistoryApplyVolunteerViewModel>(context, listen: false);
-    historyApplyVolunteerViewModel.getHistoryApplyVolunteer();
+    historyCreateVolunteerViewModel =
+        Provider.of<HistoryCreateVolunteerViewModel>(context, listen: false);
+    historyCreateVolunteerViewModel.getHistoryCreateVolunteer();
     navigationProvider =
         Provider.of<NavigationProvider>(context, listen: false);
     super.initState();
@@ -33,15 +33,14 @@ class _RiwayatDetailApplyVolunteerState
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    final Map<String, dynamic> colorStatus =
-        historyApplyVolunteerViewModel.getColorStatus(
-            widget.dataHistoryApplyVolunteer.status);
+    final Map<String, dynamic> colorStatus = historyCreateVolunteerViewModel
+        .getColorStatus(widget.dataHistoryReqVolunteer.status);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         centerTitle: true,
         title: const Text(
-          'Riwayat Relawan',
+          'Riwayat Request Volunteer',
           style: TextStyle(
             color: AppTheme.primaryColor,
             fontFamily: 'Helvetica',
@@ -67,15 +66,14 @@ class _RiwayatDetailApplyVolunteerState
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.0),
                   image: DecorationImage(
-                    image: NetworkImage(
-                        widget.dataHistoryApplyVolunteer.vacancyPhoto),
+                    image: NetworkImage(widget.dataHistoryReqVolunteer.photo),
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
               const SizedBox(height: 20),
               Text(
-                widget.dataHistoryApplyVolunteer.vacancyName,
+                widget.dataHistoryReqVolunteer.title,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Color(0xff293066),
@@ -108,8 +106,8 @@ class _RiwayatDetailApplyVolunteerState
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.2), // Shadow color
-                      offset:
-                          const Offset(0, 4), // Vertical position of the shadow
+                      offset: const Offset(
+                          0, 4), // Vertical position of the shadow
                       blurRadius: 4, // Spread radius
                       spreadRadius:
                           1, // Negative spread to create elevation at the bottom
@@ -125,8 +123,8 @@ class _RiwayatDetailApplyVolunteerState
                         children: [
                           reusableTextDetailHistory('Tanggal'),
                           reusableTextDetailHistory(
-                              historyApplyVolunteerViewModel.formatDate(
-                                  widget.dataHistoryApplyVolunteer.createdAt)),
+                              historyCreateVolunteerViewModel.formatDate(
+                                  widget.dataHistoryReqVolunteer.createdAt)),
                         ],
                       ),
                       const SizedBox(height: 20),
@@ -135,8 +133,9 @@ class _RiwayatDetailApplyVolunteerState
                         children: [
                           reusableTextDetailHistory('Status'),
                           reusableTextDetailHistory(
-                              colorStatus['statusCard'],
-                              color: colorStatus['textColor']),
+                              colorStatus['statusText'],
+                              color:
+                                  colorStatus['textColor']),
                         ],
                       ),
                     ],

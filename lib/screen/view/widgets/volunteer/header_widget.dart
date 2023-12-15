@@ -8,7 +8,7 @@ class SearchAndFilterBar extends StatelessWidget {
   final Function(String) onSearchChanged;
   final VoidCallback onFilterPressed;
 
-  SearchAndFilterBar({
+  const SearchAndFilterBar({super.key, 
     required this.searchController,
     required this.onSearchChanged,
     required this.onFilterPressed,

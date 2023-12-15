@@ -340,7 +340,7 @@ class _SignUpState extends State<SignUp> {
                         await guest.keluar();
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => const BottomNavgationBar(),
+                            builder: (context) => const BottomNavgationBarWidget(),
                           ),
                         );
                       },

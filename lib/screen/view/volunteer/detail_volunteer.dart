@@ -55,7 +55,7 @@ class _DetailVolunteerPageState extends State<DetailVolunteerPage> {
         ),
         elevation: 0,
         backgroundColor: Colors.transparent,
-        actions: [
+        actions: const [
           SaveWidget(),
         ],
       ),

@@ -40,6 +40,8 @@ class _HistoryDonationCardState extends State<HistoryDonationCard> {
             shrinkWrap: true,
             itemCount: provider.historyDonationModel!.data.length,
             itemBuilder: (BuildContext context, int index) {
+              final Map<String, dynamic> colorStatus =
+                  donationHistoryViewModel.getColorStatus(provider.historyDonationModel!.data[index].status);
               return InkWell(
                 onTap: () {
                   Navigator.push(
@@ -112,21 +114,18 @@ class _HistoryDonationCardState extends State<HistoryDonationCard> {
                                     width: double.infinity,
                                     height: size.width * 0.055,
                                     decoration: BoxDecoration(
-                                        color: donationHistoryViewModel
-                                            .containerColor,
+                                        color: colorStatus['containerColor'],
                                         borderRadius: BorderRadius.circular(20),
                                         border: Border.all(
-                                          color: donationHistoryViewModel
-                                              .borderColor,
+                                          color: colorStatus['borderColor'],
                                           width: 1,
                                         )),
                                     child: Center(
                                       child: Text(
-                                        donationHistoryViewModel.statusText,
+                                        colorStatus['statusText'],
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          color: donationHistoryViewModel
-                                              .textColor,
+                                          color: colorStatus['textColor'],
                                           fontSize: 12,
                                           fontFamily: 'Helvetica',
                                         ),

@@ -10,8 +10,6 @@ class DonationHistoryViewModel extends ChangeNotifier {
   HistoryDonationModel? historyDonationModel;
   final services = HistoryDonationServices();
   String accessToken = '';
-  String statusText = '';
-  String statusDetailText = '';
 
   MyState myState = MyState.loading;
 
@@ -27,34 +25,6 @@ class DonationHistoryViewModel extends ChangeNotifier {
 
       historyDonationModel =
           await services.fetchHistoryDonation(token: accessToken);
-
-      if (historyDonationModel != null &&
-          historyDonationModel!.data.isNotEmpty) {
-        String status = historyDonationModel!.data.first.status;
-        switch (status) {
-          case 'Paid':
-            containerColor = const Color(0xffEFFAF4); // Green color
-            borderColor = const Color(0xff166648); // Dark green color
-            textColor = const Color(0xff166648); // Dark green color
-            statusText = 'Dibayar';
-            statusDetailText = 'Transaksi Donasi Telah Berhasil ';
-            break;
-          case 'Waiting For Payment':
-            containerColor = const Color(0xffFFFDEA); // Yellow color
-            borderColor = const Color(0xffBB5902); // Dark yellow color
-            textColor = const Color(0xffBB5902); // Dark yellow color
-            statusText = 'Waiting For Payment';
-            statusDetailText = 'Sedang Menunggu Pembayaran';
-            break;
-          default:
-            containerColor = const Color(0xffFEF2F2); // Red color
-            borderColor = const Color(0xffBF1616); // Dark red color
-            textColor = const Color(0xffBF1616); // Dark red color
-            statusText = 'Dibatalkan';
-            statusText = 'Transaksi Donasi Telah Dibatalkan';
-            break;
-        }
-      }
 
       myState = MyState.loaded;
       notifyListeners();
@@ -79,8 +49,47 @@ class DonationHistoryViewModel extends ChangeNotifier {
         decimalDigits: 0, // Number of decimal places
       ).format(int.parse(price));
 
-  String formatDate(DateTime dateTime) {
-    final DateFormat formatter = DateFormat('dd-MM-y');
-    return formatter.format(dateTime);
+  String formatDate(String dateString) {
+    DateTime parsedDate =
+        DateTime.parse(dateString); // Parse the string into DateTime object
+    final DateFormat formatter =
+        DateFormat('dd-MM-yyyy'); // Define your desired format
+    return formatter.format(
+        parsedDate); // Format DateTime object to string in desired format
+  }
+
+  Map<String, dynamic> getColorStatus(String status) {
+    Color containerColor = const Color(0xffEFFAF4);
+    Color borderColor = const Color(0xff166648);
+    Color textColor = const Color(0xff166648);
+    String statusText = '';
+    String statusRespond = '';
+    switch (status) {
+      case "Paid":
+        statusText = 'Dibayar';
+        statusRespond = 'Transaksi Donasi Telah Berhasil ';
+        break;
+      case "Waiting For Payment":
+        containerColor = const Color(0xffFFFDEA); // Yellow color
+        borderColor = const Color(0xffBB5902); // Dark yellow color
+        textColor = const Color(0xffBB5902); // Dark yellow color
+        statusText = 'Waiting For Payment';
+        statusRespond = 'Sedang Menunggu Pembayaran';
+        break;
+      default:
+        containerColor = const Color(0xffFEF2F2); // Red color
+        borderColor = const Color(0xffBF1616); // Dark red color
+        textColor = const Color(0xffBF1616); // Dark red color
+        statusText = 'Dibatalkan';
+        statusRespond = 'Transaksi Donasi Telah Dibatalkan';
+        break;
+    }
+    return {
+      'containerColor': containerColor,
+      'borderColor': borderColor,
+      'textColor': textColor,
+      'statusText': statusText,
+      'statusRespond': statusRespond
+    };
   }
 }

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-HistoryCreateFundraiseModel historyCreateFundraiseModelFromJson(Map<String, dynamic> map) =>
+HistoryCreateFundraiseModel historyCreateFundraiseModelFromJson(Map<String, dynamic>map) =>
     HistoryCreateFundraiseModel.fromJson(map);
 
 String historyCreateFundraiseModelToJson(HistoryCreateFundraiseModel data) =>
@@ -41,8 +41,6 @@ class Datum {
   final int userId;
   final dynamic bookmarkId;
   final DateTime createdAt;
-  final DateTime updatedAt;
-  final dynamic deletedAt;
   final String postType;
 
   Datum({
@@ -59,8 +57,6 @@ class Datum {
     required this.userId,
     required this.bookmarkId,
     required this.createdAt,
-    required this.updatedAt,
-    required this.deletedAt,
     required this.postType,
   });
 
@@ -78,8 +74,6 @@ class Datum {
         userId: json["user_id"],
         bookmarkId: json["bookmark_id"],
         createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
-        deletedAt: json["deleted_at"],
         postType: json["post_type"],
       );
 
@@ -97,8 +91,6 @@ class Datum {
         "user_id": userId,
         "bookmark_id": bookmarkId,
         "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
-        "deleted_at": deletedAt,
         "post_type": postType,
       };
 }

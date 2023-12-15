@@ -17,7 +17,6 @@ class HistoryApplyVolunteerServices {
           },
         ),
       );
-      print("=>${response.data}");
       return historyApplyVolunteerModelFromJson(response.data);
     } on DioException catch (_) {
       rethrow;

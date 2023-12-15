@@ -1,30 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/model/model_historyapplyvolunteer.dart';
+import 'package:flutter_raih_peduli/model/model.historycreatefundraise.dart';
 import 'package:flutter_raih_peduli/screen/view/navigation/navigation.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/history/detail_riwayat.dart';
-import 'package:flutter_raih_peduli/screen/view_model/view_model_historyapplyvolunteer.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_historycreatedonasi.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_navigation.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:provider/provider.dart';
 
-class RiwayatDetailApplyVolunteer extends StatefulWidget {
-  const RiwayatDetailApplyVolunteer(
-      {super.key, required this.dataHistoryApplyVolunteer});
-  final Datum dataHistoryApplyVolunteer;
+class RiwayatDetailRequestDonasi extends StatefulWidget {
+  const RiwayatDetailRequestDonasi(
+      {super.key, required this.dataHistoryReqDonasi});
+  final Datum dataHistoryReqDonasi;
   @override
-  State<RiwayatDetailApplyVolunteer> createState() =>
-      _RiwayatDetailApplyVolunteerState();
+  State<RiwayatDetailRequestDonasi> createState() =>
+      _RiwayatDetailRequestDonasiState();
 }
 
-class _RiwayatDetailApplyVolunteerState
-    extends State<RiwayatDetailApplyVolunteer> {
-  late HistoryApplyVolunteerViewModel historyApplyVolunteerViewModel;
+class _RiwayatDetailRequestDonasiState
+    extends State<RiwayatDetailRequestDonasi> {
+  late HistoryReqDonasiViewModel historyReqDonasiViewModel;
   late final NavigationProvider navigationProvider;
   @override
   void initState() {
-    historyApplyVolunteerViewModel =
-        Provider.of<HistoryApplyVolunteerViewModel>(context, listen: false);
-    historyApplyVolunteerViewModel.getHistoryApplyVolunteer();
+    historyReqDonasiViewModel =
+        Provider.of<HistoryReqDonasiViewModel>(context, listen: false);
+    historyReqDonasiViewModel.getCreateFundraiseHistory();
     navigationProvider =
         Provider.of<NavigationProvider>(context, listen: false);
     super.initState();
@@ -33,15 +33,14 @@ class _RiwayatDetailApplyVolunteerState
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    final Map<String, dynamic> colorStatus =
-        historyApplyVolunteerViewModel.getColorStatus(
-            widget.dataHistoryApplyVolunteer.status);
+    final Map<String, dynamic> colorStatus = historyReqDonasiViewModel
+        .getColorStatus(widget.dataHistoryReqDonasi.status);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         centerTitle: true,
         title: const Text(
-          'Riwayat Relawan',
+          'Riwayat Request Donasi',
           style: TextStyle(
             color: AppTheme.primaryColor,
             fontFamily: 'Helvetica',
@@ -67,15 +66,14 @@ class _RiwayatDetailApplyVolunteerState
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.0),
                   image: DecorationImage(
-                    image: NetworkImage(
-                        widget.dataHistoryApplyVolunteer.vacancyPhoto),
+                    image: NetworkImage(widget.dataHistoryReqDonasi.photo),
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
               const SizedBox(height: 20),
               Text(
-                widget.dataHistoryApplyVolunteer.vacancyName,
+                widget.dataHistoryReqDonasi.title,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Color(0xff293066),
@@ -90,10 +88,8 @@ class _RiwayatDetailApplyVolunteerState
                     color: colorStatus['textColor']),
               ),
               const SizedBox(height: 15),
-              reusableTextDetailHistory(
-                  colorStatus['detailDesc'],
-                  color: Colors.black,
-                  textAlign: TextAlign.center),
+              reusableTextDetailHistory(colorStatus['detailDesc'],
+                  color: Colors.black, textAlign: TextAlign.center),
               const SizedBox(height: 10),
               Container(
                 width: double.infinity,
@@ -125,8 +121,8 @@ class _RiwayatDetailApplyVolunteerState
                         children: [
                           reusableTextDetailHistory('Tanggal'),
                           reusableTextDetailHistory(
-                              historyApplyVolunteerViewModel.formatDate(
-                                  widget.dataHistoryApplyVolunteer.createdAt)),
+                              historyReqDonasiViewModel.formatDate(
+                                  widget.dataHistoryReqDonasi.createdAt)),
                         ],
                       ),
                       const SizedBox(height: 20),

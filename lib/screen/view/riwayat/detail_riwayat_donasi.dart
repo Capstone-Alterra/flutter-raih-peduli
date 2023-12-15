@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/model_historydonation.dart';
+import 'package:flutter_raih_peduli/screen/view/navigation/navigation.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/history/detail_riwayat.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_historydonation.dart';
-import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_navigation.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -14,21 +15,23 @@ class RiwayatDetailDonasi extends StatefulWidget {
 }
 
 class _RiwayatDetailDonasiState extends State<RiwayatDetailDonasi> {
-  late SignInViewModel sp;
   late DonationHistoryViewModel donationHistoryViewModel;
+  late final NavigationProvider navigationProvider;
   @override
   void initState() {
     donationHistoryViewModel =
         Provider.of<DonationHistoryViewModel>(context, listen: false);
     donationHistoryViewModel.getDonationHistory();
-    sp = Provider.of<SignInViewModel>(context, listen: false);
-    sp.setSudahLogin();
+    navigationProvider =
+        Provider.of<NavigationProvider>(context, listen: false);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    final Map<String, dynamic> colorStatus = donationHistoryViewModel
+        .getColorStatus(widget.dataHistoryDonation.status);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -79,14 +82,13 @@ class _RiwayatDetailDonasiState extends State<RiwayatDetailDonasi> {
               ),
               const SizedBox(height: 15),
               Center(
-                child: reusableTextDetailHistory(
-                    donationHistoryViewModel.statusDetailText,
+                child: reusableTextDetailHistory(colorStatus['statusRespond'],
                     color: donationHistoryViewModel.textColor),
               ),
               const SizedBox(height: 10),
               Container(
                 width: double.infinity,
-                height: size.height * 0.19,
+                height: size.width * 0.43,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
@@ -114,8 +116,9 @@ class _RiwayatDetailDonasiState extends State<RiwayatDetailDonasi> {
                         children: [
                           reusableTextDetailHistory('Tanggal'),
                           reusableTextDetailHistory(
-                              donationHistoryViewModel.formatDate(
-                                  widget.dataHistoryDonation.validUntil)),
+                            donationHistoryViewModel
+                                .formatDate(widget.dataHistoryDonation.paidAt),
+                          ),
                         ],
                       ),
                       const SizedBox(height: 20),
@@ -142,8 +145,7 @@ class _RiwayatDetailDonasiState extends State<RiwayatDetailDonasi> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           reusableTextDetailHistory('Status'),
-                          reusableTextDetailHistory(
-                              donationHistoryViewModel.statusText,
+                          reusableTextDetailHistory(colorStatus['statusText'],
                               color: donationHistoryViewModel.textColor),
                         ],
                       ),
@@ -151,9 +153,15 @@ class _RiwayatDetailDonasiState extends State<RiwayatDetailDonasi> {
                   ),
                 ),
               ),
-              SizedBox(height: size.height * 0.22),
+              const Spacer(),
               detailDonasiButton(context, () {
-                Navigator.pop(context);
+                navigationProvider.out();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const BottomNavgationBarWidget(),
+                  ),
+                );
               }, 'Donasi Lagi')
             ],
           ),

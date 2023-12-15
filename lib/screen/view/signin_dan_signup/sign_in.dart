@@ -254,7 +254,7 @@ class _SignInState extends State<SignIn> {
                         await viewModel.keluar();
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => const BottomNavgationBar(),
+                            builder: (context) => const BottomNavgationBarWidget(),
                           ),
                         );
                       },
