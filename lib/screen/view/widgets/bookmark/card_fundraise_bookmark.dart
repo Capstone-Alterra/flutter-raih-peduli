@@ -1,18 +1,19 @@
 // ignore_for_file: camel_case_types, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/model/model_bookmark.dart';
 import 'package:flutter_raih_peduli/model/model_fundraise_pagination.dart';
+import 'package:flutter_raih_peduli/screen/view/fundraises/detail_fundraise.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/save_widget.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_fundraises.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'detail_fundraise.dart';
 
-class CardFundraise extends StatelessWidget {
-  final Datum fundraise;
-  const CardFundraise({super.key, required this.fundraise});
+class CardFundraiseBookmark extends StatelessWidget {
+  final Fundraise fundraise;
+  const CardFundraiseBookmark({super.key, required this.fundraise});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class CardFundraise extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => DetailFundraisePage(
-              id: fundraise.id,
+              id: fundraise.postId,
             ),
           ),
         );
@@ -40,8 +41,8 @@ class CardFundraise extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              width: size.width / 3,
-              height: size.width / 2,
+              width: size.width / 3.3,
+              height: size.width / 3.2,
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(8.0)),
               ),
@@ -77,15 +78,15 @@ class CardFundraise extends StatelessWidget {
                             color: AppTheme.primaryColor,
                             fontFamily: 'Helvetica',
                             fontWeight: FontWeight.bold,
-                            fontSize: size.height / 50,
+                            fontSize: size.height / 60,
                           ),
                         ),
-                        SaveWidget(bookmarkId: fundraise.bookmarkId),
+                        SaveWidget(bookmarkId: fundraise.bookmarkId,),
                       ],
                     ),
                     // const SizedBox(height: 3),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
+                      padding: const EdgeInsets.fromLTRB(0, 15, 5, 0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -156,56 +157,6 @@ class CardFundraise extends StatelessWidget {
                     const Padding(
                       padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
                       child: Divider(thickness: 1.2),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Rp ${formatter.format(fundraise.fundAcquired)}",
-                            style: TextStyle(
-                              color: AppTheme.primaryColor,
-                              fontFamily: 'Helvetica',
-                              fontSize: size.height / 70,
-                            ),
-                          ),
-                          Container(
-                            height: 15,
-                            width: 45,
-                            decoration: const BoxDecoration(
-                              color: Color(0xFFD1DAEC),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(
-                                  16.0,
-                                ),
-                              ),
-                            ),
-                            child: Center(
-                              child: Text(
-                                "${(fundraise.fundAcquired/fundraise.target).toStringAsFixed(2)} %",
-                                style: TextStyle(
-                                  color: AppTheme.primaryColor,
-                                  fontFamily: 'Helvetica',
-                                  fontSize: size.height / 80,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding:
-                      EdgeInsets.only( top: 8, right: 5.0),
-                      child: LinearProgressIndicator(
-                        color: AppTheme.tertiaryColor,
-                        value:
-                        (fundraise.fundAcquired/fundraise.target).toDouble(),
-                        minHeight: 10,
-                        borderRadius:
-                        BorderRadius.all(Radius.circular(10)), // Set the
-                      ),
                     ),
                   ],
                 ),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 // import 'package:flutter_raih_peduli/screen/view/bookmark/bookmark_listview.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/donasi_listview.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/filter_widget.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/news_listview.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/relawan_listview.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/semua_listview.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_bookmark.dart';
@@ -83,9 +84,9 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
                           child: CircularProgressIndicator(),
                         );
                       } else {
-                        if (viewModel.bookmarkModel!.data.fundraise == null &&
-                            viewModel.bookmarkModel!.data.news == null &&
-                            viewModel.bookmarkModel!.data.vacancy == null) {
+                        if (viewModel.bookmarkModel!.data.fundraise.isEmpty &&
+                            viewModel.bookmarkModel!.data.news.isEmpty  &&
+                            viewModel.bookmarkModel!.data.vacancy.isEmpty) {
                           return Center(
                             child: Text("Tidak ada wishlist"),
                           );
@@ -93,25 +94,22 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
                           if (viewModel.selectedFilter == "Donasi") {
                             return DonasiListView(
                               fundraiseData:
-                                  viewModel.bookmarkModel!.data.fundraise,
+                                  viewModel.bookmarkModel!.data.fundraise!,
                             );
                           } else if (viewModel.selectedFilter == 'Relawan') {
                             return RelawanListView(
                               volunteerData:
-                                  viewModel.bookmarkModel!.data.vacancy,
+                                  viewModel.bookmarkModel!.data.vacancy!,
                             );
                           } else if (viewModel.selectedFilter == 'News') {
-                            return RelawanListView(
-                              volunteerData:
-                                  viewModel.bookmarkModel!.data.vacancy,
-                            );
+                            return NewsListView(newsData: viewModel.bookmarkModel!.data.news!);
                           } else if (viewModel.selectedFilter == 'Semua') {
                             return SemuaListViewBuilder(
                               volunteerData:
-                                  viewModel.bookmarkModel!.data.vacancy,
+                                  viewModel.bookmarkModel!.data.vacancy!,
                               fundraiseData:
-                                  viewModel.bookmarkModel!.data.fundraise,
-                              newsData: viewModel.bookmarkModel!.data.news,
+                                  viewModel.bookmarkModel!.data.fundraise!,
+                              newsData: viewModel.bookmarkModel!.data.news!,
                             );
                           }
                         }

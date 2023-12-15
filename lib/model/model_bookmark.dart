@@ -38,9 +38,9 @@ class Data {
       );
 
   Map<String, dynamic> toJson() => {
-        "fundraise": List<dynamic>.from(fundraise.map((x) => x.toJson())),
-        "news": List<dynamic>.from(news.map((x) => x.toJson())),
-        "vacancy": List<dynamic>.from(vacancy.map((x) => x.toJson())),
+        "fundraise": List<Fundraise>.from(fundraise!.map((x) => x.toJson())),
+        "news": List<News>.from(news!.map((x) => x.toJson())),
+        "vacancy": List<Vacancy>.from(vacancy!.map((x) => x.toJson())),
       };
 }
 
@@ -154,7 +154,7 @@ class Vacancy {
   });
 
   factory Vacancy.fromJson(Map<String, dynamic> json) => Vacancy(
-        bookmarkId: json["bookmark_id"],
+        bookmarkId: json["bookmark_id"] ,
         postId: json["post_id"],
         title: json["title"],
         description: json["description"],
