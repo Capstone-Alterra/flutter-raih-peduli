@@ -5,7 +5,8 @@ class FilterWidget extends StatelessWidget {
   final String selectedFilter;
   final Function(String) onFilterSelected;
 
-  const FilterWidget({super.key, 
+  const FilterWidget({
+    super.key,
     required this.selectedFilter,
     required this.onFilterSelected,
   });
@@ -36,6 +37,13 @@ class FilterWidget extends StatelessWidget {
             onFilterSelected('Relawan');
           },
         ),
+        FilterButton(
+          text: 'News',
+          isActive: selectedFilter == 'News',
+          onPressed: () {
+            onFilterSelected('News');
+          },
+        ),
       ],
     );
   }
@@ -46,7 +54,8 @@ class FilterButton extends StatelessWidget {
   final bool isActive;
   final VoidCallback onPressed;
 
-  const FilterButton({super.key, 
+  const FilterButton({
+    super.key,
     required this.text,
     required this.isActive,
     required this.onPressed,
@@ -60,7 +69,7 @@ class FilterButton extends StatelessWidget {
         backgroundColor: isActive ? Colors.white : Colors.white,
         side: isActive
             ? const BorderSide(color: AppTheme.primaryColor, width: 2)
-            : const BorderSide(color: Colors.grey, width: 2),
+            : const BorderSide(color: Colors.grey, width: 1),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),

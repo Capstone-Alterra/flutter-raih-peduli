@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/firebase_options.dart';
 import 'package:flutter_raih_peduli/screen/view/onboarding/splash_screen.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_bookmark.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_chatbot.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_createfundraisehistory.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_create_fundraise.dart';
@@ -84,6 +85,7 @@ class _MyAppState extends State<MyApp> {
           ChangeNotifierProvider(create: (_) => PersonalisasiViewModel()),
           ChangeNotifierProvider(create: (_) => HomeViewModel()),
           ChangeNotifierProvider(create: (_) => ViewModelCreateFundraises()),
+          ChangeNotifierProvider(create: (_) => ViewModelBookmark()),
         ],
         child: MaterialApp(
           theme: ThemeData(

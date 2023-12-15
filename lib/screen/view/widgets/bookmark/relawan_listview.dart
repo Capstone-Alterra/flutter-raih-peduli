@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/model/volunteer_data.dart';
-import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/relawan_card_widget.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/card_relawan_bookmark.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/save_widget.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_bookmark.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
+// import 'package:flutter_raih_peduli/model/volunteer_data.dart';
 import 'package:flutter_raih_peduli/theme.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
+
+import '../../../../model/model_bookmark.dart';
 
 class RelawanListView extends StatelessWidget {
-  const RelawanListView({super.key});
+    final List<Vacancy> volunteerData;
+  const RelawanListView({super.key, required this.volunteerData});
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -28,23 +39,8 @@ class RelawanListView extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(
-          height: 600,
-          child: ListView.builder(
-            scrollDirection: Axis.vertical,
-            itemCount: dummyVolunteerData.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.all(0),
-                child: SizedBox(
-                  child: RelawanCard(
-                    volunteerData: dummyVolunteerData[index],
-                  ),
-                ),
-              );
-            },
-          ),
-        ),
+        for (Vacancy data in volunteerData)
+            CardRelawanBookmark(vacancy: data)
       ],
     );
   }

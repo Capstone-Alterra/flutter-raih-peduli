@@ -16,6 +16,7 @@ class FundraisesService {
         "${Urls.baseUrl}${Urls.fetchFundraisesPagination}$index&page_size=5",
       );
       final newData = ModelFundraisesPagination.fromJson(response.data);
+      // print(newData);
       return newData;
     } on DioError catch (_) {
       rethrow;

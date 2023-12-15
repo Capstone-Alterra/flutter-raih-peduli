@@ -1,5 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/model_profile.dart';
@@ -28,30 +30,42 @@ class ProfileService {
     }
   }
 
-  Future<void> hitUpdateProfile({
-    required String token,
-    required String email,
-    required String fullname,
-    required String address,
-    required String phone,
-    required String nik,
-  }) async {
+  Future<void> hitUpdateProfile(
+      {required String token,
+      required String email,
+      required String fullname,
+      required String address,
+      required String phone,
+      required String nik,
+      required File foto}) async {
     try {
-      final response = await _dio.put(
-        Urls.baseUrl + Urls.updateProfile,
-        options: Options(
-          headers: {
-            'Authorization': 'Bearer $token',
-          },
+      final formData = FormData.fromMap({
+        'email': email,
+        'fullname': fullname,
+        'address': address,
+        'phone_number': phone,
+        'nik': nik,
+        'profile_picture': await MultipartFile.fromFile(
+          foto.path,
+          filename: 'photo.jpg',
         ),
-        data: {
-          'email': email,
-          'fullname': fullname,
-          'address': address,
-          'phone_number': phone,
-          'nik': nik,
-        },
-      );
+      });
+
+      final response = await _dio.put(Urls.baseUrl + Urls.updateProfile,
+          options: Options(
+            headers: {
+              'Authorization': 'Bearer $token',
+            },
+          ),
+          data: formData
+          // {
+          //   'email': email,
+          //   'fullname': fullname,
+          //   'address': address,
+          //   'phone_number': phone,
+          //   'nik': nik,
+          // },
+          );
       debugPrint("=>${response.data}");
       return;
     } on DioError catch (_) {

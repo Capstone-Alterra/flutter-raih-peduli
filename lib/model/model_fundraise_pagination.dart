@@ -41,7 +41,7 @@ class Datum {
     String status;
     String rejectedReason;
     int userId;
-    dynamic bookmarkId;
+    String bookmarkId;
     DateTime createdAt;
     DateTime updatedAt;
     dynamic deletedAt;
