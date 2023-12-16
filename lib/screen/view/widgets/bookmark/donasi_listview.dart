@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/fundraising_data.dart';
 import 'package:flutter_raih_peduli/model/model_bookmark.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/card_fundraise_bookmark.dart';
-import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/save_widget.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_bookmark.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
 class DonasiListView extends StatelessWidget {
   final List<Fundraise> fundraiseData;
@@ -12,7 +13,24 @@ class DonasiListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    final viewModelBookmark = Provider.of<ViewModelBookmark>(context, listen: false);
+    return viewModelBookmark.bookmarkModel!.data.fundraise.isEmpty ? Center(
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Center(
+          child: Text(
+            'Tidak ada donasi yang disimpan',
+            style: TextStyle(
+              color: AppTheme.tertiaryColor.withOpacity(0.9),
+              fontFamily: 'Helvetica',
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      )
+    ) : Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Padding(

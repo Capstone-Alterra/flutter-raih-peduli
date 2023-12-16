@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/screen/view/fundraises/fundraise_screen.dart';
 import 'package:flutter_raih_peduli/screen/view/fundraises/transaction_amount_screen.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/save_widget.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/login_signup/alert.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/save_widget.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_bookmark.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_fundraises.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
 import 'package:flutter_raih_peduli/theme.dart';
@@ -22,20 +25,26 @@ class DetailFundraisePage extends StatefulWidget {
 }
 
 class _DetailFundraisePageState extends State<DetailFundraisePage> {
-  late FundraisesViewModel viewModel;
+  late FundraisesViewModel viewModelFundraise;
   late SignInViewModel sp;
 
   @override
   void initState() {
-    viewModel = Provider.of<FundraisesViewModel>(context, listen: false);
+    viewModelFundraise = Provider.of<FundraisesViewModel>(context, listen: false);
     sp = Provider.of<SignInViewModel>(context, listen: false);
-    viewModel.fetchDetailfundraises(id: widget.id);
+    viewModelFundraise.fetchDetailfundraises(
+        id: widget.id,
+        accessToken: sp.accessTokenSharedPreference,
+        refreshToken: sp.refreshTokenSharedPreference);
+
     sp.setSudahLogin();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final viewModelBookmark =
+        Provider.of<ViewModelBookmark>(context, listen: false);
     var formatter = NumberFormat("#,##0", "en_US");
     Size size = MediaQuery.of(context).size;
     return Scaffold(
@@ -56,18 +65,46 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
             color: AppTheme.primaryColor,
           ),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => FundraiseScreen()
+              ),
+            );
           },
         ),
         elevation: 0,
         backgroundColor: Colors.transparent,
         actions: [
-          SaveWidget(),
+          Consumer<FundraisesViewModel>(
+              builder: (context, contactModel, child) {
+            return SaveWidgetFixed(
+              bookmarkId: viewModelFundraise.modelDetailFundraises!.data.bookmarkId,
+              onPressed: () async {
+                if (viewModelFundraise.modelDetailFundraises!.data.bookmarkId != "") {
+                  await viewModelBookmark.deleteBookmark(
+                      accessToken: sp.accessTokenSharedPreference,
+                      refreshToken: sp.refreshTokenSharedPreference,
+                      idBookmark:
+                          viewModelFundraise.modelDetailFundraises!.data.bookmarkId);
+                  viewModelFundraise.fetchDetailfundraises(id: viewModelFundraise.modelDetailFundraises!.data.id, accessToken: sp.accessTokenSharedPreference, refreshToken: sp.refreshTokenSharedPreference);
+                } else if (viewModelFundraise.modelDetailFundraises!.data.bookmarkId ==
+                    "") {
+                  await viewModelBookmark.postBookmark(
+                      accessToken: sp.accessTokenSharedPreference,
+                      refreshToken: sp.refreshTokenSharedPreference,
+                      id: viewModelFundraise.modelDetailFundraises!.data.id,
+                      postType: 'fundraise');
+                  viewModelFundraise.fetchDetailfundraises(id: viewModelFundraise.modelDetailFundraises!.data.id, accessToken: sp.accessTokenSharedPreference, refreshToken: sp.refreshTokenSharedPreference);
+                }
+              },
+            );
+          }),
         ],
       ),
       body: Consumer<FundraisesViewModel>(
         builder: (context, contactModel, child) {
-          return viewModel.isDetail
+          return viewModelFundraise.isDetail
               ? SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -78,7 +115,7 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(12.0),
                           child: Image.network(
-                            viewModel.modelDetailFundraises!.data.photo,
+                            viewModelFundraise.modelDetailFundraises!.data.photo,
                             height: 250.0,
                             fit: BoxFit.cover,
                           ),
@@ -87,7 +124,7 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Text(
-                          viewModel.modelDetailFundraises!.data.title,
+                          viewModelFundraise.modelDetailFundraises!.data.title,
                           style: const TextStyle(
                             color: AppTheme.tertiaryColor,
                             fontSize: 20.0,
@@ -98,7 +135,7 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
                       Padding(
                         padding: const EdgeInsets.only(left: 16.0, right: 16.0),
                         child: Text(
-                          "${DateFormat('dd MMMM').format(DateTime.parse(viewModel.modelDetailFundraises!.data.startDate.toString()))} - ${DateFormat('dd MMMM yyy').format(DateTime.parse(viewModel.modelDetailFundraises!.data.endDate.toString()))}",
+                          "${DateFormat('dd MMMM').format(DateTime.parse(viewModelFundraise.modelDetailFundraises!.data.startDate.toString()))} - ${DateFormat('dd MMMM yyy').format(DateTime.parse(viewModelFundraise.modelDetailFundraises!.data.endDate.toString()))}",
                           style: TextStyle(
                               fontFamily: 'Helvetica',
                               fontSize: size.height / 60),
@@ -109,9 +146,9 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
                             EdgeInsets.only(left: 16.0, top: 6, right: 16.0),
                         child: LinearProgressIndicator(
                           color: AppTheme.tertiaryColor,
-                          value: (viewModel.modelDetailFundraises!.data
+                          value: (viewModelFundraise.modelDetailFundraises!.data
                                       .fundAcquired /
-                                  viewModel.modelDetailFundraises!.data.target)
+                                  viewModelFundraise.modelDetailFundraises!.data.target)
                               .toDouble(),
                           minHeight: 10,
                           borderRadius:
@@ -143,7 +180,7 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
                                   height: 5,
                                 ),
                                 Text(
-                                  "Rp. ${formatter.format(viewModel.modelDetailFundraises!.data.target)}",
+                                  "Rp. ${formatter.format(viewModelFundraise.modelDetailFundraises!.data.target)}",
                                   style: TextStyle(
                                     color: AppTheme.tertiaryColor,
                                     fontFamily: 'Helvetica',
@@ -172,11 +209,11 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
                                   height: 5,
                                 ),
                                 Text(
-                                  viewModel.modelDetailFundraises!.data.endDate
+                                  viewModelFundraise.modelDetailFundraises!.data.endDate
                                               .difference(DateTime.now())
                                               .inDays >=
                                           0
-                                      ? '${viewModel.modelDetailFundraises!.data.endDate.difference(DateTime.now()).inDays} Hari'
+                                      ? '${viewModelFundraise.modelDetailFundraises!.data.endDate.difference(DateTime.now()).inDays} Hari'
                                       : "Waktu Donasi Habis",
                                   style: TextStyle(
                                     color: AppTheme.tertiaryColor,
@@ -218,7 +255,7 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Text(
-                          viewModel.modelDetailFundraises!.data.description,
+                          viewModelFundraise.modelDetailFundraises!.data.description,
                           style: const TextStyle(fontSize: 16.0),
                         ),
                       ),
@@ -232,12 +269,12 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
       ),
       bottomNavigationBar: Consumer<FundraisesViewModel>(
         builder: (context, contactModel, child) {
-          return viewModel.isDetail
+          return viewModelFundraise.isDetail
               ? Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Consumer<FundraisesViewModel>(
                       builder: (context, contactModel, child) {
-                    if (viewModel.modelDetailFundraises!.data.endDate
+                    if (viewModelFundraise.modelDetailFundraises!.data.endDate
                             .difference(DateTime.now())
                             .inDays >=
                         0) {
