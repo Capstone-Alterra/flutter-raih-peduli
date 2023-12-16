@@ -154,7 +154,7 @@ class PersonalisasiKonten extends StatelessWidget {
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                builder: (context) => const BottomNavgationBar(),
+                builder: (context) => const BottomNavgationBarWidget(),
               ),
               (route) => false,
             );

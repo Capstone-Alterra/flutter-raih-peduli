@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-HistoryApplyVolunteerModel historyApplyVolunteerModelFromJson(Map<String, dynamic> map) =>
+HistoryApplyVolunteerModel historyApplyVolunteerModelFromJson(Map<String,dynamic> map) =>
     HistoryApplyVolunteerModel.fromJson(map);
 
 String historyApplyVolunteerModelToJson(HistoryApplyVolunteerModel data) =>
@@ -43,6 +43,7 @@ class Datum {
   final int vacancyId;
   final String vacancyName;
   final String vacancyPhoto;
+  final DateTime createdAt;
   final String postType;
 
   Datum({
@@ -61,6 +62,7 @@ class Datum {
     required this.vacancyId,
     required this.vacancyName,
     required this.vacancyPhoto,
+    required this.createdAt,
     required this.postType,
   });
 
@@ -81,6 +83,7 @@ class Datum {
         vacancyId: json["vacancy_id"],
         vacancyName: json["vacancy_name"],
         vacancyPhoto: json["vacancy_Photo"],
+        createdAt: DateTime.parse(json["created_at"]),
         postType: json["post_type"],
       );
 
@@ -100,6 +103,7 @@ class Datum {
         "vacancy_id": vacancyId,
         "vacancy_name": vacancyName,
         "vacancy_Photo": vacancyPhoto,
+        "created_at": createdAt.toIso8601String(),
         "post_type": postType,
       };
 }

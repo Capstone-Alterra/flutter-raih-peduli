@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 
 class FilterBottomSheet extends StatefulWidget {
+  const FilterBottomSheet({super.key});
+
   @override
   _FilterBottomSheetState createState() => _FilterBottomSheetState();
 }
@@ -146,7 +148,7 @@ void showFilterBottomSheet(BuildContext context) {
         child: Container(
           padding: const EdgeInsets.all(16.0),
           height: MediaQuery.of(context).size.height * 0.7, // Sesuaikan tinggi bottom sheet sesuai kebutuhan
-          child: FilterBottomSheet(),
+          child: const FilterBottomSheet(),
         ),
       );
     },

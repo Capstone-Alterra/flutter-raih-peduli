@@ -1,10 +1,6 @@
-// To parse this JSON data, do
-//
-//     final historyDonationModel = historyDonationModelFromJson(jsonString);
-
 import 'dart:convert';
 
-HistoryDonationModel historyDonationModelFromJson(Map<String, dynamic> map) =>
+HistoryDonationModel historyDonationModelFromJson(Map<String, dynamic>map) =>
     HistoryDonationModel.fromJson(map);
 
 String historyDonationModelToJson(HistoryDonationModel data) =>
@@ -48,6 +44,7 @@ class Datum {
   final String paidAt;
   final DateTime validUntil;
   final String status;
+  final DateTime createdAt;
   final String postType;
 
   Datum({
@@ -67,6 +64,7 @@ class Datum {
     required this.paidAt,
     required this.validUntil,
     required this.status,
+    required this.createdAt,
     required this.postType,
   });
 
@@ -87,6 +85,7 @@ class Datum {
         paidAt: json["paid_at"],
         validUntil: DateTime.parse(json["valid_until"]),
         status: json["status"],
+        createdAt: DateTime.parse(json["created_at"]),
         postType: json["post_type"],
       );
 
@@ -107,6 +106,7 @@ class Datum {
         "paid_at": paidAt,
         "valid_until": validUntil.toIso8601String(),
         "status": status,
+        "created_at": createdAt.toIso8601String(),
         "post_type": postType,
       };
 }

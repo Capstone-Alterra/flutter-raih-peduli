@@ -23,7 +23,6 @@ class ProfileService {
           },
         ),
       );
-      debugPrint("=>${response.data}");
       return ModelProfile.fromJson(response.data);
     } on DioError catch (_) {
       rethrow;

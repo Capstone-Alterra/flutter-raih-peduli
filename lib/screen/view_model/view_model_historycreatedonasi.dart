@@ -1,27 +1,36 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/model/model_historyapplyvolunteer.dart';
-import 'package:flutter_raih_peduli/services/service_historyapplyvolunteer.dart';
+import 'package:flutter_raih_peduli/model/model.historycreatefundraise.dart';
+import 'package:flutter_raih_peduli/services/service_historycreatefundraise.dart';
 import 'package:flutter_raih_peduli/utils/state/finite_state.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class HistoryApplyVolunteerViewModel extends ChangeNotifier {
-  HistoryApplyVolunteerModel? historyApplyVolunteerModel;
-  final services = HistoryApplyVolunteerServices();
+class HistoryReqDonasiViewModel extends ChangeNotifier {
+  HistoryCreateFundraiseModel? historyCreateFundraiseModel;
+  final services = HistoryCreateFundraiseServices();
   String accessToken = '';
+  int remainingDays = 0;
 
   MyState myState = MyState.loading;
 
-  Future<void> getHistoryApplyVolunteer() async {
+  Future<void> getCreateFundraiseHistory() async {
     await getAccessToken();
     try {
       myState = MyState.loading;
       notifyListeners();
 
-      historyApplyVolunteerModel =
-          await services.fetchHistoryApplyVolunteer(token: accessToken);
+      historyCreateFundraiseModel =
+          await services.fetchhistorycreatefundraise(token: accessToken);
 
+      if (historyCreateFundraiseModel != null &&
+          historyCreateFundraiseModel!.data.isNotEmpty) {
+        final fundraiser = historyCreateFundraiseModel!.data.first;
+
+        // Calculate the difference in days
+        remainingDays =
+            fundraiser.endDate.difference(fundraiser.startDate).inDays;
+      }
       myState = MyState.loaded;
       notifyListeners();
     } catch (e) {
@@ -44,14 +53,20 @@ class HistoryApplyVolunteerViewModel extends ChangeNotifier {
     return formatter.format(dateTime);
   }
 
+  String formattedPrice(price) => NumberFormat.currency(
+        locale: 'id_ID', // This sets the currency format for Indonesian Rupiah
+        symbol: 'Rp. ', // Currency symbol
+        decimalDigits: 0, // Number of decimal places
+      ).format(int.parse(price));
+
   Map<String, dynamic> getColorStatus(String status) {
     Color containerColor = const Color(0xffEFFAF4);
     Color borderColor = const Color(0xff166648);
     Color textColor = const Color(0xff166648);
     String statusText = '';
     String statusCard = '';
-    String detailDesc = '';
     String statusRespond = '';
+    String detailDesc = '';
     switch (status) {
       case 'accepted':
         containerColor = const Color(0xffEFFAF4); // Green color
@@ -61,7 +76,7 @@ class HistoryApplyVolunteerViewModel extends ChangeNotifier {
         statusCard = 'Diterima';
         statusRespond = 'Selamat Kamu Diterima Menjadi Relawan';
         detailDesc =
-            'Selamat!! Permohonan Program Relawan telah berhasil diterima';
+            'Selamat!! Permohonan Program Donasi telah berhasil diterima';
         break;
       case 'pending':
         containerColor = const Color(0xffFFFDEA); // Yellow color
@@ -69,16 +84,17 @@ class HistoryApplyVolunteerViewModel extends ChangeNotifier {
         textColor = const Color(0xffBB5902); // Dark yellow color
         statusText = 'Pending';
         statusCard = 'Pending (Menunggu Review Admin)';
+        statusRespond = 'Kami Telah Menerima Permintaan Anda';
         detailDesc =
             'Mohon Tunggu 2-3 Hari Bagi Kami Untuk Memproses Permintaan Anda';
-        statusRespond = 'Kami Telah Menerima Permintaan Anda';
         break;
       default:
         containerColor = const Color(0xffFEF2F2); // Red color
         borderColor = const Color(0xffBF1616); // Dark red color
         textColor = const Color(0xffBF1616); // Dark red color
         statusText = 'Ditolak';
-        statusCard = 'Mohon Maaf, Kamu Belum Diterima Menjadi Relawan';
+        statusCard = 'Ditolak';
+        statusRespond = 'Permintaan Anda Ditolak oleh Admin';
         detailDesc =
             'Program tidak sesuai dengan kriteria dan informasi belum lengkap. Pertimbangan kebijakan internal juga menjadi alasan penolakan.';
         break;
