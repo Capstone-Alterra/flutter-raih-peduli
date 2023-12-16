@@ -75,13 +75,12 @@ class _ProfileEditState extends State<ProfileEdit> {
                     return viewModel.isEdit
                         ? GestureDetector(
                             onTap: () {
-                              viewModel.pickImage();
+                              showImagePickerOption(context);
                             },
                             child: Column(
                               children: [
                                 Stack(
                                   children: [
-                                    // Menampilkan gambar yang telah dipilih (jika ada)
                                     CircleAvatar(
                                       radius: size.width * 0.17,
                                       backgroundImage:
@@ -342,7 +341,10 @@ class _ProfileEditState extends State<ProfileEdit> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.pop(context);
+                            viewModel.pickImageKamera();
+                          },
                           child: Container(
                             width: size.width * 0.2,
                             height: size.height * 0.1,
@@ -379,6 +381,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                       children: [
                         GestureDetector(
                           onTap: () {
+                            Navigator.pop(context);
                             viewModel.pickImage();
                           },
                           child: Container(

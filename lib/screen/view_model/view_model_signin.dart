@@ -129,7 +129,7 @@ class SignInViewModel with ChangeNotifier {
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (context) => const BottomNavgationBar(),
+            builder: (context) => const BottomNavgationBarWidget(),
           ),
           (route) => false);
     } else {
@@ -160,6 +160,7 @@ class SignInViewModel with ChangeNotifier {
     nameSharedPreference = '';
     emailSharedPreference = '';
     isSuksesLogin = false;
+    saveDataSharedPreferences();
     notifyListeners();
   }
 
@@ -169,7 +170,7 @@ class SignInViewModel with ChangeNotifier {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (context) => const BottomNavgationBar(),
+          builder: (context) => const BottomNavgationBarWidget(),
         ),
         (route) => false,
       );

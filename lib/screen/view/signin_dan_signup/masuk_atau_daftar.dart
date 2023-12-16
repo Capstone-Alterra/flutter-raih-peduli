@@ -174,7 +174,7 @@ class LoginAtauDaftar extends StatelessWidget {
                        await viewModel.keluar();
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => const BottomNavgationBar(),
+                            builder: (context) => const BottomNavgationBarWidget(),
                           ),
                         );
                       },

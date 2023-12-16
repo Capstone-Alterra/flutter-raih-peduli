@@ -14,7 +14,7 @@ import 'package:provider/provider.dart';
 
 class SuccessDonationScreen extends StatelessWidget {
 
-  SuccessDonationScreen(
+  const SuccessDonationScreen(
       {super.key,});
 
   @override
@@ -33,16 +33,16 @@ class SuccessDonationScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 36.0),
                 child: Image.asset('assets/checklist.png'),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 30.0,  left: 5.0, right: 5.0),
-                child: Text("Terima kasih!", style: const TextStyle(
+              const Padding(
+                padding: EdgeInsets.only(top: 30.0,  left: 5.0, right: 5.0),
+                child: Text("Terima kasih!", style: TextStyle(
                   fontFamily: 'Helvetica',
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),),
-              ),Padding(
-                padding: const EdgeInsets.only(top: 5.0, left: 5.0, right: 5.0),
-                child: Text("Donasi telah berhasil dilakukan", style: const TextStyle(
+              ),const Padding(
+                padding: EdgeInsets.only(top: 5.0, left: 5.0, right: 5.0),
+                child: Text("Donasi telah berhasil dilakukan", style: TextStyle(
                 fontFamily: 'Helvetica',
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -68,7 +68,7 @@ class SuccessDonationScreen extends StatelessWidget {
             Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
-                  builder: (_) => const BottomNavgationBar(),
+                  builder: (_) => const BottomNavgationBarWidget(),
                 ),
                     (route) => false);
           },

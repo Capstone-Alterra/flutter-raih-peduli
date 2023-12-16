@@ -123,7 +123,7 @@ class _CreateFundraiseState extends State<CreateFundraise> {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (_) => const BottomNavgationBar(),
+                              builder: (_) => const BottomNavgationBarWidget(),
                             ),
                           );
                         },

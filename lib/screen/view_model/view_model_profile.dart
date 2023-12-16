@@ -20,7 +20,7 @@ class ProfileViewModel with ChangeNotifier {
   final TextEditingController nikController = TextEditingController();
   bool isCheckNik = true;
   bool isEdit = false;
-  File? imageFile;
+  File? imageFile = File('');
   String? imagePath;
   bool fotoLebihLimaMB = false;
 
@@ -85,7 +85,8 @@ class ProfileViewModel with ChangeNotifier {
         nik: nik,
         phone: phone,
         address: alamat,
-        foto: imageFile!,
+        foto: imageFile,
+        photo: modelProfile!.data.profilePicture,
       );
     } catch (e) {
       // ignore: deprecated_member_use
@@ -97,7 +98,8 @@ class ProfileViewModel with ChangeNotifier {
           nik: nik,
           phone: phone,
           address: alamat,
-          foto: imageFile!,
+          foto: imageFile,
+          photo: modelProfile!.data.profilePicture,
         );
         e.response!.statusCode;
       }
@@ -120,7 +122,6 @@ class ProfileViewModel with ChangeNotifier {
 
   void awal() {
     isEdit = false;
-    notifyListeners();
   }
 
   void clearAll() {
@@ -156,25 +157,53 @@ class ProfileViewModel with ChangeNotifier {
         await imagePicker.pickImage(source: ImageSource.gallery);
 
     if (pickedImage != null) {
-      // Mendapatkan ukuran file gambar
-      final File imageFile = File(pickedImage.path);
-      final int fileSizeInBytes = await imageFile.length();
-
-      // Mengatur batas ukuran file (dalam bytes)
-      const int maxSizeInBytes = 5 * 1024 * 1024; // 5 MB
+      final File newImageFile = File(pickedImage.path);
+      final int fileSizeInBytes = await newImageFile.length();
+      const int maxSizeInBytes = 5 * 1024 * 1024;
 
       if (fileSizeInBytes > maxSizeInBytes) {
         fotoLebihLimaMB = true;
         debugPrint('File lebih dari 5MB. Pilih gambar yang lebih kecil.');
       } else {
         fotoLebihLimaMB = false;
-        this.imageFile = imageFile;
+        imageFile = newImageFile;
         imagePath = pickedImage.path;
       }
     } else {
+      imageFile = File('');
+      imagePath = null;
+      fotoLebihLimaMB = false;
       debugPrint('Tidak ada gambar yang dipilih.');
     }
-
     notifyListeners();
   }
+
+    Future<void> pickImageKamera() async {
+    final imagePicker = ImagePicker();
+    final pickedImage =
+        await imagePicker.pickImage(source: ImageSource.camera);
+
+    if (pickedImage != null) {
+      final File newImageFile = File(pickedImage.path);
+      final int fileSizeInBytes = await newImageFile.length();
+      const int maxSizeInBytes = 5 * 1024 * 1024;
+
+      if (fileSizeInBytes > maxSizeInBytes) {
+        fotoLebihLimaMB = true;
+        debugPrint('File lebih dari 5MB. Pilih gambar yang lebih kecil.');
+      } else {
+        fotoLebihLimaMB = false;
+        imageFile = newImageFile;
+        imagePath = pickedImage.path;
+      }
+    } else {
+      imageFile = File('');
+      imagePath = null;
+      fotoLebihLimaMB = false;
+      debugPrint('Tidak ada gambar yang dipilih.');
+    }
+    notifyListeners();
+  }
+
+  
 }

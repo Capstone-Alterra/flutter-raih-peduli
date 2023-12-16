@@ -5,20 +5,28 @@ import 'package:flutter/services.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_create_fundraise.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
-// import 'package:path/path.dart';
 import 'package:provider/provider.dart';
-
 import '../../../theme.dart';
 import '../widgets/volunteer/text_volunteer.dart';
 import 'text_field_create_fundraise.dart';
 
-class FormCreateFundraise extends StatelessWidget {
+class FormCreateFundraise extends StatefulWidget {
   const FormCreateFundraise({super.key});
 
   @override
+  State<FormCreateFundraise> createState() => _FormCreateFundraiseState();
+}
+
+class _FormCreateFundraiseState extends State<FormCreateFundraise> {
+  late ViewModelCreateFundraises viewModel;
+  @override
+  void initState() {
+    viewModel = Provider.of<ViewModelCreateFundraises>(context, listen: false);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final viewModel =
-        Provider.of<ViewModelCreateFundraises>(context, listen: false);
     final DateFormat formatter = DateFormat("dd-MM-yyyy");
     Size size = MediaQuery.of(context).size;
     return Column(
@@ -53,11 +61,6 @@ class FormCreateFundraise extends StatelessWidget {
                   textFormFieldCreateFundraises(
                     inputFormatters: [
                       FilteringTextInputFormatter.digitsOnly,
-                      // FilteringTextInputFormatter.singleLineFormatter,
-                      // TextInputFormatter.withFunction(
-                      //   (oldValue, newValue) =>
-                      //       viewModel.formatTarget(oldValue, newValue),
-                      // ),
                     ],
                     keyboardType: TextInputType.phone,
                     controller: viewModel.target,
@@ -201,33 +204,6 @@ class FormCreateFundraise extends StatelessWidget {
                           )
                         ],
                       ),
-                      // Column(
-                      //   children: [
-                      //     const Text("Tanggal Selesai"),
-                      //     GestureDetector(
-                      //       onTap: () {
-                      //         viewModel.selectEndDate(context);
-                      //       },
-                      //       child: Container(
-                      //         width: size.width / 3,
-                      //         height: 50,
-                      //         decoration: const BoxDecoration(
-                      //           color: Colors.orange,
-                      //           borderRadius: BorderRadius.all(
-                      //             Radius.circular(
-                      //               8.0,
-                      //             ),
-                      //           ),
-                      //         ),
-                      //         child: Center(
-                      //           child: Text(
-                      //             formatter.format(viewModel.end),
-                      //           ),
-                      //         ),
-                      //       ),
-                      //     )
-                      //   ],
-                      // ),
                     ],
                   ),
                 ],
@@ -240,88 +216,248 @@ class FormCreateFundraise extends StatelessWidget {
         const SizedBox(height: 8),
         Consumer<ViewModelCreateFundraises>(
           builder: (context, viewMode, child) {
-            return Container(
-              decoration: BoxDecoration(
-                color: const Color(0xff8CA2CE).withOpacity(0.2),
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                  color: const Color(0xff8CA2CE),
-                ),
-              ),
-              height: size.height * 0.07,
-              width: double.infinity,
-              child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(
-                  size.width * 0.05,
-                  0,
-                  0,
-                  0,
-                ),
-                child: Stack(
-                  alignment: const AlignmentDirectional(-1, 0),
-                  children: [
-                    InkWell(
-                      onTap: () async {
-                        viewModel.pickImage();
-                      },
-                      child: Container(
-                        alignment: Alignment.centerLeft,
-                        width: size.width * 0.38,
-                        height: size.height * 0.05,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(
-                            color: const Color(0xff8CA2CE),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 12.0),
-                          child: Row(
-                            children: [
-                              SvgPicture.asset(
-                                'assets/upload_foto.svg',
-                                height: 24,
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: const Color(0xff8CA2CE).withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                      color: const Color(0xff8CA2CE),
+                    ),
+                  ),
+                  height: size.height * 0.07,
+                  width: double.infinity,
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(
+                      size.width * 0.05,
+                      0,
+                      0,
+                      0,
+                    ),
+                    child: Stack(
+                      alignment: const AlignmentDirectional(-1, 0),
+                      children: [
+                        InkWell(
+                          onTap: () async {
+                            showImagePickerOption(context);
+                            // viewModel.pickImage();
+                          },
+                          child: Container(
+                            alignment: Alignment.centerLeft,
+                            width: size.width * 0.38,
+                            height: size.height * 0.05,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(
+                                color: const Color(0xff8CA2CE),
                               ),
-                              const SizedBox(width: 8),
-                              Expanded(
-                                child: Text(
-                                  viewModel.imagePath ?? 'Upload',
-                                  style: const TextStyle(
-                                    color: Color(0xff293066),
-                                    fontFamily: 'Helvetica',
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 12.0),
+                              child: Row(
+                                children: [
+                                  SvgPicture.asset(
+                                    'assets/upload_foto.svg',
+                                    height: 24,
                                   ),
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
-                                ),
-                              ),
-                              if (viewModel.imagePath != null)
-                                GestureDetector(
-                                  onTap: () {
-                                    viewModel.imagePath = null;
-                                  },
-                                  child: Container(
-                                    padding: const EdgeInsets.all(8),
-                                    child: const Icon(
-                                      Icons.close,
-                                      color: AppTheme.primaryColor,
+                                  const SizedBox(width: 8),
+                                  Expanded(
+                                    child: Text(
+                                      viewModel.imagePath ?? 'Upload',
+                                      style: const TextStyle(
+                                        color: Color(0xff293066),
+                                        fontFamily: 'Helvetica',
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
                                     ),
                                   ),
-                                ),
-                            ],
+                                  if (viewModel.imagePath != null)
+                                    GestureDetector(
+                                      onTap: () {
+                                        viewModel.imagePath = null;
+                                      },
+                                      child: Container(
+                                        padding: const EdgeInsets.all(8),
+                                        child: const Icon(
+                                          Icons.close,
+                                          color: AppTheme.primaryColor,
+                                        ),
+                                      ),
+                                    ),
+                                ],
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
+                if (viewModel.fotoLebihLimaMB == true)
+                  Text(
+                    'File lebih dari 5MB',
+                    style: TextStyle(
+                      fontSize: size.height / 60,
+                      color: Colors.red,
+                    ),
+                  ),
+              ],
             );
           },
         ),
       ],
+    );
+  }
+
+  void showImagePickerOption(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    showModalBottomSheet(
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(30),
+        topRight: Radius.circular(30),
+      )),
+      backgroundColor: Colors.white,
+      context: context,
+      builder: (builder) {
+        return SizedBox(
+          width: size.width * 0.9,
+          height: size.height * 0.26,
+          child: Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(
+              size.width * 0.05,
+              size.height * 0.001,
+              size.width * 0.05,
+              size.height * 0.01,
+            ),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Ubah Foto Profil',
+                      style: TextStyle(
+                          color: Color(0xff293066),
+                          fontFamily: 'Helvetica',
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Container(
+                      width: size.width * 0.07,
+                      height: size.height * 0.07,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Color(0xff293066),
+                      ),
+                      child: IconButton(
+                          splashRadius: 1,
+                          alignment: Alignment.center,
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: const Icon(
+                            Icons.close,
+                            color: Colors.white,
+                            size: 14.35,
+                          )),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                            viewModel.pickImageKamera();
+                          },
+                          child: Container(
+                            width: size.width * 0.2,
+                            height: size.height * 0.1,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: const Color(0xff293066),
+                                width: 2,
+                              ),
+                            ),
+                            child: const Icon(
+                              Icons.camera_alt,
+                              color: Color(0xff293066),
+                              size: 40,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: size.height * 0.01),
+                          child: const Text(
+                            'Kamera',
+                            style: TextStyle(
+                              fontFamily: 'Helvetica',
+                              fontSize: 20,
+                              color: Color(0xff293066),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                            viewModel.pickImage();
+                          },
+                          child: Container(
+                            width: size.width * 0.2,
+                            height: size.height * 0.1,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: const Color(0xff293066),
+                                width: 2,
+                              ),
+                            ),
+                            child: const Icon(
+                              Icons.image,
+                              color: Color(0xff293066),
+                              size: 40,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: size.height * 0.01),
+                          child: const Text(
+                            'Galeri',
+                            style: TextStyle(
+                              fontFamily: 'Helvetica',
+                              fontSize: 20,
+                              color: Color(0xff293066),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

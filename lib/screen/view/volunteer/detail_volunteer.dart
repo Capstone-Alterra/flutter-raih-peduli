@@ -66,7 +66,7 @@ class _DetailVolunteerPageState extends State<DetailVolunteerPage> {
         ),
         elevation: 0,
         backgroundColor: Colors.transparent,
-        actions: [
+        actions: const [
           SaveWidget(),
         ],
       ),
@@ -219,7 +219,7 @@ class _DetailVolunteerPageState extends State<DetailVolunteerPage> {
                                   } else {
                                     if (viewModel.modelDetailVolunteer!.data
                                             .isRegistered ==
-                                        false) {
+                                        true) {
                                       customAlert(
                                         context: context,
                                         alertType: QuickAlertType.error,

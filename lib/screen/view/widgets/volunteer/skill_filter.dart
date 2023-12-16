@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_detail_volunteer.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -10,11 +11,17 @@ class SkillFilter extends StatefulWidget {
 
 class _SkillFilterState extends State<SkillFilter> {
   late DetailVolunteerViewModel viewModel;
+  late SignInViewModel sp;
 
   @override
   void initState() {
     super.initState();
     viewModel = Provider.of<DetailVolunteerViewModel>(context, listen: false);
+    sp = Provider.of<SignInViewModel>(context, listen: false);
+    viewModel.fetchSkill(
+      accessToken: sp.accessTokenSharedPreference,
+      refreshToken:sp.refreshTokenSharedPreference,
+    );
   }
 
   Widget _buildFilterOption(String title, List<String> options) {
@@ -108,15 +115,10 @@ class _SkillFilterState extends State<SkillFilter> {
                 ],
               ),
               const SizedBox(height: 16.0),
-              _buildFilterOption('', [
-                'Pendidikan',
-                'Teknologi',
-                'Kesehatan',
-                'Komunikasi',
-                'Memasak',
-                'Nguli',
-                'Mutant'
-              ]),
+              _buildFilterOption(
+                  '',
+                  viewModel.listSKill
+                      as List<String>), // Menggunakan listSkill dari viewModel
             ],
           ),
         ),

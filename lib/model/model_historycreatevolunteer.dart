@@ -1,6 +1,10 @@
+// To parse this JSON data, do
+//
+//     final historyCreateVolunteerModel = historyCreateVolunteerModelFromJson(jsonString);
+
 import 'dart:convert';
 
-HistoryCreateVolunteerModel historyCreateVolunteerModelFromJson(Map<String, dynamic> map) =>
+HistoryCreateVolunteerModel historyCreateVolunteerModelFromJson(Map<String, dynamic>map) =>
     HistoryCreateVolunteerModel.fromJson(map);
 
 String historyCreateVolunteerModelToJson(HistoryCreateVolunteerModel data) =>
@@ -45,8 +49,6 @@ class Datum {
   final int totalRegistrar;
   final dynamic bookmarkId;
   final DateTime createdAt;
-  final DateTime updatedAt;
-  final dynamic deletedAt;
   final String postType;
 
   Datum({
@@ -67,8 +69,6 @@ class Datum {
     required this.totalRegistrar,
     required this.bookmarkId,
     required this.createdAt,
-    required this.updatedAt,
-    required this.deletedAt,
     required this.postType,
   });
 
@@ -91,8 +91,6 @@ class Datum {
         totalRegistrar: json["total_registrar"],
         bookmarkId: json["bookmark_id"],
         createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
-        deletedAt: json["deleted_at"],
         postType: json["post_type"],
       );
 
@@ -114,8 +112,6 @@ class Datum {
         "total_registrar": totalRegistrar,
         "bookmark_id": bookmarkId,
         "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
-        "deleted_at": deletedAt,
         "post_type": postType,
       };
 }

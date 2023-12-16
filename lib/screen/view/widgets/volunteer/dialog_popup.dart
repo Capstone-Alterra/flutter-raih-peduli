@@ -46,7 +46,7 @@ void showCustomDialog(BuildContext context, Size size) {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => BottomNavgationBar(),
+        builder: (context) => const BottomNavgationBarWidget(),
       ),
     );
   });
