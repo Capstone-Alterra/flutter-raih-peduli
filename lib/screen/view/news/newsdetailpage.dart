@@ -2,18 +2,32 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/theme.dart';
+import 'package:provider/provider.dart';
 
-class NewsDetailPage extends StatelessWidget {
-  String? foto;
-  String? title;
-  String? description;
+import '../../view_model/view_model_news.dart';
+
+class NewsDetailPage extends StatefulWidget {
+  int id;
 
   NewsDetailPage({
-    this.foto,
-    this.title,
-    this.description,
+    required this.id,
     super.key,
   });
+
+  @override
+  State<NewsDetailPage> createState() => _NewsDetailPageState();
+}
+
+class _NewsDetailPageState extends State<NewsDetailPage> {
+  late NewsViewModel viewModel;
+  @override
+  void initState() {
+    viewModel = Provider.of<NewsViewModel>(context, listen: false);
+    viewModel.fetchDetailNews(
+      id: widget.id,
+    );
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,39 +46,47 @@ class NewsDetailPage extends StatelessWidget {
           },
         ),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(12.0),
-                child: Image.network(
-                  foto ?? "",
-                  fit: BoxFit.cover,
-                ),
-              ),
-              const SizedBox(height: 10.0),
-              Text(
-                title ?? "",
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF293066),
-                ),
-              ),
-              const SizedBox(height: 12.0),
-              Text(
-                description ?? "",
-                maxLines: null,
-                style: const TextStyle(
-                  color: Color(0xFF293066),
-                ),
-              ),
-            ],
-          ),
-        ),
+      body: Consumer<NewsViewModel>(
+        builder: (context, contactModel, child) {
+          return viewModel.isLoadingDetail
+              ? SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(12.0),
+                          child: Image.network(
+                            viewModel.modelDetailNews!.data.photo,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        const SizedBox(height: 10.0),
+                        Text(
+                          viewModel.modelDetailNews!.data.title,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF293066),
+                          ),
+                        ),
+                        const SizedBox(height: 12.0),
+                        Text(
+                          viewModel.modelDetailNews!.data.description,
+                          maxLines: null,
+                          style: const TextStyle(
+                            color: Color(0xFF293066),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              : const Center(
+                  child: CircularProgressIndicator(),
+                );
+        },
       ),
     );
   }

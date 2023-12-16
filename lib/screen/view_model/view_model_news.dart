@@ -1,11 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/model/model_detail_news.dart';
 import 'package:flutter_raih_peduli/services/service_news.dart';
 import '../../model/model_news.dart';
 import '../../model/model_news_pagination.dart';
 
 class NewsViewModel with ChangeNotifier {
   ModelNews? modelNews;
+  ModelDetailNews? modelDetailNews;
   ModelNewsPagination? modelNewsPagination;
   final service = NewsService();
   final TextEditingController search = TextEditingController();
@@ -14,6 +16,7 @@ class NewsViewModel with ChangeNotifier {
   bool isSearch = false;
   int indexPagination = 1;
   late final scrollController = ScrollController();
+  bool isLoadingDetail = true;
 
   NewsViewModel() {
     fetchAllNews();
@@ -35,7 +38,7 @@ class NewsViewModel with ChangeNotifier {
       notifyListeners();
       modelNews = await service.hitSearchNews(query: query);
       dataHasilSearch = false;
-      
+
       notifyListeners();
     } catch (e) {
       // ignore: deprecated_member_use
@@ -77,5 +80,23 @@ class NewsViewModel with ChangeNotifier {
   void awal() async {
     indexPagination = 1;
     isSearch = false;
+  }
+
+  Future fetchDetailNews({
+    required int id,
+  }) async {
+    try {
+      isLoadingDetail = false;
+      modelDetailNews = await service.hitDetailNews(
+        id: id,
+      );
+      isLoadingDetail = true;
+    } catch (e) {
+      // ignore: deprecated_member_use
+      if (e is DioError) {
+        e.response!.statusCode;
+      }
+    }
+    notifyListeners();
   }
 }

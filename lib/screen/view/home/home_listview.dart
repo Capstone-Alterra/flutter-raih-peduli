@@ -197,6 +197,7 @@ class _HomeListViewBuilderState extends State<HomeListViewBuilder> {
                               photo: news.photo,
                               title: news.title,
                               description: news.description,
+                              id: news.id,
                             ),
                           ),
                       ],

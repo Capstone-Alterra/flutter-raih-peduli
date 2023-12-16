@@ -8,12 +8,14 @@ class NewsCard extends StatelessWidget {
   final String photo;
   final String title;
   final String description;
+  final int id;
 
   const NewsCard({
     super.key,
     required this.photo,
     required this.title,
     required this.description,
+    required this.id,
   });
 
   @override
@@ -89,9 +91,7 @@ class NewsCard extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => NewsDetailPage(
-                      foto: photo,
-                      title: title,
-                      description: description,
+                      id: id,
                     ),
                   ),
                 );

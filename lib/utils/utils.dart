@@ -37,5 +37,7 @@ class Urls {
   static const String createFundraise = "/fundraises";
   static const String bookmark = "/bookmarks/";
   static const String listSkill = "/skills";
-  static const String searchFundraise = "/mobile/fundraises?page=1&page_size=100&title=";
+  static const String searchFundraise =
+      "/mobile/fundraises?page=1&page_size=100&title=";
+  static const String detailNews = "/mobile/news/";
 }

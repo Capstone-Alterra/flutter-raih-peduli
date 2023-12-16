@@ -95,9 +95,7 @@ class _NewsState extends State<News> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => NewsDetailPage(
-                                foto: widget.newsData.photo,
-                                title: widget.newsData.title,
-                                description: widget.newsData.description,
+                                id: widget.newsData.id,
                               ),
                             ),
                           );

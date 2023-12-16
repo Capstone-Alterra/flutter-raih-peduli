@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import '../../../model/model_news.dart';
 
 class NewsSearch extends StatefulWidget {
-    final Datum newsData;
+  final Datum newsData;
   const NewsSearch({super.key, required this.newsData});
 
   @override
@@ -90,9 +90,7 @@ class _NewsSearchState extends State<NewsSearch> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => NewsDetailPage(
-                                foto: widget.newsData.photo,
-                                title: widget.newsData.title,
-                                description: widget.newsData.description,
+                                id: widget.newsData.id,
                               ),
                             ),
                           );

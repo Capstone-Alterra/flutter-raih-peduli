@@ -2,6 +2,7 @@
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/model/model_detail_news.dart';
 import 'package:flutter_raih_peduli/model/model_news.dart';
 
 import '../model/model_news_pagination.dart';
@@ -41,6 +42,20 @@ class NewsService {
       );
       debugPrint("=>${response.data}");
       return ModelNewsPagination.fromJson(response.data);
+    } on DioError catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<ModelDetailNews> hitDetailNews({
+    required int id,
+  }) async {
+    try {
+      final response = await _dio.get(
+        "${Urls.baseUrl + Urls.detailNews}$id",
+      );
+      debugPrint("=>${response.data}");
+      return ModelDetailNews.fromJson(response.data);
     } on DioError catch (_) {
       rethrow;
     }
