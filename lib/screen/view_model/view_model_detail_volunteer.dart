@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/model/model_skill.dart';
+import 'package:flutter_raih_peduli/services/service_list_skill.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../services/service_apply_volunteer.dart';
 import '../view/settings/edit_profile.dart';
@@ -8,6 +10,7 @@ import '../view/widgets/volunteer/snackbar.dart';
 
 class DetailVolunteerViewModel with ChangeNotifier {
   List<String> selectedSkills = [];
+  ListSkill? listSKill;
   TextEditingController resumeController = TextEditingController();
   TextEditingController reasonController = TextEditingController();
   TextEditingController skillController = TextEditingController();
@@ -18,6 +21,7 @@ class DetailVolunteerViewModel with ChangeNotifier {
   bool fotoLebihLimaMB = false;
 
   final service = ApplyVolunteerService();
+  final getSkill = ListSKillService();
 
   void setVolunteerId(int id) {
     volunteerId = id;
@@ -109,6 +113,35 @@ class DetailVolunteerViewModel with ChangeNotifier {
     );
   }
 
+  
+  Future fetchSkill({
+    required String accessToken,
+    required String refreshToken,
+  }) async {
+    try {
+      isSukses = false;
+      final data = await getSkill.hitSkill(
+        token: accessToken,
+      );
+      listSKill = data.take(10).toList();
+      isSukses = true;
+    } catch (e) {
+      // ignore: deprecated_member_use
+      if (e is DioError) {
+        isSukses = false;
+        final data =await getSkill.hitSkill(
+          token: refreshToken,
+        );
+        listSKill = data.take(10).toList();
+        isSukses = true;
+        e.response!.statusCode;
+      }
+    }
+    notifyListeners();
+  }
+}
+
+
   Future<void> pickImage() async {
     final imagePicker = ImagePicker();
     final pickedImage =
@@ -167,3 +200,4 @@ class DetailVolunteerViewModel with ChangeNotifier {
     notifyListeners();
   }
 }
+
