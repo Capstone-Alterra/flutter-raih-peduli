@@ -5,9 +5,7 @@ import 'package:flutter_raih_peduli/model/model_bookmark.dart';
 import 'package:flutter_raih_peduli/model/model_fundraise_pagination.dart';
 import 'package:flutter_raih_peduli/screen/view/fundraises/detail_fundraise.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/save_widget.dart';
-import 'package:flutter_raih_peduli/screen/view_model/view_model_bookmark.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_fundraises.dart';
-import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
@@ -20,11 +18,7 @@ class CardFundraiseBookmark extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var formatter = NumberFormat("#,##0", "en_US");
-    final viewModelFundraise = Provider.of<FundraisesViewModel>(context, listen: false);
-    final viewModelBookmark =
-    Provider.of<ViewModelBookmark>(context, listen: false);
-    final sp =
-    Provider.of<SignInViewModel>(context, listen: false);
+    final viewModel = Provider.of<FundraisesViewModel>(context, listen: false);
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
@@ -79,7 +73,7 @@ class CardFundraiseBookmark extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          viewModelFundraise.truncateText(fundraise.title, 15),
+                          viewModel.truncateText(fundraise.title, 15),
                           style: TextStyle(
                             color: AppTheme.primaryColor,
                             fontFamily: 'Helvetica',
@@ -87,30 +81,7 @@ class CardFundraiseBookmark extends StatelessWidget {
                             fontSize: size.height / 60,
                           ),
                         ),
-                        SaveWidgetFixed(bookmarkId: fundraise.bookmarkId, onPressed: () async {
-                          if (fundraise.bookmarkId != "") {
-                            await viewModelBookmark.deleteBookmark(
-                                accessToken: sp.accessTokenSharedPreference,
-                                refreshToken: sp.refreshTokenSharedPreference,
-                                idBookmark:
-                                fundraise.bookmarkId);
-                            viewModelBookmark.getBookmark(
-                              accessToken: sp.accessTokenSharedPreference,
-                              refreshToken: sp.refreshTokenSharedPreference,
-                            );
-                          } else if (fundraise.bookmarkId ==
-                              "") {
-                            await viewModelBookmark.postBookmark(
-                                accessToken: sp.accessTokenSharedPreference,
-                                refreshToken: sp.refreshTokenSharedPreference,
-                                id: fundraise.postId,
-                                postType: 'fundraise');
-                            viewModelBookmark.getBookmark(
-                              accessToken: sp.accessTokenSharedPreference,
-                              refreshToken: sp.refreshTokenSharedPreference,
-                            );
-                          }
-                        }),
+                        SaveWidget(bookmarkId: fundraise.bookmarkId,),
                       ],
                     ),
                     // const SizedBox(height: 3),

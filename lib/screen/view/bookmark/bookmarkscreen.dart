@@ -21,13 +21,13 @@ class BookmarkScreen extends StatefulWidget {
 }
 
 class _BookmarkScreenState extends State<BookmarkScreen> {
-  late ViewModelBookmark viewModelBookmark;
+  late ViewModelBookmark viewModel;
   late SignInViewModel sp;
   @override
   void initState() {
-    viewModelBookmark = Provider.of<ViewModelBookmark>(context, listen: false);
+    viewModel = Provider.of<ViewModelBookmark>(context, listen: false);
     sp = Provider.of<SignInViewModel>(context, listen: false);
-    viewModelBookmark.getBookmark(
+    viewModel.getBookmark(
       accessToken: sp.accessTokenSharedPreference,
       refreshToken: sp.refreshTokenSharedPreference,
     );
@@ -71,59 +71,45 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
                   Consumer<ViewModelBookmark>(
                     builder: (context, viewMode, child) {
                       return FilterWidget(
-                        selectedFilter: viewModelBookmark.selectedFilter,
-                        onFilterSelected: viewModelBookmark.setFilter,
+                        selectedFilter: viewModel.selectedFilter,
+                        onFilterSelected: viewModel.setFilter,
                       );
                     },
                   ),
                   const SizedBox(height: 16),
                   Consumer<ViewModelBookmark>(
                     builder: (context, viewMode, child) {
-                      if (viewModelBookmark.isLoading == true) {
+                      if (viewModel.isLoading == true) {
                         return const Center(
                           child: CircularProgressIndicator(),
                         );
                       } else {
-                        if (viewModelBookmark.bookmarkModel!.data.fundraise.isEmpty &&
-                            viewModelBookmark.bookmarkModel!.data.news.isEmpty  &&
-                            viewModelBookmark.bookmarkModel!.data.vacancy.isEmpty) {
+                        if (viewModel.bookmarkModel!.data.fundraise.isEmpty &&
+                            viewModel.bookmarkModel!.data.news.isEmpty  &&
+                            viewModel.bookmarkModel!.data.vacancy.isEmpty) {
                           return Center(
-                              child: Padding(
-                                padding: const EdgeInsets.all(20.0),
-                                child: Center(
-                                  child: Text(
-                                    'Tidak ada wishlist yang disimpan',
-                                    style: TextStyle(
-                                      color: AppTheme.tertiaryColor.withOpacity(0.9),
-                                      fontFamily: 'Helvetica',
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              )
+                            child: Text("Tidak ada wishlist"),
                           );
                         } else {
-                          if (viewModelBookmark.selectedFilter == "Donasi") {
+                          if (viewModel.selectedFilter == "Donasi") {
                             return DonasiListView(
                               fundraiseData:
-                                  viewModelBookmark.bookmarkModel!.data.fundraise!,
+                                  viewModel.bookmarkModel!.data.fundraise!,
                             );
-                          } else if (viewModelBookmark.selectedFilter == 'Relawan') {
+                          } else if (viewModel.selectedFilter == 'Relawan') {
                             return RelawanListView(
                               volunteerData:
-                                  viewModelBookmark.bookmarkModel!.data.vacancy!,
+                                  viewModel.bookmarkModel!.data.vacancy!,
                             );
-                          } else if (viewModelBookmark.selectedFilter == 'News') {
-                            return NewsListView(newsData: viewModelBookmark.bookmarkModel!.data.news!);
-                          } else if (viewModelBookmark.selectedFilter == 'Semua') {
+                          } else if (viewModel.selectedFilter == 'News') {
+                            return NewsListView(newsData: viewModel.bookmarkModel!.data.news!);
+                          } else if (viewModel.selectedFilter == 'Semua') {
                             return SemuaListViewBuilder(
                               volunteerData:
-                                  viewModelBookmark.bookmarkModel!.data.vacancy!,
+                                  viewModel.bookmarkModel!.data.vacancy!,
                               fundraiseData:
-                                  viewModelBookmark.bookmarkModel!.data.fundraise!,
-                              newsData: viewModelBookmark.bookmarkModel!.data.news!,
+                                  viewModel.bookmarkModel!.data.fundraise!,
+                              newsData: viewModel.bookmarkModel!.data.news!,
                             );
                           }
                         }

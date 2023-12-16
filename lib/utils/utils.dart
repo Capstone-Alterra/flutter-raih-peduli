@@ -10,7 +10,8 @@ class Urls {
   static const String fetchAllNews = "/news?page=1&page_size=10";
   static const String searchNews = "/news?page=1&page_size=10&title=";
   static const String profile = "/mobile/users/my-profile";
-  static const String fetchFundraisesPagination = "/mobile/fundraises?page=";
+  static const String fetchAllFundraises = "/fundraises?page=1&page_size=5";
+  static const String fetchFundraisesPagination = "/fundraises?page=";
   static const String fetchAllVolunteer = "/volunteer-vacancies";
   static const String searchVolunteer = "/volunteer-vacancies?title=";
   static const String createTransaction = "/transactions";
@@ -35,5 +36,5 @@ class Urls {
   static const String fetchDetailVolunteer = "/volunteer-vacancies/";
   static const String fetchVolunteerPagination = "/volunteer-vacancies?page=";
   static const String createFundraise = "/fundraises";
-  static const String bookmark = "/bookmarks/";
+  static const String bookmark = "/bookmarks";
 }

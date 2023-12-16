@@ -6,9 +6,7 @@ import 'package:flutter_raih_peduli/model/model_fundraise_pagination.dart';
 import 'package:flutter_raih_peduli/screen/view/fundraises/detail_fundraise.dart';
 import 'package:flutter_raih_peduli/screen/view/volunteer/detail_volunteer.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/save_widget.dart';
-import 'package:flutter_raih_peduli/screen/view_model/view_model_bookmark.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_fundraises.dart';
-import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
@@ -16,17 +14,12 @@ import 'package:provider/provider.dart';
 
 class CardRelawanBookmark extends StatelessWidget {
   final Vacancy vacancy;
-
   const CardRelawanBookmark({super.key, required this.vacancy});
 
   @override
   Widget build(BuildContext context) {
     var formatter = NumberFormat("#,##0", "en_US");
-    final viewModelFundraise =
-        Provider.of<FundraisesViewModel>(context, listen: false);
-    final viewModelBookmark =
-        Provider.of<ViewModelBookmark>(context, listen: false);
-    final sp = Provider.of<SignInViewModel>(context, listen: false);
+    final viewModel = Provider.of<FundraisesViewModel>(context, listen: false);
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
@@ -81,7 +74,7 @@ class CardRelawanBookmark extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          viewModelFundraise.truncateText(vacancy.title, 18),
+                          viewModel.truncateText(vacancy.title, 18),
                           style: TextStyle(
                             color: AppTheme.primaryColor,
                             fontFamily: 'Helvetica',
@@ -89,39 +82,14 @@ class CardRelawanBookmark extends StatelessWidget {
                             fontSize: size.height / 60,
                           ),
                         ),
-                        SaveWidgetFixed(
-                            bookmarkId: vacancy.bookmarkId,
-                            onPressed: () async {
-                              if (vacancy.bookmarkId != "") {
-                                await viewModelBookmark.deleteBookmark(
-                                    accessToken: sp.accessTokenSharedPreference,
-                                    refreshToken:
-                                        sp.refreshTokenSharedPreference,
-                                    idBookmark: vacancy.bookmarkId);
-                                viewModelBookmark.getBookmark(
-                                  accessToken: sp.accessTokenSharedPreference,
-                                  refreshToken: sp.refreshTokenSharedPreference,
-                                );
-                              } else if (vacancy.bookmarkId == "") {
-                                await viewModelBookmark.postBookmark(
-                                    accessToken: sp.accessTokenSharedPreference,
-                                    refreshToken:
-                                        sp.refreshTokenSharedPreference,
-                                    id: vacancy.postId,
-                                    postType: 'fundraise');
-                                viewModelBookmark.getBookmark(
-                                  accessToken: sp.accessTokenSharedPreference,
-                                  refreshToken: sp.refreshTokenSharedPreference,
-                                );
-                              }
-                            }),
+                        SaveWidget(bookmarkId: vacancy.bookmarkId,),
                       ],
                     ),
                     const SizedBox(height: 8),
                     Padding(
                       padding: const EdgeInsets.only(right: 8.0),
                       child: Text(
-                        viewModelFundraise.truncateText(
+                        viewModel.truncateText(
                           vacancy.description,
                           25,
                         ),
@@ -161,9 +129,10 @@ class CardRelawanBookmark extends StatelessWidget {
                               Text(
                                 'Slot Tersisa',
                                 style: TextStyle(
-                                    color: AppTheme.primaryColor,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: size.height / 70),
+                                  color: AppTheme.primaryColor,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: size.height / 70
+                                ),
                               ),
                               SvgPicture.asset(
                                 'assets/orang.svg',
@@ -181,7 +150,7 @@ class CardRelawanBookmark extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            viewModelFundraise.truncateText(vacancy.city, 25),
+                            viewModel.truncateText(vacancy.city, 25),
                             style: TextStyle(
                               color: const Color(0xFF959CB4),
                               fontSize: size.height / 80,

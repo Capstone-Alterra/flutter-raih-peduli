@@ -25,47 +25,31 @@ class FundraisesViewModel with ChangeNotifier {
   late final scrollController = ScrollController();
   int indexPagination = 1;
 
-  Future fetchAllFundraisesPagination(
-      {required String accessToken, required String refreshToken}) async {
+  Future fetchAllFundraisesPagination() async {
     try {
       isLoading = true;
-      modelFundraisesPagination = await service.hitAllFundraisesPagination(
-          index: indexPagination, token: refreshToken);
+      modelFundraisesPagination =
+          await service.hitAllFundraisesPagination(indexPagination);
       isLoading = false;
+      notifyListeners();
     } catch (e) {
       if (e is DioError) {
-        isLoading = true;
-        modelFundraisesPagination = await service.hitAllFundraisesPagination(
-            index: indexPagination, token: refreshToken);
-        isLoading = false;
+        e.response!.statusCode;
       }
     }
-    notifyListeners();
   }
 
   void awal() async {
     indexPagination = 1;
   }
 
-  void scrollListener({
-    required String accessToken,
-    required String refreshToken,
-  }) async {
+  void scrollListener() async {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
-      try {
-        indexPagination++;
-        notifyListeners();
-        final newData = await service.hitAllFundraisesPagination(
-            index: indexPagination, token: refreshToken);
-        modelFundraisesPagination?.addAllData(newData.data);
-      } catch (e) {
-        if (e is DioError) {
-          final newData = await service.hitAllFundraisesPagination(
-              index: indexPagination, token: refreshToken);
-          modelFundraisesPagination?.addAllData(newData.data);
-        }
-      }
+      indexPagination++;
+      notifyListeners();
+      final newData = await service.hitAllFundraisesPagination(indexPagination);
+      modelFundraisesPagination?.addAllData(newData.data);
     }
     notifyListeners();
   }
@@ -79,25 +63,16 @@ class FundraisesViewModel with ChangeNotifier {
 
   Future fetchDetailfundraises({
     required int id,
-    required String accessToken,
-    required String refreshToken,
   }) async {
     try {
       isDetail = false;
       modelDetailFundraises = await service.hitDetailFundraises(
         id: id,
-        token: refreshToken,
       );
-      isDetail = true;
+        isDetail = true;
     } catch (e) {
       if (e is DioError) {
-        print(">>>masuk ke refreshtoken");
-        isDetail = false;
-        modelDetailFundraises = await service.hitDetailFundraises(
-          id: id,
-          token: refreshToken,
-        );
-        isDetail = true;
+        e.response!.statusCode;
       }
     }
     notifyListeners();

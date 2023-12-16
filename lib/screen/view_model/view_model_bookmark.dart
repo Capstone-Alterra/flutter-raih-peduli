@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/model_bookmark.dart';
 import 'package:flutter_raih_peduli/services/service_bookmark.dart';
@@ -34,17 +33,15 @@ class ViewModelBookmark with ChangeNotifier {
     isLoading = true;
     try {
       bookmarkModel = await service.getBookmark(
-        token: refreshToken,
+        token: accessToken,
       );
       isLoading = false;
     } catch (e) {
-      if (e is DioError) {
-        isLoading = true;
-        bookmarkModel = await service.getBookmark(
-          token: refreshToken,
-        );
-        isLoading = false;
-      }
+      isLoading = true;
+      bookmarkModel = await service.getBookmark(
+        token: refreshToken,
+      );
+      isLoading = false;
     }
     notifyListeners();
   }
@@ -57,7 +54,7 @@ class ViewModelBookmark with ChangeNotifier {
   }) async {
     try {
       await service.postBookmark(
-        token: refreshToken,
+        token: accessToken,
         postType: postType,
         id: id,
       );
@@ -78,7 +75,7 @@ class ViewModelBookmark with ChangeNotifier {
   }) async {
     try {
       await service.deleteBookmark(
-        token: refreshToken,
+        token: accessToken,
         idBookmark: idBookmark,
       );
     } catch (e) {

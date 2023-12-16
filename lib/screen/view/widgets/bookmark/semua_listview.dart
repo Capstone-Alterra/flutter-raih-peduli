@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/card_fundraise_bookmark.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/card_news_bookmark.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/card_relawan_bookmark.dart';
-import 'package:flutter_raih_peduli/screen/view_model/view_model_bookmark.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/save_widget.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:provider/provider.dart';
 
 import '../../../../model/model_bookmark.dart';
 
@@ -23,16 +22,13 @@ class SemuaListViewBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewModelBookmark =
-    Provider.of<ViewModelBookmark>(context, listen: false);
     return Column(
       children: [
-        viewModelBookmark.bookmarkModel!.data.fundraise.isEmpty? SizedBox(width: 1,) :
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Padding(
-              padding: EdgeInsets.only(left: 8, top: 8, bottom: 16),
+              padding: EdgeInsets.only(left: 8, top: 9, bottom: 12),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -52,12 +48,11 @@ class SemuaListViewBuilder extends StatelessWidget {
              CardFundraiseBookmark(fundraise: data)
           ],
         ),
-        viewModelBookmark.bookmarkModel!.data.vacancy.isEmpty? SizedBox(width: 1,) :
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Padding(
-              padding: EdgeInsets.only(left: 8, top: 8, bottom: 16),
+              padding: EdgeInsets.only(left: 8, top: 20, bottom: 12),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -77,12 +72,11 @@ class SemuaListViewBuilder extends StatelessWidget {
                 CardRelawanBookmark(vacancy: data)
           ],
         ),
-        viewModelBookmark.bookmarkModel!.data.news.isEmpty? SizedBox(width: 1,) :
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Padding(
-              padding: EdgeInsets.only(left: 8, top: 8, bottom: 16),
+              padding: EdgeInsets.only(left: 8, top: 20, bottom: 12),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

@@ -1,12 +1,10 @@
 // ignore_for_file: camel_case_types, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/screen/view/home/homescreen.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_fundraises.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_volunteer.dart';
 import 'package:provider/provider.dart';
 import '../../../theme.dart';
-
 // import '../widgets/volunteer/header_widget.dart';
 import '../../view_model/view_model_signin.dart';
 import '../widgets/volunteer/floating_button.dart';
@@ -21,33 +19,21 @@ class FundraiseScreen extends StatefulWidget {
 }
 
 class _FundraiseScreenState extends State<FundraiseScreen> {
-  late FundraisesViewModel viewModelFundraise;
+  late FundraisesViewModel viewModel;
   late VolunteerViewModel viewModelVolunteer;
   late SignInViewModel sp;
 
   @override
   void initState() {
-    viewModelFundraise =
-        Provider.of<FundraisesViewModel>(context, listen: false);
+    viewModel = Provider.of<FundraisesViewModel>(context, listen: false);
     viewModelVolunteer =
         Provider.of<VolunteerViewModel>(context, listen: false);
     sp = Provider.of<SignInViewModel>(context, listen: false);
-    viewModelFundraise.awal();
+    viewModel.awal();
     viewModelVolunteer.overlay();
     super.initState();
-
-    viewModelFundraise.fetchAllFundraisesPagination(
-        accessToken: sp.accessTokenSharedPreference,
-        refreshToken: sp.refreshTokenSharedPreference);
-
-    viewModelFundraise.scrollController.addListener(() {
-      viewModelFundraise.scrollListener(
-          accessToken: sp.accessTokenSharedPreference,
-          refreshToken: sp.refreshTokenSharedPreference);
-    });
-    viewModelFundraise.fetchAllFundraisesPagination(
-        accessToken: sp.accessTokenSharedPreference,
-        refreshToken: sp.refreshTokenSharedPreference);
+    viewModel.scrollController.addListener(viewModel.scrollListener);
+    viewModel.fetchAllFundraisesPagination();
     sp.setSudahLogin();
   }
 
@@ -71,12 +57,7 @@ class _FundraiseScreenState extends State<FundraiseScreen> {
             color: AppTheme.primaryColor,
           ),
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => HomeScreen()
-              ),
-            );
+            Navigator.pop(context);
           },
         ),
         elevation: 0,
@@ -99,21 +80,21 @@ class _FundraiseScreenState extends State<FundraiseScreen> {
                 ),
                 Consumer<FundraisesViewModel>(
                   builder: (context, isLoading, child) {
-                    return viewModelFundraise.isLoading
+                    return viewModel.isLoading
                         ? const Center(
                             child: CircularProgressIndicator(),
                           )
                         : SizedBox(
                             height: size.height / 1.3,
                             child: ListView.builder(
-                              controller: viewModelFundraise.scrollController,
-                              itemCount: viewModelFundraise
+                              controller: viewModel.scrollController,
+                              itemCount: viewModel
                                   .modelFundraisesPagination!.data.length,
                               itemBuilder: (context, index) {
                                 return SizedBox(
                                   height: 150,
                                   child: CardFundraise(
-                                    fundraise: viewModelFundraise
+                                    fundraise: viewModel
                                         .modelFundraisesPagination!.data[index],
                                   ),
                                 );
@@ -151,11 +132,11 @@ class _FundraiseScreenState extends State<FundraiseScreen> {
     );
   }
 
-// void scrollListener() {
-//   if (scrollController.position.pixels ==
-//       scrollController.position.maxScrollExtent) {
-//     print("coba");
-//     // viewModel.fetchAllFundraisesPagination();
-//   }
-// }
+  // void scrollListener() {
+  //   if (scrollController.position.pixels ==
+  //       scrollController.position.maxScrollExtent) {
+  //     print("coba");
+  //     // viewModel.fetchAllFundraisesPagination();
+  //   }
+  // }
 }
