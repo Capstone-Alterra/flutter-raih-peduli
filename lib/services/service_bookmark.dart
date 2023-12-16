@@ -25,7 +25,7 @@ class BookmarkService {
         },
       );
 
-      debugPrint("=>${response.data}");
+      print(response.data);
     } catch (e) {
       debugPrint("Unexpected error: $e");
       rethrow;
@@ -58,7 +58,8 @@ class BookmarkService {
     required String idBookmark,
   }) async {
     try {
-      final response = await dio.get(
+      print(Urls.baseUrl + Urls.bookmark + idBookmark);
+      final response = await dio.delete(
         Urls.baseUrl + Urls.bookmark + idBookmark,
         options: Options(
           headers: {
