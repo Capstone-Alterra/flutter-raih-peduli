@@ -79,7 +79,7 @@ class VolunteerViewModel with ChangeNotifier {
       isDetail = false;
       modelDetailVolunteer = await service.hitDetailVolunteer(
         id: id,
-        token: accessToken,
+        token: refreshToken,
       );
       isDetail = true;
     } catch (e) {
@@ -95,22 +95,38 @@ class VolunteerViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> fetchVolunteerPagination() async {
-    isSearch = false;
-    isLoading = true;
-    final data = await service.hitVolunteerPagination(indexPagination);
-    modelVolunteerPagination = data;
-    isLoading = false;
+  Future<void> fetchVolunteerPagination({required String accessToken, required String refreshToken}) async {
+    try{
+      isSearch = false;
+      isLoading = true;
+      final data = await service.hitVolunteerPagination(index: indexPagination, token: refreshToken);
+      modelVolunteerPagination = data;
+      isLoading = false;
+    }catch (e) {
+      if(e is DioError){
+        isSearch = false;
+        isLoading = true;
+        final data = await service.hitVolunteerPagination(index: indexPagination, token: refreshToken);
+        modelVolunteerPagination = data;
+        isLoading = false;
+      }
+    }
+
     notifyListeners();
   }
 
-  void scrollListener() async {
+  void scrollListener({required String accessToken, required String refreshToken}) async {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
-      indexPagination++;
-      notifyListeners();
-      final newData = await service.hitVolunteerPagination(indexPagination);
-      modelVolunteerPagination?.addAllData(newData.data);
+      try {
+        indexPagination++;
+        notifyListeners();
+        final newData = await service.hitVolunteerPagination(index: indexPagination, token: refreshToken);
+        modelVolunteerPagination?.addAllData(newData.data);
+      } catch(e){
+        final newData = await service.hitVolunteerPagination(index: indexPagination, token: refreshToken);
+        modelVolunteerPagination?.addAllData(newData.data);
+      }
     }
     notifyListeners();
   }
