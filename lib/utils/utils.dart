@@ -36,5 +36,9 @@ class Urls {
   static const String fetchDetailVolunteer = "/volunteer-vacancies/";
   static const String fetchVolunteerPagination = "/volunteer-vacancies?page=";
   static const String createFundraise = "/fundraises";
+
   static const String listSkill = "/skills";
+
+  static const String bookmark = "/bookmarks";
+
 }

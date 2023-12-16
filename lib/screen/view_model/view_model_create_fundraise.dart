@@ -17,23 +17,9 @@ class ViewModelCreateFundraises with ChangeNotifier {
   DateTime start = DateTime.now();
   DateTime end = DateTime.now().add(const Duration(days: 30));
   bool isSukses = false;
-
+  bool fotoLebihLimaMB = false;
   File? imageFile;
   String? imagePath;
-
-  Future<void> pickImage() async {
-    final imagePicker = ImagePicker();
-    final pickedImage =
-        await imagePicker.pickImage(source: ImageSource.gallery);
-
-    if (pickedImage != null) {
-      imageFile = File(pickedImage.path);
-      imagePath = pickedImage.path;
-    } else {
-      debugPrint('Tidak ada gambar yang dipilih.');
-    }
-    notifyListeners();
-  }
 
   Future<void> selectStartDate(BuildContext context) async {
     final pickedStartDate = await showDatePicker(
@@ -162,5 +148,58 @@ class ViewModelCreateFundraises with ChangeNotifier {
     }
 
     return newValue;
+  }
+
+  Future<void> pickImage() async {
+    final imagePicker = ImagePicker();
+    final pickedImage =
+        await imagePicker.pickImage(source: ImageSource.gallery);
+
+    if (pickedImage != null) {
+      final File newImageFile = File(pickedImage.path);
+      final int fileSizeInBytes = await newImageFile.length();
+      const int maxSizeInBytes = 5 * 1024 * 1024;
+
+      if (fileSizeInBytes > maxSizeInBytes) {
+        fotoLebihLimaMB = true;
+        debugPrint('File lebih dari 5MB. Pilih gambar yang lebih kecil.');
+      } else {
+        fotoLebihLimaMB = false;
+        imageFile = newImageFile;
+        imagePath = pickedImage.path;
+      }
+    } else {
+      imageFile = File('');
+      imagePath = null;
+      fotoLebihLimaMB = false;
+      debugPrint('Tidak ada gambar yang dipilih.');
+    }
+    notifyListeners();
+  }
+
+  Future<void> pickImageKamera() async {
+    final imagePicker = ImagePicker();
+    final pickedImage = await imagePicker.pickImage(source: ImageSource.camera);
+
+    if (pickedImage != null) {
+      final File newImageFile = File(pickedImage.path);
+      final int fileSizeInBytes = await newImageFile.length();
+      const int maxSizeInBytes = 5 * 1024 * 1024;
+
+      if (fileSizeInBytes > maxSizeInBytes) {
+        fotoLebihLimaMB = true;
+        debugPrint('File lebih dari 5MB. Pilih gambar yang lebih kecil.');
+      } else {
+        fotoLebihLimaMB = false;
+        imageFile = newImageFile;
+        imagePath = pickedImage.path;
+      }
+    } else {
+      imageFile = File('');
+      imagePath = null;
+      fotoLebihLimaMB = false;
+      debugPrint('Tidak ada gambar yang dipilih.');
+    }
+    notifyListeners();
   }
 }

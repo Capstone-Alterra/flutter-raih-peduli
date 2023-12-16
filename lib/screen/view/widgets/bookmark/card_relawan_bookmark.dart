@@ -1,35 +1,33 @@
+// ignore_for_file: camel_case_types, prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/model/model_volunteer_pagination.dart';
-// import 'package:flutter_raih_peduli/model/model_volunteer.dart';
-// import 'package:flutter_raih_peduli/model/model_volunteer.dart';
+import 'package:flutter_raih_peduli/model/model_bookmark.dart';
+import 'package:flutter_raih_peduli/model/model_fundraise_pagination.dart';
+import 'package:flutter_raih_peduli/screen/view/fundraises/detail_fundraise.dart';
 import 'package:flutter_raih_peduli/screen/view/volunteer/detail_volunteer.dart';
-import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/save_widget.dart';
-import 'package:flutter_raih_peduli/screen/view_model/view_model_volunteer.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/save_widget.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_fundraises.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-// import '../../../../model/model_volunteer_pagination.dart';
-
-class RelawanCard extends StatelessWidget {
-  final Datum volunteerData;
-
-  const RelawanCard({
-    super.key,
-    required this.volunteerData,
-  });
+class CardRelawanBookmark extends StatelessWidget {
+  final Vacancy vacancy;
+  const CardRelawanBookmark({super.key, required this.vacancy});
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = Provider.of<VolunteerViewModel>(context, listen: false);
+    var formatter = NumberFormat("#,##0", "en_US");
+    final viewModel = Provider.of<FundraisesViewModel>(context, listen: false);
     Size size = MediaQuery.of(context).size;
-    return InkWell(
+    return GestureDetector(
       onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => DetailVolunteerPage(
-              id: volunteerData.id,
+              id: vacancy.postId,
             ),
           ),
         );
@@ -44,8 +42,8 @@ class RelawanCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              width: size.width / 3,
-              height: size.width / 3,
+              width: size.width / 3.2,
+              height: size.width / 2.9,
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(8.0)),
               ),
@@ -58,8 +56,8 @@ class RelawanCard extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(8.0)),
                   child: Image.network(
-                    volunteerData.photo,
-                    height: 150,
+                    vacancy.photo,
+                    // height: 150,
                     width: double.infinity,
                     fit: BoxFit.cover,
                   ),
@@ -73,61 +71,39 @@ class RelawanCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                textBaseline: TextBaseline.alphabetic,
-                                children: [
-                                  Text(
-                                    viewModel.truncateText(
-                                      volunteerData.title,
-                                      16,
-                                    ),
-                                    style: TextStyle(
-                                      color: AppTheme.primaryColor,
-                                      fontFamily: 'Helvetica',
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: size.height / 50,
-                                    ),
-                                  ),
-                                  SaveWidget(),
-                                ],
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(right: 8.0),
-                                child: Text(
-                                  viewModel.truncateText(
-                                    volunteerData.description,
-                                    30,
-                                  ),
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontFamily: 'Helvetica',
-                                    fontSize: size.height / 60,
-                                  ),
-                                ),
-                              ),
-                            ],
+                        Text(
+                          viewModel.truncateText(vacancy.title, 18),
+                          style: TextStyle(
+                            color: AppTheme.primaryColor,
+                            fontFamily: 'Helvetica',
+                            fontWeight: FontWeight.bold,
+                            fontSize: size.height / 60,
                           ),
                         ),
+                        SaveWidget(bookmarkId: vacancy.bookmarkId,),
                       ],
                     ),
-                    const SizedBox(height: 5.0),
+                    const SizedBox(height: 8),
                     Padding(
                       padding: const EdgeInsets.only(right: 8.0),
-                      child: LinearProgressIndicator(
-                        value: volunteerData.totalRegistrants /
-                            volunteerData.numberOfVacancies,
-                        color: AppTheme.primaryColor,
-                        backgroundColor: Colors.grey,
+                      child: Text(
+                        viewModel.truncateText(
+                          vacancy.description,
+                          25,
+                        ),
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'Helvetica',
+                          fontSize: size.height / 65,
+                        ),
                       ),
                     ),
-                    const SizedBox(height: 5.0),
+                    const Padding(
+                      padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
+                      child: Divider(thickness: 1.2),
+                    ),
                     Padding(
                       padding: const EdgeInsets.only(right: 8.0),
                       child: Row(
@@ -139,7 +115,7 @@ class RelawanCard extends StatelessWidget {
                                 'assets/lokasi.svg',
                               ),
                               Text(
-                                volunteerData.province,
+                                vacancy.province,
                                 style: const TextStyle(
                                   color: AppTheme.primaryColor,
                                   fontWeight: FontWeight.bold,
@@ -150,11 +126,12 @@ class RelawanCard extends StatelessWidget {
                           const SizedBox(width: 8.0),
                           Row(
                             children: [
-                              const Text(
-                                'Slot',
+                              Text(
+                                'Slot Tersisa',
                                 style: TextStyle(
                                   color: AppTheme.primaryColor,
                                   fontWeight: FontWeight.bold,
+                                  fontSize: size.height / 70
                                 ),
                               ),
                               SvgPicture.asset(
@@ -173,21 +150,17 @@ class RelawanCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            viewModel.truncateText(
-                              volunteerData.city,
-                              15,
-                            ),
+                            viewModel.truncateText(vacancy.city, 25),
                             style: TextStyle(
                               color: const Color(0xFF959CB4),
-                              fontSize: size.height / 60,
+                              fontSize: size.height / 80,
                             ),
                           ),
-                          const SizedBox(width: 8.0),
                           Text(
-                            '${volunteerData.numberOfVacancies} Slot Tersisa',
+                            '${vacancy.numberOfVacancies}',
                             style: TextStyle(
                               color: const Color(0xFF959CB4),
-                              fontSize: size.height / 60,
+                              fontSize: size.height / 70,
                             ),
                           ),
                         ],

@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/model/fundraising_data.dart';
-import 'package:flutter_raih_peduli/model/model_bookmark.dart';
-import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/card_fundraise_bookmark.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/card_news_bookmark.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/card_relawan_bookmark.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/save_widget.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_bookmark.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
+// import 'package:flutter_raih_peduli/model/volunteer_data.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
-class DonasiListView extends StatelessWidget {
-  final List<Fundraise> fundraiseData;
-  const DonasiListView({super.key, required this.fundraiseData});
+import '../../../../model/model_bookmark.dart';
+
+class NewsListView extends StatelessWidget {
+  final List<News> newsData;
+  const NewsListView({super.key, required this.newsData});
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +29,7 @@ class DonasiListView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Donasi',
+                'Berita',
                 style: TextStyle(
                   color: AppTheme.primaryColor,
                   fontSize: 20,
@@ -32,8 +40,8 @@ class DonasiListView extends StatelessWidget {
             ],
           ),
         ),
-        for(Fundraise data in fundraiseData)
-          CardFundraiseBookmark(fundraise: data)
+        for (News data in newsData)
+          CardNewsBookmark(news: data)
       ],
     );
   }

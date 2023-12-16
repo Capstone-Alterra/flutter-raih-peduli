@@ -1,9 +1,15 @@
+// ignore_for_file: unnecessary_null_comparison
+
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/model_profile.dart';
 import 'package:flutter_raih_peduli/services/service_edit_profile.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProfileViewModel with ChangeNotifier {
+  final formKey = GlobalKey<FormState>();
   ModelProfile? modelProfile;
   final service = ProfileService();
   bool isLoading = false;
@@ -14,6 +20,9 @@ class ProfileViewModel with ChangeNotifier {
   final TextEditingController nikController = TextEditingController();
   bool isCheckNik = true;
   bool isEdit = false;
+  File? imageFile = File('');
+  String? imagePath;
+  bool fotoLebihLimaMB = false;
 
   Future fetchProfile({
     required String accessToken,
@@ -76,6 +85,8 @@ class ProfileViewModel with ChangeNotifier {
         nik: nik,
         phone: phone,
         address: alamat,
+        foto: imageFile,
+        photo: modelProfile!.data.profilePicture,
       );
     } catch (e) {
       // ignore: deprecated_member_use
@@ -87,6 +98,8 @@ class ProfileViewModel with ChangeNotifier {
           nik: nik,
           phone: phone,
           address: alamat,
+          foto: imageFile,
+          photo: modelProfile!.data.profilePicture,
         );
         e.response!.statusCode;
       }
@@ -107,11 +120,90 @@ class ProfileViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  void awal() {
+    isEdit = false;
+  }
+
   void clearAll() {
     fullNameController.clear();
     emailController.clear();
     telpController.clear();
     alamatController.clear();
     nikController.clear();
+    imageFile = null;
+    imagePath = null;
+    fotoLebihLimaMB = false;
   }
+
+  String? validateNik(String value) {
+    if (value.isNotEmpty && value.length != 16) {
+      return 'Jumlah NIK wajib 16 digit';
+    }
+    return null;
+  }
+
+  String? validateNomor(String value) {
+    if (value.isNotEmpty && value.length < 10) {
+      return 'Jumlah Nomor minimal 10 digit';
+    } else if (value.length > 13) {
+      return 'Nomor maksimal 13 digit';
+    }
+    return null;
+  }
+
+  Future<void> pickImage() async {
+    final imagePicker = ImagePicker();
+    final pickedImage =
+        await imagePicker.pickImage(source: ImageSource.gallery);
+
+    if (pickedImage != null) {
+      final File newImageFile = File(pickedImage.path);
+      final int fileSizeInBytes = await newImageFile.length();
+      const int maxSizeInBytes = 5 * 1024 * 1024;
+
+      if (fileSizeInBytes > maxSizeInBytes) {
+        fotoLebihLimaMB = true;
+        debugPrint('File lebih dari 5MB. Pilih gambar yang lebih kecil.');
+      } else {
+        fotoLebihLimaMB = false;
+        imageFile = newImageFile;
+        imagePath = pickedImage.path;
+      }
+    } else {
+      imageFile = File('');
+      imagePath = null;
+      fotoLebihLimaMB = false;
+      debugPrint('Tidak ada gambar yang dipilih.');
+    }
+    notifyListeners();
+  }
+
+    Future<void> pickImageKamera() async {
+    final imagePicker = ImagePicker();
+    final pickedImage =
+        await imagePicker.pickImage(source: ImageSource.camera);
+
+    if (pickedImage != null) {
+      final File newImageFile = File(pickedImage.path);
+      final int fileSizeInBytes = await newImageFile.length();
+      const int maxSizeInBytes = 5 * 1024 * 1024;
+
+      if (fileSizeInBytes > maxSizeInBytes) {
+        fotoLebihLimaMB = true;
+        debugPrint('File lebih dari 5MB. Pilih gambar yang lebih kecil.');
+      } else {
+        fotoLebihLimaMB = false;
+        imageFile = newImageFile;
+        imagePath = pickedImage.path;
+      }
+    } else {
+      imageFile = File('');
+      imagePath = null;
+      fotoLebihLimaMB = false;
+      debugPrint('Tidak ada gambar yang dipilih.');
+    }
+    notifyListeners();
+  }
+
+  
 }

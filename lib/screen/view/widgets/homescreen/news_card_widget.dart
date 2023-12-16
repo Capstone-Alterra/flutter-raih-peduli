@@ -54,7 +54,10 @@ class NewsCard extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 5),
                 child: Text(
-                  title,
+                  viewModel.truncateText(
+                    title,
+                    25,
+                  ),
                   style: TextStyle(
                     color: AppTheme.primaryColor,
                     fontFamily: 'Helvetica',

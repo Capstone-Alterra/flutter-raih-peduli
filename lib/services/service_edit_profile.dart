@@ -1,5 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/model_profile.dart';
@@ -35,8 +37,35 @@ class ProfileService {
     required String address,
     required String phone,
     required String nik,
+    required File? foto,
+    required String photo,
   }) async {
     try {
+      FormData formData;
+      if (foto != null) {
+        formData = FormData.fromMap({
+          'email': email,
+          'fullname': fullname,
+          'address': address,
+          'phone_number': phone,
+          'nik': nik,
+          'profile_picture': await MultipartFile.fromFile(
+            foto.path,
+            filename: 'photo.jpg',
+          ),
+        });
+      } else {
+        // Use modelProfile!.data.profilePicture if imageFile is null
+        formData = FormData.fromMap({
+          'email': email,
+          'fullname': fullname,
+          'address': address,
+          'phone_number': phone,
+          'nik': nik,
+          'profile_picture': photo,
+        });
+      }
+
       final response = await _dio.put(
         Urls.baseUrl + Urls.updateProfile,
         options: Options(
@@ -44,13 +73,7 @@ class ProfileService {
             'Authorization': 'Bearer $token',
           },
         ),
-        data: {
-          'email': email,
-          'fullname': fullname,
-          'address': address,
-          'phone_number': phone,
-          'nik': nik,
-        },
+        data: formData,
       );
       debugPrint("=>${response.data}");
       return;
