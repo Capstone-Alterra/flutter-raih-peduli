@@ -13,8 +13,8 @@ class FundraisesService {
   Future<ModelFundraisesPagination> hitAllFundraisesPagination(
       {required int index, required String token}) async {
     try {
-      print(">>>>>>>>>ini masuk ke auth");
-      print(">>>>>>>woy $token");
+      // print(">>>>>>>>>ini masuk ke auth");
+      // print(">>>>>>>woy $token");
       final response = await _dio.get(
         "${Urls.baseUrl}${Urls.fetchFundraisesPagination}$index&page_size=5",
         options: Options(
@@ -27,7 +27,7 @@ class FundraisesService {
       print(response.data);
       return newData;
     } on DioError catch (_) {
-      print(">>>>>>>ini masuk Guest");
+      // print(">>>>>>>ini masuk Guest");
       final response = await _dio.get(
         "${Urls.baseUrl}${Urls.fetchFundraisesPagination}$index&page_size=5",
       );
@@ -42,8 +42,8 @@ class FundraisesService {
     required String token,
   }) async {
     try {
-      print(">>>>>>>>>ini masuk ke auth");
-      print(">>>>>>>woy $token");
+      // print(">>>>>>>>>ini masuk ke auth");
+      // print(">>>>>>>woy $token");
       final response = await _dio.get(
         "${Urls.baseUrl}${Urls.fetchDetailFundraises}$id",
         options: Options(
@@ -56,7 +56,7 @@ class FundraisesService {
       final newData = ModelDetailFundraises.fromJson(response.data);
       return newData;
     } on DioError catch (_) {
-      print(">>>>>>>ini masuk Guest");
+      // print(">>>>>>>ini masuk Guest");
       final response = await _dio.get(
         "${Urls.baseUrl}${Urls.fetchDetailFundraises}$id",
       );

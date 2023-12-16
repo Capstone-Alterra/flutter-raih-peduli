@@ -37,7 +37,7 @@ class _FundraiseScreenState extends State<FundraiseScreen> {
     sp = Provider.of<SignInViewModel>(context, listen: false);
     viewModelFundraise.awal();
     viewModelVolunteer.overlay();
-    super.initState();
+
 
     viewModelFundraise.fetchAllFundraisesPagination(
         accessToken: sp.accessTokenSharedPreference,
@@ -52,6 +52,7 @@ class _FundraiseScreenState extends State<FundraiseScreen> {
         accessToken: sp.accessTokenSharedPreference,
         refreshToken: sp.refreshTokenSharedPreference);
     sp.setSudahLogin();
+    super.initState();
   }
 
   @override

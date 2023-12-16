@@ -60,15 +60,24 @@ class VolunteerService {
     }
   }
 
-  Future<ModelVolunteerPagination> hitVolunteerPagination(int index) async {
+  Future<ModelVolunteerPagination> hitVolunteerPagination({required int index, required String token}) async {
     try {
+      final response = await _dio.get(
+        "${Urls.baseUrl + Urls.fetchVolunteerPagination}$index&page_size=5",
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+      debugPrint("=>${response.data}");
+      return ModelVolunteerPagination.fromJson(response.data);
+    } on DioError catch (_) {
       final response = await _dio.get(
         "${Urls.baseUrl + Urls.fetchVolunteerPagination}$index&page_size=5",
       );
       debugPrint("=>${response.data}");
       return ModelVolunteerPagination.fromJson(response.data);
-    } on DioError catch (_) {
-      rethrow;
     }
   }
 }
