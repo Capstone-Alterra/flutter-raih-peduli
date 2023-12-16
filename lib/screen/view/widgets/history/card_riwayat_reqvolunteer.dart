@@ -21,11 +21,8 @@ class _CardReqVolunteerState extends State<HistoryReqVolunteerCard> {
     super.initState();
     historyCreateVolunteerViewModel =
         Provider.of<HistoryCreateVolunteerViewModel>(context, listen: false);
-      sp = Provider.of<SignInViewModel>(context, listen: false);
-    historyCreateVolunteerViewModel.getHistoryCreateVolunteer(
-      accessToken: sp.accessTokenSharedPreference,
-      refreshToken: sp.refreshTokenSharedPreference,
-    );
+    sp = Provider.of<SignInViewModel>(context, listen: false);
+    historyCreateVolunteerViewModel.getHistoryCreateVolunteer();
   }
 
   @override
@@ -38,8 +35,8 @@ class _CardReqVolunteerState extends State<HistoryReqVolunteerCard> {
           child: CircularProgressIndicator(),
         );
       } else {
-        if (provider.historyCreateVolunteerModel == null ||
-            provider.historyCreateVolunteerModel!.data.isEmpty) {
+        if (provider.myState == MyState.failed &&
+            provider.historyCreateVolunteerModel == null) {
           return const SizedBox.shrink();
         } else {
           return ListView.builder(

@@ -27,10 +27,7 @@ class _RiwayatDetailApplyVolunteerState
     historyApplyVolunteerViewModel =
         Provider.of<HistoryApplyVolunteerViewModel>(context, listen: false);
         sp = Provider.of<SignInViewModel>(context, listen: false);
-    historyApplyVolunteerViewModel.getHistoryApplyVolunteer(
-      accessToken: sp.accessTokenSharedPreference,
-      refreshToken: sp.refreshTokenSharedPreference,
-    );
+    historyApplyVolunteerViewModel.getHistoryApplyVolunteer();
     navigationProvider =
         Provider.of<NavigationProvider>(context, listen: false);
     super.initState();

@@ -23,8 +23,7 @@ class _HistoryApplyVolunteerCardState extends State<HistoryApplyVolunteerCard> {
     historyApplyVolunteerViewModel =
         Provider.of<HistoryApplyVolunteerViewModel>(context, listen: false);
         sp = Provider.of<SignInViewModel>(context, listen: false);
-    historyApplyVolunteerViewModel.getHistoryApplyVolunteer(accessToken: sp.accessTokenSharedPreference,
-      refreshToken: sp.refreshTokenSharedPreference,);
+    historyApplyVolunteerViewModel.getHistoryApplyVolunteer();
   }
 
   @override

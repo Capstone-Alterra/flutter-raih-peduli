@@ -28,10 +28,7 @@ class _HomeListViewBuilderState extends State<HomeListViewBuilder> {
   void initState() {
     viewModel = Provider.of<HomeViewModel>(context, listen: false);
     sp = Provider.of<SignInViewModel>(context, listen: false);
-    viewModel.fetchHome(
-      accessToken: sp.accessTokenSharedPreference,
-      refreshToken: sp.refreshTokenSharedPreference,
-    );
+    viewModel.fetchHome();
     super.initState();
   }
 

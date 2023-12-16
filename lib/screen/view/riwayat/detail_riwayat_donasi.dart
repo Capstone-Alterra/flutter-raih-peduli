@@ -24,10 +24,7 @@ class _RiwayatDetailDonasiState extends State<RiwayatDetailDonasi> {
     donationHistoryViewModel =
         Provider.of<DonationHistoryViewModel>(context, listen: false);
         sp = Provider.of<SignInViewModel>(context, listen: false);
-    donationHistoryViewModel.getDonationHistory(
-      accessToken: sp.accessTokenSharedPreference,
-      refreshToken: sp.refreshTokenSharedPreference,
-    );
+    donationHistoryViewModel.getDonationHistory();
     navigationProvider =
         Provider.of<NavigationProvider>(context, listen: false);
     super.initState();

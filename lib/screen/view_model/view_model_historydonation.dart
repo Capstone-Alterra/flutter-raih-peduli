@@ -1,23 +1,26 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/model/JWTToken.dart';
 import 'package:flutter_raih_peduli/model/model_historydonation.dart';
 import 'package:flutter_raih_peduli/services/service_historydonation.dart';
+import 'package:flutter_raih_peduli/services/service_jwttoken.dart';
 import 'package:flutter_raih_peduli/utils/state/finite_state.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 //import 'package:shared_preferences/shared_preferences.dart';
 
 class DonationHistoryViewModel extends ChangeNotifier {
   HistoryDonationModel? historyDonationModel;
   final services = HistoryDonationServices();
-  //String accessToken = '';
+  JwtTokenModel? jwtTokenModel;
+  final serviceJWT = JWTTokenServices();
+  String accessToken = '';
+  String refreshToken = '';
 
   MyState myState = MyState.loading;
 
-  Future<void> getDonationHistory({
-    required String accessToken,
-    required String refreshToken,
-  }) async {
-    //await getAccessToken();
+  Future<void> getDonationHistory() async {
+    await jwtToken();
     try {
       myState = MyState.loading;
       notifyListeners();
@@ -29,25 +32,29 @@ class DonationHistoryViewModel extends ChangeNotifier {
       notifyListeners();
     } catch (e) {
       if (e is DioException) {
-        myState = MyState.loading;
-        notifyListeners();
-
-        historyDonationModel =
-            await services.fetchHistoryDonation(token: refreshToken);
-
-        myState = MyState.loaded;
-        e.response!.statusCode;
+        await jwtAuthentication();
+        await jwtToken();
+        getDonationHistory();
       }
-
-      myState = MyState.failed;
       notifyListeners();
     }
   }
 
-  /*Future<void> getAccessToken() async {
-    final getAccToken = await SharedPreferences.getInstance();
-    accessToken = getAccToken.getString('access_token')!;
-  }*/
+  Future<void> jwtAuthentication() async {
+    jwtTokenModel = await serviceJWT.jwtAuthentication(
+        accessToken: accessToken, refreshToken: refreshToken);
+    if (jwtTokenModel != null) {
+      final sp = await SharedPreferences.getInstance();
+      sp.setString('access_token', jwtTokenModel!.data.accessToken);
+      sp.setString('refresh_token', jwtTokenModel!.data.refreshToken);
+    }
+  }
+
+  Future<void> jwtToken() async {
+    final sp = await SharedPreferences.getInstance();
+    accessToken = sp.getString('access_token')!;
+    refreshToken = sp.getString('refresh_token')!;
+  }
 
   String formattedPrice(price) => NumberFormat.currency(
         locale: 'id_ID', // This sets the currency format for Indonesian Rupiah

@@ -1,23 +1,26 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/model/JWTToken.dart';
 import 'package:flutter_raih_peduli/model/model_historyapplyvolunteer.dart';
 import 'package:flutter_raih_peduli/services/service_historyapplyvolunteer.dart';
+import 'package:flutter_raih_peduli/services/service_jwttoken.dart';
 import 'package:flutter_raih_peduli/utils/state/finite_state.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 //import 'package:shared_preferences/shared_preferences.dart';
 
 class HistoryApplyVolunteerViewModel extends ChangeNotifier {
   HistoryApplyVolunteerModel? historyApplyVolunteerModel;
   final services = HistoryApplyVolunteerServices();
-  //String accessToken = '';
+  JwtTokenModel? jwtTokenModel;
+  final serviceJWT = JWTTokenServices();
+  String accessToken = '';
+  String refreshToken = '';
 
   MyState myState = MyState.loading;
 
-  Future<void> getHistoryApplyVolunteer({
-    required String accessToken,
-    required String refreshToken,
-  }) async {
-    //await getAccessToken();
+  Future<void> getHistoryApplyVolunteer() async {
+    await jwtToken();
     try {
       myState = MyState.loading;
       notifyListeners();
@@ -29,24 +32,29 @@ class HistoryApplyVolunteerViewModel extends ChangeNotifier {
       notifyListeners();
     } catch (e) {
       if (e is DioException) {
-        myState = MyState.loading;
-        notifyListeners();
-
-        historyApplyVolunteerModel =
-            await services.fetchHistoryApplyVolunteer(token: refreshToken);
-        myState = MyState.loaded;
-        e.response!.statusCode;
+        await jwtAuthentication();
+        await jwtToken();
+        getHistoryApplyVolunteer();
       }
-
-      myState = MyState.failed;
       notifyListeners();
     }
   }
 
-  /*Future<void> getAccessToken() async {
-    final getAccToken = await SharedPreferences.getInstance();
-    accessToken = getAccToken.getString('access_token')!;
-  }*/
+  Future<void> jwtAuthentication() async {
+    jwtTokenModel = await serviceJWT.jwtAuthentication(
+        accessToken: accessToken, refreshToken: refreshToken);
+    if (jwtTokenModel != null) {
+      final sp = await SharedPreferences.getInstance();
+      sp.setString('access_token', jwtTokenModel!.data.accessToken);
+      sp.setString('refresh_token', jwtTokenModel!.data.refreshToken);
+    }
+  }
+
+  Future<void> jwtToken() async {
+    final sp = await SharedPreferences.getInstance();
+    accessToken = sp.getString('access_token')!;
+    refreshToken = sp.getString('refresh_token')!;
+  }
 
   String formatDate(DateTime dateTime) {
     final DateFormat formatter = DateFormat('dd-MM-y');

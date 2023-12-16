@@ -24,10 +24,7 @@ class _HistoryRequestDonationCardState
     historyReqDonasiViewModel =
         Provider.of<HistoryReqDonasiViewModel>(context, listen: false);
         sp = Provider.of<SignInViewModel>(context, listen: false);
-    historyReqDonasiViewModel.getCreateFundraiseHistory(
-      accessToken: sp.accessTokenSharedPreference,
-      refreshToken: sp.refreshTokenSharedPreference,
-    );
+    historyReqDonasiViewModel.getCreateFundraiseHistory();
   }
 
   @override
