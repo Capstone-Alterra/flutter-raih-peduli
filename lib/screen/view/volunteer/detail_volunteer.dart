@@ -1,9 +1,12 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/screen/view/volunteer/access_volunteer_screen.dart';
 // import 'package:flutter_raih_peduli/model/model_volunteer.dart';
 import 'package:flutter_raih_peduli/screen/view/volunteer/form_apply.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/save_widget.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/save_widget.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_bookmark.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_volunteer.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:intl/intl.dart';
@@ -26,13 +29,13 @@ class DetailVolunteerPage extends StatefulWidget {
 }
 
 class _DetailVolunteerPageState extends State<DetailVolunteerPage> {
-  late VolunteerViewModel viewModel;
+  late VolunteerViewModel viewModelVolunteer;
   late SignInViewModel sp;
   @override
   void initState() {
-    viewModel = Provider.of<VolunteerViewModel>(context, listen: false);
+    viewModelVolunteer = Provider.of<VolunteerViewModel>(context, listen: false);
     sp = Provider.of<SignInViewModel>(context, listen: false);
-    viewModel.fetchDetailVolunteer(
+    viewModelVolunteer.fetchDetailVolunteer(
       id: widget.id,
       accessToken: sp.accessTokenSharedPreference,
       refreshToken: sp.refreshTokenSharedPreference,
@@ -43,6 +46,8 @@ class _DetailVolunteerPageState extends State<DetailVolunteerPage> {
 
   @override
   Widget build(BuildContext context) {
+    final viewModelBookmark =
+    Provider.of<ViewModelBookmark>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -61,18 +66,46 @@ class _DetailVolunteerPageState extends State<DetailVolunteerPage> {
             color: AppTheme.primaryColor,
           ),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => AccessVolunteerScreen()
+              ),
+            );
           },
         ),
         elevation: 0,
         backgroundColor: Colors.transparent,
-        actions: const [
-          SaveWidget(),
+        actions:  [
+          Consumer<VolunteerViewModel>(
+              builder: (context, contactModel, child) {
+                return SaveWidgetFixed(
+                  bookmarkId: viewModelVolunteer.modelDetailVolunteer!.data.bookmarkId,
+                  onPressed: () async {
+                    if (viewModelVolunteer.modelDetailVolunteer!.data.bookmarkId != "") {
+                      await viewModelBookmark.deleteBookmark(
+                          accessToken: sp.accessTokenSharedPreference,
+                          refreshToken: sp.refreshTokenSharedPreference,
+                          idBookmark:
+                          viewModelVolunteer.modelDetailVolunteer!.data.bookmarkId);
+                      viewModelVolunteer.fetchDetailVolunteer(id: viewModelVolunteer.modelDetailVolunteer!.data.id, accessToken: sp.accessTokenSharedPreference, refreshToken: sp.refreshTokenSharedPreference);
+                    } else if (viewModelVolunteer.modelDetailVolunteer!.data.bookmarkId ==
+                        "") {
+                      await viewModelBookmark.postBookmark(
+                          accessToken: sp.accessTokenSharedPreference,
+                          refreshToken: sp.refreshTokenSharedPreference,
+                          id: viewModelVolunteer.modelDetailVolunteer!.data.id,
+                          postType: 'vacancy');
+                      viewModelVolunteer.fetchDetailVolunteer(id: viewModelVolunteer.modelDetailVolunteer!.data.id, accessToken: sp.accessTokenSharedPreference, refreshToken: sp.refreshTokenSharedPreference);
+                    }
+                  },
+                );
+              }),
         ],
       ),
       body: Consumer<VolunteerViewModel>(
         builder: (context, contactModel, child) {
-          return viewModel.isDetail
+          return viewModelVolunteer.isDetail
               ? SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -82,7 +115,7 @@ class _DetailVolunteerPageState extends State<DetailVolunteerPage> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(12.0),
                           child: Image.network(
-                            viewModel.modelDetailVolunteer!.data.photo,
+                            viewModelVolunteer.modelDetailVolunteer!.data.photo,
                             height: 250.0,
                             fit: BoxFit.cover,
                           ),
@@ -91,7 +124,7 @@ class _DetailVolunteerPageState extends State<DetailVolunteerPage> {
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Text(
-                          viewModel.modelDetailVolunteer!.data.title,
+                          viewModelVolunteer.modelDetailVolunteer!.data.title,
                           style: const TextStyle(
                             color: AppTheme.primaryColor,
                             fontSize: 24.0,
@@ -106,19 +139,19 @@ class _DetailVolunteerPageState extends State<DetailVolunteerPage> {
                           children: [
                             _buildInfoColumn(
                                 'Lokasi',
-                                viewModel.modelDetailVolunteer!.data.province,
+                                viewModelVolunteer.modelDetailVolunteer!.data.province,
                                 Icons.location_on),
                             const Spacer(),
                             _buildInfoColumn(
                                 'Slot',
-                                '${viewModel.modelDetailVolunteer!.data.numberOfVacancies} Orang',
+                                '${viewModelVolunteer.modelDetailVolunteer!.data.numberOfVacancies} Orang',
                                 Icons.people),
                             const Spacer(),
                             _buildInfoColumn(
                               'Waktu Pelaksanaan',
-                              "${DateFormat('dd MMM yyyy').format(DateTime.parse(viewModel.modelDetailVolunteer!.data.createdAt.toString()))} - ${DateFormat('dd MMM yyyy').format(
+                              "${DateFormat('dd MMM yyyy').format(DateTime.parse(viewModelVolunteer.modelDetailVolunteer!.data.createdAt.toString()))} - ${DateFormat('dd MMM yyyy').format(
                                 DateTime.parse(
-                                  viewModel.modelDetailVolunteer!.data
+                                  viewModelVolunteer.modelDetailVolunteer!.data
                                       .applicationDeadline
                                       .toString(),
                                 ),
@@ -142,7 +175,7 @@ class _DetailVolunteerPageState extends State<DetailVolunteerPage> {
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Text(
-                          viewModel.modelDetailVolunteer!.data.description,
+                          viewModelVolunteer.modelDetailVolunteer!.data.description,
                           style: const TextStyle(fontSize: 16.0),
                         ),
                       ),
@@ -163,7 +196,7 @@ class _DetailVolunteerPageState extends State<DetailVolunteerPage> {
                               padding: const EdgeInsets.only(top: 8.0),
                               child: Wrap(
                                 children: [
-                                  for (var skill in viewModel
+                                  for (var skill in viewModelVolunteer
                                       .modelDetailVolunteer!
                                       .data
                                       .skillsRequired)
@@ -200,7 +233,7 @@ class _DetailVolunteerPageState extends State<DetailVolunteerPage> {
                         padding: const EdgeInsets.all(16.0),
                         child: Consumer<VolunteerViewModel>(
                           builder: (context, model, child) {
-                            if (viewModel.modelDetailVolunteer!.data
+                            if (viewModelVolunteer.modelDetailVolunteer!.data
                                     .applicationDeadline
                                     .difference(DateTime.now())
                                     .inDays >=
@@ -217,7 +250,7 @@ class _DetailVolunteerPageState extends State<DetailVolunteerPage> {
                                       },
                                     );
                                   } else {
-                                    if (viewModel.modelDetailVolunteer!.data
+                                    if (viewModelVolunteer.modelDetailVolunteer!.data
                                             .isRegistered ==
                                         true) {
                                       customAlert(

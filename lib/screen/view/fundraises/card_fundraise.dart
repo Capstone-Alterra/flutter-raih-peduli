@@ -212,7 +212,7 @@ class CardFundraise extends StatelessWidget {
                             ),
                             child: Center(
                               child: Text(
-                                "${(fundraise.fundAcquired / fundraise.target).toStringAsFixed(2)} %",
+                                "${((fundraise.fundAcquired / fundraise.target) * 100).toStringAsFixed(2)} %",
                                 style: TextStyle(
                                   color: AppTheme.primaryColor,
                                   fontFamily: 'Helvetica',

@@ -81,12 +81,12 @@ class CardRelawanBookmark extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          viewModelFundraise.truncateText(vacancy.title, 18),
+                          viewModelFundraise.truncateText(vacancy.title, 17),
                           style: TextStyle(
                             color: AppTheme.primaryColor,
                             fontFamily: 'Helvetica',
                             fontWeight: FontWeight.bold,
-                            fontSize: size.height / 60,
+                            fontSize: 15,
                           ),
                         ),
                         SaveWidgetFixed(
@@ -128,7 +128,7 @@ class CardRelawanBookmark extends StatelessWidget {
                         style: TextStyle(
                           color: Colors.black,
                           fontFamily: 'Helvetica',
-                          fontSize: size.height / 65,
+                          fontSize: 12,
                         ),
                       ),
                     ),
@@ -149,9 +149,9 @@ class CardRelawanBookmark extends StatelessWidget {
                               Text(
                                 vacancy.province,
                                 style: const TextStyle(
-                                  color: AppTheme.primaryColor,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                    color: AppTheme.primaryColor,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12),
                               ),
                             ],
                           ),
@@ -163,7 +163,7 @@ class CardRelawanBookmark extends StatelessWidget {
                                 style: TextStyle(
                                     color: AppTheme.primaryColor,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: size.height / 70),
+                                    fontSize: 12),
                               ),
                               SvgPicture.asset(
                                 'assets/orang.svg',
@@ -184,14 +184,14 @@ class CardRelawanBookmark extends StatelessWidget {
                             viewModelFundraise.truncateText(vacancy.city, 25),
                             style: TextStyle(
                               color: const Color(0xFF959CB4),
-                              fontSize: size.height / 80,
+                              fontSize: 11,
                             ),
                           ),
                           Text(
                             '${vacancy.numberOfVacancies}',
                             style: TextStyle(
                               color: const Color(0xFF959CB4),
-                              fontSize: size.height / 70,
+                              fontSize: 14,
                             ),
                           ),
                         ],
