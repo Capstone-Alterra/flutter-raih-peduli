@@ -4,18 +4,18 @@ import 'package:flutter_raih_peduli/model/model.historycreatefundraise.dart';
 import 'package:flutter_raih_peduli/services/service_historycreatefundraise.dart';
 import 'package:flutter_raih_peduli/utils/state/finite_state.dart';
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 
 class HistoryReqDonasiViewModel extends ChangeNotifier {
   HistoryCreateFundraiseModel? historyCreateFundraiseModel;
   final services = HistoryCreateFundraiseServices();
-  String accessToken = '';
+  // String accessToken = '';
   int remainingDays = 0;
 
   MyState myState = MyState.loading;
 
-  Future<void> getCreateFundraiseHistory() async {
-    await getAccessToken();
+  Future<void> getCreateFundraiseHistory({required String accessToken, required String refreshToken,}) async {
+    // await getAccessToken();
     try {
       myState = MyState.loading;
       notifyListeners();
@@ -34,6 +34,16 @@ class HistoryReqDonasiViewModel extends ChangeNotifier {
       myState = MyState.loaded;
       notifyListeners();
     } catch (e) {
+      historyCreateFundraiseModel =
+          await services.fetchhistorycreatefundraise(token: refreshToken);
+               if (historyCreateFundraiseModel != null &&
+          historyCreateFundraiseModel!.data.isNotEmpty) {
+        final fundraiser = historyCreateFundraiseModel!.data.first;
+
+        // Calculate the difference in days
+        remainingDays =
+            fundraiser.endDate.difference(fundraiser.startDate).inDays;
+      }
       if (e is DioException) {
         e.response!.statusCode;
       }
@@ -43,10 +53,10 @@ class HistoryReqDonasiViewModel extends ChangeNotifier {
     }
   }
 
-  Future<void> getAccessToken() async {
-    final getAccToken = await SharedPreferences.getInstance();
-    accessToken = getAccToken.getString('access_token')!;
-  }
+  // Future<void> getAccessToken() async {
+  //   final getAccToken = await SharedPreferences.getInstance();
+  //   accessToken = getAccToken.getString('access_token')!;
+  // }
 
   String formatDate(DateTime dateTime) {
     final DateFormat formatter = DateFormat('dd-MM-y');

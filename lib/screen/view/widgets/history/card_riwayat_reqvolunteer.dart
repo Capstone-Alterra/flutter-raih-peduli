@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/riwayat/detail_riwayat_reqvolunteer.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_historycreatevolunteer.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
 import 'package:flutter_raih_peduli/utils/state/finite_state.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
@@ -14,12 +15,17 @@ class HistoryReqVolunteerCard extends StatefulWidget {
 
 class _CardReqVolunteerState extends State<HistoryReqVolunteerCard> {
   late HistoryCreateVolunteerViewModel historyCreateVolunteerViewModel;
+  late SignInViewModel sp;
   @override
   void initState() {
     super.initState();
     historyCreateVolunteerViewModel =
         Provider.of<HistoryCreateVolunteerViewModel>(context, listen: false);
-    historyCreateVolunteerViewModel.getHistoryCreateVolunteer();
+    sp = Provider.of<SignInViewModel>(context, listen: false);
+    historyCreateVolunteerViewModel.getHistoryCreateVolunteer(
+      accessToken: sp.accessTokenSharedPreference,
+      refreshToken: sp.refreshTokenSharedPreference,
+    );
   }
 
   @override
@@ -29,7 +35,7 @@ class _CardReqVolunteerState extends State<HistoryReqVolunteerCard> {
         builder: (context, provider, child) {
       if (provider.myState == MyState.loading) {
         return const Center(
-          child: CircularProgressIndicator(),
+          child: SizedBox(height: 0),
         );
       } else {
         if (provider.historyCreateVolunteerModel == null ||
@@ -203,7 +209,8 @@ class _CardReqVolunteerState extends State<HistoryReqVolunteerCard> {
                                     ),
                                     child: Center(
                                       child: Text(
-                                        colorStatus['statusText'], // Use the updated status text here
+                                        colorStatus[
+                                            'statusText'], // Use the updated status text here
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: colorStatus['textColor'],

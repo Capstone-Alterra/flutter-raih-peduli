@@ -4,6 +4,8 @@ import 'package:flutter_raih_peduli/screen/view_model/view_model_historyapplyvol
 import 'package:flutter_raih_peduli/utils/state/finite_state.dart';
 import 'package:provider/provider.dart';
 
+import '../../../view_model/view_model_signin.dart';
+
 class HistoryApplyVolunteerCard extends StatefulWidget {
   const HistoryApplyVolunteerCard({super.key});
 
@@ -14,13 +16,18 @@ class HistoryApplyVolunteerCard extends StatefulWidget {
 
 class _HistoryApplyVolunteerCardState extends State<HistoryApplyVolunteerCard> {
   late HistoryApplyVolunteerViewModel historyApplyVolunteerViewModel;
+  late SignInViewModel sp;
 
   @override
   void initState() {
     super.initState();
     historyApplyVolunteerViewModel =
         Provider.of<HistoryApplyVolunteerViewModel>(context, listen: false);
-    historyApplyVolunteerViewModel.getHistoryApplyVolunteer();
+    sp = Provider.of<SignInViewModel>(context, listen: false);
+    historyApplyVolunteerViewModel.getHistoryApplyVolunteer(
+      accessToken: sp.accessTokenSharedPreference,
+      refreshToken: sp.refreshTokenSharedPreference,
+    );
   }
 
   @override
@@ -30,7 +37,7 @@ class _HistoryApplyVolunteerCardState extends State<HistoryApplyVolunteerCard> {
       builder: (context, provider, child) {
         if (provider.myState == MyState.loading) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: SizedBox(height: 0),
           );
         } else {
           if (provider.historyApplyVolunteerModel == null ||

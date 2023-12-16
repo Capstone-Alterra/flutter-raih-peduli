@@ -24,7 +24,7 @@ class _RiwayatDetailRequestVolunteerState
   void initState() {
     historyCreateVolunteerViewModel =
         Provider.of<HistoryCreateVolunteerViewModel>(context, listen: false);
-    historyCreateVolunteerViewModel.getHistoryCreateVolunteer();
+    // historyCreateVolunteerViewModel.getHistoryCreateVolunteer();
     navigationProvider =
         Provider.of<NavigationProvider>(context, listen: false);
     super.initState();
@@ -83,15 +83,12 @@ class _RiwayatDetailRequestVolunteerState
               ),
               const SizedBox(height: 15),
               Center(
-                child: reusableTextDetailHistory(
-                    colorStatus['statusRespond'],
+                child: reusableTextDetailHistory(colorStatus['statusRespond'],
                     color: colorStatus['textColor']),
               ),
               const SizedBox(height: 15),
-              reusableTextDetailHistory(
-                  colorStatus['detailDesc'],
-                  color: Colors.black,
-                  textAlign: TextAlign.center),
+              reusableTextDetailHistory(colorStatus['detailDesc'],
+                  color: Colors.black, textAlign: TextAlign.center),
               const SizedBox(height: 10),
               Container(
                 width: double.infinity,
@@ -106,8 +103,8 @@ class _RiwayatDetailRequestVolunteerState
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.2), // Shadow color
-                      offset: const Offset(
-                          0, 4), // Vertical position of the shadow
+                      offset:
+                          const Offset(0, 4), // Vertical position of the shadow
                       blurRadius: 4, // Spread radius
                       spreadRadius:
                           1, // Negative spread to create elevation at the bottom
@@ -132,10 +129,8 @@ class _RiwayatDetailRequestVolunteerState
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           reusableTextDetailHistory('Status'),
-                          reusableTextDetailHistory(
-                              colorStatus['statusText'],
-                              color:
-                                  colorStatus['textColor']),
+                          reusableTextDetailHistory(colorStatus['statusText'],
+                              color: colorStatus['textColor']),
                         ],
                       ),
                     ],

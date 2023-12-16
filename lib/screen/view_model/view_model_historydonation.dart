@@ -4,26 +4,31 @@ import 'package:flutter_raih_peduli/model/model_historydonation.dart';
 import 'package:flutter_raih_peduli/services/service_historydonation.dart';
 import 'package:flutter_raih_peduli/utils/state/finite_state.dart';
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 
 class DonationHistoryViewModel extends ChangeNotifier {
   HistoryDonationModel? historyDonationModel;
   final services = HistoryDonationServices();
-  String accessToken = '';
+  // String accessToken = '';
 
   MyState myState = MyState.loading;
 
-  Future<void> getDonationHistory() async {
-    await getAccessToken();
+  Future<void> getDonationHistory({
+    required String accessToken,
+    required String refreshToken,
+  }) async {
     try {
       myState = MyState.loading;
       notifyListeners();
 
-      historyDonationModel = await services.fetchHistoryDonation(token: accessToken);
+      historyDonationModel =
+          await services.fetchHistoryDonation(token: accessToken);
 
       myState = MyState.loaded;
       notifyListeners();
     } catch (e) {
+      historyDonationModel =
+          await services.fetchHistoryDonation(token: refreshToken);
       if (e is DioException) {
         e.response!.statusCode;
       }
@@ -33,10 +38,10 @@ class DonationHistoryViewModel extends ChangeNotifier {
     }
   }
 
-  Future<void> getAccessToken() async {
-    final getAccToken = await SharedPreferences.getInstance();
-    accessToken = getAccToken.getString('access_token')!;
-  }
+  // Future<void> getAccessToken() async {
+  //   final getAccToken = await SharedPreferences.getInstance();
+  //   accessToken = getAccToken.getString('access_token')!;
+  // }
 
   String formattedPrice(price) => NumberFormat.currency(
         locale: 'id_ID', // This sets the currency format for Indonesian Rupiah

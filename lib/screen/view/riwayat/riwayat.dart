@@ -9,6 +9,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 import '../../../theme.dart';
+import '../../view_model/view_model_historyapplyvolunteer.dart';
+import '../../view_model/view_model_historycreatedonasi.dart';
+import '../../view_model/view_model_historycreatevolunteer.dart';
+import '../../view_model/view_model_historydonation.dart';
 import '../../view_model/view_model_signin.dart';
 
 class Riwayat extends StatefulWidget {
@@ -20,9 +24,22 @@ class Riwayat extends StatefulWidget {
 
 class _RiwayatState extends State<Riwayat> {
   late SignInViewModel sp;
+  late HistoryApplyVolunteerViewModel historyApplyVolunteerViewModel;
+  late HistoryReqDonasiViewModel historyReqDonasiViewModel;
+  late DonationHistoryViewModel donationHistoryViewModel;
+  late HistoryCreateVolunteerViewModel historyCreateVolunteerViewModel;
+
   @override
   void initState() {
     sp = Provider.of<SignInViewModel>(context, listen: false);
+    historyApplyVolunteerViewModel =
+        Provider.of<HistoryApplyVolunteerViewModel>(context, listen: false);
+    historyReqDonasiViewModel =
+        Provider.of<HistoryReqDonasiViewModel>(context, listen: false);
+    donationHistoryViewModel =
+        Provider.of<DonationHistoryViewModel>(context, listen: false);
+    historyCreateVolunteerViewModel =
+        Provider.of<HistoryCreateVolunteerViewModel>(context, listen: false);
     sp.setSudahLogin();
     super.initState();
   }
@@ -46,64 +63,86 @@ class _RiwayatState extends State<Riwayat> {
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),
-      body:Consumer<SignInViewModel>(
-        builder: (context, contactModel, child) {
-          return  sp.isSudahLogin
-              ? SizedBox(
-            height:
-            MediaQuery.of(context).size.height, // Adjust this height as needed
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: SingleChildScrollView(
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    minHeight:
-                    MediaQuery.of(context).size.height, // Set a minimum height
-                  ),
-                  child: const Column(
-                    children: [
-                      SizedBox(height: 10),
-                      HistoryDonationCard(),
-                      SizedBox(height: 10),
-                      HistoryApplyVolunteerCard(),
-                      SizedBox(height: 10),
-                      HistoryRequestDonationCard(),
-                      SizedBox(height: 10),
-                      HistoryReqVolunteerCard(),
-                      SizedBox(height: 10),
-                      // Add more cards or widgets here as needed
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ) : Center(
-            child: Column(
-              children: [
-                SizedBox(height: size.height / 12),
-                SvgPicture.asset(
-                  "assets/transaksi_guest.svg",
-                ),
-                const SizedBox(height: 20),
-                customAmountButton(
-                  text: 'Masuk / Daftar',
-                  bgColor: const Color(0xFF293066),
-                  width: size.width / 1.5,
-                  height: size.height / 19,
-                  textColor: Colors.white,
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const LoginAtauDaftar(),
+      body: Consumer<SignInViewModel>(builder: (context, contactModel, child) {
+        return sp.isSudahLogin
+            ? SizedBox(
+                height: MediaQuery.of(context)
+                    .size
+                    .height, // Adjust this height as needed
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: SingleChildScrollView(
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        minHeight: MediaQuery.of(context)
+                            .size
+                            .height, // Set a minimum height
                       ),
-                    );
-                  },
+                      child: Column(
+                        children: [
+                        if (donationHistoryViewModel.historyDonationModel != null &&
+    donationHistoryViewModel.historyDonationModel!.data.isNotEmpty)
+  HistoryDonationCard(),
+if (historyApplyVolunteerViewModel.historyApplyVolunteerModel != null &&
+    historyApplyVolunteerViewModel.historyApplyVolunteerModel!.data.isNotEmpty)
+  HistoryApplyVolunteerCard(),
+if (historyReqDonasiViewModel.historyCreateFundraiseModel != null &&
+    historyReqDonasiViewModel.historyCreateFundraiseModel!.data.isNotEmpty)
+  HistoryRequestDonationCard(),
+if (historyCreateVolunteerViewModel.historyCreateVolunteerModel != null &&
+    historyCreateVolunteerViewModel.historyCreateVolunteerModel!.data.isNotEmpty)
+  HistoryReqVolunteerCard(),
+if ((donationHistoryViewModel.historyDonationModel == null ||
+        donationHistoryViewModel.historyDonationModel!.data.isEmpty) &&
+    (historyApplyVolunteerViewModel.historyApplyVolunteerModel == null ||
+        historyApplyVolunteerViewModel.historyApplyVolunteerModel!.data.isEmpty) &&
+    (historyReqDonasiViewModel.historyCreateFundraiseModel == null ||
+        historyReqDonasiViewModel.historyCreateFundraiseModel!.data.isEmpty) &&
+    (historyCreateVolunteerViewModel.historyCreateVolunteerModel == null ||
+        historyCreateVolunteerViewModel.historyCreateVolunteerModel!.data.isEmpty))
+  Text('Tidak Ada Riwayat'),
+
+                        ],
+                      ),
+                      //  const Column(
+                      //   children: [
+                      //     HistoryDonationCard(),
+                      //     HistoryApplyVolunteerCard(),
+                      //     HistoryRequestDonationCard(),
+                      //     HistoryReqVolunteerCard(),
+                      //   ],
+                      // ),
+                    ),
+                  ),
                 ),
-              ],
-            ),
-          );
-        }),
+              )
+            : Center(
+                child: Column(
+                  children: [
+                    SizedBox(height: size.height / 12),
+                    SvgPicture.asset(
+                      "assets/transaksi_guest.svg",
+                    ),
+                    const SizedBox(height: 20),
+                    customAmountButton(
+                      text: 'Masuk / Daftar',
+                      bgColor: const Color(0xFF293066),
+                      width: size.width / 1.5,
+                      height: size.height / 19,
+                      textColor: Colors.white,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoginAtauDaftar(),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              );
+      }),
     );
   }
 }

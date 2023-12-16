@@ -21,7 +21,7 @@ class _RiwayatDetailDonasiState extends State<RiwayatDetailDonasi> {
   void initState() {
     donationHistoryViewModel =
         Provider.of<DonationHistoryViewModel>(context, listen: false);
-    donationHistoryViewModel.getDonationHistory();
+    // donationHistoryViewModel.getDonationHistory();
     navigationProvider =
         Provider.of<NavigationProvider>(context, listen: false);
     super.initState();

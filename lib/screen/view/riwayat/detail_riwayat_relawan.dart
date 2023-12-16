@@ -24,7 +24,7 @@ class _RiwayatDetailApplyVolunteerState
   void initState() {
     historyApplyVolunteerViewModel =
         Provider.of<HistoryApplyVolunteerViewModel>(context, listen: false);
-    historyApplyVolunteerViewModel.getHistoryApplyVolunteer();
+    // historyApplyVolunteerViewModel.getHistoryApplyVolunteer();
     navigationProvider =
         Provider.of<NavigationProvider>(context, listen: false);
     super.initState();

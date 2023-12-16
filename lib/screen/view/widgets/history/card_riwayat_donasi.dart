@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/riwayat/detail_riwayat_donasi.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_historydonation.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
 import 'package:flutter_raih_peduli/utils/state/finite_state.dart';
 import 'package:provider/provider.dart';
 
@@ -13,12 +14,17 @@ class HistoryDonationCard extends StatefulWidget {
 
 class _HistoryDonationCardState extends State<HistoryDonationCard> {
   late DonationHistoryViewModel donationHistoryViewModel;
+  late SignInViewModel sp;
   @override
   void initState() {
     super.initState();
     donationHistoryViewModel =
         Provider.of<DonationHistoryViewModel>(context, listen: false);
-    donationHistoryViewModel.getDonationHistory();
+    sp = Provider.of<SignInViewModel>(context, listen: false);
+    donationHistoryViewModel.getDonationHistory(
+      accessToken: sp.accessTokenSharedPreference,
+      refreshToken: sp.refreshTokenSharedPreference,
+    );
   }
 
   @override
@@ -28,7 +34,7 @@ class _HistoryDonationCardState extends State<HistoryDonationCard> {
         builder: (context, provider, child) {
       if (provider.myState == MyState.loading) {
         return const Center(
-          child: CircularProgressIndicator(),
+          child: SizedBox(height: 0),
         );
       } else {
         if (provider.historyDonationModel == null ||
@@ -41,7 +47,8 @@ class _HistoryDonationCardState extends State<HistoryDonationCard> {
             itemCount: provider.historyDonationModel!.data.length,
             itemBuilder: (BuildContext context, int index) {
               final Map<String, dynamic> colorStatus =
-                  donationHistoryViewModel.getColorStatus(provider.historyDonationModel!.data[index].status);
+                  donationHistoryViewModel.getColorStatus(
+                      provider.historyDonationModel!.data[index].status);
               return InkWell(
                 onTap: () {
                   Navigator.push(

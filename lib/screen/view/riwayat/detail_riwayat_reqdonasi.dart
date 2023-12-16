@@ -24,7 +24,7 @@ class _RiwayatDetailRequestDonasiState
   void initState() {
     historyReqDonasiViewModel =
         Provider.of<HistoryReqDonasiViewModel>(context, listen: false);
-    historyReqDonasiViewModel.getCreateFundraiseHistory();
+    // historyReqDonasiViewModel.getCreateFundraiseHistory();
     navigationProvider =
         Provider.of<NavigationProvider>(context, listen: false);
     super.initState();
