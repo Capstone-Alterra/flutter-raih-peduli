@@ -4,6 +4,7 @@ import 'package:flutter_raih_peduli/screen/view/navigation/navigation.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/history/detail_riwayat.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_historycreatedonasi.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_navigation.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -20,11 +21,16 @@ class _RiwayatDetailRequestDonasiState
     extends State<RiwayatDetailRequestDonasi> {
   late HistoryReqDonasiViewModel historyReqDonasiViewModel;
   late final NavigationProvider navigationProvider;
+  late SignInViewModel sp;
   @override
   void initState() {
     historyReqDonasiViewModel =
         Provider.of<HistoryReqDonasiViewModel>(context, listen: false);
-    historyReqDonasiViewModel.getCreateFundraiseHistory();
+        sp = Provider.of<SignInViewModel>(context, listen: false);
+    historyReqDonasiViewModel.getCreateFundraiseHistory(
+      accessToken: sp.accessTokenSharedPreference,
+      refreshToken: sp.refreshTokenSharedPreference,
+    );
     navigationProvider =
         Provider.of<NavigationProvider>(context, listen: false);
     super.initState();
@@ -83,8 +89,7 @@ class _RiwayatDetailRequestDonasiState
               ),
               const SizedBox(height: 15),
               Center(
-                child: reusableTextDetailHistory(
-                    colorStatus['statusRespond'],
+                child: reusableTextDetailHistory(colorStatus['statusRespond'],
                     color: colorStatus['textColor']),
               ),
               const SizedBox(height: 15),
@@ -130,8 +135,7 @@ class _RiwayatDetailRequestDonasiState
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           reusableTextDetailHistory('Status'),
-                          reusableTextDetailHistory(
-                              colorStatus['statusCard'],
+                          reusableTextDetailHistory(colorStatus['statusCard'],
                               color: colorStatus['textColor']),
                         ],
                       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/riwayat/detail_riwayat_reqdonasi.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_historycreatedonasi.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
 import 'package:flutter_raih_peduli/utils/state/finite_state.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
@@ -16,12 +17,17 @@ class HistoryRequestDonationCard extends StatefulWidget {
 class _HistoryRequestDonationCardState
     extends State<HistoryRequestDonationCard> {
   late HistoryReqDonasiViewModel historyReqDonasiViewModel;
+  late SignInViewModel sp;
   @override
   void initState() {
     super.initState();
     historyReqDonasiViewModel =
         Provider.of<HistoryReqDonasiViewModel>(context, listen: false);
-    historyReqDonasiViewModel.getCreateFundraiseHistory();
+        sp = Provider.of<SignInViewModel>(context, listen: false);
+    historyReqDonasiViewModel.getCreateFundraiseHistory(
+      accessToken: sp.accessTokenSharedPreference,
+      refreshToken: sp.refreshTokenSharedPreference,
+    );
   }
 
   @override

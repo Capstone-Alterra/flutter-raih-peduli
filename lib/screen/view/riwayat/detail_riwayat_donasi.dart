@@ -4,6 +4,7 @@ import 'package:flutter_raih_peduli/screen/view/navigation/navigation.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/history/detail_riwayat.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_historydonation.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_navigation.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -17,11 +18,16 @@ class RiwayatDetailDonasi extends StatefulWidget {
 class _RiwayatDetailDonasiState extends State<RiwayatDetailDonasi> {
   late DonationHistoryViewModel donationHistoryViewModel;
   late final NavigationProvider navigationProvider;
+  late SignInViewModel sp;
   @override
   void initState() {
     donationHistoryViewModel =
         Provider.of<DonationHistoryViewModel>(context, listen: false);
-    donationHistoryViewModel.getDonationHistory();
+        sp = Provider.of<SignInViewModel>(context, listen: false);
+    donationHistoryViewModel.getDonationHistory(
+      accessToken: sp.accessTokenSharedPreference,
+      refreshToken: sp.refreshTokenSharedPreference,
+    );
     navigationProvider =
         Provider.of<NavigationProvider>(context, listen: false);
     super.initState();

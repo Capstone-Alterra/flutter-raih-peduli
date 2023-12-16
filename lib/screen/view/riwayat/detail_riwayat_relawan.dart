@@ -4,6 +4,7 @@ import 'package:flutter_raih_peduli/screen/view/navigation/navigation.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/history/detail_riwayat.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_historyapplyvolunteer.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_navigation.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -20,11 +21,16 @@ class _RiwayatDetailApplyVolunteerState
     extends State<RiwayatDetailApplyVolunteer> {
   late HistoryApplyVolunteerViewModel historyApplyVolunteerViewModel;
   late final NavigationProvider navigationProvider;
+  late SignInViewModel sp;
   @override
   void initState() {
     historyApplyVolunteerViewModel =
         Provider.of<HistoryApplyVolunteerViewModel>(context, listen: false);
-    historyApplyVolunteerViewModel.getHistoryApplyVolunteer();
+        sp = Provider.of<SignInViewModel>(context, listen: false);
+    historyApplyVolunteerViewModel.getHistoryApplyVolunteer(
+      accessToken: sp.accessTokenSharedPreference,
+      refreshToken: sp.refreshTokenSharedPreference,
+    );
     navigationProvider =
         Provider.of<NavigationProvider>(context, listen: false);
     super.initState();
@@ -33,9 +39,8 @@ class _RiwayatDetailApplyVolunteerState
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    final Map<String, dynamic> colorStatus =
-        historyApplyVolunteerViewModel.getColorStatus(
-            widget.dataHistoryApplyVolunteer.status);
+    final Map<String, dynamic> colorStatus = historyApplyVolunteerViewModel
+        .getColorStatus(widget.dataHistoryApplyVolunteer.status);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -85,15 +90,12 @@ class _RiwayatDetailApplyVolunteerState
               ),
               const SizedBox(height: 15),
               Center(
-                child: reusableTextDetailHistory(
-                    colorStatus['statusRespond'],
+                child: reusableTextDetailHistory(colorStatus['statusRespond'],
                     color: colorStatus['textColor']),
               ),
               const SizedBox(height: 15),
-              reusableTextDetailHistory(
-                  colorStatus['detailDesc'],
-                  color: Colors.black,
-                  textAlign: TextAlign.center),
+              reusableTextDetailHistory(colorStatus['detailDesc'],
+                  color: Colors.black, textAlign: TextAlign.center),
               const SizedBox(height: 10),
               Container(
                 width: double.infinity,
@@ -134,8 +136,7 @@ class _RiwayatDetailApplyVolunteerState
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           reusableTextDetailHistory('Status'),
-                          reusableTextDetailHistory(
-                              colorStatus['statusCard'],
+                          reusableTextDetailHistory(colorStatus['statusCard'],
                               color: colorStatus['textColor']),
                         ],
                       ),

@@ -3,6 +3,7 @@ import 'package:flutter_raih_peduli/screen/view/widgets/history/card_riwayat_don
 import 'package:flutter_raih_peduli/screen/view/widgets/history/card_riwayat_relawan.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/history/card_riwayat_reqdonasi.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/history/card_riwayat_reqvolunteer.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_profile.dart';
 import 'package:provider/provider.dart';
 
 import '../../../theme.dart';
@@ -17,10 +18,15 @@ class Riwayat extends StatefulWidget {
 
 class _RiwayatState extends State<Riwayat> {
   late SignInViewModel sp;
+  late ProfileViewModel profile;
   @override
   void initState() {
+    profile = Provider.of<ProfileViewModel>(context, listen: false);
     sp = Provider.of<SignInViewModel>(context, listen: false);
-    sp.setSudahLogin();
+    profile.fetchProfile(
+      accessToken: sp.accessTokenSharedPreference,
+      refreshToken: sp.refreshTokenSharedPreference,
+    );
     super.initState();
   }
 

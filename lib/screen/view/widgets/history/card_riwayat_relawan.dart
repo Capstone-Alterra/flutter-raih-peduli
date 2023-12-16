@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/riwayat/detail_riwayat_relawan.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_historyapplyvolunteer.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
 import 'package:flutter_raih_peduli/utils/state/finite_state.dart';
 import 'package:provider/provider.dart';
 
@@ -14,13 +15,16 @@ class HistoryApplyVolunteerCard extends StatefulWidget {
 
 class _HistoryApplyVolunteerCardState extends State<HistoryApplyVolunteerCard> {
   late HistoryApplyVolunteerViewModel historyApplyVolunteerViewModel;
+  late SignInViewModel sp;
 
   @override
   void initState() {
     super.initState();
     historyApplyVolunteerViewModel =
         Provider.of<HistoryApplyVolunteerViewModel>(context, listen: false);
-    historyApplyVolunteerViewModel.getHistoryApplyVolunteer();
+        sp = Provider.of<SignInViewModel>(context, listen: false);
+    historyApplyVolunteerViewModel.getHistoryApplyVolunteer(accessToken: sp.accessTokenSharedPreference,
+      refreshToken: sp.refreshTokenSharedPreference,);
   }
 
   @override
