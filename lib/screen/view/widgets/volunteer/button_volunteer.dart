@@ -56,10 +56,7 @@ class _ButtonVolunteerState extends State<ButtonVolunteer> {
               final snackBar = snackBarVolunteer(size, context);
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
               Future.delayed(const Duration(seconds: 4), () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => ProfileEdit()),
-                // );
+             
               });
             },
             style: ButtonStyle(

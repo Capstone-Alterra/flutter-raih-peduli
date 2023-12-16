@@ -94,7 +94,7 @@ class RelawanCardSearch extends StatelessWidget {
                                       fontSize: size.height / 50,
                                     ),
                                   ),
-                                  SaveWidget(),
+                                  const SaveWidget(),
                                 ],
                               ),
                               Padding(

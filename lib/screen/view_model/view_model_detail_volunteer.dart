@@ -96,6 +96,7 @@ class DetailVolunteerViewModel with ChangeNotifier {
   }
 
   void clearAll() {
+    selectedSkills.clear();
     skillController.clear();
     resumeController.clear();
     reasonController.clear();
@@ -113,34 +114,32 @@ class DetailVolunteerViewModel with ChangeNotifier {
     );
   }
 
-  
   Future fetchSkill({
     required String accessToken,
     required String refreshToken,
   }) async {
     try {
       isSukses = false;
-      final data = await getSkill.hitSkill(
+      listSKill = await getSkill.hitSkill(
         token: accessToken,
       );
-      listSKill = data.take(10).toList();
+
       isSukses = true;
     } catch (e) {
       // ignore: deprecated_member_use
       if (e is DioError) {
         isSukses = false;
-        final data =await getSkill.hitSkill(
+        listSKill = await getSkill.hitSkill(
           token: refreshToken,
         );
-        listSKill = data.take(10).toList();
         isSukses = true;
+
         e.response!.statusCode;
       }
     }
     notifyListeners();
   }
-}
-
+// }
 
   Future<void> pickImage() async {
     final imagePicker = ImagePicker();
@@ -200,4 +199,3 @@ class DetailVolunteerViewModel with ChangeNotifier {
     notifyListeners();
   }
 }
-

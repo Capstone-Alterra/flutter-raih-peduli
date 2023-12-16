@@ -1,16 +1,16 @@
 // ignore_for_file: camel_case_types, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/screen/view/home/homescreen.dart';
+import 'package:flutter_raih_peduli/screen/view/fundraises/card_fundraise_search.dart';
+import 'package:flutter_raih_peduli/screen/view/fundraises/widgets/search_bar.dart';
+import 'package:flutter_raih_peduli/screen/view/navigation/navigation.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_fundraises.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_navigation.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_volunteer.dart';
 import 'package:provider/provider.dart';
 import '../../../theme.dart';
-
-// import '../widgets/volunteer/header_widget.dart';
 import '../../view_model/view_model_signin.dart';
 import '../widgets/volunteer/floating_button.dart';
-import '../widgets/volunteer/header_widget.dart';
 import 'card_fundraise.dart';
 
 class FundraiseScreen extends StatefulWidget {
@@ -24,9 +24,12 @@ class _FundraiseScreenState extends State<FundraiseScreen> {
   late FundraisesViewModel viewModelFundraise;
   late VolunteerViewModel viewModelVolunteer;
   late SignInViewModel sp;
+  late NavigationProvider navigationProvider;
 
   @override
   void initState() {
+    navigationProvider =
+        Provider.of<NavigationProvider>(context, listen: false);
     viewModelFundraise =
         Provider.of<FundraisesViewModel>(context, listen: false);
     viewModelVolunteer =
@@ -71,10 +74,11 @@ class _FundraiseScreenState extends State<FundraiseScreen> {
             color: AppTheme.primaryColor,
           ),
           onPressed: () {
+            navigationProvider.out();
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => HomeScreen()
+                builder: (context) => const BottomNavgationBarWidget(),
               ),
             );
           },
@@ -89,7 +93,7 @@ class _FundraiseScreenState extends State<FundraiseScreen> {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: SearchAndFilterBar(
+                  child: SearchAndFilterBarDonate(
                     searchController: TextEditingController(),
                     onSearchChanged: (text) {},
                     onFilterPressed: () {
@@ -98,28 +102,50 @@ class _FundraiseScreenState extends State<FundraiseScreen> {
                   ),
                 ),
                 Consumer<FundraisesViewModel>(
-                  builder: (context, isLoading, child) {
+                  builder: (context, isLoadin, child) {
                     return viewModelFundraise.isLoading
                         ? const Center(
                             child: CircularProgressIndicator(),
                           )
-                        : SizedBox(
-                            height: size.height / 1.3,
-                            child: ListView.builder(
-                              controller: viewModelFundraise.scrollController,
-                              itemCount: viewModelFundraise
-                                  .modelFundraisesPagination!.data.length,
-                              itemBuilder: (context, index) {
-                                return SizedBox(
-                                  height: 150,
-                                  child: CardFundraise(
-                                    fundraise: viewModelFundraise
-                                        .modelFundraisesPagination!.data[index],
-                                  ),
-                                );
-                              },
-                            ),
-                          );
+                        : viewModelFundraise.isSearch
+                            ? Column(
+                                children: [
+                                  if (viewModelFundraise.dataHasilSearch)
+                                    const Center(
+                                        child: Text(
+                                      'Pencarian Tidak Ditemukan',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.red,
+                                      ),
+                                    ))
+                                  else if (!viewModelFundraise.dataHasilSearch)
+                                    for (var newsItem in viewModelFundraise
+                                        .modelSearchFundraise!.data)
+                                      CardFundraiseSearch(
+                                        fundraise: newsItem,
+                                      )
+                                ],
+                              )
+                            : SizedBox(
+                                height: size.height / 1.3,
+                                child: ListView.builder(
+                                  controller:
+                                      viewModelFundraise.scrollController,
+                                  itemCount: viewModelFundraise
+                                      .modelFundraisesPagination!.data.length,
+                                  itemBuilder: (context, index) {
+                                    return SizedBox(
+                                      height: 150,
+                                      child: CardFundraise(
+                                        fundraise: viewModelFundraise
+                                            .modelFundraisesPagination!
+                                            .data[index],
+                                      ),
+                                    );
+                                  },
+                                ),
+                              );
                   },
                 ),
               ],

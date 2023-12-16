@@ -17,11 +17,11 @@ class _SkillFilterState extends State<SkillFilter> {
   void initState() {
     super.initState();
     viewModel = Provider.of<DetailVolunteerViewModel>(context, listen: false);
-    sp = Provider.of<SignInViewModel>(context, listen: false);
-    viewModel.fetchSkill(
-      accessToken: sp.accessTokenSharedPreference,
-      refreshToken:sp.refreshTokenSharedPreference,
-    );
+    // sp = Provider.of<SignInViewModel>(context, listen: false);
+    // viewModel.fetchSkill(
+    //   accessToken: sp.accessTokenSharedPreference,
+    //   refreshToken:sp.refreshTokenSharedPreference,
+    // );
   }
 
   Widget _buildFilterOption(String title, List<String> options) {
@@ -116,9 +116,9 @@ class _SkillFilterState extends State<SkillFilter> {
               ),
               const SizedBox(height: 16.0),
               _buildFilterOption(
-                  '',
-                  viewModel.listSKill
-                      as List<String>), // Menggunakan listSkill dari viewModel
+                '',
+                viewModel.listSKill!.data.map((datum) => datum.name).toList(),
+              ), // Menggunakan listSkill dari viewModel
             ],
           ),
         ),
