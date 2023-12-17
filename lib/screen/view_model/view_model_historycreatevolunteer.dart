@@ -2,47 +2,35 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/model_historycreatevolunteer.dart';
 import 'package:flutter_raih_peduli/services/service_historycreatevolunteer.dart';
-import 'package:flutter_raih_peduli/utils/state/finite_state.dart';
 import 'package:intl/intl.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
 
 class HistoryCreateVolunteerViewModel extends ChangeNotifier {
   HistoryCreateVolunteerModel? historyCreateVolunteerModel;
   final services = HistoryCreateVolunteerServices();
-  // String accessToken = '';
 
-  MyState myState = MyState.loading;
+  bool isLoading = true;
 
   Future<void> getHistoryCreateVolunteer({
     required String accessToken,
     required String refreshToken,
   }) async {
-    // await getAccessToken();
     try {
-      myState = MyState.loading;
-      notifyListeners();
-
+      isLoading = true;
       historyCreateVolunteerModel =
           await services.fetchhistorycreatefundraise(token: accessToken);
-
-      myState = MyState.loaded;
+      isLoading = false;
       notifyListeners();
     } catch (e) {
+      isLoading = true;
       historyCreateVolunteerModel =
           await services.fetchhistorycreatefundraise(token: refreshToken);
+      isLoading = false;
       if (e is DioException) {
         e.response!.statusCode;
       }
-
-      myState = MyState.failed;
-      notifyListeners();
     }
+    notifyListeners();
   }
-
-  // Future<void> getAccessToken() async {
-  //   final getAccToken = await SharedPreferences.getInstance();
-  //   accessToken = getAccToken.getString('access_token')!;
-  // }
 
   String formattedPrice(price) => NumberFormat.currency(
         locale: 'id_ID', // This sets the currency format for Indonesian Rupiah

@@ -11,46 +11,55 @@ class HistoryReqDonasiViewModel extends ChangeNotifier {
   final services = HistoryCreateFundraiseServices();
   // String accessToken = '';
   int remainingDays = 0;
-
+bool isLoading = true;
   MyState myState = MyState.loading;
 
-  Future<void> getCreateFundraiseHistory({required String accessToken, required String refreshToken,}) async {
+  Future<void> getCreateFundraiseHistory({
+    required String accessToken,
+    required String refreshToken,
+  }) async {
     // await getAccessToken();
     try {
-      myState = MyState.loading;
-      notifyListeners();
+      isLoading = true;
+      // myState = MyState.loading;
+      // notifyListeners();
 
       historyCreateFundraiseModel =
           await services.fetchhistorycreatefundraise(token: accessToken);
+ isLoading = false;
+      // if (historyCreateFundraiseModel != null &&
+      //     historyCreateFundraiseModel!.data.isNotEmpty) {
+      //   final fundraiser = historyCreateFundraiseModel!.data.first;
 
-      if (historyCreateFundraiseModel != null &&
-          historyCreateFundraiseModel!.data.isNotEmpty) {
-        final fundraiser = historyCreateFundraiseModel!.data.first;
-
-        // Calculate the difference in days
-        remainingDays =
-            fundraiser.endDate.difference(fundraiser.startDate).inDays;
-      }
-      myState = MyState.loaded;
-      notifyListeners();
+      //   // Calculate the difference in days
+      //   remainingDays =
+      //       fundraiser.endDate.difference(fundraiser.startDate).inDays;
+      // }
+      // myState = MyState.loaded;
+      // notifyListeners();
     } catch (e) {
+            isLoading = true;
+      // myState = MyState.loading;
       historyCreateFundraiseModel =
           await services.fetchhistorycreatefundraise(token: refreshToken);
-               if (historyCreateFundraiseModel != null &&
-          historyCreateFundraiseModel!.data.isNotEmpty) {
-        final fundraiser = historyCreateFundraiseModel!.data.first;
+                isLoading = false;
+                // myState = MyState.loaded;
+      //          if (historyCreateFundraiseModel != null &&
+      //     historyCreateFundraiseModel!.data.isNotEmpty) {
+      //   final fundraiser = historyCreateFundraiseModel!.data.first;
 
-        // Calculate the difference in days
-        remainingDays =
-            fundraiser.endDate.difference(fundraiser.startDate).inDays;
-      }
+      //   // Calculate the difference in days
+      //   remainingDays =
+      //       fundraiser.endDate.difference(fundraiser.startDate).inDays;
+      // }
       if (e is DioException) {
         e.response!.statusCode;
       }
 
-      myState = MyState.failed;
-      notifyListeners();
+      // myState = MyState.failed;
+      
     }
+    notifyListeners();
   }
 
   // Future<void> getAccessToken() async {

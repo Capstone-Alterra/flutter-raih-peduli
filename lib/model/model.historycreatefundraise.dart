@@ -1,11 +1,3 @@
-import 'dart:convert';
-
-HistoryCreateFundraiseModel historyCreateFundraiseModelFromJson(Map<String, dynamic>map) =>
-    HistoryCreateFundraiseModel.fromJson(map);
-
-String historyCreateFundraiseModelToJson(HistoryCreateFundraiseModel data) =>
-    json.encode(data.toJson());
-
 class HistoryCreateFundraiseModel {
   final List<Datum> data;
   final String message;

@@ -1,14 +1,6 @@
-import 'dart:convert';
-
-HistoryApplyVolunteerModel historyApplyVolunteerModelFromJson(Map<String,dynamic> map) =>
-    HistoryApplyVolunteerModel.fromJson(map);
-
-String historyApplyVolunteerModelToJson(HistoryApplyVolunteerModel data) =>
-    json.encode(data.toJson());
-
 class HistoryApplyVolunteerModel {
-  final List<Datum> data;
-  final String message;
+  List<Datum> data;
+  String message;
 
   HistoryApplyVolunteerModel({
     required this.data,
@@ -28,23 +20,23 @@ class HistoryApplyVolunteerModel {
 }
 
 class Datum {
-  final int id;
-  final String email;
-  final String fullname;
-  final String address;
-  final String phoneNumber;
-  final String gender;
-  final String nik;
-  final List<String> skillsRequired;
-  final String resume;
-  final String reason;
-  final String photo;
-  final String status;
-  final int vacancyId;
-  final String vacancyName;
-  final String vacancyPhoto;
-  final DateTime createdAt;
-  final String postType;
+  int id;
+  String email;
+  String fullname;
+  String address;
+  String phoneNumber;
+  String gender;
+  String nik;
+  List<String> skillsRequired;
+  String resume;
+  String reason;
+  String photo;
+  String status;
+  int vacancyId;
+  String vacancyName;
+  String vacancyPhoto;
+  DateTime createdAt;
+  String postType;
 
   Datum({
     required this.id,

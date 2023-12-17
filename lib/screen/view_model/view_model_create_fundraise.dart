@@ -28,9 +28,11 @@ class ViewModelCreateFundraises with ChangeNotifier {
       firstDate: DateTime.now(),
       lastDate: DateTime.now().add(const Duration(days: 365)),
     );
-
     if (pickedStartDate != null && pickedStartDate != start) {
       start = pickedStartDate;
+      if (end.isBefore(start)) {
+        end = start.add(const Duration(days: 1));
+      }
       notifyListeners();
     }
   }
@@ -39,14 +41,12 @@ class ViewModelCreateFundraises with ChangeNotifier {
     final pickedEndDate = await showDatePicker(
       context: context,
       initialDate: end,
-      firstDate: DateTime.now(),
+      firstDate:
+          start.add(const Duration(days: 1)), 
       lastDate: DateTime.now().add(const Duration(days: 365)),
     );
-
     if (pickedEndDate != null && pickedEndDate != end) {
-      end = start.add(
-        const Duration(days: 1),
-      );
+      end = pickedEndDate;
       notifyListeners();
     }
   }
