@@ -39,98 +39,97 @@ class PaymentQrisPage extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),
-      body: SingleChildScrollView(child:
-          Consumer<TransactionViewModel>(builder: (context, isLoading, child) {
-        return viewModelTransaction.isLoading
-            ? const Center(
-                child: CircularProgressIndicator(),
-              )
-            : Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16.0, vertical: 8),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(12.0),
-                      child: Image.network(
-                        viewModelTransaction.modelTransaction!.data.urlCallback,
-                        height: 350.0,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+      body: Consumer<TransactionViewModel>(builder: (context, isLoading, child) {
+              return viewModelTransaction.isLoading
+        ? const Center(
+            child: CircularProgressIndicator(),
+          )
+        : Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0, vertical: 8),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12.0),
+                  child: Image.network(
+                    viewModelTransaction.modelTransaction!.data.urlCallback,
+                    height: 350.0,
+                    fit: BoxFit.cover,
                   ),
+                ),
+              ),
 
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
-                    child: Container(
-                      padding: const EdgeInsets.all(14),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(
-                              width: 1,
-                              color: AppTheme.primaryColor.withOpacity(0.3))),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+                child: Container(
+                  padding: const EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(
+                          width: 1,
+                          color: AppTheme.primaryColor.withOpacity(0.3))),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                'Total Payment',
-                                style: TextStyle(
-                                  color: AppTheme.primaryColor,
-                                  fontFamily: 'Helvetica',
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Text(
-                                'Rp. ${viewModelTransaction.modelTransaction!.data.amount}',
-                                style: const TextStyle(
-                                  color: AppTheme.primaryColor,
-                                  fontFamily: 'Helvetica',
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
+                          const Text(
+                            'Total Payment',
+                            style: TextStyle(
+                              color: AppTheme.primaryColor,
+                              fontFamily: 'Helvetica',
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                          const SizedBox(
-                            height: 12,
+                          Text(
+                            'Rp. ${viewModelTransaction.modelTransaction!.data.amount}',
+                            style: const TextStyle(
+                              color: AppTheme.primaryColor,
+                              fontFamily: 'Helvetica',
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                'Valid Until',
-                                style: TextStyle(
-                                  color: AppTheme.primaryColor,
-                                  fontFamily: 'Helvetica',
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Text(
-                                DateFormat('dd MMMM yyy , hh:mm').format(DateTime.parse(viewModelTransaction.modelTransaction!.data.validUntil.toString())),
-                                style: const TextStyle(
-                                  color: AppTheme.primaryColor,
-                                  fontFamily: 'Helvetica',
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          )
                         ],
                       ),
-                    ),
-                  )
-                  // Tombol Ikuti Program
-                ],
-              );
-      })),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            'Valid Until',
+                            style: TextStyle(
+                              color: AppTheme.primaryColor,
+                              fontFamily: 'Helvetica',
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            DateFormat('dd MMMM yyy , hh:mm').format(DateTime.parse(viewModelTransaction.modelTransaction!.data.validUntil.toString())),
+                            style: const TextStyle(
+                              color: AppTheme.primaryColor,
+                              fontFamily: 'Helvetica',
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              )
+              // Tombol Ikuti Program
+            ],
+          );
+            }),
       bottomNavigationBar: Consumer<TransactionViewModel>(
         builder: (context, isLoading, child) {
           return viewModelTransaction.isLoading

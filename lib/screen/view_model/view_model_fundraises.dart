@@ -110,17 +110,19 @@ class FundraisesViewModel with ChangeNotifier {
 
   Future fetchSearchDonation({
     required String query,
+    required String accessToken,
+    required String refreshToken,
   }) async {
     try {
       isSearch = true;
-      modelSearchFundraise = await service.hitSearchDonation(query: query);
+      modelSearchFundraise = await service.hitSearchDonation(query: query, token: refreshToken);
       dataHasilSearch = false;
       notifyListeners();
     } catch (e) {
       if (e is DioError) {
-        dataHasilSearch = true;
-        notifyListeners();
-        e.response!.statusCode;
+        isSearch = true;
+        modelSearchFundraise = await service.hitSearchDonation(query: query, token: refreshToken);
+        dataHasilSearch = false;
       }
     }
   }

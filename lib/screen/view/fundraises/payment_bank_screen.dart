@@ -42,162 +42,160 @@ class PaymentBankPage extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),
-      body: SingleChildScrollView(
-        child: Consumer<TransactionViewModel>(
-          builder: (context, isLoading, child) {
-            return viewModelTransaction.isLoading
-                ? const Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 8, horizontal: 20),
-                        child: Container(
-                          padding: const EdgeInsets.all(14),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              border: Border.all(
-                                  width: 1,
-                                  color:
-                                      AppTheme.primaryColor.withOpacity(0.3))),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        'No. Virtual Account',
-                                        style: TextStyle(
-                                          fontFamily: 'Helvetica',
-                                          fontSize: 12,
-                                        ),
+      body: Consumer<TransactionViewModel>(
+        builder: (context, isLoading, child) {
+          return viewModelTransaction.isLoading
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8, horizontal: 20),
+                      child: Container(
+                        padding: const EdgeInsets.all(14),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            border: Border.all(
+                                width: 1,
+                                color:
+                                    AppTheme.primaryColor.withOpacity(0.3))),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'No. Virtual Account',
+                                      style: TextStyle(
+                                        fontFamily: 'Helvetica',
+                                        fontSize: 12,
                                       ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 8,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        viewModelTransaction.modelTransaction!
-                                            .data.virtualAccount,
-                                        style: const TextStyle(
-                                          color: AppTheme.primaryColor,
-                                          fontFamily: 'Helvetica',
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 8,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      viewModelTransaction.modelTransaction!
+                                          .data.virtualAccount,
+                                      style: const TextStyle(
+                                        color: AppTheme.primaryColor,
+                                        fontFamily: 'Helvetica',
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
                                       ),
-                                      GestureDetector(
-                                        onTap: () {
-                                          viewModelTransaction.salinKeClipboard(viewModelTransaction.modelTransaction!.data.virtualAccount);
-                                        },
-                                        child: const Icon(
-                                          size: 20,
-                                          Icons.copy,
-                                          color: AppTheme.primaryColor,
-                                        ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        viewModelTransaction.salinKeClipboard(viewModelTransaction.modelTransaction!.data.virtualAccount);
+                                      },
+                                      child: const Icon(
+                                        size: 20,
+                                        Icons.copy,
+                                        color: AppTheme.primaryColor,
                                       ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 12,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        'Total Pembayaran',
-                                        style: TextStyle(
-                                          fontFamily: 'Helvetica',
-                                          fontSize: 12,
-                                        ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 12,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Total Pembayaran',
+                                      style: TextStyle(
+                                        fontFamily: 'Helvetica',
+                                        fontSize: 12,
                                       ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 12,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        'Rp.${viewModelTransaction.modelTransaction!.data.amount}',
-                                        style: const TextStyle(
-                                          color: AppTheme.primaryColor,
-                                          fontFamily: 'Helvetica',
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 12,
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      'Rp.${viewModelTransaction.modelTransaction!.data.amount}',
+                                      style: const TextStyle(
+                                        color: AppTheme.primaryColor,
+                                        fontFamily: 'Helvetica',
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
                                       ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 14,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        'Batas Pembayaran',
-                                        style: TextStyle(
-                                          fontFamily: 'Helvetica',
-                                          fontSize: 12,
-                                        ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 14,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Batas Pembayaran',
+                                      style: TextStyle(
+                                        fontFamily: 'Helvetica',
+                                        fontSize: 12,
                                       ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 12,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        DateFormat('dd MMMM yyy , hh:mm').format(DateTime.parse(viewModelTransaction.modelTransaction!.data.validUntil.toString())),
-                                        style: const TextStyle(
-                                          color: AppTheme.primaryColor,
-                                          fontFamily: 'Helvetica',
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 12,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      DateFormat('dd MMMM yyy , hh:mm').format(DateTime.parse(viewModelTransaction.modelTransaction!.data.validUntil.toString())),
+                                      style: const TextStyle(
+                                        color: AppTheme.primaryColor,
+                                        fontFamily: 'Helvetica',
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
                                       ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ],
                         ),
-                      )
-                      // Tombol Ikuti Program
-                    ],
-                  );
-          },
-        ),
+                      ),
+                    )
+                    // Tombol Ikuti Program
+                  ],
+                );
+        },
       ),
       bottomNavigationBar: Consumer<TransactionViewModel>(
         builder: (context, isLoading, child) {

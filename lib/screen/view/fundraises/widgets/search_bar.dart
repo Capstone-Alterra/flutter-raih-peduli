@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_fundraises.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +18,8 @@ class SearchAndFilterBarDonate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = Provider.of<FundraisesViewModel>(context, listen: false);
+    final viewModelFundraise = Provider.of<FundraisesViewModel>(context, listen: false);
+    final sp = Provider.of<SignInViewModel>(context, listen: false);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Row(
@@ -25,10 +27,10 @@ class SearchAndFilterBarDonate extends StatelessWidget {
           // Search Bar
           Expanded(
             child: TextField(
-              controller: viewModel.search,
+              controller: viewModelFundraise.search,
               onChanged: (text) async {
-                final String query = viewModel.search.text;
-                await viewModel.fetchSearchDonation(query: query);
+                final String query = viewModelFundraise.search.text;
+                await viewModelFundraise.fetchSearchDonation(query: query, refreshToken: sp.refreshTokenSharedPreference, accessToken: sp.accessTokenSharedPreference);
               },
               decoration: InputDecoration(
                 filled: true,

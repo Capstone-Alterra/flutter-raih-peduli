@@ -28,29 +28,20 @@ class _FundraiseScreenState extends State<FundraiseScreen> {
 
   @override
   void initState() {
-    navigationProvider =
-        Provider.of<NavigationProvider>(context, listen: false);
-    viewModelFundraise =
-        Provider.of<FundraisesViewModel>(context, listen: false);
-    viewModelVolunteer =
-        Provider.of<VolunteerViewModel>(context, listen: false);
+    navigationProvider = Provider.of<NavigationProvider>(context, listen: false);
+    viewModelFundraise = Provider.of<FundraisesViewModel>(context, listen: false);
+    viewModelVolunteer = Provider.of<VolunteerViewModel>(context, listen: false);
     sp = Provider.of<SignInViewModel>(context, listen: false);
     viewModelFundraise.awal();
     viewModelVolunteer.overlay();
-
-
     viewModelFundraise.fetchAllFundraisesPagination(
         accessToken: sp.accessTokenSharedPreference,
         refreshToken: sp.refreshTokenSharedPreference);
-
     viewModelFundraise.scrollController.addListener(() {
       viewModelFundraise.scrollListener(
           accessToken: sp.accessTokenSharedPreference,
           refreshToken: sp.refreshTokenSharedPreference);
     });
-    viewModelFundraise.fetchAllFundraisesPagination(
-        accessToken: sp.accessTokenSharedPreference,
-        refreshToken: sp.refreshTokenSharedPreference);
     sp.setSudahLogin();
     super.initState();
   }
@@ -82,6 +73,7 @@ class _FundraiseScreenState extends State<FundraiseScreen> {
                 builder: (context) => const BottomNavgationBarWidget(),
               ),
             );
+            viewModelFundraise.search.clear();
           },
         ),
         elevation: 0,
@@ -178,11 +170,5 @@ class _FundraiseScreenState extends State<FundraiseScreen> {
     );
   }
 
-// void scrollListener() {
-//   if (scrollController.position.pixels ==
-//       scrollController.position.maxScrollExtent) {
-//     print("coba");
-//     // viewModel.fetchAllFundraisesPagination();
-//   }
-// }
+
 }

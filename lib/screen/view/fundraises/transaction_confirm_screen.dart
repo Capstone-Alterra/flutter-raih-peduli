@@ -95,14 +95,16 @@ class TransactionConfirmScreen extends StatelessWidget {
                 ),
                 (route) => false,
               );
-            } else if (bankPaymentIds.contains(paymentType.id)) {
+            }
+            else if (bankPaymentIds.contains(paymentType.id)) {
               Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(
                   builder: (context) => PaymentBankPage(paymentType: paymentType),
                 ),
                 (route) => false,
               );
-            } else if (paymentType.id == 10) {
+            }
+            else if (paymentType.id == 10) {
               Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(
                   builder: (context) => const PaymentPage(),
