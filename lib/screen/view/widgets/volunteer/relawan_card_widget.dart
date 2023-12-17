@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/model_volunteer_pagination.dart';
-
-// import 'package:flutter_raih_peduli/model/model_volunteer.dart';
-// import 'package:flutter_raih_peduli/model/model_volunteer.dart';
 import 'package:flutter_raih_peduli/screen/view/volunteer/detail_volunteer.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/save_widget.dart';
-import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/save_widget.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_bookmark.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_volunteer.dart';
@@ -181,7 +177,8 @@ class RelawanCard extends StatelessWidget {
                                   'assets/lokasi.svg',
                                 ),
                                 Text(
-                                  volunteerData.province,
+                                  viewModelVolunteer.truncateText(
+                                      volunteerData.province, 13),
                                   style: const TextStyle(
                                     color: AppTheme.primaryColor,
                                     fontWeight: FontWeight.bold,
@@ -221,16 +218,16 @@ class RelawanCard extends StatelessWidget {
                                 volunteerData.city,
                                 25,
                               ),
-                              style: TextStyle(
-                                color: const Color(0xFF959CB4),
+                              style: const TextStyle(
+                                color: Color(0xFF959CB4),
                                 fontSize: 11,
                               ),
                             ),
                             const SizedBox(width: 8.0),
                             Text(
                               '${volunteerData.numberOfVacancies}',
-                              style: TextStyle(
-                                color: const Color(0xFF959CB4),
+                              style: const TextStyle(
+                                color: Color(0xFF959CB4),
                                 fontSize: 14,
                               ),
                             ),

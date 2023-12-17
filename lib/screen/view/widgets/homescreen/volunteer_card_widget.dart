@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 // import 'package:flutter_raih_peduli/screen/view/volunteer/detail_volunteer.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
+import '../../../view_model/view_model_volunteer.dart';
 import '../../volunteer/detail_volunteer.dart';
 
 class VolunteerCard extends StatelessWidget {
@@ -24,6 +26,7 @@ class VolunteerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = Provider.of<VolunteerViewModel>(context, listen: false);
     Size size = MediaQuery.of(context).size;
     double sizecontent = size.width / 2;
     return Card(
@@ -63,7 +66,7 @@ class VolunteerCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      title,
+                      viewModel.truncateText(title, 20),
                       style: TextStyle(
                         color: AppTheme.primaryColor,
                         fontFamily: 'Helvetica',
@@ -73,7 +76,7 @@ class VolunteerCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 1),
                     Text(
-                      description,
+                      viewModel.truncateText(description, 30),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(

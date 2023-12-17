@@ -72,7 +72,7 @@ class FundraisingCard extends StatelessWidget {
                   children: [
                     const SizedBox(height: 5),
                     Text(
-                      viewModel.truncateText(title, 25),
+                      viewModel.truncateText(title, 20),
                       style: TextStyle(
                         color: AppTheme.primaryColor,
                         fontFamily: 'Helvetica',
@@ -82,7 +82,7 @@ class FundraisingCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 1),
                     Text(
-                      viewModel.truncateText(description, 25),
+                      viewModel.truncateText(description, 30),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -136,7 +136,6 @@ class FundraisingCard extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => DetailFundraisePage(
-                       
                           id: id,
                         ),
                       ),
