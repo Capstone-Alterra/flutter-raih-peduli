@@ -2,10 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/volunteer/access_volunteer_screen.dart';
-// import 'package:flutter_raih_peduli/model/model_volunteer.dart';
 import 'package:flutter_raih_peduli/screen/view/volunteer/form_apply.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/save_widget.dart';
-import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/save_widget.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_bookmark.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_volunteer.dart';
 import 'package:flutter_raih_peduli/theme.dart';
@@ -33,7 +31,8 @@ class _DetailVolunteerPageState extends State<DetailVolunteerPage> {
   late SignInViewModel sp;
   @override
   void initState() {
-    viewModelVolunteer = Provider.of<VolunteerViewModel>(context, listen: false);
+    viewModelVolunteer =
+        Provider.of<VolunteerViewModel>(context, listen: false);
     sp = Provider.of<SignInViewModel>(context, listen: false);
     viewModelVolunteer.fetchDetailVolunteer(
       id: widget.id,
@@ -47,7 +46,7 @@ class _DetailVolunteerPageState extends State<DetailVolunteerPage> {
   @override
   Widget build(BuildContext context) {
     final viewModelBookmark =
-    Provider.of<ViewModelBookmark>(context, listen: false);
+        Provider.of<ViewModelBookmark>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -69,13 +68,14 @@ class _DetailVolunteerPageState extends State<DetailVolunteerPage> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => AccessVolunteerScreen()
+                builder: (context) => const AccessVolunteerScreen(),
               ),
             );
           },
         ),
         elevation: 0,
         backgroundColor: Colors.transparent,
+
         actions:  [
           Consumer<VolunteerViewModel>(
               builder: (context, contactModel, child) {
@@ -102,6 +102,41 @@ class _DetailVolunteerPageState extends State<DetailVolunteerPage> {
                 ) : SizedBox(height: 1,
                 width: 1);;
               }),
+// 
+//         actions: [
+//           Consumer<VolunteerViewModel>(builder: (context, contactModel, child) {
+//             return SaveWidgetFixed(
+//               bookmarkId:
+//                   viewModelVolunteer.modelDetailVolunteer!.data.bookmarkId,
+//               onPressed: () async {
+//                 if (viewModelVolunteer.modelDetailVolunteer!.data.bookmarkId !=
+//                     "") {
+//                   await viewModelBookmark.deleteBookmark(
+//                       accessToken: sp.accessTokenSharedPreference,
+//                       refreshToken: sp.refreshTokenSharedPreference,
+//                       idBookmark: viewModelVolunteer
+//                           .modelDetailVolunteer!.data.bookmarkId);
+//                   viewModelVolunteer.fetchDetailVolunteer(
+//                       id: viewModelVolunteer.modelDetailVolunteer!.data.id,
+//                       accessToken: sp.accessTokenSharedPreference,
+//                       refreshToken: sp.refreshTokenSharedPreference);
+//                 } else if (viewModelVolunteer
+//                         .modelDetailVolunteer!.data.bookmarkId ==
+//                     "") {
+//                   await viewModelBookmark.postBookmark(
+//                       accessToken: sp.accessTokenSharedPreference,
+//                       refreshToken: sp.refreshTokenSharedPreference,
+//                       id: viewModelVolunteer.modelDetailVolunteer!.data.id,
+//                       postType: 'vacancy');
+//                   viewModelVolunteer.fetchDetailVolunteer(
+//                       id: viewModelVolunteer.modelDetailVolunteer!.data.id,
+//                       accessToken: sp.accessTokenSharedPreference,
+//                       refreshToken: sp.refreshTokenSharedPreference);
+//                 }
+//               },
+//             );
+//           }),
+// 
         ],
       ),
       body: Consumer<VolunteerViewModel>(
@@ -140,7 +175,8 @@ class _DetailVolunteerPageState extends State<DetailVolunteerPage> {
                           children: [
                             _buildInfoColumn(
                                 'Lokasi',
-                                viewModelVolunteer.modelDetailVolunteer!.data.province,
+                                viewModelVolunteer
+                                    .modelDetailVolunteer!.data.province,
                                 Icons.location_on),
                             const Spacer(),
                             _buildInfoColumn(
@@ -176,7 +212,8 @@ class _DetailVolunteerPageState extends State<DetailVolunteerPage> {
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Text(
-                          viewModelVolunteer.modelDetailVolunteer!.data.description,
+                          viewModelVolunteer
+                              .modelDetailVolunteer!.data.description,
                           style: const TextStyle(fontSize: 16.0),
                         ),
                       ),
@@ -251,8 +288,8 @@ class _DetailVolunteerPageState extends State<DetailVolunteerPage> {
                                       },
                                     );
                                   } else {
-                                    if (viewModelVolunteer.modelDetailVolunteer!.data
-                                            .isRegistered ==
+                                    if (viewModelVolunteer.modelDetailVolunteer!
+                                            .data.isRegistered ==
                                         true) {
                                       customAlert(
                                         context: context,

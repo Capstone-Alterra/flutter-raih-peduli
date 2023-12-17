@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/bank_ewallet.dart';
 import 'package:flutter_raih_peduli/screen/view/fundraises/success_donation_screen.dart';
@@ -6,8 +8,7 @@ import 'package:flutter_raih_peduli/screen/view_model/view_model_transaction.dar
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import '../../view_model/view_model_navigation.dart';
-import '../navigation/navigation.dart';
+// import '../../view_model/view_model_navigation.dart';
 
 class PaymentBankPage extends StatelessWidget {
   PaymentType paymentType;
@@ -19,8 +20,8 @@ class PaymentBankPage extends StatelessWidget {
         Provider.of<FundraisesViewModel>(context, listen: false);
     final viewModelTransaction =
         Provider.of<TransactionViewModel>(context, listen: false);
-    final viewModelNavigation =
-        Provider.of<NavigationProvider>(context, listen: false);
+    // final viewModelNavigation =
+    //     Provider.of<NavigationProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -208,7 +209,7 @@ class PaymentBankPage extends StatelessWidget {
                       Future.delayed(const Duration(seconds: 2));
                       Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(
-                          builder: (context) => SuccessDonationScreen(),
+                          builder: (context) =>const SuccessDonationScreen(),
                         ),
                         (route) => false,
                       );

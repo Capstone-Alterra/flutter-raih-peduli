@@ -3,12 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/fundraises/success_donation_screen.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_fundraises.dart';
-import 'package:flutter_raih_peduli/screen/view/navigation/navigation.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_transaction.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:provider/provider.dart';
 
-import '../../view_model/view_model_navigation.dart';
+// import '../../view_model/view_model_navigation.dart';
 
 class PaymentPage extends StatelessWidget {
   const PaymentPage({super.key});
@@ -19,8 +18,8 @@ class PaymentPage extends StatelessWidget {
         Provider.of<TransactionViewModel>(context, listen: false);
     final viewModelFundraise =
         Provider.of<FundraisesViewModel>(context, listen: false);
-    final viewModelNavigation =
-        Provider.of<NavigationProvider>(context, listen: false);
+    // final viewModelNavigation =
+    //     Provider.of<NavigationProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -79,7 +78,7 @@ class PaymentPage extends StatelessWidget {
                       Future.delayed(const Duration(seconds: 2));
                       Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(
-                          builder: (context) => SuccessDonationScreen(),
+                          builder: (context) =>const SuccessDonationScreen(),
                         ),
                             (route) => false,
                       );

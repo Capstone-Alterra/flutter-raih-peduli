@@ -7,29 +7,26 @@ import 'package:flutter_raih_peduli/screen/view_model/view_model_bookmark.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_news.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
 import 'package:flutter_raih_peduli/theme.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'newsdetailpage.dart';
 
 class NewsCard extends StatelessWidget {
   final Datum newsData;
 
-  NewsCard({
+  const NewsCard({
     super.key,
     required this.newsData,
   });
 
-
   @override
   Widget build(BuildContext context) {
-    final sp =
-    Provider.of<SignInViewModel>(context, listen: false);
+    final sp = Provider.of<SignInViewModel>(context, listen: false);
     Size size = MediaQuery.of(context).size;
     final viewModelBookmark =
-    Provider.of<ViewModelBookmark>(context, listen: false);
+        Provider.of<ViewModelBookmark>(context, listen: false);
     final viewModelNews = Provider.of<NewsViewModel>(context, listen: false);
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -39,8 +36,7 @@ class NewsCard extends StatelessWidget {
           ),
         );
       },
-      child:
-      Consumer<NewsViewModel>(builder: (context, contactModel, child) {
+      child: Consumer<NewsViewModel>(builder: (context, contactModel, child) {
         return Card(
           color: AppTheme.white,
           elevation: 3,
@@ -91,30 +87,36 @@ class NewsCard extends StatelessWidget {
                               fontSize: size.height / 60,
                             ),
                           ),
-                          SaveWidgetFixed(bookmarkId: newsData.bookmarkId, onPressed: () async {
-                            if (newsData.bookmarkId != "") {
-                              await viewModelBookmark.deleteBookmark(
-                                  accessToken: sp.accessTokenSharedPreference,
-                                  refreshToken: sp.refreshTokenSharedPreference,
-                                  idBookmark:
-                                  newsData.bookmarkId);
-                              viewModelNews.fetchNewsPagination(
-                                accessToken: sp.accessTokenSharedPreference,
-                                refreshToken: sp.refreshTokenSharedPreference,
-                              );
-                            } else if (newsData.bookmarkId ==
-                                "") {
-                              await viewModelBookmark.postBookmark(
-                                  accessToken: sp.accessTokenSharedPreference,
-                                  refreshToken: sp.refreshTokenSharedPreference,
-                                  id: newsData.id,
-                                  postType: 'news');
-                              viewModelNews.fetchNewsPagination(
-                                accessToken: sp.accessTokenSharedPreference,
-                                refreshToken: sp.refreshTokenSharedPreference,
-                              );
-                            }
-                          }),
+                          SaveWidgetFixed(
+                              bookmarkId: newsData.bookmarkId,
+                              onPressed: () async {
+                                if (newsData.bookmarkId != "") {
+                                  await viewModelBookmark.deleteBookmark(
+                                      accessToken:
+                                          sp.accessTokenSharedPreference,
+                                      refreshToken:
+                                          sp.refreshTokenSharedPreference,
+                                      idBookmark: newsData.bookmarkId);
+                                  viewModelNews.fetchNewsPagination(
+                                    accessToken: sp.accessTokenSharedPreference,
+                                    refreshToken:
+                                        sp.refreshTokenSharedPreference,
+                                  );
+                                } else if (newsData.bookmarkId == "") {
+                                  await viewModelBookmark.postBookmark(
+                                      accessToken:
+                                          sp.accessTokenSharedPreference,
+                                      refreshToken:
+                                          sp.refreshTokenSharedPreference,
+                                      id: newsData.id,
+                                      postType: 'news');
+                                  viewModelNews.fetchNewsPagination(
+                                    accessToken: sp.accessTokenSharedPreference,
+                                    refreshToken:
+                                        sp.refreshTokenSharedPreference,
+                                  );
+                                }
+                              }),
                         ],
                       ),
                       // const SizedBox(height: 3),
@@ -144,7 +146,6 @@ class NewsCard extends StatelessWidget {
           ),
         );
       }),
-
     );
   }
 }

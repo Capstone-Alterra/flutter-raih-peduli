@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/model_bookmark.dart';
@@ -56,8 +58,6 @@ class ViewModelBookmark with ChangeNotifier {
     required String postType,
   }) async {
     try {
-      print(">>>>> $id");
-      print(">>>>> $postType");
       await service.postBookmark(
         token: refreshToken,
         postType: postType,

@@ -12,9 +12,9 @@ class BookmarkService {
     required int id,
   }) async {
     try {
-      print(">>>>> $id");
-      print(">>>>> $postType");
-      print(">>>>> ${Urls.baseUrl + Urls.bookmark}");
+      // print(">>>>> $id");
+      // print(">>>>> $postType");
+      // print(">>>>> ${Urls.baseUrl + Urls.bookmark}");
       final response = await dio.post(
         Urls.baseUrl + Urls.bookmark,
         options: Options(
@@ -28,7 +28,7 @@ class BookmarkService {
         },
       );
 
-      print(response.data);
+      debugPrint(response.data);
     } catch (e) {
       debugPrint("Unexpected error: $e");
       rethrow;
@@ -61,7 +61,7 @@ class BookmarkService {
     required String idBookmark,
   }) async {
     try {
-      print(Urls.baseUrl + Urls.bookmark + idBookmark);
+      // print(Urls.baseUrl + Urls.bookmark + idBookmark);
       final response = await dio.delete(
         Urls.baseUrl + Urls.bookmark + idBookmark,
         options: Options(

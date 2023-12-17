@@ -234,14 +234,14 @@ class CardFundraiseSearch extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(top: 8, right: 5.0),
+                        padding: const EdgeInsets.only(top: 8, right: 5.0),
                         child: LinearProgressIndicator(
                           color: AppTheme.tertiaryColor,
                           value: (fundraise.fundAcquired / fundraise.target)
                               .toDouble(),
                           minHeight: 10,
                           borderRadius:
-                              BorderRadius.all(Radius.circular(10)), // Set the
+                              const BorderRadius.all(Radius.circular(10)), // Set the
                         ),
                       ),
                     ],

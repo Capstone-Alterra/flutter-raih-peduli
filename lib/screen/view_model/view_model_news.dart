@@ -26,6 +26,7 @@ class NewsViewModel with ChangeNotifier {
       modelNews = data;
       isLoading = false;
     } catch (e) {
+      // ignore: deprecated_member_use
       if (e is DioError) {
         isLoading = true;
         final data = await service.hitAllNews(index: indexPagination, token: refreshToken);
@@ -72,6 +73,7 @@ class NewsViewModel with ChangeNotifier {
       modelNewsPagination = data;
       isLoading = false;
     } catch (e) {
+      // ignore: deprecated_member_use
       if (e is DioError) {
         isSearch = false;
         isLoading = true;
@@ -95,6 +97,7 @@ class NewsViewModel with ChangeNotifier {
         final newData = await service.hitNewsPagination(index: indexPagination, token: refreshToken);
         modelNewsPagination?.addAllData(newData.data);
       }catch (e) {
+        // ignore: deprecated_member_use
         if (e is DioError) {
           final newData = await service.hitNewsPagination(index: indexPagination, token: refreshToken);
           modelNewsPagination?.addAllData(newData.data);

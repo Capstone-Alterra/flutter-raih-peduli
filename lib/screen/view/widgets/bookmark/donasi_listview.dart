@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/model/fundraising_data.dart';
 import 'package:flutter_raih_peduli/model/model_bookmark.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/card_fundraise_bookmark.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_bookmark.dart';
 import 'package:flutter_raih_peduli/theme.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 class DonasiListView extends StatelessWidget {

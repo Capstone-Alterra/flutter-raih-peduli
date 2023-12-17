@@ -49,13 +49,11 @@ class VolunteerService {
           },
         ),
       );
-      print("aaaaaaaaaaaaaaa${response.data}");
       return ModelDetailVolunteer.fromJson(response.data);
     } on DioError catch (_) {
       final response = await _dio.get(
         "${Urls.baseUrl}${Urls.fetchDetailVolunteer}$id",
       );
-      print("bbbbbb${response.data}");
       return ModelDetailVolunteer.fromJson(response.data);
     }
   }

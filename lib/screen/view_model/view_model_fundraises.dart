@@ -97,7 +97,6 @@ class FundraisesViewModel with ChangeNotifier {
       isDetail = true;
     } catch (e) {
       if (e is DioError) {
-        print(">>>masuk ke refreshtoken");
         isDetail = false;
         modelDetailFundraises = await service.hitDetailFundraises(
           id: id,

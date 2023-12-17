@@ -1,14 +1,8 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/model/bank_ewallet.dart';
-import 'package:flutter_raih_peduli/screen/view/fundraises/payment_bank_screen.dart';
-import 'package:flutter_raih_peduli/screen/view/fundraises/payment_gopay_screen.dart';
-import 'package:flutter_raih_peduli/screen/view/fundraises/payment_qris_screen.dart';
 import 'package:flutter_raih_peduli/screen/view/navigation/navigation.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_navigation.dart';
-import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
-import 'package:flutter_raih_peduli/screen/view_model/view_model_transaction.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:provider/provider.dart';
 
