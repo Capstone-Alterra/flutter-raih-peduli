@@ -56,6 +56,8 @@ class ViewModelBookmark with ChangeNotifier {
     required String postType,
   }) async {
     try {
+      print(">>>>> $id");
+      print(">>>>> $postType");
       await service.postBookmark(
         token: refreshToken,
         postType: postType,

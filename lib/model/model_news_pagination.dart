@@ -36,7 +36,7 @@ class Datum {
   String description;
   String photo;
   int userId;
-  String? bookmarkId;
+  dynamic bookmarkId;
   DateTime createdAt;
   DateTime updatedAt;
   dynamic deletedAt;
