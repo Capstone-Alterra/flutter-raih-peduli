@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_raih_peduli/screen/view/navigation/navigation.dart';
 import 'package:flutter_raih_peduli/screen/view/news/news_search.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_navigation.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:provider/provider.dart';
 import '../../view_model/view_model_news.dart';
 import 'filter_bottom_sheet.dart';
-import 'news.dart';
+import 'news_card.dart';
 
 class NewsPage extends StatefulWidget {
   const NewsPage({super.key});
@@ -15,14 +18,22 @@ class NewsPage extends StatefulWidget {
 
 class _NewsPageState extends State<NewsPage> {
   late final NewsViewModel viewModel;
+  late SignInViewModel sp;
+  late NavigationProvider navigationProvider;
   @override
   void initState() {
+    navigationProvider =
+        Provider.of<NavigationProvider>(context, listen: false);
     viewModel = Provider.of<NewsViewModel>(context, listen: false);
     // viewModel.fetchAllNews();
+    sp = Provider.of<SignInViewModel>(context, listen: false);
     viewModel.awal();
+
+    viewModel.scrollController.addListener((){viewModel.scrollListener(accessToken: sp.accessTokenSharedPreference,
+        refreshToken: sp.refreshTokenSharedPreference);});
+    viewModel.fetchNewsPagination(accessToken: sp.accessTokenSharedPreference,
+        refreshToken: sp.refreshTokenSharedPreference);
     super.initState();
-    viewModel.scrollController.addListener(viewModel.scrollListener);
-    viewModel.fetchNewsPagination();
   }
 
   @override
@@ -45,7 +56,13 @@ class _NewsPageState extends State<NewsPage> {
             color: AppTheme.primaryColor,
           ),
           onPressed: () {
-            Navigator.pop(context);
+            navigationProvider.out();
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const BottomNavgationBarWidget(),
+              ),
+            );
           },
         ),
         elevation: 0,
@@ -135,7 +152,7 @@ class _NewsPageState extends State<NewsPage> {
                             itemBuilder: (context, index) {
                               return SizedBox(
                                   height: 130,
-                                  child: News(
+                                  child: NewsCard(
                                     newsData: viewModel
                                         .modelNewsPagination!.data[index],
                                   ));

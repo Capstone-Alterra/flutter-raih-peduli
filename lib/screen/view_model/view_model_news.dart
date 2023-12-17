@@ -18,15 +18,22 @@ class NewsViewModel with ChangeNotifier {
   late final scrollController = ScrollController();
   bool isLoadingDetail = true;
 
-  NewsViewModel() {
-    fetchAllNews();
-  }
 
-  Future<void> fetchAllNews() async {
-    isLoading = true;
-    final data = await service.hitAllNews();
-    modelNews = data;
-    isLoading = false;
+  Future<void> fetchAllNews({required String accessToken, required String refreshToken}) async {
+    try {
+      isLoading = true;
+      final data = await service.hitAllNews(index: indexPagination, token: refreshToken);
+      modelNews = data;
+      isLoading = false;
+    } catch (e) {
+      if (e is DioError) {
+        isLoading = true;
+        final data = await service.hitAllNews(index: indexPagination, token: refreshToken);
+        modelNews = data;
+        isLoading = false;
+      }
+    }
+
     notifyListeners();
   }
 
@@ -57,22 +64,43 @@ class NewsViewModel with ChangeNotifier {
     return '${text.substring(0, maxLength)}...';
   }
 
-  Future<void> fetchNewsPagination() async {
-    isSearch = false;
-    isLoading = true;
-    final data = await service.hitNewsPagination(indexPagination);
-    modelNewsPagination = data;
-    isLoading = false;
+  Future<void> fetchNewsPagination({required String accessToken, required String refreshToken}) async {
+    try{
+      isSearch = false;
+      isLoading = true;
+      final data = await service.hitNewsPagination(index: indexPagination, token: refreshToken);
+      modelNewsPagination = data;
+      isLoading = false;
+    } catch (e) {
+      if (e is DioError) {
+        isSearch = false;
+        isLoading = true;
+        final data = await service.hitNewsPagination(index: indexPagination, token: refreshToken);
+        modelNewsPagination = data;
+        isLoading = false;
+      }
+    }
     notifyListeners();
   }
 
-  void scrollListener() async {
+  void scrollListener({
+    required String accessToken,
+    required String refreshToken,
+  }) async {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
-      indexPagination++;
-      notifyListeners();
-      final newData = await service.hitNewsPagination(indexPagination);
-      modelNewsPagination?.addAllData(newData.data);
+      try {
+        indexPagination++;
+        notifyListeners();
+        final newData = await service.hitNewsPagination(index: indexPagination, token: refreshToken);
+        modelNewsPagination?.addAllData(newData.data);
+      }catch (e) {
+        if (e is DioError) {
+          final newData = await service.hitNewsPagination(index: indexPagination, token: refreshToken);
+          modelNewsPagination?.addAllData(newData.data);
+        }
+      }
+
     }
     notifyListeners();
   }
@@ -84,17 +112,25 @@ class NewsViewModel with ChangeNotifier {
 
   Future fetchDetailNews({
     required int id,
+    required String accessToken,
+    required String refreshToken,
   }) async {
     try {
       isLoadingDetail = false;
       modelDetailNews = await service.hitDetailNews(
         id: id,
+        token: refreshToken,
       );
       isLoadingDetail = true;
     } catch (e) {
       // ignore: deprecated_member_use
       if (e is DioError) {
-        e.response!.statusCode;
+        isLoadingDetail = false;
+        modelDetailNews = await service.hitDetailNews(
+          id: id,
+          token: refreshToken,
+        );
+        isLoadingDetail = true;
       }
     }
     notifyListeners();

@@ -11,15 +11,24 @@ import '../utils/utils.dart';
 class NewsService {
   final Dio _dio = Dio();
 
-  Future<ModelNews> hitAllNews() async {
+  Future<ModelNews> hitAllNews({required int index, required String token}) async {
     try {
+      final response = await _dio.get(
+        Urls.baseUrl + Urls.fetchAllNews,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+      debugPrint("=>${response.data}");
+      return ModelNews.fromJson(response.data);
+    } on DioError catch (_) {
       final response = await _dio.get(
         Urls.baseUrl + Urls.fetchAllNews,
       );
       debugPrint("=>${response.data}");
       return ModelNews.fromJson(response.data);
-    } on DioError catch (_) {
-      rethrow;
     }
   }
 
@@ -35,29 +44,48 @@ class NewsService {
     }
   }
 
-  Future<ModelNewsPagination> hitNewsPagination(int index) async {
+  Future<ModelNewsPagination> hitNewsPagination({required int index, required String token}) async {
     try {
+      final response = await _dio.get(
+        "${Urls.baseUrl + Urls.fetchNewsPagination}$index&page_size=5",
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+      debugPrint("=>${response.data}");
+      return ModelNewsPagination.fromJson(response.data);
+    } on DioError catch (_) {
       final response = await _dio.get(
         "${Urls.baseUrl + Urls.fetchNewsPagination}$index&page_size=5",
       );
       debugPrint("=>${response.data}");
       return ModelNewsPagination.fromJson(response.data);
-    } on DioError catch (_) {
-      rethrow;
     }
   }
 
   Future<ModelDetailNews> hitDetailNews({
     required int id,
+    required String token,
   }) async {
     try {
+      final response = await _dio.get(
+        "${Urls.baseUrl + Urls.detailNews}$id",
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+      debugPrint("=>${response.data}");
+      return ModelDetailNews.fromJson(response.data);
+    } on DioError catch (_) {
       final response = await _dio.get(
         "${Urls.baseUrl + Urls.detailNews}$id",
       );
       debugPrint("=>${response.data}");
       return ModelDetailNews.fromJson(response.data);
-    } on DioError catch (_) {
-      rethrow;
     }
   }
 }
