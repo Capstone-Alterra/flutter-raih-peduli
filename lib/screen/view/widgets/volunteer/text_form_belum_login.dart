@@ -419,7 +419,7 @@ class _TextFormVolunteerBelumNikState extends State<TextFormVolunteerBelumNik> {
                         width: size.width * 0.38,
                         height: size.height * 0.05,
                         decoration: BoxDecoration(
-                          color: Color.fromARGB(139, 249, 249, 249),
+                          color: const Color.fromARGB(139, 249, 249, 249),
                           borderRadius: BorderRadius.circular(5),
                           border: Border.all(
                             color: const Color(0xff8CA2CE),

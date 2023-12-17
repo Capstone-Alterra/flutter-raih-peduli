@@ -4,7 +4,6 @@ import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/card_news_bookm
 import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/card_relawan_bookmark.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_bookmark.dart';
 import 'package:flutter_raih_peduli/theme.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../model/model_bookmark.dart';
@@ -27,7 +26,7 @@ class SemuaListViewBuilder extends StatelessWidget {
     Provider.of<ViewModelBookmark>(context, listen: false);
     return Column(
       children: [
-        viewModelBookmark.bookmarkModel!.data.fundraise.isEmpty? SizedBox(width: 1,) :
+        viewModelBookmark.bookmarkModel!.data.fundraise.isEmpty? const SizedBox(width: 1,) :
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -52,7 +51,7 @@ class SemuaListViewBuilder extends StatelessWidget {
              CardFundraiseBookmark(fundraise: data)
           ],
         ),
-        viewModelBookmark.bookmarkModel!.data.vacancy.isEmpty? SizedBox(width: 1,) :
+        viewModelBookmark.bookmarkModel!.data.vacancy.isEmpty? const SizedBox(width: 1,) :
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -77,7 +76,7 @@ class SemuaListViewBuilder extends StatelessWidget {
                 CardRelawanBookmark(vacancy: data)
           ],
         ),
-        viewModelBookmark.bookmarkModel!.data.news.isEmpty? SizedBox(width: 1,) :
+        viewModelBookmark.bookmarkModel!.data.news.isEmpty? const SizedBox(width: 1,) :
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

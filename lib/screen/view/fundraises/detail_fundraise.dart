@@ -3,7 +3,6 @@ import 'package:flutter_raih_peduli/screen/view/fundraises/fundraise_screen.dart
 import 'package:flutter_raih_peduli/screen/view/fundraises/transaction_amount_screen.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/save_widget.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/login_signup/alert.dart';
-import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/save_widget.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_bookmark.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_fundraises.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
@@ -30,7 +29,8 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
 
   @override
   void initState() {
-    viewModelFundraise = Provider.of<FundraisesViewModel>(context, listen: false);
+    viewModelFundraise =
+        Provider.of<FundraisesViewModel>(context, listen: false);
     sp = Provider.of<SignInViewModel>(context, listen: false);
     viewModelFundraise.fetchDetailfundraises(
         id: widget.id,
@@ -67,9 +67,7 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (context) => FundraiseScreen()
-              ),
+              MaterialPageRoute(builder: (context) => const FundraiseScreen()),
             );
           },
         ),
@@ -79,23 +77,32 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
           Consumer<FundraisesViewModel>(
               builder: (context, contactModel, child) {
             return SaveWidgetFixed(
-              bookmarkId: viewModelFundraise.modelDetailFundraises!.data.bookmarkId,
+              bookmarkId:
+                  viewModelFundraise.modelDetailFundraises!.data.bookmarkId,
               onPressed: () async {
-                if (viewModelFundraise.modelDetailFundraises!.data.bookmarkId != "") {
+                if (viewModelFundraise.modelDetailFundraises!.data.bookmarkId !=
+                    "") {
                   await viewModelBookmark.deleteBookmark(
                       accessToken: sp.accessTokenSharedPreference,
                       refreshToken: sp.refreshTokenSharedPreference,
-                      idBookmark:
-                          viewModelFundraise.modelDetailFundraises!.data.bookmarkId);
-                  viewModelFundraise.fetchDetailfundraises(id: viewModelFundraise.modelDetailFundraises!.data.id, accessToken: sp.accessTokenSharedPreference, refreshToken: sp.refreshTokenSharedPreference);
-                } else if (viewModelFundraise.modelDetailFundraises!.data.bookmarkId ==
+                      idBookmark: viewModelFundraise
+                          .modelDetailFundraises!.data.bookmarkId);
+                  viewModelFundraise.fetchDetailfundraises(
+                      id: viewModelFundraise.modelDetailFundraises!.data.id,
+                      accessToken: sp.accessTokenSharedPreference,
+                      refreshToken: sp.refreshTokenSharedPreference);
+                } else if (viewModelFundraise
+                        .modelDetailFundraises!.data.bookmarkId ==
                     "") {
                   await viewModelBookmark.postBookmark(
                       accessToken: sp.accessTokenSharedPreference,
                       refreshToken: sp.refreshTokenSharedPreference,
                       id: viewModelFundraise.modelDetailFundraises!.data.id,
                       postType: 'fundraise');
-                  viewModelFundraise.fetchDetailfundraises(id: viewModelFundraise.modelDetailFundraises!.data.id, accessToken: sp.accessTokenSharedPreference, refreshToken: sp.refreshTokenSharedPreference);
+                  viewModelFundraise.fetchDetailfundraises(
+                      id: viewModelFundraise.modelDetailFundraises!.data.id,
+                      accessToken: sp.accessTokenSharedPreference,
+                      refreshToken: sp.refreshTokenSharedPreference);
                 }
               },
             );
@@ -115,7 +122,8 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(12.0),
                           child: Image.network(
-                            viewModelFundraise.modelDetailFundraises!.data.photo,
+                            viewModelFundraise
+                                .modelDetailFundraises!.data.photo,
                             height: 250.0,
                             fit: BoxFit.cover,
                           ),
@@ -142,17 +150,18 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
                         ),
                       ),
                       Padding(
-                        padding:
-                            EdgeInsets.only(left: 16.0, top: 6, right: 16.0),
+                        padding: const EdgeInsets.only(
+                            left: 16.0, top: 6, right: 16.0),
                         child: LinearProgressIndicator(
                           color: AppTheme.tertiaryColor,
                           value: (viewModelFundraise.modelDetailFundraises!.data
                                       .fundAcquired /
-                                  viewModelFundraise.modelDetailFundraises!.data.target)
+                                  viewModelFundraise
+                                      .modelDetailFundraises!.data.target)
                               .toDouble(),
                           minHeight: 10,
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(10)), // Set the
+                          borderRadius: const BorderRadius.all(
+                              Radius.circular(10)), // Set the
                         ),
                       ),
                       Padding(
@@ -209,7 +218,8 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
                                   height: 5,
                                 ),
                                 Text(
-                                  viewModelFundraise.modelDetailFundraises!.data.endDate
+                                  viewModelFundraise.modelDetailFundraises!.data
+                                              .endDate
                                               .difference(DateTime.now())
                                               .inDays >=
                                           0
@@ -255,7 +265,8 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Text(
-                          viewModelFundraise.modelDetailFundraises!.data.description,
+                          viewModelFundraise
+                              .modelDetailFundraises!.data.description,
                           style: const TextStyle(fontSize: 16.0),
                         ),
                       ),

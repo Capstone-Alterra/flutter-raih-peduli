@@ -22,7 +22,7 @@ Widget customPaymentType(
                 Row(
                   children: [
                     Container(
-                      margin: EdgeInsets.only(right: 8),
+                      margin: const EdgeInsets.only(right: 8),
                       child: Center(
                         child: Image.asset(
                           photo,

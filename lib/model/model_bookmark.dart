@@ -38,9 +38,9 @@ class Data {
       );
 
   Map<String, dynamic> toJson() => {
-        "fundraise": List<Fundraise>.from(fundraise!.map((x) => x.toJson())),
-        "news": List<News>.from(news!.map((x) => x.toJson())),
-        "vacancy": List<Vacancy>.from(vacancy!.map((x) => x.toJson())),
+        "fundraise": List<Fundraise>.from(fundraise.map((x) => x.toJson())),
+        "news": List<News>.from(news.map((x) => x.toJson())),
+        "vacancy": List<Vacancy>.from(vacancy.map((x) => x.toJson())),
       };
 }
 

@@ -8,7 +8,7 @@ import 'skill_filter.dart';
 import 'text_volunteer.dart';
 
 class TextFormVolunteer extends StatefulWidget {
-  const TextFormVolunteer({Key? key}) : super(key: key);
+  const TextFormVolunteer({super.key});
 
   @override
   State<TextFormVolunteer> createState() => _TextFormVolunteerState();

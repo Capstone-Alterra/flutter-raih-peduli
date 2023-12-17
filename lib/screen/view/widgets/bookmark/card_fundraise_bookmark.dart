@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/model_bookmark.dart';
-import 'package:flutter_raih_peduli/model/model_fundraise_pagination.dart';
 import 'package:flutter_raih_peduli/screen/view/fundraises/detail_fundraise.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/save_widget.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_bookmark.dart';

@@ -2,8 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/model_bookmark.dart';
-import 'package:flutter_raih_peduli/model/model_fundraise_pagination.dart';
-import 'package:flutter_raih_peduli/screen/view/fundraises/detail_fundraise.dart';
 import 'package:flutter_raih_peduli/screen/view/volunteer/detail_volunteer.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/save_widget.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_bookmark.dart';
@@ -11,7 +9,6 @@ import 'package:flutter_raih_peduli/screen/view_model/view_model_fundraises.dart
 import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class CardRelawanBookmark extends StatelessWidget {
@@ -21,7 +18,6 @@ class CardRelawanBookmark extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var formatter = NumberFormat("#,##0", "en_US");
     final viewModelFundraise =
         Provider.of<FundraisesViewModel>(context, listen: false);
     final viewModelBookmark =
@@ -82,7 +78,7 @@ class CardRelawanBookmark extends StatelessWidget {
                       children: [
                         Text(
                           viewModelFundraise.truncateText(vacancy.title, 17),
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: AppTheme.primaryColor,
                             fontFamily: 'Helvetica',
                             fontWeight: FontWeight.bold,
@@ -125,7 +121,7 @@ class CardRelawanBookmark extends StatelessWidget {
                           vacancy.description,
                           25,
                         ),
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                           fontFamily: 'Helvetica',
                           fontSize: 12,
@@ -158,7 +154,7 @@ class CardRelawanBookmark extends StatelessWidget {
                           const SizedBox(width: 8.0),
                           Row(
                             children: [
-                              Text(
+                              const Text(
                                 'Slot Tersisa',
                                 style: TextStyle(
                                     color: AppTheme.primaryColor,
@@ -182,15 +178,15 @@ class CardRelawanBookmark extends StatelessWidget {
                         children: [
                           Text(
                             viewModelFundraise.truncateText(vacancy.city, 25),
-                            style: TextStyle(
-                              color: const Color(0xFF959CB4),
+                            style: const TextStyle(
+                              color: Color(0xFF959CB4),
                               fontSize: 11,
                             ),
                           ),
                           Text(
                             '${vacancy.numberOfVacancies}',
-                            style: TextStyle(
-                              color: const Color(0xFF959CB4),
+                            style: const TextStyle(
+                              color: Color(0xFF959CB4),
                               fontSize: 14,
                             ),
                           ),

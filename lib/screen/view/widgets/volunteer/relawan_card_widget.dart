@@ -94,7 +94,7 @@ class RelawanCard extends StatelessWidget {
                                         volunteerData.title,
                                         18,
                                       ),
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         color: AppTheme.primaryColor,
                                         fontFamily: 'Helvetica',
                                         fontWeight: FontWeight.bold,
@@ -143,7 +143,7 @@ class RelawanCard extends StatelessWidget {
                                       volunteerData.description,
                                       25,
                                     ),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors.black,
                                       fontFamily: 'Helvetica',
                                       fontSize: 14,

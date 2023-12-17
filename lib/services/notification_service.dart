@@ -12,7 +12,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     title: message.data["Title"],
     message: message.data["Message"],
   );
-  print('Handling a background message ${message.data}');
+  debugPrint('Handling a background message ${message.data}');
 }
 
 class NotificationService {
@@ -33,7 +33,7 @@ class NotificationService {
         vapidKey:
             'BNKkaUWxyP_yC_lki1kYazgca0TNhuzt2drsOrL6WrgGbqnMnr8ZMLzg_rSPDm6HKphABS0KzjPfSqCXHXEd06Y');
 
-    print("FCM Token: $token");
+    debugPrint("FCM Token: $token");
     return token;
   }
 

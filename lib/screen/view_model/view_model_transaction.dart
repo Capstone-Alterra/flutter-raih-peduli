@@ -27,14 +27,14 @@ class TransactionViewModel with ChangeNotifier {
   }
 
   saveNetworkImage(String pictUrl) async {
-    print(pictUrl);
+    debugPrint(pictUrl);
     var response = await Dio()
         .get(pictUrl, options: Options(responseType: ResponseType.bytes));
     final result = await ImageGallerySaver.saveImage(
         Uint8List.fromList(response.data),
         quality: 60,
         name: "hello");
-    print(result);
+    debugPrint(result);
     notifyListeners();
   }
 
