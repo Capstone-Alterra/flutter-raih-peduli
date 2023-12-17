@@ -75,34 +75,47 @@ class _DetailVolunteerPageState extends State<DetailVolunteerPage> {
         ),
         elevation: 0,
         backgroundColor: Colors.transparent,
-
-        actions:  [
-          Consumer<VolunteerViewModel>(
-              builder: (context, contactModel, child) {
-                return viewModelVolunteer.isDetail? SaveWidgetFixed(
-                  bookmarkId: viewModelVolunteer.modelDetailVolunteer!.data.bookmarkId,
-                  onPressed: () async {
-                    if (viewModelVolunteer.modelDetailVolunteer!.data.bookmarkId != "") {
-                      await viewModelBookmark.deleteBookmark(
-                          accessToken: sp.accessTokenSharedPreference,
-                          refreshToken: sp.refreshTokenSharedPreference,
-                          idBookmark:
-                          viewModelVolunteer.modelDetailVolunteer!.data.bookmarkId);
-                      viewModelVolunteer.fetchDetailVolunteer(id: viewModelVolunteer.modelDetailVolunteer!.data.id, accessToken: sp.accessTokenSharedPreference, refreshToken: sp.refreshTokenSharedPreference);
-                    } else if (viewModelVolunteer.modelDetailVolunteer!.data.bookmarkId ==
-                        "") {
-                      await viewModelBookmark.postBookmark(
-                          accessToken: sp.accessTokenSharedPreference,
-                          refreshToken: sp.refreshTokenSharedPreference,
-                          id: viewModelVolunteer.modelDetailVolunteer!.data.id,
-                          postType: 'vacancy');
-                      viewModelVolunteer.fetchDetailVolunteer(id: viewModelVolunteer.modelDetailVolunteer!.data.id, accessToken: sp.accessTokenSharedPreference, refreshToken: sp.refreshTokenSharedPreference);
-                    }
-                  },
-                ) : SizedBox(height: 1,
-                width: 1);;
-              }),
-// 
+        actions: [
+          Consumer<VolunteerViewModel>(builder: (context, contactModel, child) {
+            return viewModelVolunteer.isDetail
+                ? SaveWidgetFixed(
+                    bookmarkId: viewModelVolunteer
+                        .modelDetailVolunteer!.data.bookmarkId,
+                    onPressed: () async {
+                      if (viewModelVolunteer
+                              .modelDetailVolunteer!.data.bookmarkId !=
+                          "") {
+                        await viewModelBookmark.deleteBookmark(
+                            accessToken: sp.accessTokenSharedPreference,
+                            refreshToken: sp.refreshTokenSharedPreference,
+                            idBookmark: viewModelVolunteer
+                                .modelDetailVolunteer!.data.bookmarkId);
+                        viewModelVolunteer.fetchDetailVolunteer(
+                            id: viewModelVolunteer
+                                .modelDetailVolunteer!.data.id,
+                            accessToken: sp.accessTokenSharedPreference,
+                            refreshToken: sp.refreshTokenSharedPreference);
+                      } else if (viewModelVolunteer
+                              .modelDetailVolunteer!.data.bookmarkId ==
+                          "") {
+                        await viewModelBookmark.postBookmark(
+                            accessToken: sp.accessTokenSharedPreference,
+                            refreshToken: sp.refreshTokenSharedPreference,
+                            id: viewModelVolunteer
+                                .modelDetailVolunteer!.data.id,
+                            postType: 'vacancy');
+                        viewModelVolunteer.fetchDetailVolunteer(
+                            id: viewModelVolunteer
+                                .modelDetailVolunteer!.data.id,
+                            accessToken: sp.accessTokenSharedPreference,
+                            refreshToken: sp.refreshTokenSharedPreference);
+                      }
+                    },
+                  )
+                : SizedBox(height: 1, width: 1);
+            ;
+          }),
+//
 //         actions: [
 //           Consumer<VolunteerViewModel>(builder: (context, contactModel, child) {
 //             return SaveWidgetFixed(
@@ -136,7 +149,7 @@ class _DetailVolunteerPageState extends State<DetailVolunteerPage> {
 //               },
 //             );
 //           }),
-// 
+//
         ],
       ),
       body: Consumer<VolunteerViewModel>(
@@ -175,8 +188,10 @@ class _DetailVolunteerPageState extends State<DetailVolunteerPage> {
                           children: [
                             _buildInfoColumn(
                                 'Lokasi',
-                                viewModelVolunteer
-                                    .modelDetailVolunteer!.data.province,
+                                viewModelVolunteer.truncateText(
+                                    viewModelVolunteer
+                                        .modelDetailVolunteer!.data.province,
+                                    10),
                                 Icons.location_on),
                             const Spacer(),
                             _buildInfoColumn(

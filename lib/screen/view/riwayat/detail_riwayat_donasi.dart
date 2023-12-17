@@ -45,6 +45,15 @@ class _RiwayatDetailDonasiState extends State<RiwayatDetailDonasi> {
             fontWeight: FontWeight.bold,
           ),
         ),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: AppTheme.primaryColor,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),
@@ -88,7 +97,7 @@ class _RiwayatDetailDonasiState extends State<RiwayatDetailDonasi> {
               const SizedBox(height: 10),
               Container(
                 width: double.infinity,
-                height: size.width * 0.43,
+                height: size.width * 0.45,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),

@@ -67,9 +67,7 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
           onPressed: () {
             Navigator.push(
               context,
-
               MaterialPageRoute(builder: (context) => FundraiseScreen()),
-
             );
           },
         ),
@@ -78,7 +76,6 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
         actions: [
           Consumer<FundraisesViewModel>(
               builder: (context, contactModel, child) {
-
             return viewModelFundraise.isDetail
                 ? SaveWidgetFixed(
                     bookmarkId: viewModelFundraise
@@ -115,7 +112,7 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
                     },
                   )
                 : SizedBox(height: 1, width: 1);
-// 
+//
 //             return SaveWidgetFixed(
 //               bookmarkId:
 //                   viewModelFundraise.modelDetailFundraises!.data.bookmarkId,
