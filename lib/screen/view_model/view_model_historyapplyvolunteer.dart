@@ -2,49 +2,35 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/model_historyapplyvolunteer.dart';
 import 'package:flutter_raih_peduli/services/service_historyapplyvolunteer.dart';
-import 'package:flutter_raih_peduli/utils/state/finite_state.dart';
 import 'package:intl/intl.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
 
 class HistoryApplyVolunteerViewModel extends ChangeNotifier {
   HistoryApplyVolunteerModel? historyApplyVolunteerModel;
   final services = HistoryApplyVolunteerServices();
-  // String accessToken = '';
-
-  MyState myState = MyState.loading;
+  bool isLoading = true;
 
   Future<void> getHistoryApplyVolunteer({
     required String accessToken,
     required String refreshToken,
   }) async {
-    // await getAccessToken();
     try {
-      myState = MyState.loading;
-      notifyListeners();
-
+      isLoading = true;
       historyApplyVolunteerModel = await services.fetchHistoryApplyVolunteer(
         token: accessToken,
       );
-
-      myState = MyState.loaded;
-      notifyListeners();
+      isLoading = false;
     } catch (e) {
+      isLoading = true;
       historyApplyVolunteerModel = await services.fetchHistoryApplyVolunteer(
         token: refreshToken,
       );
+      isLoading = false;
       if (e is DioException) {
         e.response!.statusCode;
       }
-
-      myState = MyState.failed;
-      notifyListeners();
     }
+    notifyListeners();
   }
-
-  // Future<void> getAccessToken() async {
-  //   final getAccToken = await SharedPreferences.getInstance();
-  //   accessToken = getAccToken.getString('access_token')!;
-  // }
 
   String formatDate(DateTime dateTime) {
     final DateFormat formatter = DateFormat('dd-MM-y');

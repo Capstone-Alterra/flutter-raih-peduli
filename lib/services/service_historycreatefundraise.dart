@@ -17,7 +17,7 @@ class HistoryCreateFundraiseServices {
           },
         ),
       );
-      return historyCreateFundraiseModelFromJson(response.data);
+      return HistoryCreateFundraiseModel.fromJson(response.data);
     } on DioException catch (_) {
       rethrow;
     }

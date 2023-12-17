@@ -41,6 +41,22 @@ class _RiwayatState extends State<Riwayat> {
     historyCreateVolunteerViewModel =
         Provider.of<HistoryCreateVolunteerViewModel>(context, listen: false);
     sp.setSudahLogin();
+    donationHistoryViewModel.getDonationHistory(
+      accessToken: sp.accessTokenSharedPreference,
+      refreshToken: sp.refreshTokenSharedPreference,
+    );
+    historyApplyVolunteerViewModel.getHistoryApplyVolunteer(
+      accessToken: sp.accessTokenSharedPreference,
+      refreshToken: sp.refreshTokenSharedPreference,
+    );
+    historyReqDonasiViewModel.getCreateFundraiseHistory(
+      accessToken: sp.accessTokenSharedPreference,
+      refreshToken: sp.refreshTokenSharedPreference,
+    );
+    historyCreateVolunteerViewModel.getHistoryCreateVolunteer(
+      accessToken: sp.accessTokenSharedPreference,
+      refreshToken: sp.refreshTokenSharedPreference,
+    );
     super.initState();
   }
 
@@ -64,6 +80,36 @@ class _RiwayatState extends State<Riwayat> {
         backgroundColor: Colors.transparent,
       ),
       body: Consumer<SignInViewModel>(builder: (context, contactModel, child) {
+        bool coba = false;
+        // bool allHistoryEmpty = donationHistoryViewModel.historyDonationModel ==
+        //         null ||
+        //     donationHistoryViewModel.historyDonationModel!.data.isEmpty ||
+        //     historyApplyVolunteerViewModel.historyApplyVolunteerModel == null ||
+        //     historyApplyVolunteerViewModel
+        //         .historyApplyVolunteerModel!.data.isEmpty ||
+        //     historyReqDonasiViewModel.historyCreateFundraiseModel == null ||
+        //     historyReqDonasiViewModel
+        //         .historyCreateFundraiseModel!.data.isEmpty ||
+        //     historyCreateVolunteerViewModel.historyCreateVolunteerModel ==
+        //         null ||
+        //     historyCreateVolunteerViewModel
+        //         .historyCreateVolunteerModel!.data.isEmpty;
+        if (donationHistoryViewModel.historyDonationModel == null ||
+            donationHistoryViewModel.historyDonationModel!.data.isEmpty ||
+            historyApplyVolunteerViewModel.historyApplyVolunteerModel == null ||
+            historyApplyVolunteerViewModel
+                .historyApplyVolunteerModel!.data.isEmpty ||
+            historyReqDonasiViewModel.historyCreateFundraiseModel == null ||
+            historyReqDonasiViewModel
+                .historyCreateFundraiseModel!.data.isEmpty ||
+            historyCreateVolunteerViewModel.historyCreateVolunteerModel ==
+                null ||
+            historyCreateVolunteerViewModel
+                .historyCreateVolunteerModel!.data.isEmpty) {
+          coba = false;
+        } else {
+          coba = true;
+        }
         return sp.isSudahLogin
             ? SizedBox(
                 height: MediaQuery.of(context)
@@ -73,46 +119,124 @@ class _RiwayatState extends State<Riwayat> {
                   padding: const EdgeInsets.all(10.0),
                   child: SingleChildScrollView(
                     child: ConstrainedBox(
-                      constraints: BoxConstraints(
-                        minHeight: MediaQuery.of(context)
-                            .size
-                            .height, // Set a minimum height
-                      ),
-                      child: Column(
-                        children: [
-                        if (donationHistoryViewModel.historyDonationModel != null &&
-    donationHistoryViewModel.historyDonationModel!.data.isNotEmpty)
-  HistoryDonationCard(),
-if (historyApplyVolunteerViewModel.historyApplyVolunteerModel != null &&
-    historyApplyVolunteerViewModel.historyApplyVolunteerModel!.data.isNotEmpty)
-  HistoryApplyVolunteerCard(),
-if (historyReqDonasiViewModel.historyCreateFundraiseModel != null &&
-    historyReqDonasiViewModel.historyCreateFundraiseModel!.data.isNotEmpty)
-  HistoryRequestDonationCard(),
-if (historyCreateVolunteerViewModel.historyCreateVolunteerModel != null &&
-    historyCreateVolunteerViewModel.historyCreateVolunteerModel!.data.isNotEmpty)
-  HistoryReqVolunteerCard(),
-if ((donationHistoryViewModel.historyDonationModel == null ||
-        donationHistoryViewModel.historyDonationModel!.data.isEmpty) &&
-    (historyApplyVolunteerViewModel.historyApplyVolunteerModel == null ||
-        historyApplyVolunteerViewModel.historyApplyVolunteerModel!.data.isEmpty) &&
-    (historyReqDonasiViewModel.historyCreateFundraiseModel == null ||
-        historyReqDonasiViewModel.historyCreateFundraiseModel!.data.isEmpty) &&
-    (historyCreateVolunteerViewModel.historyCreateVolunteerModel == null ||
-        historyCreateVolunteerViewModel.historyCreateVolunteerModel!.data.isEmpty))
-  Text('Tidak Ada Riwayat'),
+                        constraints: BoxConstraints(
+                          minHeight: MediaQuery.of(context)
+                              .size
+                              .height, // Set a minimum height
+                        ),
+                        child: coba
+                            ? const Text("text")
+                            : Column(
+                                children: [
+                                  Consumer<DonationHistoryViewModel>(
+                                    builder: (context, contactModel, child) {
+                                      return const HistoryDonationCard();
+                                    },
+                                  ),
+                                  Consumer<HistoryApplyVolunteerViewModel>(
+                                    builder: (context, contactModel, child) {
+                                      return const HistoryApplyVolunteerCard();
+                                    },
+                                  ),
+                                  Consumer<HistoryReqDonasiViewModel>(
+                                    builder: (context, contactModel, child) {
+                                      return const HistoryRequestDonationCard();
+                                    },
+                                  ),
+                                  Consumer<HistoryCreateVolunteerViewModel>(
+                                    builder: (context, contactModel, child) {
+                                      return const HistoryReqVolunteerCard();
+                                    },
+                                  ),
+                                ],
+                              )
 
-                        ],
-                      ),
-                      //  const Column(
-                      //   children: [
-                      //     HistoryDonationCard(),
-                      //     HistoryApplyVolunteerCard(),
-                      //     HistoryRequestDonationCard(),
-                      //     HistoryReqVolunteerCard(),
-                      //   ],
-                      // ),
-                    ),
+                        //  coba
+                        //     ? Center(
+                        //         child: Text(
+                        //           'Tidak ada Riwayaaaaaaat',
+                        //           style: TextStyle(
+                        //             color:
+                        //                 AppTheme.tertiaryColor.withOpacity(0.9),
+                        //             fontFamily: 'Helvetica',
+                        //             fontSize: 16,
+                        //             fontWeight: FontWeight.w500,
+                        //           ),
+                        //           textAlign: TextAlign.center,
+                        //         ),
+                        //       )
+                        //     : Column(
+                        //         children: [
+                        //           // if (donationHistoryViewModel
+                        //           //             .historyDonationModel !=
+                        //           //         null &&
+                        //           //     donationHistoryViewModel
+                        //           //         .historyDonationModel!.data.isNotEmpty)
+                        //           HistoryDonationCard(),
+                        //           // if (historyApplyVolunteerViewModel
+                        //           //             .historyApplyVolunteerModel !=
+                        //           //         null &&
+                        //           //     historyApplyVolunteerViewModel
+                        //           //         .historyApplyVolunteerModel!
+                        //           //         .data
+                        //           //         .isNotEmpty)
+                        //           HistoryApplyVolunteerCard(),
+                        //           // if (historyReqDonasiViewModel
+                        //           //             .historyCreateFundraiseModel !=
+                        //           //         null &&
+                        //           //     historyReqDonasiViewModel
+                        //           //         .historyCreateFundraiseModel!
+                        //           //         .data
+                        //           //         .isNotEmpty)
+                        //           HistoryRequestDonationCard(),
+                        //           // if (historyCreateVolunteerViewModel
+                        //           //             .historyCreateVolunteerModel !=
+                        //           //         null &&
+                        //           //     historyCreateVolunteerViewModel
+                        //           //         .historyCreateVolunteerModel!
+                        //           //         .data
+                        //           //         .isNotEmpty)
+                        //           HistoryReqVolunteerCard(),
+                        //           if (donationHistoryViewModel.historyDonationModel == null ||
+                        //               donationHistoryViewModel
+                        //                   .historyDonationModel!.data.isEmpty ||
+                        //               historyApplyVolunteerViewModel.historyApplyVolunteerModel ==
+                        //                   null ||
+                        //               historyApplyVolunteerViewModel
+                        //                   .historyApplyVolunteerModel!.data.isEmpty ||
+                        //               historyReqDonasiViewModel
+                        //                       .historyCreateFundraiseModel ==
+                        //                   null ||
+                        //               historyReqDonasiViewModel
+                        //                   .historyCreateFundraiseModel!
+                        //                   .data
+                        //                   .isEmpty ||
+                        //               historyCreateVolunteerViewModel
+                        //                       .historyCreateVolunteerModel ==
+                        //                   null ||
+                        //               historyCreateVolunteerViewModel
+                        //                   .historyCreateVolunteerModel!
+                        //                   .data
+                        //                   .isEmpty)
+                        //             Padding(
+                        //               padding: const EdgeInsets.all(20.0),
+                        //               child: Center(
+                        //                 child: Text(
+                        //                   'Tidak ada Riwayat',
+                        //                   style: TextStyle(
+                        //                     color: AppTheme.tertiaryColor
+                        //                         .withOpacity(0.9),
+                        //                     fontFamily: 'Helvetica',
+                        //                     fontSize: 16,
+                        //                     fontWeight: FontWeight.w500,
+                        //                   ),
+                        //                   textAlign: TextAlign.center,
+                        //                 ),
+                        //               ),
+                        //             )
+                        //         ],
+                        //       ),
+                        ),
                   ),
                 ),
               )

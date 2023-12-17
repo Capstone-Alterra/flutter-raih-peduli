@@ -2,46 +2,33 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/model_historydonation.dart';
 import 'package:flutter_raih_peduli/services/service_historydonation.dart';
-import 'package:flutter_raih_peduli/utils/state/finite_state.dart';
 import 'package:intl/intl.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
 
 class DonationHistoryViewModel extends ChangeNotifier {
   HistoryDonationModel? historyDonationModel;
   final services = HistoryDonationServices();
-  // String accessToken = '';
-
-  MyState myState = MyState.loading;
+  bool isLoading = true;
 
   Future<void> getDonationHistory({
     required String accessToken,
     required String refreshToken,
   }) async {
     try {
-      myState = MyState.loading;
-      notifyListeners();
-
+      isLoading = true;
       historyDonationModel =
           await services.fetchHistoryDonation(token: accessToken);
-
-      myState = MyState.loaded;
-      notifyListeners();
+      isLoading = false;
     } catch (e) {
+      isLoading = true;
       historyDonationModel =
           await services.fetchHistoryDonation(token: refreshToken);
+      isLoading = false;
       if (e is DioException) {
         e.response!.statusCode;
       }
-
-      myState = MyState.failed;
-      notifyListeners();
     }
+    notifyListeners();
   }
-
-  // Future<void> getAccessToken() async {
-  //   final getAccToken = await SharedPreferences.getInstance();
-  //   accessToken = getAccToken.getString('access_token')!;
-  // }
 
   String formattedPrice(price) => NumberFormat.currency(
         locale: 'id_ID', // This sets the currency format for Indonesian Rupiah

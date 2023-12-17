@@ -1,14 +1,6 @@
-import 'dart:convert';
-
-HistoryDonationModel historyDonationModelFromJson(Map<String, dynamic>map) =>
-    HistoryDonationModel.fromJson(map);
-
-String historyDonationModelToJson(HistoryDonationModel data) =>
-    json.encode(data.toJson());
-
 class HistoryDonationModel {
-  final List<Datum> data;
-  final String message;
+  List<Datum> data;
+  String message;
 
   HistoryDonationModel({
     required this.data,
@@ -28,24 +20,24 @@ class HistoryDonationModel {
 }
 
 class Datum {
-  final int transactionId;
-  final int userId;
-  final String email;
-  final String fullname;
-  final String address;
-  final String phoneNumber;
-  final int fundraiseId;
-  final String fundraiseName;
-  final String fundraisePhoto;
-  final int amount;
-  final String paymentType;
-  final String virtualAccount;
-  final String urlCallback;
-  final String paidAt;
-  final DateTime validUntil;
-  final String status;
-  final DateTime createdAt;
-  final String postType;
+  int transactionId;
+  int userId;
+  String email;
+  String fullname;
+  String address;
+  String phoneNumber;
+  int fundraiseId;
+  String fundraiseName;
+  String fundraisePhoto;
+  int amount;
+  String paymentType;
+  String virtualAccount;
+  String urlCallback;
+  String paidAt;
+  DateTime validUntil;
+  String status;
+  DateTime createdAt;
+  String postType;
 
   Datum({
     required this.transactionId,

@@ -17,7 +17,7 @@ class HistoryDonationServices {
           },
         ),
       );
-      return historyDonationModelFromJson(response.data);
+      return HistoryDonationModel.fromJson(response.data);
     } on DioException catch (_) {
       rethrow;
     }
