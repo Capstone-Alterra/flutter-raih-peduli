@@ -30,7 +30,8 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
 
   @override
   void initState() {
-    viewModelFundraise = Provider.of<FundraisesViewModel>(context, listen: false);
+    viewModelFundraise =
+        Provider.of<FundraisesViewModel>(context, listen: false);
     sp = Provider.of<SignInViewModel>(context, listen: false);
     viewModelFundraise.fetchDetailfundraises(
         id: widget.id,
@@ -67,9 +68,7 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (context) => FundraiseScreen()
-              ),
+              MaterialPageRoute(builder: (context) => FundraiseScreen()),
             );
           },
         ),
@@ -78,27 +77,42 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
         actions: [
           Consumer<FundraisesViewModel>(
               builder: (context, contactModel, child) {
-            return SaveWidgetFixed(
-              bookmarkId: viewModelFundraise.modelDetailFundraises!.data.bookmarkId,
-              onPressed: () async {
-                if (viewModelFundraise.modelDetailFundraises!.data.bookmarkId != "") {
-                  await viewModelBookmark.deleteBookmark(
-                      accessToken: sp.accessTokenSharedPreference,
-                      refreshToken: sp.refreshTokenSharedPreference,
-                      idBookmark:
-                          viewModelFundraise.modelDetailFundraises!.data.bookmarkId);
-                  viewModelFundraise.fetchDetailfundraises(id: viewModelFundraise.modelDetailFundraises!.data.id, accessToken: sp.accessTokenSharedPreference, refreshToken: sp.refreshTokenSharedPreference);
-                } else if (viewModelFundraise.modelDetailFundraises!.data.bookmarkId ==
-                    "") {
-                  await viewModelBookmark.postBookmark(
-                      accessToken: sp.accessTokenSharedPreference,
-                      refreshToken: sp.refreshTokenSharedPreference,
-                      id: viewModelFundraise.modelDetailFundraises!.data.id,
-                      postType: 'fundraise');
-                  viewModelFundraise.fetchDetailfundraises(id: viewModelFundraise.modelDetailFundraises!.data.id, accessToken: sp.accessTokenSharedPreference, refreshToken: sp.refreshTokenSharedPreference);
-                }
-              },
-            );
+            return viewModelFundraise.isDetail
+                ? SaveWidgetFixed(
+                    bookmarkId: viewModelFundraise
+                        .modelDetailFundraises!.data.bookmarkId,
+                    onPressed: () async {
+                      if (viewModelFundraise
+                              .modelDetailFundraises!.data.bookmarkId !=
+                          "") {
+                        await viewModelBookmark.deleteBookmark(
+                            accessToken: sp.accessTokenSharedPreference,
+                            refreshToken: sp.refreshTokenSharedPreference,
+                            idBookmark: viewModelFundraise
+                                .modelDetailFundraises!.data.bookmarkId);
+                        viewModelFundraise.fetchDetailfundraises(
+                            id: viewModelFundraise
+                                .modelDetailFundraises!.data.id,
+                            accessToken: sp.accessTokenSharedPreference,
+                            refreshToken: sp.refreshTokenSharedPreference);
+                      } else if (viewModelFundraise
+                              .modelDetailFundraises!.data.bookmarkId ==
+                          "") {
+                        await viewModelBookmark.postBookmark(
+                            accessToken: sp.accessTokenSharedPreference,
+                            refreshToken: sp.refreshTokenSharedPreference,
+                            id: viewModelFundraise
+                                .modelDetailFundraises!.data.id,
+                            postType: 'fundraise');
+                        viewModelFundraise.fetchDetailfundraises(
+                            id: viewModelFundraise
+                                .modelDetailFundraises!.data.id,
+                            accessToken: sp.accessTokenSharedPreference,
+                            refreshToken: sp.refreshTokenSharedPreference);
+                      }
+                    },
+                  )
+                : SizedBox(height: 1, width: 1);
           }),
         ],
       ),
@@ -115,7 +129,8 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(12.0),
                           child: Image.network(
-                            viewModelFundraise.modelDetailFundraises!.data.photo,
+                            viewModelFundraise
+                                .modelDetailFundraises!.data.photo,
                             height: 250.0,
                             fit: BoxFit.cover,
                           ),
@@ -148,7 +163,8 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
                           color: AppTheme.tertiaryColor,
                           value: (viewModelFundraise.modelDetailFundraises!.data
                                       .fundAcquired /
-                                  viewModelFundraise.modelDetailFundraises!.data.target)
+                                  viewModelFundraise
+                                      .modelDetailFundraises!.data.target)
                               .toDouble(),
                           minHeight: 10,
                           borderRadius:
@@ -209,7 +225,8 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
                                   height: 5,
                                 ),
                                 Text(
-                                  viewModelFundraise.modelDetailFundraises!.data.endDate
+                                  viewModelFundraise.modelDetailFundraises!.data
+                                              .endDate
                                               .difference(DateTime.now())
                                               .inDays >=
                                           0
@@ -255,7 +272,8 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Text(
-                          viewModelFundraise.modelDetailFundraises!.data.description,
+                          viewModelFundraise
+                              .modelDetailFundraises!.data.description,
                           style: const TextStyle(fontSize: 16.0),
                         ),
                       ),
@@ -340,9 +358,8 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
                     }
                   }),
                 )
-              : const SizedBox(
-                  height: 1,
-                  width: 1,
+              : const Center(
+                  child: CircularProgressIndicator(),
                 );
         },
       ),

@@ -79,7 +79,7 @@ class _DetailVolunteerPageState extends State<DetailVolunteerPage> {
         actions:  [
           Consumer<VolunteerViewModel>(
               builder: (context, contactModel, child) {
-                return SaveWidgetFixed(
+                return viewModelVolunteer.isDetail? SaveWidgetFixed(
                   bookmarkId: viewModelVolunteer.modelDetailVolunteer!.data.bookmarkId,
                   onPressed: () async {
                     if (viewModelVolunteer.modelDetailVolunteer!.data.bookmarkId != "") {
@@ -99,7 +99,8 @@ class _DetailVolunteerPageState extends State<DetailVolunteerPage> {
                       viewModelVolunteer.fetchDetailVolunteer(id: viewModelVolunteer.modelDetailVolunteer!.data.id, accessToken: sp.accessTokenSharedPreference, refreshToken: sp.refreshTokenSharedPreference);
                     }
                   },
-                );
+                ) : SizedBox(height: 1,
+                width: 1);;
               }),
         ],
       ),

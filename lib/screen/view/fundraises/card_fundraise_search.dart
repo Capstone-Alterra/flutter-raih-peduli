@@ -36,6 +36,7 @@ class CardFundraiseSearch extends StatelessWidget {
           ),
         ),
       );
+      viewModelFundraise.search.clear();
     }, child:
         Consumer<FundraisesViewModel>(builder: (context, contactModel, child) {
       return SizedBox(

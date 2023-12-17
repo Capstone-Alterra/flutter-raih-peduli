@@ -24,7 +24,7 @@ class FundraisesService {
         ),
       );
       final newData = ModelFundraisesPagination.fromJson(response.data);
-      print(response.data);
+      // print(response.data);
       return newData;
     } on DioError catch (_) {
       // print(">>>>>>>ini masuk Guest");
@@ -32,7 +32,7 @@ class FundraisesService {
         "${Urls.baseUrl}${Urls.fetchFundraisesPagination}$index&page_size=5",
       );
       final newData = ModelFundraisesPagination.fromJson(response.data);
-      print(response.data);
+      // print(response.data);
       return newData;
     }
   }
@@ -68,14 +68,25 @@ class FundraisesService {
 
   Future<ModelSearchFundraise> hitSearchDonation({
     required String query,
+    required String token,
   }) async {
     try {
-      final response =
-          await _dio.get(Urls.baseUrl + Urls.searchFundraise + query);
+      final response = await _dio.get(
+        Urls.baseUrl + Urls.searchFundraise + query,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
       debugPrint("=>${response.data}");
       return ModelSearchFundraise.fromJson(response.data);
     } on DioError catch (_) {
-      rethrow;
+      final response = await _dio.get(
+        Urls.baseUrl + Urls.searchFundraise + query,
+      );
+      debugPrint("=>${response.data}");
+      return ModelSearchFundraise.fromJson(response.data);
     }
   }
 }
