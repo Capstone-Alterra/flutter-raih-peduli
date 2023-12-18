@@ -21,9 +21,10 @@ class FundraisesService {
           },
         ),
       );
+      // print(response.data);
       final newData = ModelFundraisesPagination.fromJson(response.data);
 
-      // print(response.data);
+
 
       return newData;
     } on DioError catch (_) {
@@ -51,6 +52,7 @@ class FundraisesService {
           },
         ),
       );
+      print(response.data);
       final newData = ModelDetailFundraises.fromJson(response.data);
       return newData;
     } on DioError catch (_) {

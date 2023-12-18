@@ -87,43 +87,28 @@ class CardFundraise extends StatelessWidget {
                             fontSize: size.height / 50,
                           ),
                         ),
-                        Consumer<ViewModelBookmark>(
-                          builder: (context, contactModel, child) {
-                            return SaveWidgetFixed(
-                              bookmarkId: fundraise.bookmarkId,
-                              onPressed: () async {
-                                if (fundraise.bookmarkId != "") {
-                                  await viewModelBookmark.deleteBookmark(
-                                      accessToken:
-                                          sp.accessTokenSharedPreference,
-                                      refreshToken:
-                                          sp.refreshTokenSharedPreference,
-                                      idBookmark: fundraise.bookmarkId);
-                                  viewModelFundraise
-                                      .fetchAllFundraisesPagination(
-                                          accessToken:
-                                              sp.accessTokenSharedPreference,
-                                          refreshToken:
-                                              sp.refreshTokenSharedPreference);
-                                } else if (fundraise.bookmarkId == "") {
-                                  await viewModelBookmark.postBookmark(
-                                      accessToken:
-                                          sp.accessTokenSharedPreference,
-                                      refreshToken:
-                                          sp.refreshTokenSharedPreference,
-                                      id: fundraise.id,
-                                      postType: 'fundraise');
-                                  viewModelFundraise
-                                      .fetchAllFundraisesPagination(
-                                          accessToken:
-                                              sp.accessTokenSharedPreference,
-                                          refreshToken:
-                                              sp.refreshTokenSharedPreference);
-                                }
-                              },
-                            );
-                          },
-                        ),
+                        SaveWidgetFixed(bookmarkId: fundraise.bookmarkId, onPressed: () async {
+                          if (fundraise.bookmarkId != "") {
+                            await viewModelBookmark.deleteBookmark(
+                                accessToken: sp.accessTokenSharedPreference,
+                                refreshToken: sp.refreshTokenSharedPreference,
+                                idBookmark:
+                                fundraise.bookmarkId);
+                            viewModelFundraise.fetchAllFundraisesPagination(
+                                accessToken: sp.accessTokenSharedPreference,
+                                refreshToken: sp.refreshTokenSharedPreference);
+                          } else if (fundraise.bookmarkId ==
+                              "") {
+                            await viewModelBookmark.postBookmark(
+                                accessToken: sp.accessTokenSharedPreference,
+                                refreshToken: sp.refreshTokenSharedPreference,
+                                id: fundraise.id,
+                                postType: 'fundraise');
+                            viewModelFundraise.fetchAllFundraisesPagination(
+                                accessToken: sp.accessTokenSharedPreference,
+                                refreshToken: sp.refreshTokenSharedPreference);
+                          }
+                        },),
                       ],
                     ),
                     // const SizedBox(height: 3),

@@ -10,7 +10,7 @@ class BookmarkScreenViewModel extends ChangeNotifier {
 
   String _selectedFilter = 'Semua';
   List<dynamic> _filteredList = List<dynamic>.from(dummyFundraisingData)
-  ..addAll(dummyVolunteerData);
+    ..addAll(dummyVolunteerData);
 
 
   String get selectedFilter => _selectedFilter;
