@@ -28,12 +28,17 @@ class _AccessVolunteerScreenState extends State<AccessVolunteerScreen> {
   void initState() {
     navigationProvider =
         Provider.of<NavigationProvider>(context, listen: false);
-    viewModelVolunteer = Provider.of<VolunteerViewModel>(context, listen: false);
+    viewModelVolunteer =
+        Provider.of<VolunteerViewModel>(context, listen: false);
     sp = Provider.of<SignInViewModel>(context, listen: false);
     viewModelVolunteer.awal();
-    viewModelVolunteer.scrollController.addListener((){viewModelVolunteer.scrollListener(accessToken: sp.accessTokenSharedPreference,
-        refreshToken: sp.refreshTokenSharedPreference);});
-    viewModelVolunteer.fetchVolunteerPagination( accessToken: sp.accessTokenSharedPreference,
+    viewModelVolunteer.scrollController.addListener(() {
+      viewModelVolunteer.scrollListener(
+          accessToken: sp.accessTokenSharedPreference,
+          refreshToken: sp.refreshTokenSharedPreference);
+    });
+    viewModelVolunteer.fetchVolunteerPagination(
+        accessToken: sp.accessTokenSharedPreference,
         refreshToken: sp.refreshTokenSharedPreference);
     viewModelVolunteer.fetchVolunteerPagination(
         accessToken: sp.accessTokenSharedPreference,
@@ -99,7 +104,9 @@ class _AccessVolunteerScreenState extends State<AccessVolunteerScreen> {
                   Consumer<VolunteerViewModel>(
                     builder: (context, contactModel, child) {
                       return viewModelVolunteer.isLoading
-                          ? const Center(child: CircularProgressIndicator())
+                          ? const Center(
+                              child: CircularProgressIndicator(),
+                            )
                           : viewModelVolunteer.isSearch
                               ? Column(
                                   children: [
@@ -112,9 +119,10 @@ class _AccessVolunteerScreenState extends State<AccessVolunteerScreen> {
                                           color: Colors.red,
                                         ),
                                       ))
-                                    else if (!viewModelVolunteer.dataHasilSearch)
-                                      for (var newsItem
-                                          in viewModelVolunteer.modelVolunteer!.data)
+                                    else if (!viewModelVolunteer
+                                        .dataHasilSearch)
+                                      for (var newsItem in viewModelVolunteer
+                                          .modelVolunteer!.data)
                                         RelawanCardSearch(
                                           volunteerData: newsItem,
                                         )
@@ -123,7 +131,8 @@ class _AccessVolunteerScreenState extends State<AccessVolunteerScreen> {
                               : SizedBox(
                                   height: size.height / 1.3,
                                   child: ListView.builder(
-                                    controller: viewModelVolunteer.scrollController,
+                                    controller:
+                                        viewModelVolunteer.scrollController,
                                     itemCount: viewModelVolunteer
                                         .modelVolunteerPagination!.data.length,
                                     itemBuilder: (context, index) {

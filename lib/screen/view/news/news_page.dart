@@ -6,7 +6,6 @@ import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:provider/provider.dart';
 import '../../view_model/view_model_news.dart';
-import 'filter_bottom_sheet.dart';
 import 'news_card.dart';
 
 class NewsPage extends StatefulWidget {
@@ -29,9 +28,13 @@ class _NewsPageState extends State<NewsPage> {
     sp = Provider.of<SignInViewModel>(context, listen: false);
     viewModel.awal();
 
-    viewModel.scrollController.addListener((){viewModel.scrollListener(accessToken: sp.accessTokenSharedPreference,
-        refreshToken: sp.refreshTokenSharedPreference);});
-    viewModel.fetchNewsPagination(accessToken: sp.accessTokenSharedPreference,
+    viewModel.scrollController.addListener(() {
+      viewModel.scrollListener(
+          accessToken: sp.accessTokenSharedPreference,
+          refreshToken: sp.refreshTokenSharedPreference);
+    });
+    viewModel.fetchNewsPagination(
+        accessToken: sp.accessTokenSharedPreference,
         refreshToken: sp.refreshTokenSharedPreference);
     super.initState();
   }
@@ -70,7 +73,7 @@ class _NewsPageState extends State<NewsPage> {
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(60.0),
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -99,16 +102,6 @@ class _NewsPageState extends State<NewsPage> {
                           ),
                         ),
                       ),
-                    ),
-                    Consumer<NewsViewModel>(
-                      builder: (context, news, child) {
-                        return IconButton(
-                          onPressed: () {
-                            showFilterBottomSheet(context, news);
-                          },
-                          icon: const Icon(Icons.filter_alt_outlined),
-                        );
-                      },
                     ),
                   ],
                 ),

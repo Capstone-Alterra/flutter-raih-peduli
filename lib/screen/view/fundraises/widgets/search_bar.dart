@@ -18,7 +18,8 @@ class SearchAndFilterBarDonate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewModelFundraise = Provider.of<FundraisesViewModel>(context, listen: false);
+    final viewModelFundraise =
+        Provider.of<FundraisesViewModel>(context, listen: false);
     final sp = Provider.of<SignInViewModel>(context, listen: false);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -30,7 +31,10 @@ class SearchAndFilterBarDonate extends StatelessWidget {
               controller: viewModelFundraise.search,
               onChanged: (text) async {
                 final String query = viewModelFundraise.search.text;
-                await viewModelFundraise.fetchSearchDonation(query: query, refreshToken: sp.refreshTokenSharedPreference, accessToken: sp.accessTokenSharedPreference);
+                await viewModelFundraise.fetchSearchDonation(
+                    query: query,
+                    refreshToken: sp.refreshTokenSharedPreference,
+                    accessToken: sp.accessTokenSharedPreference);
               },
               decoration: InputDecoration(
                 filled: true,
@@ -50,21 +54,6 @@ class SearchAndFilterBarDonate extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
-          ),
-
-          const SizedBox(width: 16),
-
-          // Filter Button
-          Container(
-            decoration: BoxDecoration(
-              color: AppTheme.primaryColor.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            child: IconButton(
-              onPressed: onFilterPressed,
-              icon: const Icon(Icons.filter_alt_outlined),
-              tooltip: 'Filter',
             ),
           ),
         ],

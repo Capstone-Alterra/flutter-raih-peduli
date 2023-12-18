@@ -8,13 +8,12 @@ class SearchAndFilterBar extends StatelessWidget {
   final Function(String) onSearchChanged;
   final VoidCallback onFilterPressed;
 
-  const SearchAndFilterBar({super.key, 
+  const SearchAndFilterBar({
+    super.key,
     required this.searchController,
     required this.onSearchChanged,
     required this.onFilterPressed,
   });
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +26,7 @@ class SearchAndFilterBar extends StatelessWidget {
           Expanded(
             child: TextField(
               controller: viewModel.search,
-              onChanged: (text) async{
+              onChanged: (text) async {
                 final String query = viewModel.search.text;
                 await viewModel.fetchSearchVolunteer(query: query);
               },
@@ -35,11 +34,12 @@ class SearchAndFilterBar extends StatelessWidget {
                 filled: true,
                 fillColor: AppTheme.primaryColor.withOpacity(0.1),
                 prefixIcon: const Icon(
-                Icons.search,
-                size: 24.0,
+                  Icons.search,
+                  size: 24.0,
                 ),
                 hintText: 'Cari...',
-                contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                contentPadding:
+                    const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                 border: const OutlineInputBorder(
                   borderSide: BorderSide.none,
                   borderRadius: BorderRadius.horizontal(
@@ -48,21 +48,6 @@ class SearchAndFilterBar extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
-          ),
-
-          const SizedBox(width: 16),
-
-          // Filter Button
-          Container(
-            decoration: BoxDecoration(
-              color: AppTheme.primaryColor.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            child: IconButton(
-              onPressed: onFilterPressed,
-              icon: const Icon(Icons.filter_alt_outlined),
-              tooltip: 'Filter',
             ),
           ),
         ],
