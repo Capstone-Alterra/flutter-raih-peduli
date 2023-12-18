@@ -111,7 +111,7 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
                       }
                     },
                   )
-                : SizedBox(height: 1, width: 1);
+                : const SizedBox(height: 1, width: 1);
 //
 //             return SaveWidgetFixed(
 //               bookmarkId:

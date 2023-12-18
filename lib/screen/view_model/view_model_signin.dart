@@ -199,7 +199,8 @@ class SignInViewModel with ChangeNotifier {
     password.clear();
   }
 
-  void updateFoto(String updatefoto) {
+  void updateFoto({required String updatefoto, required String updateName}) {
     fotoSharedPreference = updatefoto;
+    nameSharedPreference = updateName;
   }
 }

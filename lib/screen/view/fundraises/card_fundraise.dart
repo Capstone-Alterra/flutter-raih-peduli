@@ -20,11 +20,10 @@ class CardFundraise extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModelBookmark =
-    Provider.of<ViewModelBookmark>(context, listen: false);
+        Provider.of<ViewModelBookmark>(context, listen: false);
     final viewModelFundraise =
-    Provider.of<FundraisesViewModel>(context, listen: false);
-    final sp =
-    Provider.of<SignInViewModel>(context, listen: false);
+        Provider.of<FundraisesViewModel>(context, listen: false);
+    final sp = Provider.of<SignInViewModel>(context, listen: false);
     var formatter = NumberFormat("#,##0", "en_US");
     Size size = MediaQuery.of(context).size;
     return GestureDetector(onTap: () {
@@ -88,28 +87,43 @@ class CardFundraise extends StatelessWidget {
                             fontSize: size.height / 50,
                           ),
                         ),
-                        SaveWidgetFixed(bookmarkId: fundraise.bookmarkId, onPressed: () async {
-                          if (fundraise.bookmarkId != "") {
-                            await viewModelBookmark.deleteBookmark(
-                                accessToken: sp.accessTokenSharedPreference,
-                                refreshToken: sp.refreshTokenSharedPreference,
-                                idBookmark:
-                                fundraise.bookmarkId);
-                            viewModelFundraise.fetchAllFundraisesPagination(
-                                accessToken: sp.accessTokenSharedPreference,
-                                refreshToken: sp.refreshTokenSharedPreference);
-                           } else if (fundraise.bookmarkId ==
-                              "") {
-                            await viewModelBookmark.postBookmark(
-                                accessToken: sp.accessTokenSharedPreference,
-                                refreshToken: sp.refreshTokenSharedPreference,
-                                id: fundraise.id,
-                                postType: 'fundraise');
-                            viewModelFundraise.fetchAllFundraisesPagination(
-                                accessToken: sp.accessTokenSharedPreference,
-                                refreshToken: sp.refreshTokenSharedPreference);
-                            }
-                        },),
+                        Consumer<ViewModelBookmark>(
+                          builder: (context, contactModel, child) {
+                            return SaveWidgetFixed(
+                              bookmarkId: fundraise.bookmarkId,
+                              onPressed: () async {
+                                if (fundraise.bookmarkId != "") {
+                                  await viewModelBookmark.deleteBookmark(
+                                      accessToken:
+                                          sp.accessTokenSharedPreference,
+                                      refreshToken:
+                                          sp.refreshTokenSharedPreference,
+                                      idBookmark: fundraise.bookmarkId);
+                                  viewModelFundraise
+                                      .fetchAllFundraisesPagination(
+                                          accessToken:
+                                              sp.accessTokenSharedPreference,
+                                          refreshToken:
+                                              sp.refreshTokenSharedPreference);
+                                } else if (fundraise.bookmarkId == "") {
+                                  await viewModelBookmark.postBookmark(
+                                      accessToken:
+                                          sp.accessTokenSharedPreference,
+                                      refreshToken:
+                                          sp.refreshTokenSharedPreference,
+                                      id: fundraise.id,
+                                      postType: 'fundraise');
+                                  viewModelFundraise
+                                      .fetchAllFundraisesPagination(
+                                          accessToken:
+                                              sp.accessTokenSharedPreference,
+                                          refreshToken:
+                                              sp.refreshTokenSharedPreference);
+                                }
+                              },
+                            );
+                          },
+                        ),
                       ],
                     ),
                     // const SizedBox(height: 3),
@@ -231,8 +245,8 @@ class CardFundraise extends StatelessWidget {
                         value: (fundraise.fundAcquired / fundraise.target)
                             .toDouble(),
                         minHeight: 10,
-                        borderRadius:
-                          const  BorderRadius.all(Radius.circular(10)), // Set the
+                        borderRadius: const BorderRadius.all(
+                            Radius.circular(10)), // Set the
                       ),
                     ),
                   ],

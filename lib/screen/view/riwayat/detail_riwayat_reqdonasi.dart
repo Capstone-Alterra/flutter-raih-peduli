@@ -83,8 +83,7 @@ class _RiwayatDetailRequestDonasiState
               ),
               const SizedBox(height: 15),
               Center(
-                child: reusableTextDetailHistory(
-                    colorStatus['statusRespond'],
+                child: reusableTextDetailHistory(colorStatus['statusRespond'],
                     color: colorStatus['textColor']),
               ),
               const SizedBox(height: 15),
@@ -93,7 +92,7 @@ class _RiwayatDetailRequestDonasiState
               const SizedBox(height: 10),
               Container(
                 width: double.infinity,
-                height: size.width * 0.25,
+                height: size.width * 0.29,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
@@ -130,9 +129,8 @@ class _RiwayatDetailRequestDonasiState
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           reusableTextDetailHistory('Status'),
-                          reusableTextDetailHistory(
-                              colorStatus['statusCard'],
-                              color: colorStatus['textColor']),
+                          reusableTextDetailHistory(colorStatus['statusCard'],
+                              color: colorStatus['textColor'], size: 13),
                         ],
                       ),
                     ],

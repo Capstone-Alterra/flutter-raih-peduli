@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/settings/text_title_text_field.dart';
-// import 'package:flutter_raih_peduli/screen/view/widgets/settings/widget_profile_edit.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -259,7 +258,10 @@ class _ProfileEditState extends State<ProfileEdit> {
                                   refreshToken: sp.refreshTokenSharedPreference,
                                 );
                                 sp.updateFoto(
-                                  viewModel.modelProfile!.data.profilePicture,
+                                  updatefoto: viewModel
+                                      .modelProfile!.data.profilePicture,
+                                  updateName:
+                                      viewModel.modelProfile!.data.fullname,
                                 );
                                 await sp.saveDataSharedPreferences();
                                 viewModel.clearAll();

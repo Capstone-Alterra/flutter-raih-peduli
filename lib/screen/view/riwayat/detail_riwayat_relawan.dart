@@ -33,9 +33,8 @@ class _RiwayatDetailApplyVolunteerState
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    final Map<String, dynamic> colorStatus =
-        historyApplyVolunteerViewModel.getColorStatus(
-            widget.dataHistoryApplyVolunteer.status);
+    final Map<String, dynamic> colorStatus = historyApplyVolunteerViewModel
+        .getColorStatus(widget.dataHistoryApplyVolunteer.status);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -85,19 +84,16 @@ class _RiwayatDetailApplyVolunteerState
               ),
               const SizedBox(height: 15),
               Center(
-                child: reusableTextDetailHistory(
-                    colorStatus['statusRespond'],
+                child: reusableTextDetailHistory(colorStatus['statusRespond'],
                     color: colorStatus['textColor']),
               ),
               const SizedBox(height: 15),
-              reusableTextDetailHistory(
-                  colorStatus['detailDesc'],
-                  color: Colors.black,
-                  textAlign: TextAlign.center),
+              reusableTextDetailHistory(colorStatus['detailDesc'],
+                  color: Colors.black, textAlign: TextAlign.center),
               const SizedBox(height: 10),
               Container(
                 width: double.infinity,
-                height: size.width * 0.25,
+                height: size.width * 0.29,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
@@ -135,8 +131,10 @@ class _RiwayatDetailApplyVolunteerState
                         children: [
                           reusableTextDetailHistory('Status'),
                           reusableTextDetailHistory(
-                              colorStatus['statusCard'],
-                              color: colorStatus['textColor']),
+                            colorStatus['statusCard'],
+                            color: colorStatus['textColor'],
+                            size: 12.5,
+                          ),
                         ],
                       ),
                     ],

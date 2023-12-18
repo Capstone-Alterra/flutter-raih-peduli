@@ -1,14 +1,18 @@
+
+
 import 'package:flutter/material.dart';
 
 Text reusableTextDetailHistory(
   String detailText, {
   Color? color,
   TextAlign? textAlign, // Set default to left alignment
+  double? size,
 }) {
   return Text(
     detailText,
     textAlign: textAlign, // Use the provided textAlign parameter
     style: TextStyle(
+      fontSize: size,
       color: color,
       fontFamily: 'Helvetica',
       fontWeight: FontWeight.bold,

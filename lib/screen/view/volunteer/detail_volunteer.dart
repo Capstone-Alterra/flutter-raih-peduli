@@ -113,7 +113,7 @@ class _DetailVolunteerPageState extends State<DetailVolunteerPage> {
                     },
                   )
                 : SizedBox(height: 1, width: 1);
-            ;
+            
           }),
 //
 //         actions: [
