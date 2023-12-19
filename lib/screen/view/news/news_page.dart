@@ -27,7 +27,7 @@ class _NewsPageState extends State<NewsPage> {
     // viewModel.fetchAllNews();
     sp = Provider.of<SignInViewModel>(context, listen: false);
     viewModel.awal();
-
+    sp.setSudahLogin();
     viewModel.scrollController.addListener(() {
       viewModel.scrollListener(
           accessToken: sp.accessTokenSharedPreference,
@@ -139,6 +139,7 @@ class _NewsPageState extends State<NewsPage> {
                               for (var newsItem in viewModel.modelNews!.data)
                                 NewsSearch(
                                   newsData: newsItem,
+                                  loginBookmark: sp.isSudahLogin,
                                 )
                           ],
                         )
@@ -154,6 +155,7 @@ class _NewsPageState extends State<NewsPage> {
                                 child: NewsCard(
                                   newsData: viewModel
                                       .modelNewsPagination!.data[index],
+                                  loginBookmark: sp.isSudahLogin,
                                 ),
                               );
                             },

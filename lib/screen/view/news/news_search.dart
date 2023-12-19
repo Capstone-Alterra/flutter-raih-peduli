@@ -15,7 +15,9 @@ import '../widgets/login_signup/alert.dart';
 
 class NewsSearch extends StatefulWidget {
   final Datum newsData;
-  const NewsSearch({super.key, required this.newsData});
+  final bool loginBookmark;
+  const NewsSearch(
+      {super.key, required this.newsData, required this.loginBookmark});
 
   @override
   State<NewsSearch> createState() => _NewsSearchState();
@@ -101,7 +103,7 @@ class _NewsSearchState extends State<NewsSearch> {
                           ),
                           Consumer<SignInViewModel>(
                             builder: (context, contactModel, child) {
-                              if (sp.isSudahLogin != true) {
+                              if (widget.loginBookmark == true) {
                                 return SaveWidgetFixed(
                                   bookmarkId: widget.newsData.bookmarkId,
                                   onPressed: () async {
@@ -143,7 +145,7 @@ class _NewsSearchState extends State<NewsSearch> {
                                 );
                               } else {
                                 return SaveWidgetFixed(
-                                  bookmarkId: widget.newsData.bookmarkId,
+                                  bookmarkId: "",
                                   onPressed: () async {
                                     customAlert(
                                       context: context,

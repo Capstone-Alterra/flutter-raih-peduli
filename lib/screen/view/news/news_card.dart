@@ -14,10 +14,12 @@ import 'newsdetailpage.dart';
 
 class NewsCard extends StatefulWidget {
   final Datum newsData;
+  final bool loginBookmark;
 
   const NewsCard({
     super.key,
     required this.newsData,
+    required this.loginBookmark,
   });
 
   @override
@@ -104,7 +106,7 @@ class _NewsCardState extends State<NewsCard> {
                           ),
                           Consumer<SignInViewModel>(
                             builder: (context, contactModel, child) {
-                              if (sp.isSudahLogin != true) {
+                              if (widget.loginBookmark == true) {
                                 return SaveWidgetFixed(
                                   bookmarkId: widget.newsData.bookmarkId,
                                   onPressed: () async {
@@ -142,8 +144,7 @@ class _NewsCardState extends State<NewsCard> {
                                 );
                               } else {
                                 return SaveWidgetFixed(
-                                  bookmarkId: viewModelNews
-                                      .modelDetailNews!.data.bookmarkId,
+                                  bookmarkId: "",
                                   onPressed: () {
                                     customAlert(
                                       context: context,

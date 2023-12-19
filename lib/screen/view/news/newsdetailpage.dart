@@ -77,7 +77,7 @@ class _NewsDetailPageState extends State<NewsDetailPage> {
             return viewModelNews.isLoadingDetail
                 ? Consumer<SignInViewModel>(
                     builder: (context, contactModel, child) {
-                      if (sp.isSudahLogin != true) {
+                      if (sp.isSudahLogin == true) {
                         return SaveWidgetFixed(
                           bookmarkId:
                               viewModelNews.modelDetailNews!.data.bookmarkId,
@@ -113,8 +113,7 @@ class _NewsDetailPageState extends State<NewsDetailPage> {
                         );
                       } else {
                         return SaveWidgetFixed(
-                          bookmarkId:
-                              viewModelNews.modelDetailNews!.data.bookmarkId,
+                          bookmarkId: "",
                           onPressed: () {
                             customAlert(
                               context: context,
