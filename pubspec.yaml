@@ -35,7 +35,14 @@ dependencies:
   palette_generator: ^0.3.3+3
   awesome_notifications: ^0.8.2
   image_gallery_saver: ^2.0.1
+  flutter_launcher_icons: ^0.13.1
 
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/app_logo.jpg"
+  min_sdk_android: 21
+  
 flutter_native_splash:
   color: "#FFFFFF"
   image: "assets/splash_screen.png"

@@ -13,7 +13,7 @@
     <application
         android:label="Raih Peduli"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
 
                 <service
     android:name="dev.fluttercommunity.plus.androidalarmmanager.AlarmService"
