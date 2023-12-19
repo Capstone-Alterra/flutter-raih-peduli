@@ -120,7 +120,6 @@ class FundraisesViewModel with ChangeNotifier {
           token: accessToken,
         );
         dataHasilSearch = false;
-        notifyListeners();
       } catch (e) {
         try {
           isSearch = true;
@@ -143,5 +142,6 @@ class FundraisesViewModel with ChangeNotifier {
         e.response!.statusCode;
       }
     }
+    notifyListeners();
   }
 }

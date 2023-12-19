@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/screen/view/about/about_ua.dart';
+import 'package:flutter_raih_peduli/screen/view/about/about_us.dart';
 import 'package:flutter_raih_peduli/screen/view/fundraises/fundraise_screen.dart';
 
 import '../../news/news_page.dart';
