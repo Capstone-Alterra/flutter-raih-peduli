@@ -4,12 +4,25 @@ import 'package:flutter_raih_peduli/screen/view/widgets/homescreen/custom_appbar
 import 'package:flutter_raih_peduli/screen/view/widgets/homescreen/feature_menu_widget.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/homescreen/header_widget.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_homescreeen.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
 import 'package:provider/provider.dart';
 
-class HomeScreen extends StatelessWidget {
-  final homeScreenViewModel = HomeScreenViewModel();
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
-  HomeScreen({super.key});
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final homeScreenViewModel = HomeScreenViewModel();
+  late SignInViewModel sp;
+  @override
+  void initState() {
+    sp = Provider.of<SignInViewModel>(context, listen: false);
+    sp.setSudahLogin();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

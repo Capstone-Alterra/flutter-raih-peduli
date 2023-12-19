@@ -77,7 +77,7 @@ class CardRelawanBookmark extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          viewModelFundraise.truncateText(vacancy.title, 17),
+                          viewModelFundraise.truncateText(vacancy.title, 15),
                           style: const TextStyle(
                             color: AppTheme.primaryColor,
                             fontFamily: 'Helvetica',
