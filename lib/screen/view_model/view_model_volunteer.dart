@@ -33,20 +33,40 @@ class VolunteerViewModel with ChangeNotifier {
   }
 
   Future fetchSearchVolunteer({
-    required String query,
+    required String accessToken,
+    required String refreshToken,
   }) async {
     try {
-      isSearch = true;
-      modelVolunteer = await service.hitSearchVolunteer(query: query);
-      dataHasilSearch = false;
-      notifyListeners();
+      try {
+        isSearch = true;
+        modelVolunteer = await service.hitSearchVolunteer(
+          query: search.text,
+          token: accessToken,
+        );
+        dataHasilSearch = false;
+      } catch (e) {
+        try {
+          isSearch = true;
+          modelVolunteer = await service.hitSearchVolunteer(
+            query: search.text,
+            token: refreshToken,
+          );
+          dataHasilSearch = false;
+        } catch (e) {
+          isSearch = true;
+          modelVolunteer = await service.hitSearchVolunteerGuest(
+            query: search.text,
+          );
+          dataHasilSearch = false;
+        }
+      }
     } catch (e) {
       if (e is DioError) {
         dataHasilSearch = true;
-        notifyListeners();
         e.response!.statusCode;
       }
     }
+    notifyListeners();
   }
 
   String truncateText(String text, int maxLength) {
@@ -95,18 +115,21 @@ class VolunteerViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> fetchVolunteerPagination({required String accessToken, required String refreshToken}) async {
-    try{
+  Future<void> fetchVolunteerPagination(
+      {required String accessToken, required String refreshToken}) async {
+    try {
       isSearch = false;
       isLoading = true;
-      final data = await service.hitVolunteerPagination(index: indexPagination, token: refreshToken);
+      final data = await service.hitVolunteerPagination(
+          index: indexPagination, token: refreshToken);
       modelVolunteerPagination = data;
       isLoading = false;
-    }catch (e) {
-      if(e is DioError){
+    } catch (e) {
+      if (e is DioError) {
         isSearch = false;
         isLoading = true;
-        final data = await service.hitVolunteerPagination(index: indexPagination, token: refreshToken);
+        final data = await service.hitVolunteerPagination(
+            index: indexPagination, token: refreshToken);
         modelVolunteerPagination = data;
         isLoading = false;
       }
@@ -115,16 +138,19 @@ class VolunteerViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  void scrollListener({required String accessToken, required String refreshToken}) async {
+  void scrollListener(
+      {required String accessToken, required String refreshToken}) async {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
       try {
         indexPagination++;
         notifyListeners();
-        final newData = await service.hitVolunteerPagination(index: indexPagination, token: refreshToken);
+        final newData = await service.hitVolunteerPagination(
+            index: indexPagination, token: refreshToken);
         modelVolunteerPagination?.addAllData(newData.data);
-      } catch(e){
-        final newData = await service.hitVolunteerPagination(index: indexPagination, token: refreshToken);
+      } catch (e) {
+        final newData = await service.hitVolunteerPagination(
+            index: indexPagination, token: refreshToken);
         modelVolunteerPagination?.addAllData(newData.data);
       }
     }

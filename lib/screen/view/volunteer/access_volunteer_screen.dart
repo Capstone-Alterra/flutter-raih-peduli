@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/navigation/navigation.dart';
-// import 'package:flutter_raih_peduli/screen/view/volunteer/relawan_listview.dart';
 import 'package:flutter_raih_peduli/screen/view/volunteer/volunteer_search.dart';
-import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/bottomsheet.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/floating_button.dart';
-import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/header_widget.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/relawan_card_widget.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_bookmarkscreen.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_navigation.dart';
@@ -31,6 +28,7 @@ class _AccessVolunteerScreenState extends State<AccessVolunteerScreen> {
     viewModelVolunteer =
         Provider.of<VolunteerViewModel>(context, listen: false);
     sp = Provider.of<SignInViewModel>(context, listen: false);
+    sp.setSudahLogin();
     viewModelVolunteer.awal();
     viewModelVolunteer.scrollController.addListener(() {
       viewModelVolunteer.scrollListener(
@@ -44,7 +42,7 @@ class _AccessVolunteerScreenState extends State<AccessVolunteerScreen> {
         accessToken: sp.accessTokenSharedPreference,
         refreshToken: sp.refreshTokenSharedPreference);
     viewModelVolunteer.overlay();
-    sp.setSudahLogin();
+
     super.initState();
   }
 
@@ -77,6 +75,7 @@ class _AccessVolunteerScreenState extends State<AccessVolunteerScreen> {
                   builder: (context) => const BottomNavgationBarWidget(),
                 ),
               );
+              viewModelVolunteer.search.clear();
             },
           ),
           elevation: 0,
@@ -92,12 +91,27 @@ class _AccessVolunteerScreenState extends State<AccessVolunteerScreen> {
                   // Header Widget
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: SearchAndFilterBar(
-                      searchController: TextEditingController(),
-                      onSearchChanged: (text) {},
-                      onFilterPressed: () {
-                        showFilterBottomSheet(context);
-                      },
+                    child: TextFormField(
+                      controller: viewModelVolunteer.search,
+                      decoration: InputDecoration(
+                        hintText: 'Cari ',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: 10.0,
+                          horizontal: 16.0,
+                        ),
+                        prefixIcon: IconButton(
+                          icon: const Icon(Icons.search),
+                          onPressed: () async {
+                            await viewModelVolunteer.fetchSearchVolunteer(
+                              accessToken: sp.accessTokenSharedPreference,
+                              refreshToken: sp.refreshTokenSharedPreference,
+                            );
+                          },
+                        ),
+                      ),
                     ),
                   ),
 
@@ -125,6 +139,7 @@ class _AccessVolunteerScreenState extends State<AccessVolunteerScreen> {
                                           .modelVolunteer!.data)
                                         RelawanCardSearch(
                                           volunteerData: newsItem,
+                                          loginBookmark: sp.isSudahLogin,
                                         )
                                   ],
                                 )
@@ -142,6 +157,7 @@ class _AccessVolunteerScreenState extends State<AccessVolunteerScreen> {
                                             volunteerData: viewModelVolunteer
                                                 .modelVolunteerPagination!
                                                 .data[index],
+                                            loginBookmark: sp.isSudahLogin,
                                           ));
                                     },
                                   ),

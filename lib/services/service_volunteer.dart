@@ -23,8 +23,22 @@ class VolunteerService {
     }
   }
 
+    Future<ModelVolunteer> hitSearchVolunteerGuest({
+    required String query,
+  }) async {
+    try {
+      final response =
+          await _dio.get(Urls.baseUrl + Urls.searchVolunteer + query);
+      debugPrint("=>${response.data}");
+      return ModelVolunteer.fromJson(response.data);
+    } on DioError catch (_) {
+      rethrow;
+    }
+  }
+
   Future<ModelVolunteer> hitSearchVolunteer({
     required String query,
+    required String token,
   }) async {
     try {
       final response =

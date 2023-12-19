@@ -8,15 +8,20 @@ import 'package:flutter_raih_peduli/screen/view_model/view_model_volunteer.dart'
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+import 'package:quickalert/models/quickalert_type.dart';
+
+import '../login_signup/alert.dart';
 
 // import '../../../../model/model_volunteer_pagination.dart';
 
 class RelawanCard extends StatelessWidget {
   final Datum volunteerData;
+  final bool loginBookmark;
 
   const RelawanCard({
     super.key,
     required this.volunteerData,
+    required this.loginBookmark,
   });
 
   @override
@@ -101,36 +106,58 @@ class RelawanCard extends StatelessWidget {
                                         fontSize: 15,
                                       ),
                                     ),
-                                    SaveWidgetFixed(
-                                      bookmarkId: volunteerData.bookmarkId,
-                                      onPressed: () async {
-                                        if (volunteerData.bookmarkId != "") {
-                                          await viewModelBookmark.deleteBookmark(
-                                              accessToken: sp
-                                                  .accessTokenSharedPreference,
-                                              refreshToken: sp
-                                                  .refreshTokenSharedPreference,
-                                              idBookmark:
-                                                  volunteerData.bookmarkId);
-                                          viewModelVolunteer.fetchVolunteerPagination(
-                                              accessToken: sp
-                                                  .accessTokenSharedPreference,
-                                              refreshToken: sp
-                                                  .refreshTokenSharedPreference);
-                                        } else if (volunteerData.bookmarkId ==
-                                            "") {
-                                          await viewModelBookmark.postBookmark(
-                                              accessToken: sp
-                                                  .accessTokenSharedPreference,
-                                              refreshToken: sp
-                                                  .refreshTokenSharedPreference,
-                                              id: volunteerData.id,
-                                              postType: 'vacancy');
-                                          viewModelVolunteer.fetchVolunteerPagination(
-                                              accessToken: sp
-                                                  .accessTokenSharedPreference,
-                                              refreshToken: sp
-                                                  .refreshTokenSharedPreference);
+                                    Consumer<SignInViewModel>(
+                                      builder: (context, contactModel, child) {
+                                        if (loginBookmark == true) {
+                                          return SaveWidgetFixed(
+                                            bookmarkId:
+                                                volunteerData.bookmarkId,
+                                            onPressed: () async {
+                                              if (volunteerData.bookmarkId !=
+                                                  "") {
+                                                await viewModelBookmark.deleteBookmark(
+                                                    accessToken: sp
+                                                        .accessTokenSharedPreference,
+                                                    refreshToken: sp
+                                                        .refreshTokenSharedPreference,
+                                                    idBookmark: volunteerData
+                                                        .bookmarkId);
+                                                viewModelVolunteer
+                                                    .fetchVolunteerPagination(
+                                                  accessToken: sp
+                                                      .accessTokenSharedPreference,
+                                                  refreshToken: sp
+                                                      .refreshTokenSharedPreference,
+                                                );
+                                              } else {
+                                                await viewModelBookmark.postBookmark(
+                                                    accessToken: sp
+                                                        .accessTokenSharedPreference,
+                                                    refreshToken: sp
+                                                        .refreshTokenSharedPreference,
+                                                    id: volunteerData.id,
+                                                    postType: 'vacancy');
+                                                viewModelVolunteer
+                                                    .fetchVolunteerPagination(
+                                                  accessToken: sp
+                                                      .accessTokenSharedPreference,
+                                                  refreshToken: sp
+                                                      .refreshTokenSharedPreference,
+                                                );
+                                              }
+                                            },
+                                          );
+                                        } else {
+                                          return SaveWidgetFixed(
+                                            bookmarkId: "",
+                                            onPressed: () async {
+                                              customAlert(
+                                                context: context,
+                                                alertType: QuickAlertType.error,
+                                                text: 'Anda belum login',
+                                              );
+                                            },
+                                          );
                                         }
                                       },
                                     ),

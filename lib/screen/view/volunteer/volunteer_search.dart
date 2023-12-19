@@ -1,26 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/volunteer/detail_volunteer.dart';
-import 'package:flutter_raih_peduli/screen/view/widgets/volunteer/save_widget.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_bookmark.dart';
+import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_volunteer.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+import 'package:quickalert/models/quickalert_type.dart';
 
 import '../../../model/model_volunteer.dart';
-
-// import '../../../../model/model_volunteer_pagination.dart';
+import '../widgets/bookmark/save_widget.dart';
+import '../widgets/login_signup/alert.dart';
 
 class RelawanCardSearch extends StatelessWidget {
   final Datum volunteerData;
+  final bool loginBookmark;
 
   const RelawanCardSearch({
     super.key,
     required this.volunteerData,
+    required this.loginBookmark,
   });
 
   @override
   Widget build(BuildContext context) {
     final viewModel = Provider.of<VolunteerViewModel>(context, listen: false);
+    final viewModelBookmark =
+        Provider.of<ViewModelBookmark>(context, listen: false);
+    final sp = Provider.of<SignInViewModel>(context, listen: false);
+    final viewModelVolunteer =
+        Provider.of<VolunteerViewModel>(context, listen: false);
     Size size = MediaQuery.of(context).size;
     return InkWell(
       onTap: () {
@@ -94,7 +103,62 @@ class RelawanCardSearch extends StatelessWidget {
                                       fontSize: size.height / 50,
                                     ),
                                   ),
-                                  const SaveWidget(),
+                                  Consumer<SignInViewModel>(
+                                    builder: (context, contactModel, child) {
+                                      if (loginBookmark == true) {
+                                        return SaveWidgetFixed(
+                                          bookmarkId: volunteerData.bookmarkId,
+                                          onPressed: () async {
+                                            if (volunteerData.bookmarkId !=
+                                                "") {
+                                              await viewModelBookmark
+                                                  .deleteBookmark(
+                                                accessToken: sp
+                                                    .accessTokenSharedPreference,
+                                                refreshToken: sp
+                                                    .refreshTokenSharedPreference,
+                                                idBookmark:
+                                                    volunteerData.bookmarkId,
+                                              );
+                                              await viewModelVolunteer
+                                                  .fetchSearchVolunteer(
+                                                accessToken: sp
+                                                    .accessTokenSharedPreference,
+                                                refreshToken: sp
+                                                    .refreshTokenSharedPreference,
+                                              );
+                                            } else {
+                                              await viewModelBookmark.postBookmark(
+                                                  accessToken: sp
+                                                      .accessTokenSharedPreference,
+                                                  refreshToken: sp
+                                                      .refreshTokenSharedPreference,
+                                                  id: volunteerData.id,
+                                                  postType: 'vacancy');
+                                              await viewModelVolunteer
+                                                  .fetchSearchVolunteer(
+                                                accessToken: sp
+                                                    .accessTokenSharedPreference,
+                                                refreshToken: sp
+                                                    .refreshTokenSharedPreference,
+                                              );
+                                            }
+                                          },
+                                        );
+                                      } else {
+                                        return SaveWidgetFixed(
+                                          bookmarkId: "",
+                                          onPressed: () async {
+                                            customAlert(
+                                              context: context,
+                                              alertType: QuickAlertType.error,
+                                              text: 'Anda belum login',
+                                            );
+                                          },
+                                        );
+                                      }
+                                    },
+                                  ),
                                 ],
                               ),
                               Padding(
