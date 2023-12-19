@@ -11,13 +11,11 @@ class SaveWidgetFixed extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      child: IconButton(
-        icon: Icon(
-            bookmarkId != "" ? Icons.bookmark : Icons.bookmark_border_outlined,
-            color: AppTheme.primaryColor), // Asset ikon bookmark
-        onPressed: onPressed,
-      ),
+    return IconButton(
+      icon: Icon(
+          bookmarkId != "" ? Icons.bookmark : Icons.bookmark_border_outlined,
+          color: AppTheme.primaryColor),
+      onPressed: onPressed,
     );
   }
 }

@@ -40,7 +40,7 @@ class TransactionConfirmScreen extends StatelessWidget {
         ),
         leading: IconButton(
           icon: const Icon(
-            Icons.arrow_back,
+            Icons.arrow_back_ios,
             color: AppTheme.primaryColor,
           ),
           onPressed: () {
@@ -95,16 +95,15 @@ class TransactionConfirmScreen extends StatelessWidget {
                 ),
                 (route) => false,
               );
-            }
-            else if (bankPaymentIds.contains(paymentType.id)) {
+            } else if (bankPaymentIds.contains(paymentType.id)) {
               Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(
-                  builder: (context) => PaymentBankPage(paymentType: paymentType),
+                  builder: (context) =>
+                      PaymentBankPage(paymentType: paymentType),
                 ),
                 (route) => false,
               );
-            }
-            else if (paymentType.id == 10) {
+            } else if (paymentType.id == 10) {
               Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(
                   builder: (context) => const PaymentPage(),
@@ -116,8 +115,7 @@ class TransactionConfirmScreen extends StatelessWidget {
           style: ElevatedButton.styleFrom(
             backgroundColor: AppTheme.primaryColor,
             shape: RoundedRectangleBorder(
-              borderRadius:
-                  BorderRadius.circular(8.0), 
+              borderRadius: BorderRadius.circular(8.0),
             ),
           ),
           child: const Padding(

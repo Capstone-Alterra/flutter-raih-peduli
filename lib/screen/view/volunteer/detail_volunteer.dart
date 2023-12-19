@@ -61,7 +61,7 @@ class _DetailVolunteerPageState extends State<DetailVolunteerPage> {
         ),
         leading: IconButton(
           icon: const Icon(
-            Icons.arrow_back,
+            Icons.arrow_back_ios,
             color: AppTheme.primaryColor,
           ),
           onPressed: () {

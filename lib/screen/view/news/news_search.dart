@@ -4,8 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/news/newsdetailpage.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_news.dart';
 import 'package:provider/provider.dart';
+import 'package:quickalert/quickalert.dart';
 
 import '../../../model/model_news.dart';
+import '../../../theme.dart';
+import '../../view_model/view_model_bookmark.dart';
+import '../../view_model/view_model_signin.dart';
+import '../widgets/bookmark/save_widget.dart';
+import '../widgets/login_signup/alert.dart';
 
 class NewsSearch extends StatefulWidget {
   final Datum newsData;
@@ -16,107 +22,167 @@ class NewsSearch extends StatefulWidget {
 }
 
 class _NewsSearchState extends State<NewsSearch> {
+  late SignInViewModel sp;
+  @override
+  void initState() {
+    sp = Provider.of<SignInViewModel>(context, listen: false);
+    sp.setSudahLogin;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final viewModel = Provider.of<NewsViewModel>(context, listen: false);
-    return Card(
-      color: const Color(0xffFFFFFF),
-      elevation: 0,
-      margin: const EdgeInsets.all(8.0),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12.0),
-        side: const BorderSide(color: Colors.black, width: 0.2),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(12.0),
-              child: Image.network(
-                widget.newsData.photo,
-                height: 115,
-                width: 150,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return const Center(
-                    child: Icon(
-                      Icons.error,
-                      color: Colors.red,
-                    ),
-                  );
-                },
-              ),
+    Size size = MediaQuery.of(context).size;
+    final viewModelBookmark =
+        Provider.of<ViewModelBookmark>(context, listen: false);
+    final viewModelNews = Provider.of<NewsViewModel>(context, listen: false);
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => NewsDetailPage(
+              id: widget.newsData.id,
             ),
           ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    viewModel.truncateText(widget.newsData.title, 25),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF293066),
-                      fontSize: 10,
+        );
+      },
+      child: Consumer<NewsViewModel>(builder: (context, contactModel, child) {
+        return Card(
+          color: AppTheme.white,
+          elevation: 3,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: size.width / 3.3,
+                height: size.width / 3.2,
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    top: 10.0,
+                    bottom: 10.0,
+                    left: 10.0,
+                  ),
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+                    child: Image.network(
+                      widget.newsData.photo,
+                      // height: 150,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
                     ),
                   ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    viewModel.truncateText(widget.newsData.description, 45),
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      fontSize: 10,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10.0,
-                  ),
-                  Center(
-                    child: SizedBox(
-                      width: 200,
-                      height: 25,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => NewsDetailPage(
-                                id: widget.newsData.id,
-                              ),
+                ),
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            viewModelNews.truncateText(
+                                widget.newsData.title, 15),
+                            style: TextStyle(
+                              color: AppTheme.primaryColor,
+                              fontFamily: 'Helvetica',
+                              fontWeight: FontWeight.bold,
+                              fontSize: size.height / 60,
                             ),
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF293066),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.0),
                           ),
-                        ),
-                        child: const Text(
-                          'Baca Selengkapnya',
+                          Consumer<SignInViewModel>(
+                            builder: (context, contactModel, child) {
+                              if (sp.isSudahLogin != true) {
+                                return SaveWidgetFixed(
+                                  bookmarkId: widget.newsData.bookmarkId,
+                                  onPressed: () async {
+                                    if (widget.newsData.bookmarkId != "") {
+                                      await viewModelBookmark.deleteBookmark(
+                                        accessToken:
+                                            sp.accessTokenSharedPreference,
+                                        refreshToken:
+                                            sp.refreshTokenSharedPreference,
+                                        idBookmark: widget.newsData.bookmarkId,
+                                      );
+                                      await viewModelNews.fetchSearchNews(
+                                        query: viewModelNews.search.text,
+                                        accessToken:
+                                            sp.accessTokenSharedPreference,
+                                        refreshToken:
+                                            sp.refreshTokenSharedPreference,
+                                      );
+                                    } else
+                                    // if (newsData.bookmarkId == "")
+                                    {
+                                      await viewModelBookmark.postBookmark(
+                                        accessToken:
+                                            sp.accessTokenSharedPreference,
+                                        refreshToken:
+                                            sp.refreshTokenSharedPreference,
+                                        id: widget.newsData.id,
+                                        postType: 'news',
+                                      );
+                                      await viewModelNews.fetchSearchNews(
+                                        query: viewModelNews.search.text,
+                                        accessToken:
+                                            sp.accessTokenSharedPreference,
+                                        refreshToken:
+                                            sp.refreshTokenSharedPreference,
+                                      );
+                                    }
+                                  },
+                                );
+                              } else {
+                                return SaveWidgetFixed(
+                                  bookmarkId: widget.newsData.bookmarkId,
+                                  onPressed: () async {
+                                    customAlert(
+                                      context: context,
+                                      alertType: QuickAlertType.error,
+                                      text: 'Anda belum login',
+                                    );
+                                  },
+                                );
+                              }
+                            },
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Text(
+                          viewModelNews.truncateText(
+                            widget.newsData.description,
+                            100,
+                          ),
                           style: TextStyle(
-                            fontSize: 10,
-                            color: Colors.white,
+                            color: Colors.black,
+                            fontFamily: 'Helvetica',
+                            fontSize: size.height / 70,
                           ),
                         ),
                       ),
-                    ),
+                      const Padding(
+                        padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
+                        child: Divider(thickness: 1.2),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
-        ],
-      ),
+        );
+      }),
     );
   }
 }

@@ -28,9 +28,12 @@ class _FundraiseScreenState extends State<FundraiseScreen> {
 
   @override
   void initState() {
-    navigationProvider = Provider.of<NavigationProvider>(context, listen: false);
-    viewModelFundraise = Provider.of<FundraisesViewModel>(context, listen: false);
-    viewModelVolunteer = Provider.of<VolunteerViewModel>(context, listen: false);
+    navigationProvider =
+        Provider.of<NavigationProvider>(context, listen: false);
+    viewModelFundraise =
+        Provider.of<FundraisesViewModel>(context, listen: false);
+    viewModelVolunteer =
+        Provider.of<VolunteerViewModel>(context, listen: false);
     sp = Provider.of<SignInViewModel>(context, listen: false);
     viewModelFundraise.awal();
     viewModelVolunteer.overlay();
@@ -62,7 +65,7 @@ class _FundraiseScreenState extends State<FundraiseScreen> {
         ),
         leading: IconButton(
           icon: const Icon(
-            Icons.arrow_back,
+            Icons.arrow_back_ios,
             color: AppTheme.primaryColor,
           ),
           onPressed: () {
@@ -169,6 +172,4 @@ class _FundraiseScreenState extends State<FundraiseScreen> {
       ),
     );
   }
-
-
 }

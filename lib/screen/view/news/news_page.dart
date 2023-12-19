@@ -55,7 +55,7 @@ class _NewsPageState extends State<NewsPage> {
         ),
         leading: IconButton(
           icon: const Icon(
-            Icons.arrow_back,
+            Icons.arrow_back_ios,
             color: AppTheme.primaryColor,
           ),
           onPressed: () {
@@ -66,6 +66,7 @@ class _NewsPageState extends State<NewsPage> {
                 builder: (context) => const BottomNavgationBarWidget(),
               ),
             );
+            viewModel.search.clear();
           },
         ),
         elevation: 0,
@@ -96,8 +97,12 @@ class _NewsPageState extends State<NewsPage> {
                             icon: const Icon(Icons.search),
                             onPressed: () async {
                               final String query = viewModel.search.text;
-                              viewModel.search.clear();
-                              await viewModel.fetchSearchNews(query: query);
+                              // viewModel.search.clear();
+                              await viewModel.fetchSearchNews(
+                                query: query,
+                                accessToken: sp.accessTokenSharedPreference,
+                                refreshToken: sp.refreshTokenSharedPreference,
+                              );
                             },
                           ),
                         ),
@@ -122,13 +127,14 @@ class _NewsPageState extends State<NewsPage> {
                           children: [
                             if (viewModel.dataHasilSearch)
                               const Center(
-                                  child: Text(
-                                'Pencarian Tidak Ditemukan',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.red,
+                                child: Text(
+                                  'Pencarian Tidak Ditemukan',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.red,
+                                  ),
                                 ),
-                              ))
+                              )
                             else if (!viewModel.dataHasilSearch)
                               for (var newsItem in viewModel.modelNews!.data)
                                 NewsSearch(
@@ -144,11 +150,12 @@ class _NewsPageState extends State<NewsPage> {
                                 viewModel.modelNewsPagination!.data.length,
                             itemBuilder: (context, index) {
                               return SizedBox(
-                                  height: 130,
-                                  child: NewsCard(
-                                    newsData: viewModel
-                                        .modelNewsPagination!.data[index],
-                                  ));
+                                height: 120,
+                                child: NewsCard(
+                                  newsData: viewModel
+                                      .modelNewsPagination!.data[index],
+                                ),
+                              );
                             },
                           ),
                         );

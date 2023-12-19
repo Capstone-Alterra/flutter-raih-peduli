@@ -3,14 +3,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/model_news_pagination.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/save_widget.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/login_signup/alert.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_bookmark.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_news.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:provider/provider.dart';
+import 'package:quickalert/models/quickalert_type.dart';
 import 'newsdetailpage.dart';
 
-class NewsCard extends StatelessWidget {
+class NewsCard extends StatefulWidget {
   final Datum newsData;
 
   const NewsCard({
@@ -19,8 +21,20 @@ class NewsCard extends StatelessWidget {
   });
 
   @override
+  State<NewsCard> createState() => _NewsCardState();
+}
+
+class _NewsCardState extends State<NewsCard> {
+  late SignInViewModel sp;
+  @override
+  void initState() {
+    sp = Provider.of<SignInViewModel>(context, listen: false);
+    sp.setSudahLogin;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final sp = Provider.of<SignInViewModel>(context, listen: false);
     Size size = MediaQuery.of(context).size;
     final viewModelBookmark =
         Provider.of<ViewModelBookmark>(context, listen: false);
@@ -31,7 +45,7 @@ class NewsCard extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => NewsDetailPage(
-              id: newsData.id,
+              id: widget.newsData.id,
             ),
           ),
         );
@@ -61,7 +75,7 @@ class NewsCard extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(8.0)),
                     child: Image.network(
-                      newsData.photo,
+                      widget.newsData.photo,
                       // height: 150,
                       width: double.infinity,
                       fit: BoxFit.cover,
@@ -79,7 +93,8 @@ class NewsCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            viewModelNews.truncateText(newsData.title, 15),
+                            viewModelNews.truncateText(
+                                widget.newsData.title, 15),
                             style: TextStyle(
                               color: AppTheme.primaryColor,
                               fontFamily: 'Helvetica',
@@ -87,36 +102,59 @@ class NewsCard extends StatelessWidget {
                               fontSize: size.height / 60,
                             ),
                           ),
-                          SaveWidgetFixed(
-                              bookmarkId: newsData.bookmarkId,
-                              onPressed: () async {
-                                if (newsData.bookmarkId != "") {
-                                  await viewModelBookmark.deleteBookmark(
-                                      accessToken:
-                                          sp.accessTokenSharedPreference,
-                                      refreshToken:
-                                          sp.refreshTokenSharedPreference,
-                                      idBookmark: newsData.bookmarkId);
-                                  viewModelNews.fetchNewsPagination(
-                                    accessToken: sp.accessTokenSharedPreference,
-                                    refreshToken:
-                                        sp.refreshTokenSharedPreference,
-                                  );
-                                } else if (newsData.bookmarkId == "") {
-                                  await viewModelBookmark.postBookmark(
-                                      accessToken:
-                                          sp.accessTokenSharedPreference,
-                                      refreshToken:
-                                          sp.refreshTokenSharedPreference,
-                                      id: newsData.id,
-                                      postType: 'news');
-                                  viewModelNews.fetchNewsPagination(
-                                    accessToken: sp.accessTokenSharedPreference,
-                                    refreshToken:
-                                        sp.refreshTokenSharedPreference,
-                                  );
-                                }
-                              }),
+                          Consumer<SignInViewModel>(
+                            builder: (context, contactModel, child) {
+                              if (sp.isSudahLogin != true) {
+                                return SaveWidgetFixed(
+                                  bookmarkId: widget.newsData.bookmarkId,
+                                  onPressed: () async {
+                                    if (widget.newsData.bookmarkId != "") {
+                                      await viewModelBookmark.deleteBookmark(
+                                          accessToken:
+                                              sp.accessTokenSharedPreference,
+                                          refreshToken:
+                                              sp.refreshTokenSharedPreference,
+                                          idBookmark:
+                                              widget.newsData.bookmarkId);
+                                      viewModelNews.fetchNewsPagination(
+                                        accessToken:
+                                            sp.accessTokenSharedPreference,
+                                        refreshToken:
+                                            sp.refreshTokenSharedPreference,
+                                      );
+                                    } else if (widget.newsData.bookmarkId ==
+                                        "") {
+                                      await viewModelBookmark.postBookmark(
+                                          accessToken:
+                                              sp.accessTokenSharedPreference,
+                                          refreshToken:
+                                              sp.refreshTokenSharedPreference,
+                                          id: widget.newsData.id,
+                                          postType: 'news');
+                                      viewModelNews.fetchNewsPagination(
+                                        accessToken:
+                                            sp.accessTokenSharedPreference,
+                                        refreshToken:
+                                            sp.refreshTokenSharedPreference,
+                                      );
+                                    }
+                                  },
+                                );
+                              } else {
+                                return SaveWidgetFixed(
+                                  bookmarkId: viewModelNews
+                                      .modelDetailNews!.data.bookmarkId,
+                                  onPressed: () {
+                                    customAlert(
+                                      context: context,
+                                      alertType: QuickAlertType.error,
+                                      text: 'Anda belum login',
+                                    );
+                                  },
+                                );
+                              }
+                            },
+                          ),
                         ],
                       ),
                       // const SizedBox(height: 3),
@@ -124,7 +162,7 @@ class NewsCard extends StatelessWidget {
                         padding: const EdgeInsets.only(right: 8.0),
                         child: Text(
                           viewModelNews.truncateText(
-                            newsData.description,
+                            widget.newsData.description,
                             100,
                           ),
                           style: TextStyle(

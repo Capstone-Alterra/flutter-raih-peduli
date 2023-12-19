@@ -48,6 +48,15 @@ class _RiwayatDetailRequestVolunteerState
             fontWeight: FontWeight.bold,
           ),
         ),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            color: AppTheme.primaryColor,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),

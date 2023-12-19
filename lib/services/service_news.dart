@@ -11,7 +11,8 @@ import '../utils/utils.dart';
 class NewsService {
   final Dio _dio = Dio();
 
-  Future<ModelNews> hitAllNews({required int index, required String token}) async {
+  Future<ModelNews> hitAllNews(
+      {required int index, required String token}) async {
     try {
       final response = await _dio.get(
         Urls.baseUrl + Urls.fetchAllNews,
@@ -34,9 +35,36 @@ class NewsService {
 
   Future<ModelNews> hitSearchNews({
     required String query,
+    required String token,
   }) async {
     try {
-      final response = await _dio.get(Urls.baseUrl + Urls.searchNews + query);
+      final response = await _dio.get(
+        Urls.baseUrl + Urls.searchNews + query,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+      debugPrint("=>${response.data}");
+      return ModelNews.fromJson(response.data);
+    } on DioError catch (_) {
+      rethrow;
+      // final response = await _dio.get(
+      //   Urls.baseUrl + Urls.searchNews + query,
+      // );
+      // debugPrint("=>${response.data}");
+      // return ModelNews.fromJson(response.data);
+    }
+  }
+
+  Future<ModelNews> hitSearchNewsGuest({
+    required String query,
+  }) async {
+    try {
+      final response = await _dio.get(
+        Urls.baseUrl + Urls.searchNews + query,
+      );
       debugPrint("=>${response.data}");
       return ModelNews.fromJson(response.data);
     } on DioError catch (_) {
@@ -44,7 +72,8 @@ class NewsService {
     }
   }
 
-  Future<ModelNewsPagination> hitNewsPagination({required int index, required String token}) async {
+  Future<ModelNewsPagination> hitNewsPagination(
+      {required int index, required String token}) async {
     try {
       final response = await _dio.get(
         "${Urls.baseUrl + Urls.fetchNewsPagination}$index&page_size=5",

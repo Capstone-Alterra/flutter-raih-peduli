@@ -3,10 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/news/news_page.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/save_widget.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/login_signup/alert.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_bookmark.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
 import 'package:flutter_raih_peduli/theme.dart';
 import 'package:provider/provider.dart';
+import 'package:quickalert/models/quickalert_type.dart';
 
 import '../../view_model/view_model_news.dart';
 
@@ -31,65 +33,103 @@ class _NewsDetailPageState extends State<NewsDetailPage> {
     sp = Provider.of<SignInViewModel>(context, listen: false);
     viewModelNews.fetchDetailNews(
       id: widget.id,
-        accessToken: sp.accessTokenSharedPreference,
-        refreshToken: sp.refreshTokenSharedPreference);
+      accessToken: sp.accessTokenSharedPreference,
+      refreshToken: sp.refreshTokenSharedPreference,
+    );
+    sp.setSudahLogin;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final viewModelBookmark =
-    Provider.of<ViewModelBookmark>(context, listen: false);
+        Provider.of<ViewModelBookmark>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0.0,
-        title: const Text('Detail Berita', style: TextStyle(
-          color: AppTheme.primaryColor,
-          fontFamily: 'Helvetica',
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-        ),),
+        title: const Text(
+          'Detail Berita',
+          style: TextStyle(
+            color: AppTheme.primaryColor,
+            fontFamily: 'Helvetica',
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         leading: IconButton(
           icon: const Icon(
-            Icons.arrow_back,
+            Icons.arrow_back_ios,
             color: AppTheme.primaryColor,
           ),
           onPressed: () {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => const NewsPage()
+                builder: (context) => const NewsPage(),
               ),
             );
           },
         ),
         actions: [
-          Consumer<NewsViewModel>(
-              builder: (context, contactModel, child) {
-                return SaveWidgetFixed(
-                  bookmarkId: viewModelNews.modelDetailNews!.data.bookmarkId,
-                  onPressed: () async {
-                    if (viewModelNews.modelDetailNews!.data.bookmarkId != "") {
-                      await viewModelBookmark.deleteBookmark(
-                          accessToken: sp.accessTokenSharedPreference,
-                          refreshToken: sp.refreshTokenSharedPreference,
-                          idBookmark:
-                          viewModelNews.modelDetailNews!.data.bookmarkId);
-                      viewModelNews.fetchDetailNews(id: viewModelNews.modelDetailNews!.data.id, accessToken: sp.accessTokenSharedPreference, refreshToken: sp.refreshTokenSharedPreference);
-                    } else if (viewModelNews.modelDetailNews!.data.bookmarkId ==
-                        "") {
-                      await viewModelBookmark.postBookmark(
-                          accessToken: sp.accessTokenSharedPreference,
-                          refreshToken: sp.refreshTokenSharedPreference,
-                          id: viewModelNews.modelDetailNews!.data.id,
-                          postType: 'news');
-                      viewModelNews.fetchDetailNews(id: viewModelNews.modelDetailNews!.data.id, accessToken: sp.accessTokenSharedPreference, refreshToken: sp.refreshTokenSharedPreference);
-                    }
-                  },
-                );
-              }),
+          Consumer<NewsViewModel>(builder: (context, contactModel, child) {
+            return viewModelNews.isLoadingDetail
+                ? Consumer<SignInViewModel>(
+                    builder: (context, contactModel, child) {
+                      if (sp.isSudahLogin != true) {
+                        return SaveWidgetFixed(
+                          bookmarkId:
+                              viewModelNews.modelDetailNews!.data.bookmarkId,
+                          onPressed: () async {
+                            if (viewModelNews
+                                    .modelDetailNews!.data.bookmarkId !=
+                                "") {
+                              await viewModelBookmark.deleteBookmark(
+                                  accessToken: sp.accessTokenSharedPreference,
+                                  refreshToken: sp.refreshTokenSharedPreference,
+                                  idBookmark: viewModelNews
+                                      .modelDetailNews!.data.bookmarkId);
+                              viewModelNews.fetchDetailNews(
+                                  id: viewModelNews.modelDetailNews!.data.id,
+                                  accessToken: sp.accessTokenSharedPreference,
+                                  refreshToken:
+                                      sp.refreshTokenSharedPreference);
+                            } else if (viewModelNews
+                                    .modelDetailNews!.data.bookmarkId ==
+                                "") {
+                              await viewModelBookmark.postBookmark(
+                                  accessToken: sp.accessTokenSharedPreference,
+                                  refreshToken: sp.refreshTokenSharedPreference,
+                                  id: viewModelNews.modelDetailNews!.data.id,
+                                  postType: 'news');
+                              viewModelNews.fetchDetailNews(
+                                  id: viewModelNews.modelDetailNews!.data.id,
+                                  accessToken: sp.accessTokenSharedPreference,
+                                  refreshToken:
+                                      sp.refreshTokenSharedPreference);
+                            }
+                          },
+                        );
+                      } else {
+                        return SaveWidgetFixed(
+                          bookmarkId:
+                              viewModelNews.modelDetailNews!.data.bookmarkId,
+                          onPressed: () {
+                            customAlert(
+                              context: context,
+                              alertType: QuickAlertType.error,
+                              text: 'Anda belum login',
+                            );
+                          },
+                        );
+                      }
+                    },
+                  )
+                : const SizedBox(
+                    height: 0,
+                  );
+          }),
         ],
       ),
       body: Consumer<NewsViewModel>(

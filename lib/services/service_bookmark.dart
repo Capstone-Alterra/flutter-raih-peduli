@@ -12,9 +12,6 @@ class BookmarkService {
     required int id,
   }) async {
     try {
-      print(">>>>> $id");
-      print(">>>>> $postType");
-      print(">>>>> ${Urls.baseUrl + Urls.bookmark}");
       final response = await dio.post(
         Urls.baseUrl + Urls.bookmark,
         options: Options(
@@ -28,7 +25,7 @@ class BookmarkService {
         },
       );
 
-      debugPrint(response.data);
+      debugPrint("=====${response.statusCode}");
     } catch (e) {
       debugPrint("Unexpected error: $e");
       rethrow;

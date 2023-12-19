@@ -18,18 +18,20 @@ class NewsViewModel with ChangeNotifier {
   late final scrollController = ScrollController();
   bool isLoadingDetail = true;
 
-
-  Future<void> fetchAllNews({required String accessToken, required String refreshToken}) async {
+  Future<void> fetchAllNews(
+      {required String accessToken, required String refreshToken}) async {
     try {
       isLoading = true;
-      final data = await service.hitAllNews(index: indexPagination, token: refreshToken);
+      final data =
+          await service.hitAllNews(index: indexPagination, token: refreshToken);
       modelNews = data;
       isLoading = false;
     } catch (e) {
       // ignore: deprecated_member_use
       if (e is DioError) {
         isLoading = true;
-        final data = await service.hitAllNews(index: indexPagination, token: refreshToken);
+        final data = await service.hitAllNews(
+            index: indexPagination, token: refreshToken);
         modelNews = data;
         isLoading = false;
       }
@@ -40,22 +42,42 @@ class NewsViewModel with ChangeNotifier {
 
   Future fetchSearchNews({
     required String query,
+    required String accessToken,
+    required String refreshToken,
   }) async {
     try {
-      isSearch = true;
-      notifyListeners();
-      modelNews = await service.hitSearchNews(query: query);
-      dataHasilSearch = false;
-
-      notifyListeners();
+      try {
+        isSearch = true;
+        modelNews = await service.hitSearchNews(
+          query: query,
+          token: accessToken,
+        );
+        dataHasilSearch = false;
+      } catch (e) {
+        try {
+          isSearch = true;
+          modelNews = await service.hitSearchNews(
+            query: query,
+            token: refreshToken,
+          );
+          dataHasilSearch = false;
+        } catch (e) {
+          isSearch = true;
+          modelNews = await service.hitSearchNewsGuest(
+            query: query,
+          );
+          dataHasilSearch = false;
+        }
+      }
     } catch (e) {
       // ignore: deprecated_member_use
       if (e is DioError) {
         dataHasilSearch = true;
-        notifyListeners();
         e.response!.statusCode;
       }
     }
+
+    notifyListeners();
   }
 
   String truncateText(String text, int maxLength) {
@@ -65,11 +87,13 @@ class NewsViewModel with ChangeNotifier {
     return '${text.substring(0, maxLength)}...';
   }
 
-  Future<void> fetchNewsPagination({required String accessToken, required String refreshToken}) async {
-    try{
+  Future<void> fetchNewsPagination(
+      {required String accessToken, required String refreshToken}) async {
+    try {
       isSearch = false;
       isLoading = true;
-      final data = await service.hitNewsPagination(index: indexPagination, token: refreshToken);
+      final data = await service.hitNewsPagination(
+          index: indexPagination, token: refreshToken);
       modelNewsPagination = data;
       isLoading = false;
     } catch (e) {
@@ -77,7 +101,8 @@ class NewsViewModel with ChangeNotifier {
       if (e is DioError) {
         isSearch = false;
         isLoading = true;
-        final data = await service.hitNewsPagination(index: indexPagination, token: refreshToken);
+        final data = await service.hitNewsPagination(
+            index: indexPagination, token: refreshToken);
         modelNewsPagination = data;
         isLoading = false;
       }
@@ -94,16 +119,17 @@ class NewsViewModel with ChangeNotifier {
       try {
         indexPagination++;
         notifyListeners();
-        final newData = await service.hitNewsPagination(index: indexPagination, token: refreshToken);
+        final newData = await service.hitNewsPagination(
+            index: indexPagination, token: refreshToken);
         modelNewsPagination?.addAllData(newData.data);
-      }catch (e) {
+      } catch (e) {
         // ignore: deprecated_member_use
         if (e is DioError) {
-          final newData = await service.hitNewsPagination(index: indexPagination, token: refreshToken);
+          final newData = await service.hitNewsPagination(
+              index: indexPagination, token: refreshToken);
           modelNewsPagination?.addAllData(newData.data);
         }
       }
-
     }
     notifyListeners();
   }

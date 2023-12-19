@@ -10,6 +10,7 @@ class ViewModelBookmark with ChangeNotifier {
   ModelBookmark? bookmarkModel;
   bool isLoading = true;
   String selectedFilter = 'Semua';
+  bool coba= true;
 
   void setFilter(String filter) {
     selectedFilter = filter;
@@ -59,7 +60,7 @@ class ViewModelBookmark with ChangeNotifier {
   }) async {
     try {
       await service.postBookmark(
-        token: refreshToken,
+        token: accessToken,
         postType: postType,
         id: id,
       );

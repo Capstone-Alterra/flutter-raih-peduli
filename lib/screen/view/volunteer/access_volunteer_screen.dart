@@ -66,7 +66,7 @@ class _AccessVolunteerScreenState extends State<AccessVolunteerScreen> {
           ),
           leading: IconButton(
             icon: const Icon(
-              Icons.arrow_back,
+              Icons.arrow_back_ios,
               color: AppTheme.primaryColor,
             ),
             onPressed: () {
