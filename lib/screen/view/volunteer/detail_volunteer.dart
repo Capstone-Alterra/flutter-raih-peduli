@@ -125,7 +125,7 @@ class _DetailVolunteerPageState extends State<DetailVolunteerPage> {
                               customAlert(
                                 context: context,
                                 alertType: QuickAlertType.error,
-                                text: 'Anda belum login',
+                                text: 'Anda belum melakukan login',
                               );
                             },
                           );
@@ -352,58 +352,6 @@ class _DetailVolunteerPageState extends State<DetailVolunteerPage> {
                             }
                           },
                         ),
-
-                        // Consumer<SignInViewModel>(
-                        //   builder: (context, model, child) {
-                        //     if (sp.isSudahLogin == false) {
-                        //       return
-                        //     } else {
-                        //       return
-                        //     }
-                        //   },
-                        // ),
-
-                        // ElevatedButton(
-                        //   onPressed: () {
-                        //     if (sp.isSudahLogin == false) {
-                        //       customAlert(
-                        //         context: context,
-                        //         alertType: QuickAlertType.error,
-                        //         text: 'Anda belum melakukan login',
-                        //         afterDelay: () {
-                        //           Navigator.pop(context);
-                        //         },
-                        //       );
-                        //     } else {
-                        //       Navigator.push(
-                        //         context,
-                        //         MaterialPageRoute(
-                        //           builder: (context) => ApplyFormVolunteer(
-                        //             volunteerId: widget.id,
-                        //           ),
-                        //         ),
-                        //       );
-                        //     }
-                        //   },
-                        //   style: ElevatedButton.styleFrom(
-                        //     backgroundColor: AppTheme
-                        //         .primaryColor, // Warna fill sesuai AppTheme.primaryColor
-                        //     shape: RoundedRectangleBorder(
-                        //       borderRadius: BorderRadius.circular(
-                        //           20.0), // Tombol bulat dengan radius 20.0
-                        //     ),
-                        //   ),
-                        //   child: const Padding(
-                        //     padding: EdgeInsets.all(12.0),
-                        //     child: Text(
-                        //       'Ikuti Program',
-                        //       style: TextStyle(
-                        //         fontSize: 18.0,
-                        //         fontWeight: FontWeight.bold,
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
                       ),
                     ],
                   ),

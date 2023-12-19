@@ -149,7 +149,7 @@ class _NewsCardState extends State<NewsCard> {
                                     customAlert(
                                       context: context,
                                       alertType: QuickAlertType.error,
-                                      text: 'Anda belum login',
+                                      text: 'Anda belum melakukan login',
                                     );
                                   },
                                 );

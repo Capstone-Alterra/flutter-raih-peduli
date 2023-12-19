@@ -150,7 +150,7 @@ class _NewsSearchState extends State<NewsSearch> {
                                     customAlert(
                                       context: context,
                                       alertType: QuickAlertType.error,
-                                      text: 'Anda belum login',
+                                      text: 'Anda belum melakukan login',
                                     );
                                   },
                                 );

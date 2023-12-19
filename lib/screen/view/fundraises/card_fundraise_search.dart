@@ -153,36 +153,9 @@ class CardFundraiseSearch extends StatelessWidget {
                               }
                             },
                           ),
-                          // SaveWidgetFixed(
-                          //   bookmarkId: fundraise.bookmarkId,
-                          //   onPressed: () async {
-                          //     if (fundraise.bookmarkId != "") {
-                          //       await viewModelBookmark.deleteBookmark(
-                          //           accessToken: sp.accessTokenSharedPreference,
-                          //           refreshToken:
-                          //               sp.refreshTokenSharedPreference,
-                          //           idBookmark: fundraise.bookmarkId);
-                          //       viewModelFundraise.fetchAllFundraisesPagination(
-                          //           accessToken: sp.accessTokenSharedPreference,
-                          //           refreshToken:
-                          //               sp.refreshTokenSharedPreference);
-                          //     } else if (fundraise.bookmarkId == "") {
-                          //       await viewModelBookmark.postBookmark(
-                          //           accessToken: sp.accessTokenSharedPreference,
-                          //           refreshToken:
-                          //               sp.refreshTokenSharedPreference,
-                          //           id: fundraise.id,
-                          //           postType: 'fundraise');
-                          //       viewModelFundraise.fetchAllFundraisesPagination(
-                          //           accessToken: sp.accessTokenSharedPreference,
-                          //           refreshToken:
-                          //               sp.refreshTokenSharedPreference);
-                          //     }
-                          //   },
-                          // ),
                         ],
                       ),
-                      // const SizedBox(height: 3),
+                   
                       Padding(
                         padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
                         child: Row(
