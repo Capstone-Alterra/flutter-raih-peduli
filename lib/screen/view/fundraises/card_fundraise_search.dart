@@ -11,12 +11,19 @@ import 'package:flutter_raih_peduli/theme.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:quickalert/models/quickalert_type.dart';
+import '../widgets/login_signup/alert.dart';
 import 'detail_fundraise.dart';
 
 class CardFundraiseSearch extends StatelessWidget {
   final Datum fundraise;
+  final bool loginBookmark;
 
-  const CardFundraiseSearch({super.key, required this.fundraise});
+  const CardFundraiseSearch({
+    super.key,
+    required this.fundraise,
+    required this.loginBookmark,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -92,33 +99,87 @@ class CardFundraiseSearch extends StatelessWidget {
                               fontSize: size.height / 50,
                             ),
                           ),
-                          SaveWidgetFixed(
-                            bookmarkId: fundraise.bookmarkId,
-                            onPressed: () async {
-                              if (fundraise.bookmarkId != "") {
-                                await viewModelBookmark.deleteBookmark(
-                                    accessToken: sp.accessTokenSharedPreference,
-                                    refreshToken:
-                                        sp.refreshTokenSharedPreference,
-                                    idBookmark: fundraise.bookmarkId);
-                                viewModelFundraise.fetchAllFundraisesPagination(
-                                    accessToken: sp.accessTokenSharedPreference,
-                                    refreshToken:
-                                        sp.refreshTokenSharedPreference);
-                              } else if (fundraise.bookmarkId == "") {
-                                await viewModelBookmark.postBookmark(
-                                    accessToken: sp.accessTokenSharedPreference,
-                                    refreshToken:
-                                        sp.refreshTokenSharedPreference,
-                                    id: fundraise.id,
-                                    postType: 'fundraise');
-                                viewModelFundraise.fetchAllFundraisesPagination(
-                                    accessToken: sp.accessTokenSharedPreference,
-                                    refreshToken:
-                                        sp.refreshTokenSharedPreference);
+                          Consumer<SignInViewModel>(
+                            builder: (context, contactModel, child) {
+                              if (loginBookmark == true) {
+                                return SaveWidgetFixed(
+                                  bookmarkId: fundraise.bookmarkId,
+                                  onPressed: () async {
+                                    if (fundraise.bookmarkId != "") {
+                                      await viewModelBookmark.deleteBookmark(
+                                        accessToken:
+                                            sp.accessTokenSharedPreference,
+                                        refreshToken:
+                                            sp.refreshTokenSharedPreference,
+                                        idBookmark: fundraise.bookmarkId,
+                                      );
+                                      await viewModelFundraise
+                                          .fetchSearchDonation(
+                                        accessToken:
+                                            sp.accessTokenSharedPreference,
+                                        refreshToken:
+                                            sp.refreshTokenSharedPreference,
+                                      );
+                                    } else {
+                                      await viewModelBookmark.postBookmark(
+                                        accessToken:
+                                            sp.accessTokenSharedPreference,
+                                        refreshToken:
+                                            sp.refreshTokenSharedPreference,
+                                        id: fundraise.id,
+                                        postType: 'fundraise',
+                                      );
+                                      await viewModelFundraise
+                                          .fetchSearchDonation(
+                                        accessToken:
+                                            sp.accessTokenSharedPreference,
+                                        refreshToken:
+                                            sp.refreshTokenSharedPreference,
+                                      );
+                                    }
+                                  },
+                                );
+                              } else {
+                                return SaveWidgetFixed(
+                                  bookmarkId: "",
+                                  onPressed: () async {
+                                    customAlert(
+                                      context: context,
+                                      alertType: QuickAlertType.error,
+                                      text: 'Anda belum melakukan login',
+                                    );
+                                  },
+                                );
                               }
                             },
                           ),
+                          // SaveWidgetFixed(
+                          //   bookmarkId: fundraise.bookmarkId,
+                          //   onPressed: () async {
+                          //     if (fundraise.bookmarkId != "") {
+                          //       await viewModelBookmark.deleteBookmark(
+                          //           accessToken: sp.accessTokenSharedPreference,
+                          //           refreshToken:
+                          //               sp.refreshTokenSharedPreference,
+                          //           idBookmark: fundraise.bookmarkId);
+                          //       viewModelFundraise.fetchAllFundraisesPagination(
+                          //           accessToken: sp.accessTokenSharedPreference,
+                          //           refreshToken:
+                          //               sp.refreshTokenSharedPreference);
+                          //     } else if (fundraise.bookmarkId == "") {
+                          //       await viewModelBookmark.postBookmark(
+                          //           accessToken: sp.accessTokenSharedPreference,
+                          //           refreshToken:
+                          //               sp.refreshTokenSharedPreference,
+                          //           id: fundraise.id,
+                          //           postType: 'fundraise');
+                          //       viewModelFundraise.fetchAllFundraisesPagination(
+                          //           accessToken: sp.accessTokenSharedPreference,
+                          //           refreshToken:
+                          //               sp.refreshTokenSharedPreference);
+                          //     }
+                          //   },
+                          // ),
                         ],
                       ),
                       // const SizedBox(height: 3),
@@ -240,8 +301,8 @@ class CardFundraiseSearch extends StatelessWidget {
                           value: (fundraise.fundAcquired / fundraise.target)
                               .toDouble(),
                           minHeight: 10,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(10)), // Set the
+                          borderRadius: const BorderRadius.all(
+                              Radius.circular(10)), // Set the
                         ),
                       ),
                     ],

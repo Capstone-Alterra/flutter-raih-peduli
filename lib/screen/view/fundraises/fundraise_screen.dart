@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/screen/view/fundraises/card_fundraise_search.dart';
-import 'package:flutter_raih_peduli/screen/view/fundraises/widgets/search_bar.dart';
+// import 'package:flutter_raih_peduli/screen/view/fundraises/widgets/search_bar.dart';
 import 'package:flutter_raih_peduli/screen/view/navigation/navigation.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_fundraises.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_navigation.dart';
@@ -89,12 +89,27 @@ class _FundraiseScreenState extends State<FundraiseScreen> {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: SearchAndFilterBarDonate(
-                    searchController: TextEditingController(),
-                    onSearchChanged: (text) {},
-                    onFilterPressed: () {
-                      // showFilterBottomSheet(context);
-                    },
+                  child: TextFormField(
+                    controller: viewModelFundraise.search,
+                    decoration: InputDecoration(
+                      hintText: 'Cari ',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(
+                        vertical: 10.0,
+                        horizontal: 16.0,
+                      ),
+                      prefixIcon: IconButton(
+                        icon: const Icon(Icons.search),
+                        onPressed: () async {
+                          await viewModelFundraise.fetchSearchDonation(
+                            accessToken: sp.accessTokenSharedPreference,
+                            refreshToken: sp.refreshTokenSharedPreference,
+                          );
+                        },
+                      ),
+                    ),
                   ),
                 ),
                 Consumer<FundraisesViewModel>(
@@ -120,6 +135,7 @@ class _FundraiseScreenState extends State<FundraiseScreen> {
                                         .modelSearchFundraise!.data)
                                       CardFundraiseSearch(
                                         fundraise: newsItem,
+                                        loginBookmark: sp.isSudahLogin,
                                       )
                                 ],
                               )
@@ -137,6 +153,7 @@ class _FundraiseScreenState extends State<FundraiseScreen> {
                                         fundraise: viewModelFundraise
                                             .modelFundraisesPagination!
                                             .data[index],
+                                        loginBookmark: sp.isSudahLogin,
                                       ),
                                     );
                                   },

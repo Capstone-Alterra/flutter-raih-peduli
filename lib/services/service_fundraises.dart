@@ -24,8 +24,6 @@ class FundraisesService {
       // print(response.data);
       final newData = ModelFundraisesPagination.fromJson(response.data);
 
-
-
       return newData;
     } on DioError catch (_) {
       final response = await _dio.get(
@@ -80,11 +78,21 @@ class FundraisesService {
       debugPrint("=>${response.data}");
       return ModelSearchFundraise.fromJson(response.data);
     } on DioError catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<ModelSearchFundraise> hitSearchDonationGuest({
+    required String query,
+  }) async {
+    try {
       final response = await _dio.get(
         Urls.baseUrl + Urls.searchFundraise + query,
       );
       debugPrint("=>${response.data}");
       return ModelSearchFundraise.fromJson(response.data);
+    } on DioError catch (_) {
+      rethrow;
     }
   }
 }

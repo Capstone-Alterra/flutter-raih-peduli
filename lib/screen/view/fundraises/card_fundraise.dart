@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/model_fundraise_pagination.dart';
 import 'package:flutter_raih_peduli/screen/view/widgets/bookmark/save_widget.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/login_signup/alert.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_bookmark.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_fundraises.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_signin.dart';
@@ -10,12 +11,18 @@ import 'package:flutter_raih_peduli/theme.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:quickalert/models/quickalert_type.dart';
 import 'detail_fundraise.dart';
 
 class CardFundraise extends StatelessWidget {
   final Datum fundraise;
+  final bool loginBookmark;
 
-  const CardFundraise({super.key, required this.fundraise});
+  const CardFundraise({
+    super.key,
+    required this.fundraise,
+    required this.loginBookmark,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -87,31 +94,60 @@ class CardFundraise extends StatelessWidget {
                             fontSize: size.height / 50,
                           ),
                         ),
-                        SaveWidgetFixed(bookmarkId: fundraise.bookmarkId, onPressed: () async {
-                          if (fundraise.bookmarkId != "") {
-                            await viewModelBookmark.deleteBookmark(
-                                accessToken: sp.accessTokenSharedPreference,
-                                refreshToken: sp.refreshTokenSharedPreference,
-                                idBookmark:
-                                fundraise.bookmarkId);
-                            viewModelFundraise.fetchAllFundraisesPagination(
-                                accessToken: sp.accessTokenSharedPreference,
-                                refreshToken: sp.refreshTokenSharedPreference);
-                          } else if (fundraise.bookmarkId ==
-                              "") {
-                            await viewModelBookmark.postBookmark(
-                                accessToken: sp.accessTokenSharedPreference,
-                                refreshToken: sp.refreshTokenSharedPreference,
-                                id: fundraise.id,
-                                postType: 'fundraise');
-                            viewModelFundraise.fetchAllFundraisesPagination(
-                                accessToken: sp.accessTokenSharedPreference,
-                                refreshToken: sp.refreshTokenSharedPreference);
-                          }
-                        },),
+                        Consumer<SignInViewModel>(
+                          builder: (context, contactModel, child) {
+                            if (loginBookmark == true) {
+                              return SaveWidgetFixed(
+                                bookmarkId: fundraise.bookmarkId,
+                                onPressed: () async {
+                                  if (fundraise.bookmarkId != "") {
+                                    await viewModelBookmark.deleteBookmark(
+                                        accessToken:
+                                            sp.accessTokenSharedPreference,
+                                        refreshToken:
+                                            sp.refreshTokenSharedPreference,
+                                        idBookmark: fundraise.bookmarkId);
+                                    viewModelFundraise
+                                        .fetchAllFundraisesPagination(
+                                            accessToken:
+                                                sp.accessTokenSharedPreference,
+                                            refreshToken: sp
+                                                .refreshTokenSharedPreference);
+                                  } else {
+                                    await viewModelBookmark.postBookmark(
+                                        accessToken:
+                                            sp.accessTokenSharedPreference,
+                                        refreshToken:
+                                            sp.refreshTokenSharedPreference,
+                                        id: fundraise.id,
+                                        postType: 'fundraise');
+                                    viewModelFundraise
+                                        .fetchAllFundraisesPagination(
+                                      accessToken:
+                                          sp.accessTokenSharedPreference,
+                                      refreshToken:
+                                          sp.refreshTokenSharedPreference,
+                                    );
+                                  }
+                                },
+                              );
+                            } else {
+                              return SaveWidgetFixed(
+                                bookmarkId: "",
+                                onPressed: () async {
+                                  customAlert(
+                                    context: context,
+                                    alertType: QuickAlertType.error,
+                                    text: 'Anda belum melakukan login',
+                                  );
+                                },
+                              );
+                            }
+                          },
+                        ),
                       ],
                     ),
-                    // const SizedBox(height: 3),
+                  
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
                       child: Row(

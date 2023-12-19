@@ -67,7 +67,7 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => FundraiseScreen()),
+              MaterialPageRoute(builder: (context) => const FundraiseScreen()),
             );
           },
         ),
@@ -75,76 +75,66 @@ class _DetailFundraisePageState extends State<DetailFundraisePage> {
         backgroundColor: Colors.transparent,
         actions: [
           Consumer<FundraisesViewModel>(
-              builder: (context, contactModel, child) {
-            return viewModelFundraise.isDetail
-                ? SaveWidgetFixed(
-                    bookmarkId: viewModelFundraise
-                        .modelDetailFundraises!.data.bookmarkId,
-                    onPressed: () async {
-                      if (viewModelFundraise
-                              .modelDetailFundraises!.data.bookmarkId !=
-                          "") {
-                        await viewModelBookmark.deleteBookmark(
-                            accessToken: sp.accessTokenSharedPreference,
-                            refreshToken: sp.refreshTokenSharedPreference,
-                            idBookmark: viewModelFundraise
-                                .modelDetailFundraises!.data.bookmarkId);
-                        viewModelFundraise.fetchDetailfundraises(
-                            id: viewModelFundraise
-                                .modelDetailFundraises!.data.id,
-                            accessToken: sp.accessTokenSharedPreference,
-                            refreshToken: sp.refreshTokenSharedPreference);
-                      } else if (viewModelFundraise
-                              .modelDetailFundraises!.data.bookmarkId ==
-                          "") {
-                        await viewModelBookmark.postBookmark(
-                            accessToken: sp.accessTokenSharedPreference,
-                            refreshToken: sp.refreshTokenSharedPreference,
-                            id: viewModelFundraise
-                                .modelDetailFundraises!.data.id,
-                            postType: 'fundraise');
-                        viewModelFundraise.fetchDetailfundraises(
-                            id: viewModelFundraise
-                                .modelDetailFundraises!.data.id,
-                            accessToken: sp.accessTokenSharedPreference,
-                            refreshToken: sp.refreshTokenSharedPreference);
-                      }
-                    },
-                  )
-                : const SizedBox(height: 1, width: 1);
-//
-//             return SaveWidgetFixed(
-//               bookmarkId:
-//                   viewModelFundraise.modelDetailFundraises!.data.bookmarkId,
-//               onPressed: () async {
-//                 if (viewModelFundraise.modelDetailFundraises!.data.bookmarkId !=
-//                     "") {
-//                   await viewModelBookmark.deleteBookmark(
-//                       accessToken: sp.accessTokenSharedPreference,
-//                       refreshToken: sp.refreshTokenSharedPreference,
-//                       idBookmark: viewModelFundraise
-//                           .modelDetailFundraises!.data.bookmarkId);
-//                   viewModelFundraise.fetchDetailfundraises(
-//                       id: viewModelFundraise.modelDetailFundraises!.data.id,
-//                       accessToken: sp.accessTokenSharedPreference,
-//                       refreshToken: sp.refreshTokenSharedPreference);
-//                 } else if (viewModelFundraise
-//                         .modelDetailFundraises!.data.bookmarkId ==
-//                     "") {
-//                   await viewModelBookmark.postBookmark(
-//                       accessToken: sp.accessTokenSharedPreference,
-//                       refreshToken: sp.refreshTokenSharedPreference,
-//                       id: viewModelFundraise.modelDetailFundraises!.data.id,
-//                       postType: 'fundraise');
-//                   viewModelFundraise.fetchDetailfundraises(
-//                       id: viewModelFundraise.modelDetailFundraises!.data.id,
-//                       accessToken: sp.accessTokenSharedPreference,
-//                       refreshToken: sp.refreshTokenSharedPreference);
-//                 }
-//               },
-//             );
-//
-          }),
+            builder: (context, contactModel, child) {
+              return viewModelFundraise.isDetail
+                  ? Consumer<SignInViewModel>(
+                      builder: (context, contactModel, child) {
+                        if (sp.isSudahLogin == true) {
+                          return SaveWidgetFixed(
+                            bookmarkId: viewModelFundraise
+                                .modelDetailFundraises!.data.bookmarkId,
+                            onPressed: () async {
+                              if (viewModelFundraise
+                                      .modelDetailFundraises!.data.bookmarkId !=
+                                  "") {
+                                await viewModelBookmark.deleteBookmark(
+                                  accessToken: sp.accessTokenSharedPreference,
+                                  refreshToken: sp.refreshTokenSharedPreference,
+                                  idBookmark: viewModelFundraise
+                                      .modelDetailFundraises!.data.bookmarkId,
+                                );
+                                viewModelFundraise.fetchDetailfundraises(
+                                  id: viewModelFundraise
+                                      .modelDetailFundraises!.data.id,
+                                  accessToken: sp.accessTokenSharedPreference,
+                                  refreshToken: sp.refreshTokenSharedPreference,
+                                );
+                              } else {
+                                await viewModelBookmark.postBookmark(
+                                  accessToken: sp.accessTokenSharedPreference,
+                                  refreshToken: sp.refreshTokenSharedPreference,
+                                  id: viewModelFundraise
+                                      .modelDetailFundraises!.data.id,
+                                  postType: 'fundraise',
+                                );
+                                viewModelFundraise.fetchDetailfundraises(
+                                  id: viewModelFundraise
+                                      .modelDetailFundraises!.data.id,
+                                  accessToken: sp.accessTokenSharedPreference,
+                                  refreshToken: sp.refreshTokenSharedPreference,
+                                );
+                              }
+                            },
+                          );
+                        } else {
+                          return SaveWidgetFixed(
+                            bookmarkId: "",
+                            onPressed: () {
+                              customAlert(
+                                context: context,
+                                alertType: QuickAlertType.error,
+                                text: 'Anda belum melakukan login',
+                              );
+                            },
+                          );
+                        }
+                      },
+                    )
+                  : const SizedBox(
+                      height: 0,
+                    );
+            },
+          ),
         ],
       ),
       body: Consumer<FundraisesViewModel>(

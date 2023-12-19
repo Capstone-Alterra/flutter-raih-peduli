@@ -10,7 +10,7 @@ import 'package:flutter_raih_peduli/services/service_fundraises.dart';
 import '../../model/model_detail_fundraises.dart';
 
 class FundraisesViewModel with ChangeNotifier {
-    final TextEditingController search = TextEditingController();
+  final TextEditingController search = TextEditingController();
   ModelSearchFundraise? modelSearchFundraise;
   ModelFundraises? modelFundraises;
   ModelDetailFundraises? modelDetailFundraises;
@@ -109,20 +109,38 @@ class FundraisesViewModel with ChangeNotifier {
   }
 
   Future fetchSearchDonation({
-    required String query,
     required String accessToken,
     required String refreshToken,
   }) async {
     try {
-      isSearch = true;
-      modelSearchFundraise = await service.hitSearchDonation(query: query, token: refreshToken);
-      dataHasilSearch = false;
-      notifyListeners();
+      try {
+        isSearch = true;
+        modelSearchFundraise = await service.hitSearchDonation(
+          query: search.text,
+          token: accessToken,
+        );
+        dataHasilSearch = false;
+        notifyListeners();
+      } catch (e) {
+        try {
+          isSearch = true;
+          modelSearchFundraise = await service.hitSearchDonation(
+            query: search.text,
+            token: refreshToken,
+          );
+          dataHasilSearch = false;
+        } catch (e) {
+          isSearch = true;
+          modelSearchFundraise = await service.hitSearchDonationGuest(
+            query: search.text,
+          );
+          dataHasilSearch = false;
+        }
+      }
     } catch (e) {
       if (e is DioError) {
-        isSearch = true;
-        modelSearchFundraise = await service.hitSearchDonation(query: query, token: refreshToken);
-        dataHasilSearch = false;
+        dataHasilSearch = true;
+        e.response!.statusCode;
       }
     }
   }
