@@ -50,7 +50,7 @@ class FundraisesService {
           },
         ),
       );
-      print(response.data);
+      debugPrint(response.data);
       final newData = ModelDetailFundraises.fromJson(response.data);
       return newData;
     } on DioError catch (_) {
