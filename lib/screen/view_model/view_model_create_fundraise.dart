@@ -162,7 +162,6 @@ class ViewModelCreateFundraises with ChangeNotifier {
 
       if (fileSizeInBytes > maxSizeInBytes) {
         fotoLebihLimaMB = true;
-        debugPrint('File lebih dari 5MB. Pilih gambar yang lebih kecil.');
       } else {
         fotoLebihLimaMB = false;
         imageFile = newImageFile;
@@ -172,7 +171,6 @@ class ViewModelCreateFundraises with ChangeNotifier {
       imageFile = File('');
       imagePath = null;
       fotoLebihLimaMB = false;
-      debugPrint('Tidak ada gambar yang dipilih.');
     }
     notifyListeners();
   }
@@ -188,7 +186,6 @@ class ViewModelCreateFundraises with ChangeNotifier {
 
       if (fileSizeInBytes > maxSizeInBytes) {
         fotoLebihLimaMB = true;
-        debugPrint('File lebih dari 5MB. Pilih gambar yang lebih kecil.');
       } else {
         fotoLebihLimaMB = false;
         imageFile = newImageFile;
@@ -198,7 +195,6 @@ class ViewModelCreateFundraises with ChangeNotifier {
       imageFile = File('');
       imagePath = null;
       fotoLebihLimaMB = false;
-      debugPrint('Tidak ada gambar yang dipilih.');
     }
     notifyListeners();
   }

@@ -1,7 +1,8 @@
+// ignore_for_file: avoid_print
+
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/utils/utils.dart';
 
 class ApplyVolunteerService {
@@ -39,9 +40,9 @@ class ApplyVolunteerService {
         data: formData,
       );
 
-      debugPrint("API Response: ${response.data}");
+      print("API Response: ${response.data}");
     } catch (e) {
-      debugPrint("Unexpected error: $e");
+      print("Unexpected error: $e");
       rethrow;
     }
   }

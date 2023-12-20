@@ -1,7 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/model_detail_fundraises.dart';
 import 'package:flutter_raih_peduli/model/model_fundraise_pagination.dart';
 import '../model/model_search_fundraise.dart';
@@ -50,7 +49,6 @@ class FundraisesService {
           },
         ),
       );
-      debugPrint(response.data);
       final newData = ModelDetailFundraises.fromJson(response.data);
       return newData;
     } on DioError catch (_) {
@@ -75,7 +73,6 @@ class FundraisesService {
           },
         ),
       );
-      debugPrint("=>${response.data}");
       return ModelSearchFundraise.fromJson(response.data);
     } on DioError catch (_) {
       rethrow;
@@ -89,7 +86,6 @@ class FundraisesService {
       final response = await _dio.get(
         Urls.baseUrl + Urls.searchFundraise + query,
       );
-      debugPrint("=>${response.data}");
       return ModelSearchFundraise.fromJson(response.data);
     } on DioError catch (_) {
       rethrow;

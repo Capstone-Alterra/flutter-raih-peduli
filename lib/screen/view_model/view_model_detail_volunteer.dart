@@ -43,20 +43,6 @@ class DetailVolunteerViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  // Future<void> pickImage() async {
-  //   final imagePicker = ImagePicker();
-  //   final pickedImage =
-  //       await imagePicker.pickImage(source: ImageSource.gallery);
-
-  //   if (pickedImage != null) {
-  //     imageFile = File(pickedImage.path);
-  //     imagePath = pickedImage.path;
-  //   } else {
-  //     debugPrint('Tidak ada gambar yang dipilih.');
-  //   }
-  //   notifyListeners();
-  // }
-
   Future fetchApplyVolunteer({
     required String accessToken,
     required String refreshToken,
@@ -153,7 +139,6 @@ class DetailVolunteerViewModel with ChangeNotifier {
 
       if (fileSizeInBytes > maxSizeInBytes) {
         fotoLebihLimaMB = true;
-        debugPrint('File lebih dari 5MB. Pilih gambar yang lebih kecil.');
       } else {
         fotoLebihLimaMB = false;
         imageFile = newImageFile;
@@ -163,7 +148,6 @@ class DetailVolunteerViewModel with ChangeNotifier {
       imageFile = File('');
       imagePath = null;
       fotoLebihLimaMB = false;
-      debugPrint('Tidak ada gambar yang dipilih.');
     }
     notifyListeners();
   }
@@ -179,7 +163,6 @@ class DetailVolunteerViewModel with ChangeNotifier {
 
       if (fileSizeInBytes > maxSizeInBytes) {
         fotoLebihLimaMB = true;
-        debugPrint('File lebih dari 5MB. Pilih gambar yang lebih kecil.');
       } else {
         fotoLebihLimaMB = false;
         imageFile = newImageFile;
@@ -189,7 +172,6 @@ class DetailVolunteerViewModel with ChangeNotifier {
       imageFile = File('');
       imagePath = null;
       fotoLebihLimaMB = false;
-      debugPrint('Tidak ada gambar yang dipilih.');
     }
     notifyListeners();
   }

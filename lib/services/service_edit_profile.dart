@@ -1,9 +1,8 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, avoid_print
 
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/model_profile.dart';
 
 import '../utils/utils.dart';
@@ -74,7 +73,7 @@ class ProfileService {
         ),
         data: formData,
       );
-      debugPrint("=>${response.data}");
+  print(response.statusCode);
       return;
     } on DioError catch (_) {
       rethrow;

@@ -1,7 +1,6 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, avoid_print
 
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/model_otp.dart';
 import 'package:flutter_raih_peduli/model/model_sign_up.dart';
 import '../utils/utils.dart';
@@ -28,12 +27,11 @@ class SignUpService {
           'address': addressUser,
         },
       );
-      debugPrint("$response");
       final Map<String, dynamic> jsonData = response.data;
       final ModelSignUp modelSignUp = modelSignUpFromJson(jsonData);
       return modelSignUp;
     } catch (error) {
-      debugPrint('Terjadi kesalahan saat melakukan permintaan: $error');
+      print('Terjadi kesalahan saat melakukan permintaan: $error');
       return null;
     }
   }
@@ -46,7 +44,6 @@ class SignUpService {
           'otp': otp,
         },
       );
-      debugPrint("=>${response.statusCode}");
       return ModelOtp.fromJson(response.data);
     } on DioError catch (_) {
       rethrow;
@@ -61,12 +58,10 @@ class SignUpService {
           'email': email,
         },
       );
-      debugPrint("====>${response.data}");
-      // final Map<String, dynamic> jsonData = response.data;
-      // final ModelSignUp modelSignUp = modelSignUpFromJson(jsonData);
+      print(response.statusCode);
       return false;
     } catch (error) {
-      debugPrint('Terjadi kesalahan saat melakukan permintaan: $error');
+      print('Terjadi kesalahan saat melakukan permintaan: $error');
       return false;
     }
   }

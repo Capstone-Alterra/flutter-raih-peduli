@@ -1,5 +1,6 @@
+// ignore_for_file: avoid_print
+
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/model_bookmark.dart';
 import 'package:flutter_raih_peduli/utils/utils.dart';
 
@@ -25,9 +26,9 @@ class BookmarkService {
         },
       );
 
-      debugPrint(response.data);
+      print(response.data);
     } catch (e) {
-      debugPrint("Unexpected error: $e");
+      print("Unexpected error: $e");
       rethrow;
     }
   }
@@ -44,11 +45,9 @@ class BookmarkService {
           },
         ),
       );
-
-      debugPrint("=>${response.data}");
       return ModelBookmark.fromJson(response.data);
     } catch (e) {
-      debugPrint("Unexpected error: $e");
+      print("Unexpected error: $e");
       rethrow;
     }
   }
@@ -67,9 +66,9 @@ class BookmarkService {
         ),
       );
 
-      debugPrint("=>${response.data}");
+      print("=>${response.data}");
     } catch (e) {
-      debugPrint("Unexpected error: $e");
+      print("Unexpected error: $e");
       rethrow;
     }
   }

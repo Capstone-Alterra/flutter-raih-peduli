@@ -1,7 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/model_volunteer.dart';
 import 'package:flutter_raih_peduli/model/model_volunteer_pagination.dart';
 
@@ -16,20 +15,18 @@ class VolunteerService {
       final response = await _dio.get(
         Urls.baseUrl + Urls.fetchAllVolunteer,
       );
-      debugPrint("=>${response.data}");
       return ModelVolunteer.fromJson(response.data);
     } on DioError catch (_) {
       rethrow;
     }
   }
 
-    Future<ModelVolunteer> hitSearchVolunteerGuest({
+  Future<ModelVolunteer> hitSearchVolunteerGuest({
     required String query,
   }) async {
     try {
       final response =
           await _dio.get(Urls.baseUrl + Urls.searchVolunteer + query);
-      debugPrint("=>${response.data}");
       return ModelVolunteer.fromJson(response.data);
     } on DioError catch (_) {
       rethrow;
@@ -43,7 +40,6 @@ class VolunteerService {
     try {
       final response =
           await _dio.get(Urls.baseUrl + Urls.searchVolunteer + query);
-      debugPrint("=>${response.data}");
       return ModelVolunteer.fromJson(response.data);
     } on DioError catch (_) {
       rethrow;
@@ -72,7 +68,8 @@ class VolunteerService {
     }
   }
 
-  Future<ModelVolunteerPagination> hitVolunteerPagination({required int index, required String token}) async {
+  Future<ModelVolunteerPagination> hitVolunteerPagination(
+      {required int index, required String token}) async {
     try {
       final response = await _dio.get(
         "${Urls.baseUrl + Urls.fetchVolunteerPagination}$index&page_size=5",
@@ -82,13 +79,13 @@ class VolunteerService {
           },
         ),
       );
-      debugPrint("=>${response.data}");
+
       return ModelVolunteerPagination.fromJson(response.data);
     } on DioError catch (_) {
       final response = await _dio.get(
         "${Urls.baseUrl + Urls.fetchVolunteerPagination}$index&page_size=5",
       );
-      debugPrint("=>${response.data}");
+
       return ModelVolunteerPagination.fromJson(response.data);
     }
   }
