@@ -5,7 +5,7 @@ import 'package:flutter_raih_peduli/model/model_token_forget_password.dart';
 import 'package:flutter_raih_peduli/services/service_forget_password.dart';
 
 class ForgetPasswordViewModel with ChangeNotifier {
-  final formKey = GlobalKey<FormState>();
+  final formKeyEmailForgetPassword = GlobalKey<FormState>();
   final formKeyUbahPassword = GlobalKey<FormState>();
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
@@ -15,7 +15,8 @@ class ForgetPasswordViewModel with ChangeNotifier {
   ModelTokenForgetPassword? dataOtp;
   bool isResponseSuccess = false;
   bool heightContainer = false;
-  // ModelOtp? otp;
+  bool isPasswordVisible = false;
+  bool isPasswordVisible1 = false;
 
   Future<void> getOtpViaEmail() async {
     final emailUser = email.text;
@@ -111,5 +112,15 @@ class ForgetPasswordViewModel with ChangeNotifier {
         e.response!.statusCode;
       }
     }
+  }
+
+  void togglePasswordVisibility() {
+    isPasswordVisible = !isPasswordVisible;
+    notifyListeners();
+  }
+
+    void togglePasswordVisibility1() {
+    isPasswordVisible1 = !isPasswordVisible1;
+    notifyListeners();
   }
 }

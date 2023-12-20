@@ -1,16 +1,16 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/widget/button.dart';
-import 'package:flutter_raih_peduli/screen/view/signin_dan_signup/widget/textformfield.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/login_signup/alert.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/login_signup/button.dart';
+import 'package:flutter_raih_peduli/screen/view/widgets/login_signup/textformfield.dart';
 import 'package:flutter_raih_peduli/screen/view_model/view_model_forget_password.dart';
 import 'package:provider/provider.dart';
 import 'package:quickalert/quickalert.dart';
 import '../sign_in.dart';
-import '../widget/alert.dart';
 
 class UbahPassword extends StatefulWidget {
-  const UbahPassword({Key? key}) : super(key: key);
+  const UbahPassword({super.key});
 
   @override
   State<UbahPassword> createState() => _UbahPasswordState();
@@ -120,15 +120,28 @@ class _UbahPasswordState extends State<UbahPassword> {
                                       child: Column(
                                         children: [
                                           customTextFormField(
-                                              controller: viewModel.password,
-                                              prefixIcon: Image.asset(
-                                                "assets/lock.png",
+                                            controller: viewModel.password,
+                                            prefixIcon: Image.asset(
+                                              "assets/lock.png",
+                                            ),
+                                            labelText: "Password",
+                                            obscureText:
+                                                !viewModel.isPasswordVisible1,
+                                            sufixIcon: IconButton(
+                                              icon: Icon(
+                                                viewModel.isPasswordVisible1
+                                                    ? Icons.visibility
+                                                    : Icons.visibility_off,
+                                                color: const Color(0xFF484F88),
                                               ),
-                                              labelText: "Password",
-                                              obscureText: true,
-                                              validator: (value) => viewModel
-                                                  .validatePasswordBaru(
-                                                      value!)),
+                                              onPressed: () {
+                                                viewModel
+                                                    .togglePasswordVisibility1();
+                                              },
+                                            ),
+                                            validator: (value) => viewModel
+                                                .validatePasswordBaru(value!),
+                                          ),
                                           const SizedBox(height: 5),
                                           customTextFormField(
                                               controller:
@@ -137,7 +150,21 @@ class _UbahPasswordState extends State<UbahPassword> {
                                                 "assets/lock.png",
                                               ),
                                               labelText: "Password",
-                                              obscureText: true,
+                                              obscureText:
+                                                  !viewModel.isPasswordVisible,
+                                              sufixIcon: IconButton(
+                                                icon: Icon(
+                                                  viewModel.isPasswordVisible
+                                                      ? Icons.visibility
+                                                      : Icons.visibility_off,
+                                                  color:
+                                                      const Color(0xFF484F88),
+                                                ),
+                                                onPressed: () {
+                                                  viewModel
+                                                      .togglePasswordVisibility();
+                                                },
+                                              ),
                                               validator: (value) => viewModel
                                                   .validateKonfirmasiPassword(
                                                       value!)),
@@ -163,12 +190,12 @@ class _UbahPasswordState extends State<UbahPassword> {
                                             'assets/Group 427318233.png',
                                         text: 'Password Berhasil Diperbarui',
                                         afterDelay: () {
-                                          Navigator.pushReplacement(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (_) => const SignIn(),
-                                            ),
-                                          );
+                                          Navigator.pushAndRemoveUntil(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (_) => const SignIn(),
+                                              ),
+                                              (route) => false);
                                         },
                                       );
                                     }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../navigation/navigation.dart';
+
 void showCustomDialog(BuildContext context, Size size) {
   showDialog(
     context: context,
@@ -39,5 +41,13 @@ void showCustomDialog(BuildContext context, Size size) {
         borderRadius: BorderRadius.circular(10),
       ),
     ),
-  );
+  ).then((_) {
+    // Setelah dialog ditutup, arahkan ke halaman beranda
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const BottomNavgationBarWidget(),
+      ),
+    );
+  });
 }
