@@ -122,27 +122,32 @@ class _AccessVolunteerScreenState extends State<AccessVolunteerScreen> {
                               child: CircularProgressIndicator(),
                             )
                           : viewModelVolunteer.isSearch
-                              ? Column(
-                                  children: [
-                                    if (viewModelVolunteer.dataHasilSearch)
-                                      const Center(
-                                          child: Text(
-                                        'Pencarian Tidak Ditemukan',
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.red,
-                                        ),
-                                      ))
-                                    else if (!viewModelVolunteer
-                                        .dataHasilSearch)
-                                      for (var newsItem in viewModelVolunteer
-                                          .modelVolunteer!.data)
-                                        RelawanCardSearch(
-                                          volunteerData: newsItem,
-                                          loginBookmark: sp.isSudahLogin,
-                                        )
-                                  ],
-                                )
+                              ? viewModelVolunteer.isLoadingSearch
+                                  ? const SizedBox(
+                                      height: 0,
+                                    )
+                                  : Column(
+                                      children: [
+                                        if (viewModelVolunteer.dataHasilSearch)
+                                          const Center(
+                                              child: Text(
+                                            'Pencarian Tidak Ditemukan',
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.red,
+                                            ),
+                                          ))
+                                        else if (!viewModelVolunteer
+                                            .dataHasilSearch)
+                                          for (var newsItem
+                                              in viewModelVolunteer
+                                                  .modelVolunteer!.data)
+                                            RelawanCardSearch(
+                                              volunteerData: newsItem,
+                                              loginBookmark: sp.isSudahLogin,
+                                            )
+                                      ],
+                                    )
                               : SizedBox(
                                   height: size.height / 1.3,
                                   child: ListView.builder(

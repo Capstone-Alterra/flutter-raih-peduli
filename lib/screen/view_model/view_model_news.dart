@@ -17,6 +17,7 @@ class NewsViewModel with ChangeNotifier {
   int indexPagination = 1;
   late final scrollController = ScrollController();
   bool isLoadingDetail = true;
+  bool isLoadingSearch = false;
 
   Future<void> fetchAllNews(
       {required String accessToken, required String refreshToken}) async {
@@ -46,6 +47,7 @@ class NewsViewModel with ChangeNotifier {
     required String refreshToken,
   }) async {
     try {
+      isLoadingSearch = true;
       try {
         isSearch = true;
         modelNews = await service.hitSearchNews(
@@ -76,7 +78,7 @@ class NewsViewModel with ChangeNotifier {
         e.response!.statusCode;
       }
     }
-
+    isLoadingSearch = false;
     notifyListeners();
   }
 

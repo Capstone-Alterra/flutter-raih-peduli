@@ -70,7 +70,7 @@ class FeatureMenuList extends StatelessWidget {
             },
           ),
           FeatureMenuItem(
-            title: 'Voluntir',
+            title: 'Relawan',
             assetImage: 'assets/volunteer.png',
             onPressed: () {
               Navigator.push(

@@ -23,6 +23,7 @@ class VolunteerViewModel with ChangeNotifier {
   int indexPagination = 1;
   late final scrollController = ScrollController();
   bool isSearch = false;
+  bool isLoadingSearch = false;
 
   Future<void> fetchAllVolunteer() async {
     isLoading = true;
@@ -37,6 +38,7 @@ class VolunteerViewModel with ChangeNotifier {
     required String refreshToken,
   }) async {
     try {
+      isLoadingSearch = true;
       try {
         isSearch = true;
         modelVolunteer = await service.hitSearchVolunteer(
@@ -66,6 +68,7 @@ class VolunteerViewModel with ChangeNotifier {
         e.response!.statusCode;
       }
     }
+    isLoadingSearch = false;
     notifyListeners();
   }
 

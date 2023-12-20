@@ -46,7 +46,7 @@ class _NewsPageState extends State<NewsPage> {
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
-          'News',
+          'Berita',
           style: TextStyle(
               color: AppTheme.primaryColor,
               fontFamily: 'Helvetica',
@@ -123,26 +123,31 @@ class _NewsPageState extends State<NewsPage> {
               return viewModel.isLoading
                   ? const Center(child: CircularProgressIndicator())
                   : viewModel.isSearch
-                      ? Column(
-                          children: [
-                            if (viewModel.dataHasilSearch)
-                              const Center(
-                                child: Text(
-                                  'Pencarian Tidak Ditemukan',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.red,
-                                  ),
-                                ),
-                              )
-                            else if (!viewModel.dataHasilSearch)
-                              for (var newsItem in viewModel.modelNews!.data)
-                                NewsSearch(
-                                  newsData: newsItem,
-                                  loginBookmark: sp.isSudahLogin,
-                                )
-                          ],
-                        )
+                      ? viewModel.isLoadingSearch
+                          ? const SizedBox(
+                              height: 0,
+                            )
+                          : Column(
+                              children: [
+                                if (viewModel.dataHasilSearch)
+                                  const Center(
+                                    child: Text(
+                                      'Pencarian Tidak Ditemukan',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                  )
+                                else if (!viewModel.dataHasilSearch)
+                                  for (var newsItem
+                                      in viewModel.modelNews!.data)
+                                    NewsSearch(
+                                      newsData: newsItem,
+                                      loginBookmark: sp.isSudahLogin,
+                                    )
+                              ],
+                            )
                       : SizedBox(
                           height: size.height / 1.3,
                           child: ListView.builder(

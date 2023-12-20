@@ -21,6 +21,7 @@ class FundraisesViewModel with ChangeNotifier {
   bool isDetail = false;
   bool isSearch = false;
   bool dataHasilSearch = false;
+  bool isLoadingSearch = false;
 
   updateAmount(String amount) {
     amountController.text = amount;
@@ -113,6 +114,7 @@ class FundraisesViewModel with ChangeNotifier {
     required String refreshToken,
   }) async {
     try {
+      isLoadingSearch = true;
       try {
         isSearch = true;
         modelSearchFundraise = await service.hitSearchDonation(
@@ -142,6 +144,7 @@ class FundraisesViewModel with ChangeNotifier {
         e.response!.statusCode;
       }
     }
+    isLoadingSearch = false;
     notifyListeners();
   }
 }

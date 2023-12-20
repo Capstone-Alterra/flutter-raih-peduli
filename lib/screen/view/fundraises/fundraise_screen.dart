@@ -119,26 +119,31 @@ class _FundraiseScreenState extends State<FundraiseScreen> {
                             child: CircularProgressIndicator(),
                           )
                         : viewModelFundraise.isSearch
-                            ? Column(
-                                children: [
-                                  if (viewModelFundraise.dataHasilSearch)
-                                    const Center(
-                                        child: Text(
-                                      'Pencarian Tidak Ditemukan',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.red,
-                                      ),
-                                    ))
-                                  else if (!viewModelFundraise.dataHasilSearch)
-                                    for (var newsItem in viewModelFundraise
-                                        .modelSearchFundraise!.data)
-                                      CardFundraiseSearch(
-                                        fundraise: newsItem,
-                                        loginBookmark: sp.isSudahLogin,
-                                      )
-                                ],
-                              )
+                            ? viewModelFundraise.isLoadingSearch
+                                ? const SizedBox(
+                                    height: 0,
+                                  )
+                                : Column(
+                                    children: [
+                                      if (viewModelFundraise.dataHasilSearch)
+                                        const Center(
+                                            child: Text(
+                                          'Pencarian Tidak Ditemukan',
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.red,
+                                          ),
+                                        ))
+                                      else if (!viewModelFundraise
+                                          .dataHasilSearch)
+                                        for (var newsItem in viewModelFundraise
+                                            .modelSearchFundraise!.data)
+                                          CardFundraiseSearch(
+                                            fundraise: newsItem,
+                                            loginBookmark: sp.isSudahLogin,
+                                          )
+                                    ],
+                                  )
                             : SizedBox(
                                 height: size.height / 1.3,
                                 child: ListView.builder(
