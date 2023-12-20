@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/model_chat_bot.dart';
 
 import '../utils/utils.dart';
@@ -17,7 +16,6 @@ class ChatbotService {
           'message': query,
         },
       );
-      debugPrint("=>${response.data}");
       return ModelChatBot.fromJson(response.data);
       // ignore: deprecated_member_use
     } on DioError catch (_) {

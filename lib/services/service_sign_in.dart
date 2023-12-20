@@ -1,5 +1,6 @@
+// ignore_for_file: avoid_print
+
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/model_sign_in.dart';
 import '../utils/utils.dart';
 
@@ -20,12 +21,12 @@ class SignInService {
           'fcm_token': fcm,
         },
       );
-      debugPrint("=>${response.data}");
+      print("=>${response.data}");
       final Map<String, dynamic> jsonData = response.data;
       final ModelSignIn modelSignIn = modelSignInFromJson(jsonData);
       return modelSignIn;
     } catch (error) {
-      debugPrint('Terjadi kesalahan saat melakukan permintaan: $error');
+      print('Terjadi kesalahan saat melakukan permintaan: $error');
       return null;
     }
   }

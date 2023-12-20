@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
@@ -12,7 +14,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     title: message.data["Title"],
     message: message.data["Message"],
   );
-  debugPrint('Handling a background message ${message.data}');
+  print('Handling a background message ${message.data}');
 }
 
 class NotificationService {
@@ -33,7 +35,7 @@ class NotificationService {
         vapidKey:
             'BNKkaUWxyP_yC_lki1kYazgca0TNhuzt2drsOrL6WrgGbqnMnr8ZMLzg_rSPDm6HKphABS0KzjPfSqCXHXEd06Y');
 
-    debugPrint("FCM Token: $token");
+    print("FCM Token: $token");
     return token;
   }
 

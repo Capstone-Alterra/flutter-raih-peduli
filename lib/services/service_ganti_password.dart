@@ -1,7 +1,6 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, avoid_print
 
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 
 import '../utils/utils.dart';
 
@@ -22,7 +21,7 @@ class GantiPasswordService {
           'old_password': oldPassword,
         },
       );
-      debugPrint("=>${response.data}");
+      print(response.statusCode);
       return;
     } on DioError catch (_) {
       rethrow;
@@ -43,7 +42,7 @@ class GantiPasswordService {
           'new_password': newPassword,
         },
       );
-      debugPrint("=>${response.data}");
+      print(response.statusCode);
       return;
     } on DioError catch (_) {
       rethrow;

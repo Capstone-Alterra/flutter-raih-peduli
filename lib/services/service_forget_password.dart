@@ -1,7 +1,6 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, avoid_print
 
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/model_token_forget_password.dart';
 import '../utils/utils.dart';
 
@@ -16,10 +15,10 @@ class ForgetPasswordService {
           'email': emailUser,
         },
       );
-      debugPrint("=>${response.data}");
+      print("=>${response.data}");
       return;
     } catch (error) {
-      debugPrint('Terjadi kesalahan saat melakukan permintaan: $error');
+      print('Terjadi kesalahan saat melakukan permintaan: $error');
       return;
     }
   }
@@ -39,10 +38,10 @@ class ForgetPasswordService {
           },
         ),
       );
-      debugPrint("=>${response.data}");
+      print("=>${response.data}");
       return;
     } catch (error) {
-      debugPrint('Terjadi kesalahan saat melakukan permintaan: $error');
+      print('Terjadi kesalahan saat melakukan permintaan: $error');
       return;
     }
   }
@@ -55,10 +54,10 @@ class ForgetPasswordService {
           'email': email,
         },
       );
-      debugPrint("=>${response.data}");
+      print("=>${response.data}");
       return false;
     } catch (error) {
-      debugPrint('Terjadi kesalahan saat melakukan permintaan: $error');
+      print('Terjadi kesalahan saat melakukan permintaan: $error');
       return false;
     }
   }
@@ -73,7 +72,6 @@ class ForgetPasswordService {
           'otp': otp,
         },
       );
-      debugPrint("=>${response.data}");
       return ModelTokenForgetPassword.fromJson(response.data);
     } on DioError catch (_) {
       rethrow;

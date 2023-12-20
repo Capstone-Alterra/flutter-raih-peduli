@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/model_create_fundraise.dart';
 import 'package:intl/intl.dart';
 import '../utils/utils.dart';
@@ -40,7 +39,6 @@ class ServiceCreateFundraise {
         ),
         data: formData,
       );
-      debugPrint("=>${response.data}");
       return ModelCreateFundraise.fromJson(response.data);
       // ignore: deprecated_member_use
     } on DioError catch (_) {

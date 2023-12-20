@@ -1,7 +1,6 @@
-// ignore_for_file: deprecated_member_use, equal_keys_in_map
+// ignore_for_file: deprecated_member_use, equal_keys_in_map, avoid_print
 
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import '../utils/utils.dart';
 
 class PersonalisasiService {
@@ -27,7 +26,7 @@ class PersonalisasiService {
           'personalization': personalization3,
         },
       );
-      debugPrint("=>${response.data}");
+      print("=>${response.data}");
       return;
     } on DioError catch (_) {
       rethrow;

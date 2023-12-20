@@ -1,5 +1,6 @@
+// ignore_for_file: avoid_print
+
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/model_skill.dart';
 import 'package:flutter_raih_peduli/utils/utils.dart';
 
@@ -18,11 +19,9 @@ class ListSKillService {
           },
         ),
       );
-
-      debugPrint("API Response: ${response.data}");
       return ListSkill.fromJson(response.data);
     } catch (e) {
-      debugPrint("Unexpected error: $e");
+      print("Unexpected error: $e");
       rethrow;
     }
   }

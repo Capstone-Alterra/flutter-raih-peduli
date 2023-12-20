@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -27,14 +29,13 @@ class TransactionViewModel with ChangeNotifier {
   }
 
   saveNetworkImage(String pictUrl) async {
-    debugPrint(pictUrl);
     var response = await Dio()
         .get(pictUrl, options: Options(responseType: ResponseType.bytes));
     final result = await ImageGallerySaver.saveImage(
         Uint8List.fromList(response.data),
         quality: 60,
         name: "hello");
-    debugPrint(result);
+    print(result);
     notifyListeners();
   }
 

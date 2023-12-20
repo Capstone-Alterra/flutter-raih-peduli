@@ -1,7 +1,6 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, avoid_print
 
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_raih_peduli/model/model_transaction.dart';
 
 import '../utils/utils.dart';
@@ -33,7 +32,7 @@ class TransactionService {
       );
       return ModelTransaction.fromJson(response.data);
     } on DioError catch (error) {
-      debugPrint("Error: ${error.message}");
+      print("Error: ${error.message}");
       rethrow;
     }
   }
