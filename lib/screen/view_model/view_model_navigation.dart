@@ -8,7 +8,7 @@ import '../view/chatbot/chatbot_screen.dart';
 class NavigationProvider extends ChangeNotifier {
   var pageIndex = 0;
   List<Widget> navigationbar = [
-    HomeScreen(),
+    const HomeScreen(),
     const ChatbotScreen(),
     const Riwayat(),
     const SettingScreen(),

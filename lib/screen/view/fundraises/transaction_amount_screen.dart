@@ -347,30 +347,4 @@ class TransactionAmountScreen extends StatelessWidget {
       ),
     );
   }
-
-  Widget _buildInfoColumn(String label, String value, IconData iconData) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Icon(
-              iconData,
-              color: AppTheme.primaryColor,
-            ),
-            const SizedBox(width: 8.0),
-            Text(
-              label,
-              style: const TextStyle(
-                color: AppTheme.primaryColor,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 4.0),
-        Text(value),
-      ],
-    );
-  }
 }
